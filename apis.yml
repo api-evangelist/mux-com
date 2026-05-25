@@ -1,0 +1,415 @@
+aid: mux-com
+url: https://raw.githubusercontent.com/api-evangelist/mux-com/refs/heads/main/apis.yml
+name: Mux
+tags:
+- Video Infrastructure
+- Video Streaming
+- Live Streaming
+- Video Analytics
+- Video AI
+- Encoding
+kind: company
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+description: >-
+  Mux is a video infrastructure platform that gives developers an end-to-end API for ingesting, encoding,
+  storing, delivering, and analyzing video. The platform spans Mux Video (on-demand and live streaming),
+  Mux Data (quality-of-experience analytics), Mux Robots (AI workflows for captions, chapters, summarization,
+  and moderation), and Mux Player (drop-in playback components). Mux exposes a unified REST API at
+  api.mux.com plus delivery hosts at stream.mux.com, image.mux.com, and stats.mux.com, backed by official
+  SDKs in Node, Python, Ruby, PHP, Go, and Elixir, a CLI, and player integrations across web, iOS,
+  Android, Roku, and major HTML5 players.
+apis:
+- aid: mux-com:video-api
+  name: Mux Video API
+  tags:
+  - Video
+  - Encoding
+  - Assets
+  - Direct Uploads
+  - Playback
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://api.mux.com
+  humanURL: https://www.mux.com/docs/api-reference
+  properties:
+  - url: https://www.mux.com/docs/core/stream-video-files
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference
+    type: APIReference
+  - url: openapi/mux-openapi.yml
+    type: OpenAPI
+  description: >-
+    The Mux Video API manages the lifecycle of on-demand video, including Assets, Direct Uploads, Playback
+    IDs, URL Signing Keys, Playback Restrictions, DRM Configurations, Transcription Vocabularies, and
+    Delivery Usage. Developers can create assets from source URLs or chunked direct uploads, generate
+    secure playback IDs (public, signed, or DRM-protected), and retrieve playback manifests, thumbnails,
+    GIFs, and storyboards through stream.mux.com and image.mux.com.
+- aid: mux-com:live-streaming-api
+  name: Mux Live Streaming API
+  tags:
+  - Live Streaming
+  - RTMP
+  - SRT
+  - Low Latency
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://api.mux.com
+  humanURL: https://www.mux.com/docs/guides/start-live-streaming
+  properties:
+  - url: https://www.mux.com/docs/guides/start-live-streaming
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+    type: APIReference
+  - url: openapi/mux-openapi.yml
+    type: OpenAPI
+  description: >-
+    Mux Live Streaming creates managed RTMP and SRT ingest endpoints (rtmp://global-live.mux.com:5222/app)
+    with reusable stream keys, simulcast targets for restreaming to YouTube, Twitch, and other platforms,
+    and live-to-VOD recordings. The API supports standard and low-latency live, auto-generated live
+    captions, live stream health monitoring, and disable/enable operations for per-event lifecycle
+    management.
+- aid: mux-com:data-api
+  name: Mux Data API
+  tags:
+  - Video Analytics
+  - Quality Of Experience
+  - Monitoring
+  - Metrics
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://api.mux.com
+  humanURL: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  properties:
+  - url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference#tag/Video-Views
+    type: APIReference
+  - url: openapi/mux-openapi.yml
+    type: OpenAPI
+  description: >-
+    The Mux Data API exposes video quality-of-experience analytics including Video Views, Errors,
+    Filters, Dimensions, Exports, Metrics, Monitoring, Real-Time data, Incidents, and Annotations.
+    Customers instrument their players with Mux Data SDKs (web, iOS, Android, Roku, Chromecast, ExoPlayer,
+    AVPlayer, JWPlayer, THEOplayer) and query aggregated playback quality, viewer engagement, rebuffering,
+    startup time, and error rates through this API.
+- aid: mux-com:stream-delivery-api
+  name: Mux Stream Delivery API
+  tags:
+  - Delivery
+  - HLS
+  - DASH
+  - Playback
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://stream.mux.com
+  humanURL: https://www.mux.com/docs/guides/play-your-videos
+  properties:
+  - url: https://www.mux.com/docs/guides/play-your-videos
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference#tag/Streaming
+    type: APIReference
+  - url: openapi/mux-openapi.yml
+    type: OpenAPI
+  description: >-
+    The Mux Stream Delivery API serves HLS and DASH playback manifests, captions, transcripts, and
+    redundant media segments from stream.mux.com keyed on Playback IDs. It honors signed playback tokens,
+    DRM license handshakes, and playback restrictions configured through the Video API to enforce
+    domain, geo, and user-agent rules.
+- aid: mux-com:image-api
+  name: Mux Image API
+  tags:
+  - Thumbnails
+  - Storyboards
+  - Animated Images
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://image.mux.com
+  humanURL: https://www.mux.com/docs/guides/get-images-from-a-video
+  properties:
+  - url: https://www.mux.com/docs/guides/get-images-from-a-video
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+    type: APIReference
+  - url: openapi/mux-openapi.yml
+    type: OpenAPI
+  description: >-
+    The Mux Image API generates on-the-fly thumbnails (JPG, PNG, WebP), animated GIFs, and VTT storyboard
+    sprites for any asset playback ID via image.mux.com. URL parameters control time offset, width,
+    height, fit mode, FPS, and duration, enabling responsive video posters and scrub-bar previews without
+    server-side image processing.
+- aid: mux-com:robots-ai-api
+  name: Mux Robots AI API
+  tags:
+  - Video AI
+  - Captions
+  - Summarization
+  - Content Moderation
+  - Chaptering
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://api.mux.com
+  humanURL: https://www.mux.com/docs/guides/mux-robots
+  properties:
+  - url: https://www.mux.com/docs/guides/mux-robots
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference#tag/Jobs
+    type: APIReference
+  - url: openapi/mux-openapi.yml
+    type: OpenAPI
+  description: >-
+    Mux Robots is an asynchronous job API for running AI workflows against video assets. Robots include
+    Ask Questions (Q&A over a video), Edit Captions, Find Key Moments, Generate Chapters, Moderate
+    (NSFW and violence detection), Summarize, and Translate Captions. Jobs follow a pending → processing
+    → completed lifecycle and emit robots.job.* webhook events when complete.
+- aid: mux-com:system-api
+  name: Mux System API
+  tags:
+  - Signing Keys
+  - Account Management
+  - Utilities
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://api.mux.com
+  humanURL: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+  properties:
+  - url: https://www.mux.com/docs/guides/signing-jwts
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+    type: APIReference
+  - url: openapi/mux-openapi.yml
+    type: OpenAPI
+  description: >-
+    The Mux System API manages account-wide resources such as Signing Keys used to mint short-lived
+    JWTs for signed playback URLs, thumbnails, and storyboards, plus utility endpoints (e.g., dimensions
+    and account-level metadata) used across Video and Data products.
+- aid: mux-com:webhooks
+  name: Mux Webhooks
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://api.mux.com
+  humanURL: https://www.mux.com/docs/webhook-reference
+  properties:
+  - url: https://www.mux.com/docs/system/make-api-requests#webhook-security
+    type: Documentation
+  - url: https://www.mux.com/docs/webhook-reference
+    type: APIReference
+  description: >-
+    Mux Webhooks deliver signed HTTP callbacks for asset, upload, live stream, and robots job lifecycle
+    events (video.asset.created, video.asset.ready, video.live_stream.active, video.upload.asset_created,
+    robots.job.completed, and many more). Each delivery carries a Mux-Signature header (HMAC-SHA256
+    over the raw body and a per-endpoint secret) and includes attempt history visible in the dashboard.
+common:
+- url: https://www.mux.com/
+  name: Mux
+  type: Website
+- url: https://www.mux.com/docs
+  name: Documentation
+  type: Documentation
+- url: https://www.mux.com/docs/api-reference
+  name: API Reference
+  type: APIReference
+- url: https://www.mux.com/docs/core/make-your-first-api-request
+  name: Getting Started
+  type: GettingStarted
+- url: https://www.mux.com/docs/guides/signing-jwts
+  name: Authentication
+  type: Authentication
+- url: https://dashboard.mux.com/
+  name: Dashboard
+  type: Console
+- url: https://dashboard.mux.com/signup
+  name: Sign Up
+  type: SignUp
+- url: https://www.mux.com/pricing/video
+  name: Pricing
+  type: Pricing
+- url: https://www.mux.com/docs/changelog
+  name: Changelog
+  type: ChangeLog
+- url: https://www.mux.com/blog
+  name: Blog
+  type: Blog
+- url: https://status.mux.com/
+  name: Status Page
+  type: StatusPage
+- url: https://www.mux.com/support
+  name: Support
+  type: Support
+- url: https://www.mux.com/terms
+  name: Terms of Service
+  type: TermsOfService
+- url: https://www.mux.com/privacy
+  name: Privacy Policy
+  type: PrivacyPolicy
+- url: https://www.mux.com/security
+  name: Security
+  type: Security
+- url: https://github.com/muxinc
+  name: GitHub Organization
+  type: GitHubOrganization
+- url: https://www.linkedin.com/company/mux/
+  name: LinkedIn
+  type: LinkedIn
+- url: https://x.com/MuxHQ
+  name: X
+  type: X-Twitter
+- url: https://www.youtube.com/@MuxHQ
+  name: YouTube
+  type: YouTube
+- url: https://github.com/muxinc/mux-node-sdk
+  name: Node SDK
+  type: SDK
+- url: https://github.com/muxinc/mux-python
+  name: Python SDK
+  type: SDK
+- url: https://github.com/muxinc/mux-ruby
+  name: Ruby SDK
+  type: SDK
+- url: https://github.com/muxinc/mux-php
+  name: PHP SDK
+  type: SDK
+- url: https://github.com/muxinc/mux-go
+  name: Go SDK
+  type: SDK
+- url: https://github.com/muxinc/mux-elixir
+  name: Elixir SDK
+  type: SDK
+- url: https://github.com/muxinc/cli
+  name: Mux CLI
+  type: CLI
+- url: https://github.com/muxinc/upchunk
+  name: UpChunk (Chunked Upload Library)
+  type: SDK
+- url: https://github.com/muxinc/elements
+  name: Mux Elements (Web Components)
+  type: SDK
+- url: https://github.com/muxinc/media-chrome
+  name: Media Chrome (Player Controls)
+  type: SDK
+- url: https://github.com/muxinc/next-video
+  name: next-video (Next.js Integration)
+  type: SDK
+- url: https://github.com/muxinc/mux-stats-sdk-avplayer
+  name: Mux Data SDK for AVPlayer (iOS)
+  type: SDK
+- url: https://github.com/muxinc/mux-stats-sdk-exoplayer
+  name: Mux Data SDK for ExoPlayer (Android)
+  type: SDK
+- url: https://github.com/muxinc/swift-upload-sdk
+  name: Swift Upload SDK
+  type: SDK
+- url: https://github.com/muxinc/mux-player-swift
+  name: Mux Player Swift
+  type: SDK
+- type: Features
+  data:
+  - name: Video Encoding
+    description: Adaptive bitrate encoding with smart per-title settings and average playback-ready times under 2 seconds.
+  - name: Direct Uploads
+    description: Resumable chunked PUT uploads via UpChunk that bypass the application server.
+  - name: Live Streaming
+    description: Managed RTMP and SRT (with HEVC) ingest with 4-second standard latency and reduced-latency mode.
+  - name: Simulcast Targets
+    description: Restream a single live broadcast to YouTube, Twitch, Facebook, and other RTMP destinations.
+  - name: Mux Player
+    description: Drop-in HTML5 player available as React component, web component, and iframe embed.
+  - name: Auto-Generated Captions
+    description: Real-time and on-demand caption generation across multiple languages with Transcription Vocabularies for domain terms.
+  - name: Mux Data Analytics
+    description: Quality-of-experience analytics covering views, rebuffering, startup time, exits before video starts, and player errors.
+  - name: Real-Time Metrics
+    description: Live concurrent viewer counts and stream health monitoring for live broadcasts.
+  - name: Mux Robots AI
+    description: Asynchronous AI jobs for summarization, chaptering, key-moment detection, captions translation, content moderation, and video Q&A.
+  - name: Signed Playback and DRM
+    description: JWT-signed playback URLs and Media-grade DRM (Widevine, FairPlay, PlayReady) at $100/month plus $0.003/play.
+  - name: Playback Restrictions
+    description: Domain, geo, and user-agent restriction policies enforced at the manifest layer.
+  - name: Thumbnails and Storyboards
+    description: On-the-fly JPG/PNG/WebP thumbnails, animated GIFs, and VTT storyboards via image.mux.com.
+  - name: Webhooks
+    description: HMAC-SHA256 signed webhook events covering asset, upload, live stream, and robots job lifecycle.
+  - name: Self-Serve Free Tier
+    description: 100K free monthly delivery minutes and up to 10 stored videos with no credit card required.
+  sources:
+  - https://www.mux.com/
+  - https://www.mux.com/pricing/video
+  updated: '2026-05-25'
+- type: UseCases
+  data:
+  - name: User-Generated Content Platforms
+    description: Power video upload, transcoding, and playback for social, community, and creator apps.
+  - name: AI Video Generation Platforms
+    description: Host and deliver outputs from generative video models with analytics on viewer behavior.
+  - name: Live Events and Broadcast
+    description: Ingest concerts, sports, gaming streams, and conferences via RTMP/SRT with simulcasting.
+  - name: E-Commerce Video
+    description: Embed product, demo, and shoppable video into storefronts with low-latency live shopping.
+  - name: Education and Training
+    description: Course platforms and LMS providers using on-demand and live with captions and chapters.
+  - name: Enterprise Communications
+    description: Internal town halls, webinars, and corporate communications with DRM and access controls.
+  - name: Media and Publishing
+    description: News organizations and publishers delivering editorial video with quality analytics.
+- type: Integrations
+  data:
+  - name: Next.js
+    description: First-party next-video package for adding video components to Next.js apps.
+  - name: React
+    description: Mux Player and Mux Elements React components for embedding playback.
+  - name: Astro
+    description: Astro framework integration documented in Mux guides.
+  - name: WordPress
+    description: WordPress plugin for embedding Mux video in posts and pages.
+  - name: Laravel
+    description: PHP SDK and Laravel guides for Mux Video integration.
+  - name: Flutter
+    description: Flutter integration for playing Mux video in mobile apps.
+  - name: Roku
+    description: roku-mux SDK for Mux Data analytics on the Roku platform.
+  - name: Chromecast
+    description: chromecast-mux SDK for measuring playback on Google Cast receivers.
+  - name: ExoPlayer
+    description: mux-stats-sdk-exoplayer for Mux Data analytics on Android.
+  - name: AVPlayer
+    description: mux-stats-sdk-avplayer for iOS, tvOS, and visionOS analytics.
+  - name: JWPlayer
+    description: Mux Data SDKs for JWPlayer on iOS and web.
+  - name: THEOplayer
+    description: Mux Data SDKs for THEOplayer on iOS and Android.
+  - name: Video.js
+    description: Mux Data analytics SDK for the Video.js HTML5 player.
+  - name: Cloudflare
+    description: Use Mux delivery behind Cloudflare for edge caching and access controls.
+  - name: Zapier
+    description: No-code workflow automation via Zapier connectors.
+- type: Solutions
+  data:
+  - name: Free Plan
+    description: 100K monthly delivery minutes, up to 10 stored videos, on-demand only, no credit card.
+  - name: Pay As You Go
+    description: Usage-based billing with $20 monthly credit, unlimited storage, on-demand and live, Robots access.
+  - name: Launch (Pre-pay)
+    description: $20/month for $100 in monthly credits.
+  - name: Scale (Pre-pay)
+    description: $500/month for $1,000 in monthly credits.
+  - name: Enterprise
+    description: Volume discounts above $3k/month, account security, SLAs, 24/7 support, custom pricing.
+- url: rules/mux-com-rules.yml
+  type: Rules
+- url: json-ld/mux-com-context.jsonld
+  type: JSONLD
+- url: vocabulary/mux-com-vocabulary.yml
+  type: Vocabulary
+- url: plans/mux-com-plans-pricing.yml
+  type: Plans
+- url: rate-limits/mux-com-rate-limits.yml
+  type: RateLimits
+- url: finops/mux-com-finops.yml
+  type: FinOps
+- type: LLMsTxt
+  url: https://www.mux.com/llms.txt
+created: '2026-05-25'
+modified: '2026-05-25'
+position: Consuming
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+specificationVersion: '0.19'

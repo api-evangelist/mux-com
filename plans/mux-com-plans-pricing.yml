@@ -1,0 +1,175 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Mux
+providerId: mux-com
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Video
+  - Streaming
+  - Analytics
+description: Mux pricing for video encoding, storage, delivery, live captions, DRM, and AI Robots, plus account plan tiers.
+sources:
+  - https://www.mux.com/pricing/video
+  - https://www.mux.com/docs/pricing/video
+plans:
+  - id: mux-free
+    name: Free
+    type: free
+    description: 100K free monthly delivery minutes, up to 10 stored videos, on-demand only.
+    elements:
+      - name: 100,000 free delivery minutes per month
+      - name: Up to 10 stored videos
+      - name: On-demand video only
+      - name: No credit card required
+  - id: mux-payg
+    name: Pay As You Go
+    type: usage-based
+    description: Metered video usage with $20 monthly usage credit and unlimited storage.
+    elements:
+      - name: Unlimited storage
+      - name: On-demand and live video
+      - name: $20 monthly usage credit
+      - name: Access to Mux Robots
+  - id: mux-launch
+    name: Launch (Pre-pay)
+    type: tiered
+    description: $20/month for $100 in monthly credits.
+    entries:
+      - label: Monthly subscription
+        name: month
+        type: recurring
+        metric: month
+        timeFrame: month
+        unit: 1
+        price: '20'
+        userMultiplied: false
+  - id: mux-scale
+    name: Scale (Pre-pay)
+    type: tiered
+    description: $500/month for $1,000 in monthly credits.
+    entries:
+      - label: Monthly subscription
+        name: month
+        type: recurring
+        metric: month
+        timeFrame: month
+        unit: 1
+        price: '500'
+        userMultiplied: false
+  - id: mux-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Volume discounts (typically above $3k/month), SLAs, 24/7 support, custom security features.
+    elements:
+      - name: Volume discounts
+      - name: SLAs and 24/7 support
+      - name: Custom security features
+      - name: Custom pricing
+  - id: mux-video-delivery
+    name: Video Delivery
+    type: usage-based
+    description: $0.0008 per minute of video delivered after 100K free monthly minutes.
+    entries:
+      - label: Per delivered minute
+        name: minute
+        type: metered
+        metric: minute
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0008'
+        userMultiplied: false
+  - id: mux-video-storage
+    name: Video Storage
+    type: usage-based
+    description: $0.0024 per minute stored, billed monthly.
+    entries:
+      - label: Per stored minute
+        name: minute
+        type: metered
+        metric: minute
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.0024'
+        userMultiplied: false
+  - id: mux-video-encoding
+    name: Video Encoding (Input)
+    type: usage-based
+    description: Free to $0.0384 per minute encoded, varies by output quality tier (baseline, plus, premium).
+    entries:
+      - label: Per encoded minute (premium)
+        name: minute
+        type: metered
+        metric: minute
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0384'
+        userMultiplied: false
+  - id: mux-live-captions
+    name: Live Captions
+    type: usage-based
+    description: $0.0024 per minute after 6K free monthly minutes.
+    entries:
+      - label: Per caption minute
+        name: minute
+        type: metered
+        metric: minute
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.0024'
+        userMultiplied: false
+  - id: mux-drm
+    name: Media-Grade DRM
+    type: tiered
+    description: $100/month base plus $0.003 per DRM-protected play.
+    entries:
+      - label: Monthly base
+        name: month
+        type: recurring
+        metric: month
+        timeFrame: month
+        unit: 1
+        price: '100'
+        userMultiplied: false
+      - label: Per DRM play
+        name: play
+        type: metered
+        metric: play
+        limit: -1
+        timeFrame: usage
+        unit: 1
+        price: '0.003'
+        userMultiplied: false
+  - id: mux-robots-translate
+    name: Robots Caption Translation
+    type: usage-based
+    description: $0.005/min plus $0.001/job for caption translation Robots jobs.
+    entries:
+      - label: Per translated minute
+        name: minute
+        type: metered
+        metric: minute
+        limit: -1
+        timeFrame: usage
+        unit: 1
+        price: '0.005'
+        userMultiplied: false
+      - label: Per Robots job
+        name: job
+        type: metered
+        metric: job
+        limit: -1
+        timeFrame: usage
+        unit: 1
+        price: '0.001'
+        userMultiplied: false

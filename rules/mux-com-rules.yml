@@ -1,0 +1,71 @@
+extends:
+  - spectral:oas
+rules:
+  mux-info-contact:
+    description: API info should include the Mux DevEx contact.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+  mux-info-title:
+    description: API info title must include "Mux".
+    given: $.info.title
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "Mux"
+  mux-server-api:
+    description: At least one server must reference api.mux.com.
+    given: $.servers[*].url
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "api\\.mux\\.com|stream\\.mux\\.com|image\\.mux\\.com|stats\\.mux\\.com"
+  mux-video-assets-resource:
+    description: Mux Video API should expose /video/v1/assets.
+    given: $.paths
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "/video/v1/assets"
+  mux-live-streams-resource:
+    description: Mux Live Streaming should expose /video/v1/live-streams.
+    given: $.paths
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "/video/v1/live-streams"
+  mux-data-views-resource:
+    description: Mux Data API should expose /data/v1/video-views.
+    given: $.paths
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "/data/v1/video-views"
+  mux-operation-summary-title-case:
+    description: All operations should have a Title Case summary.
+    given: $.paths[*][*].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+  mux-operation-tags-required:
+    description: Every operation must declare at least one tag aligning to a Mux product area.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: warn
+    then:
+      field: tags
+      function: truthy
+  mux-security-basic-or-bearer:
+    description: Mux uses HTTP Basic with Access Token credentials or JWTs; security schemes should be defined.
+    given: $.components.securitySchemes
+    severity: warn
+    then:
+      function: truthy

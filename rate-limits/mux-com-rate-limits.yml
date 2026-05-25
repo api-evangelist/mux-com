@@ -1,0 +1,51 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Mux
+providerId: mux-com
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Video
+description: Mux API and ingest rate limits. Mux publishes throughput limits for management endpoints, live ingest, and Robots job concurrency, with limits adjustable on Enterprise plans.
+sources:
+  - https://www.mux.com/docs/system/make-api-requests
+  - https://www.mux.com/docs/system/api-rate-limits
+  - https://www.mux.com/docs/guides/start-live-streaming
+headers:
+  retryAfter: Retry-After
+  rateLimitRemaining: X-RateLimit-Remaining
+  rateLimitLimit: X-RateLimit-Limit
+  rateLimitReset: X-RateLimit-Reset
+responseCodes:
+  throttled: 429
+limits:
+  - name: Management API requests
+    scope: account
+    metric: requests
+    window: minute
+    description: Default request-rate limits on management endpoints under api.mux.com; increased on Enterprise plans.
+  - name: Live stream ingest
+    scope: live_stream
+    metric: concurrent
+    description: One active RTMP/SRT session per Live Stream; create additional Live Streams for parallel broadcasts.
+  - name: Direct upload URLs
+    scope: account
+    metric: requests
+    window: minute
+    description: Rate-limited creation of direct upload URLs; large workloads should pool URLs.
+  - name: Robots jobs concurrency
+    scope: account
+    metric: concurrent
+    description: Concurrent Robots AI jobs are capped per environment; Enterprise contracts can raise the ceiling.
+  - name: Data API exports
+    scope: account
+    metric: requests
+    window: day
+    description: Daily export job creation limits on Mux Data exports endpoint.
+notes:
+  - Mux applies separate limits per environment (Development vs Production).
+  - Limits are raised on Enterprise plans by contract.
+  - Webhook delivery is retried with exponential backoff up to a configurable number of attempts.

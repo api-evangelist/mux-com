@@ -1,0 +1,91 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Mux
+providerId: mux-com
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Video Infrastructure
+description: FOCUS-aligned FinOps mapping for Mux video infrastructure billing surface, including delivery, storage, encoding, live captions, DRM, and Robots AI usage.
+sources:
+  - https://www.mux.com/pricing/video
+  - https://www.mux.com/docs/pricing/video
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Mux
+serviceCategory: Video Infrastructure
+billingModel:
+  pricingCategory: Per-Minute / Per-Play / Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+focusColumns:
+  ServiceName: Mux Video
+  ServiceCategory: Video Infrastructure
+  ProviderName: Mux
+  PublisherName: Mux
+  BillingCurrency: USD
+  ChargeCategory:
+    - Usage
+    - Purchase
+  ChargeClass: Standard
+  PricingUnit:
+    - minute
+    - play
+    - month
+meters:
+  - name: delivered_minutes
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - resolution_tier
+      - playback_id
+  - name: stored_minutes
+    unit: minute
+    aggregation: avg
+    dimensions:
+      - asset_id
+  - name: encoded_minutes
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - encoding_tier
+  - name: live_caption_minutes
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - language
+  - name: drm_plays
+    unit: play
+    aggregation: sum
+    dimensions:
+      - drm_scheme
+  - name: robots_jobs
+    unit: job
+    aggregation: sum
+    dimensions:
+      - robot_type
+  - name: data_views
+    unit: view
+    aggregation: sum
+principles:
+  - name: Visibility
+    description: Mux Dashboard exposes per-asset and per-stream usage with downloadable usage reports.
+  - name: Optimization
+    description: Choose encoding tier (baseline/plus/premium) and resolution_tier to control unit cost.
+  - name: Accountability
+    description: Use multiple Environments and Playback IDs to attribute usage to business units or customers.
+capabilities:
+  - name: Usage Export
+    description: Mux Data exports usage and engagement metrics for downstream FinOps tooling.
+  - name: Environment Tagging
+    description: Separate Development and Production environments isolate costs.
+  - name: Asset-Level Cost Attribution
+    description: Delivery Usage endpoint reports minutes delivered per asset.

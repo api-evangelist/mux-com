@@ -1,0 +1,133 @@
+name: Mux Vocabulary
+provider: Mux
+providerId: mux-com
+description: Controlled vocabulary describing Mux's product areas, resources, and key concepts across Video, Data, Robots, and delivery surfaces.
+created: '2026-05-25'
+modified: '2026-05-25'
+dimensions:
+  - name: ProductArea
+    description: Top-level Mux product categories.
+    terms:
+      - Video
+      - Live Streaming
+      - Data
+      - Robots
+      - Player
+      - Delivery
+      - System
+  - name: Resource
+    description: Primary API resources.
+    terms:
+      - Asset
+      - Live Stream
+      - Direct Upload
+      - Playback ID
+      - URL Signing Key
+      - Playback Restriction
+      - DRM Configuration
+      - Transcription Vocabulary
+      - Signing Key
+      - Simulcast Target
+      - Static Rendition
+      - Video View
+      - Error
+      - Metric
+      - Dimension
+      - Filter
+      - Export
+      - Incident
+      - Annotation
+      - Real-Time Metric
+      - Monitoring Breakdown
+      - Robot Job
+      - Webhook Endpoint
+  - name: RobotType
+    description: Mux Robots AI job types.
+    terms:
+      - Ask Questions
+      - Edit Captions
+      - Find Key Moments
+      - Generate Chapters
+      - Moderate
+      - Summarize
+      - Translate Captions
+  - name: PlaybackPolicy
+    description: Playback access policy types.
+    terms:
+      - public
+      - signed
+      - drm
+  - name: EncodingTier
+    description: Mux encoding quality tiers.
+    terms:
+      - baseline
+      - smart
+      - premium
+  - name: ResolutionTier
+    description: Maximum resolution tier for an asset.
+    terms:
+      - 720p
+      - 1080p
+      - 1440p
+      - 2160p
+  - name: AssetStatus
+    description: Lifecycle status of a Mux asset.
+    terms:
+      - preparing
+      - ready
+      - errored
+      - deleted
+  - name: LiveStreamStatus
+    description: Lifecycle status of a live stream.
+    terms:
+      - idle
+      - active
+      - disabled
+      - disconnected
+      - recording
+  - name: IngestProtocol
+    description: Supported live ingest protocols.
+    terms:
+      - RTMP
+      - RTMPS
+      - SRT
+  - name: DeliveryProtocol
+    description: Supported playback delivery formats.
+    terms:
+      - HLS
+      - DASH
+      - MP4
+  - name: WebhookCategory
+    description: Top-level webhook event categories.
+    terms:
+      - video.asset
+      - video.upload
+      - video.live_stream
+      - robots.job
+      - video.simulcast_target
+      - video.delivery
+  - name: DRMScheme
+    description: DRM systems supported by Mux Media-grade DRM.
+    terms:
+      - Widevine
+      - FairPlay
+      - PlayReady
+relations:
+  - source: Asset
+    target: Playback ID
+    relation: has-many
+  - source: Asset
+    target: Static Rendition
+    relation: has-many
+  - source: Live Stream
+    target: Asset
+    relation: produces
+  - source: Live Stream
+    target: Simulcast Target
+    relation: has-many
+  - source: Direct Upload
+    target: Asset
+    relation: produces
+  - source: Robot Job
+    target: Asset
+    relation: operates-on

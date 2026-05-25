@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "mux": "https://www.mux.com/vocab/",
+    "Provider": "schema:Organization",
+    "Service": "schema:Service",
+    "VideoAsset": "schema:VideoObject",
+    "LiveStream": "mux:LiveStream",
+    "PlaybackId": "mux:PlaybackId",
+    "DirectUpload": "mux:DirectUpload",
+    "SigningKey": "mux:SigningKey",
+    "PlaybackRestriction": "mux:PlaybackRestriction",
+    "DRMConfiguration": "mux:DRMConfiguration",
+    "TranscriptionVocabulary": "mux:TranscriptionVocabulary",
+    "VideoView": "mux:VideoView",
+    "Metric": "mux:Metric",
+    "Dimension": "mux:Dimension",
+    "Export": "mux:Export",
+    "Incident": "mux:Incident",
+    "Annotation": "mux:Annotation",
+    "RobotJob": "mux:RobotJob",
+    "Webhook": "mux:Webhook",
+    "Environment": "mux:Environment",
+    "name": "schema:name",
+    "description": "schema:description",
+    "id": "@id",
+    "type": "@type",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "schema:DateTime"
+    },
+    "duration": {
+      "@id": "schema:duration",
+      "@type": "schema:Duration"
+    },
+    "status": "mux:status",
+    "playbackIds": {
+      "@id": "mux:playbackIds",
+      "@container": "@set"
+    },
+    "tracks": {
+      "@id": "mux:tracks",
+      "@container": "@set"
+    },
+    "streamKey": "mux:streamKey",
+    "policy": "mux:policy",
+    "encodingTier": "mux:encodingTier",
+    "resolutionTier": "mux:resolutionTier",
+    "maxResolutionTier": "mux:maxResolutionTier",
+    "maxFrameRate": "mux:maxFrameRate",
+    "aspectRatio": "schema:aspectRatio",
+    "videoQuality": "mux:videoQuality",
+    "mp4Support": "mux:mp4Support",
+    "masterAccess": "mux:masterAccess",
+    "isLive": "mux:isLive",
+    "viewerExperienceScore": "mux:viewerExperienceScore",
+    "playbackFailureScore": "mux:playbackFailureScore",
+    "videoStartupTime": "mux:videoStartupTime",
+    "rebufferPercentage": "mux:rebufferPercentage",
+    "playbackId": "mux:playbackId",
+    "environment": "mux:environment",
+    "robotType": "mux:robotType",
+    "jobStatus": "mux:jobStatus",
+    "webhookEvent": "mux:webhookEvent",
+    "signature": "mux:signature"
+  }
+}

@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Mux Asset Tag and Cleanup
+  summary: Create an asset, wait until ready, attach title and external-id metadata, then delete it to demonstrate full lifecycle management.
+  description: >-
+    Demonstrates end-to-end Mux Video asset lifecycle management for transient or
+    test content. The workflow creates an asset from a source URL, waits for it
+    to reach ready, updates the asset with title, creator, and external-id
+    metadata so it can be correlated with your own systems, and then deletes the
+    asset to release storage. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: asset-tag-and-cleanup
+  summary: Create a ready asset, tag it with metadata, then delete it.
+  description: >-
+    Creates an asset, waits for ready, updates its metadata, and deletes the
+    asset.
+  inputs:
+    type: object
+    required:
+    - inputUrl
+    - title
+    - externalId
+    properties:
+      inputUrl:
+        type: string
+        description: A publicly accessible URL to the source video file Mux should ingest.
+      title:
+        type: string
+        description: Title metadata to attach to the asset.
+      externalId:
+        type: string
+        description: External id linking the asset to your own data.
+      creatorId:
+        type: string
+        description: Creator id to track who produced the asset.
+        default: unknown
+  steps:
+  - stepId: createAsset
+    description: >-
+      Create a new asset from the source URL to tag and then clean up.
+    operationId: create-asset
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs:
+        - url: $inputs.inputUrl
+        playback_policies:
+        - public
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: waitForReady
+    description: >-
+      Poll the asset until its status reaches ready before tagging it.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: tagAsset
+    description: >-
+      Update the asset with title, creator, and external-id metadata so it can be
+      correlated with your own systems.
+    operationId: update-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    requestBody:
+      contentType: application/json
+      payload:
+        meta:
+          title: $inputs.title
+          creator_id: $inputs.creatorId
+          external_id: $inputs.externalId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      meta: $response.body#/data/meta
+  - stepId: deleteAsset
+    description: >-
+      Delete the asset to release storage now that the lifecycle is complete.
+    operationId: delete-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      statusCode: $statusCode
+  outputs:
+    assetId: $steps.waitForReady.outputs.assetId
+    meta: $steps.tagAsset.outputs.meta

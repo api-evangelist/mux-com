@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Mux Configure Playback Restriction
+  summary: Create a playback restriction, tighten its referrer and user-agent rules, then read it back to confirm the policy.
+  description: >-
+    Locks down where signed Mux Video playback is allowed to run. The workflow
+    creates a playback restriction with an initial allowed referrer domain and
+    user agent policy, updates the referrer domain list, updates the user agent
+    rules, and reads the restriction back to confirm the final policy. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: playback-restriction-setup
+  summary: Create a playback restriction and apply referrer and user-agent rules.
+  description: >-
+    Creates a playback restriction, updates its referrer domain list and user
+    agent rules, and reads the final policy.
+  inputs:
+    type: object
+    required:
+    - allowedDomains
+    properties:
+      allowedDomains:
+        type: array
+        description: List of domains allowed to play videos (e.g. ["*.example.com", "foo.com"]).
+        items:
+          type: string
+      allowNoReferrer:
+        type: boolean
+        description: Whether to allow playback requests that arrive with no Referer header.
+        default: false
+      allowNoUserAgent:
+        type: boolean
+        description: Whether to allow playback requests that arrive with no User-Agent header.
+        default: false
+      allowHighRiskUserAgent:
+        type: boolean
+        description: Whether to allow playback from user agents flagged as high risk.
+        default: false
+  steps:
+  - stepId: createRestriction
+    description: >-
+      Create a playback restriction with an initial referrer and user agent
+      policy.
+    operationId: create-playback-restriction
+    requestBody:
+      contentType: application/json
+      payload:
+        referrer:
+          allowed_domains: $inputs.allowedDomains
+          allow_no_referrer: $inputs.allowNoReferrer
+        user_agent:
+          allow_no_user_agent: $inputs.allowNoUserAgent
+          allow_high_risk_user_agent: $inputs.allowHighRiskUserAgent
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      restrictionId: $response.body#/data/id
+  - stepId: updateReferrer
+    description: >-
+      Update the referrer domain restriction to the supplied allowed domains
+      list.
+    operationId: update-referrer-domain-restriction
+    parameters:
+    - name: PLAYBACK_RESTRICTION_ID
+      in: path
+      value: $steps.createRestriction.outputs.restrictionId
+    requestBody:
+      contentType: application/json
+      payload:
+        allowed_domains: $inputs.allowedDomains
+        allow_no_referrer: $inputs.allowNoReferrer
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      referrer: $response.body#/data/referrer
+  - stepId: updateUserAgent
+    description: >-
+      Update the user agent restriction rules for the playback restriction.
+    operationId: update-user-agent-restriction
+    parameters:
+    - name: PLAYBACK_RESTRICTION_ID
+      in: path
+      value: $steps.createRestriction.outputs.restrictionId
+    requestBody:
+      contentType: application/json
+      payload:
+        allow_no_user_agent: $inputs.allowNoUserAgent
+        allow_high_risk_user_agent: $inputs.allowHighRiskUserAgent
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userAgent: $response.body#/data/user_agent
+  - stepId: confirmRestriction
+    description: >-
+      Read the playback restriction back to confirm the final referrer and user
+      agent policy.
+    operationId: get-playback-restriction
+    parameters:
+    - name: PLAYBACK_RESTRICTION_ID
+      in: path
+      value: $steps.createRestriction.outputs.restrictionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      restriction: $response.body#/data
+  outputs:
+    restrictionId: $steps.createRestriction.outputs.restrictionId
+    restriction: $steps.confirmRestriction.outputs.restriction

@@ -1,0 +1,113 @@
+arazzo: 1.0.1
+info:
+  title: Mux Live Stream With Simulcast Target
+  summary: Create a live stream, read it back, add an RTMP simulcast target, and confirm the target is registered.
+  description: >-
+    Stands up a Mux Video live stream and restreams it to a third party RTMP
+    destination such as YouTube or Twitch. The workflow creates a live stream
+    with a public playback policy, reads the stream back to capture its stream
+    key, adds a simulcast target pointing at the external RTMP endpoint, and then
+    reads that simulcast target to confirm it was created. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: live-stream-with-simulcast
+  summary: Create a live stream and attach a simulcast target, then verify the target.
+  description: >-
+    Creates a live stream, reads its stream key, adds an RTMP simulcast target,
+    and reads the target back to confirm.
+  inputs:
+    type: object
+    required:
+    - simulcastUrl
+    - simulcastStreamKey
+    properties:
+      simulcastUrl:
+        type: string
+        description: The RTMP(s) endpoint of the third party destination (e.g. rtmp://live.example.com/app).
+      simulcastStreamKey:
+        type: string
+        description: The stream key on the third party service to send the parent live stream to.
+      latencyMode:
+        type: string
+        description: Latency mode for the live stream (low, reduced, or standard).
+        default: low
+  steps:
+  - stepId: createLiveStream
+    description: >-
+      Create a live stream with a public playback policy so it can be viewed and
+      restreamed.
+    operationId: create-live-stream
+    requestBody:
+      contentType: application/json
+      payload:
+        playback_policies:
+        - public
+        latency_mode: $inputs.latencyMode
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      liveStreamId: $response.body#/data/id
+      streamKey: $response.body#/data/stream_key
+      status: $response.body#/data/status
+  - stepId: getLiveStream
+    description: >-
+      Read the live stream back to confirm it exists and capture its current
+      status and stream key.
+    operationId: get-live-stream
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      liveStreamId: $response.body#/data/id
+      status: $response.body#/data/status
+      streamKey: $response.body#/data/stream_key
+  - stepId: addSimulcastTarget
+    description: >-
+      Add a simulcast target so the live stream is restreamed to the third party
+      RTMP destination.
+    operationId: create-live-stream-simulcast-target
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    requestBody:
+      contentType: application/json
+      payload:
+        url: $inputs.simulcastUrl
+        stream_key: $inputs.simulcastStreamKey
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      simulcastTargetId: $response.body#/data/id
+      simulcastStatus: $response.body#/data/status
+  - stepId: verifySimulcastTarget
+    description: >-
+      Read the simulcast target back to confirm it is registered against the
+      live stream.
+    operationId: get-live-stream-simulcast-target
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    - name: SIMULCAST_TARGET_ID
+      in: path
+      value: $steps.addSimulcastTarget.outputs.simulcastTargetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      simulcastTargetId: $response.body#/data/id
+      simulcastStatus: $response.body#/data/status
+  outputs:
+    liveStreamId: $steps.getLiveStream.outputs.liveStreamId
+    streamKey: $steps.getLiveStream.outputs.streamKey
+    simulcastTargetId: $steps.verifySimulcastTarget.outputs.simulcastTargetId
+    simulcastStatus: $steps.verifySimulcastTarget.outputs.simulcastStatus

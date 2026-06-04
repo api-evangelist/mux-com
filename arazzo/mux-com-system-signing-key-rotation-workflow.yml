@@ -1,0 +1,78 @@
+arazzo: 1.0.1
+info:
+  title: Mux Rotate System Signing Key
+  summary: Create a new system-level signing key for Mux Data SDK auth, read it back, list keys, then delete the previous key.
+  description: >-
+    Rotates the system signing keys that authenticate the Mux Data Web and
+    native SDKs. The workflow creates a new system signing key, reads it back to
+    confirm its public key, lists the system signing keys, and deletes the
+    caller supplied previous key so SDK auth tokens must be minted with the new
+    key going forward. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: system-signing-key-rotation
+  summary: Create a new system signing key and retire the previous one.
+  description: >-
+    Creates a system signing key, reads it back, lists keys, and deletes the
+    previous key to finish the rotation.
+  inputs:
+    type: object
+    required:
+    - previousKeyId
+    properties:
+      previousKeyId:
+        type: string
+        description: The id of the existing system signing key to retire once the new key is created.
+  steps:
+  - stepId: createKey
+    description: >-
+      Create a new system signing key, returning its id and private key.
+    operationId: create-signing-key
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      keyId: $response.body#/data/id
+      privateKey: $response.body#/data/private_key
+  - stepId: getKey
+    description: >-
+      Read the new signing key back to capture its public key.
+    operationId: get-signing-key
+    parameters:
+    - name: SIGNING_KEY_ID
+      in: path
+      value: $steps.createKey.outputs.keyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      keyId: $response.body#/data/id
+      createdAt: $response.body#/data/created_at
+  - stepId: listKeys
+    description: >-
+      List the system signing keys to confirm both the new and previous keys are
+      present before retiring the old one.
+    operationId: list-signing-keys
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      keys: $response.body#/data
+  - stepId: deletePreviousKey
+    description: >-
+      Delete the previous system signing key so only the new key remains in
+      service.
+    operationId: delete-signing-key
+    parameters:
+    - name: SIGNING_KEY_ID
+      in: path
+      value: $inputs.previousKeyId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      statusCode: $statusCode
+  outputs:
+    newKeyId: $steps.createKey.outputs.keyId
+    keys: $steps.listKeys.outputs.keys

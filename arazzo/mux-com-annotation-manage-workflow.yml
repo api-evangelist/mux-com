@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: Mux Manage Data Annotation
+  summary: Create a Mux Data annotation marking a deploy or event, read it back, update its note, then list annotations to confirm.
+  description: >-
+    Marks a deploy, config change, or marketing event on the Mux Data timeline so
+    metric shifts can be correlated with what changed. The workflow creates an
+    annotation at a given timestamp, reads it back, updates the note text, and
+    lists annotations to confirm the change landed. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: annotation-manage
+  summary: Create, read, update, and confirm a Mux Data annotation.
+  description: >-
+    Creates an annotation, reads it back, updates its note, then lists
+    annotations to confirm.
+  inputs:
+    type: object
+    required:
+    - note
+    - date
+    properties:
+      note:
+        type: string
+        description: The annotation note content (e.g. "Deployed player v3.2").
+      date:
+        type: integer
+        description: Unix timestamp the annotation applies to.
+      updatedNote:
+        type: string
+        description: Replacement note text applied in the update step.
+        default: Updated annotation note
+  steps:
+  - stepId: createAnnotation
+    description: >-
+      Create an annotation at the supplied timestamp marking the event of
+      interest.
+    operationId: create-annotation
+    requestBody:
+      contentType: application/json
+      payload:
+        note: $inputs.note
+        date: $inputs.date
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      annotationId: $response.body#/data/id
+  - stepId: getAnnotation
+    description: >-
+      Read the annotation back to confirm it was created with the supplied note
+      and date.
+    operationId: get-annotation
+    parameters:
+    - name: ANNOTATION_ID
+      in: path
+      value: $steps.createAnnotation.outputs.annotationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      note: $response.body#/data/note
+  - stepId: updateAnnotation
+    description: >-
+      Update the annotation's note text while keeping the same timestamp.
+    operationId: update-annotation
+    parameters:
+    - name: ANNOTATION_ID
+      in: path
+      value: $steps.createAnnotation.outputs.annotationId
+    requestBody:
+      contentType: application/json
+      payload:
+        note: $inputs.updatedNote
+        date: $inputs.date
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      note: $response.body#/data/note
+  - stepId: listAnnotations
+    description: >-
+      List annotations to confirm the updated annotation is present on the
+      timeline.
+    operationId: list-annotations
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      annotations: $response.body#/data
+  outputs:
+    annotationId: $steps.createAnnotation.outputs.annotationId
+    note: $steps.updateAnnotation.outputs.note
+    annotations: $steps.listAnnotations.outputs.annotations

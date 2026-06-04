@@ -196,6 +196,87 @@ apis:
     robots.job.completed, and many more). Each delivery carries a Mux-Signature header (HMAC-SHA256
     over the raw body and a per-endpoint secret) and includes attempt history visible in the dashboard.
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/mux-com-account-delivery-usage-workflow.yml
+    name: Mux Account Delivery Usage Audit
+    summary: Confirm the active environment with whoami, then list per-asset delivery usage for a timeframe to audit billed delivery.
+  - url: arazzo/mux-com-ai-summarize-asset-workflow.yml
+    name: Mux AI Summarize Asset
+    summary: Create an asset, wait until ready, queue an AI summarize job against it, then poll the job until it completes.
+  - url: arazzo/mux-com-annotation-manage-workflow.yml
+    name: Mux Manage Data Annotation
+    summary: Create a Mux Data annotation marking a deploy or event, read it back, update its note, then list annotations to confirm.
+  - url: arazzo/mux-com-asset-add-caption-track-workflow.yml
+    name: Mux Add Caption Track to Asset
+    summary: Create an asset, wait until ready, attach a text caption track, then poll the track until it is ready.
+  - url: arazzo/mux-com-asset-add-playback-id-workflow.yml
+    name: Mux Add Playback ID to Asset
+    summary: Create an asset, wait until it is ready, then attach a new playback ID and confirm it resolves.
+  - url: arazzo/mux-com-asset-library-drilldown-workflow.yml
+    name: Mux Asset Library Drilldown
+    summary: List assets in the environment, then read the first asset's full detail and its input info.
+  - url: arazzo/mux-com-asset-mp4-rendition-workflow.yml
+    name: Mux Generate Downloadable Static Rendition
+    summary: Create an asset, wait until ready, request a static MP4 rendition, then poll until the rendition is ready for download.
+  - url: arazzo/mux-com-asset-tag-and-cleanup-workflow.yml
+    name: Mux Asset Tag and Cleanup
+    summary: Create an asset, wait until ready, attach title and external-id metadata, then delete it to demonstrate full lifecycle management.
+  - url: arazzo/mux-com-create-asset-from-url-workflow.yml
+    name: Mux Create Asset From URL
+    summary: Ingest a video from a hosted URL, poll the new asset until ready, and confirm the input details Mux processed.
+  - url: arazzo/mux-com-dimension-exploration-workflow.yml
+    name: Mux Dimension Exploration
+    summary: List the available Mux Data dimensions, then enumerate the distinct values of a chosen dimension over a timeframe.
+  - url: arazzo/mux-com-direct-upload-to-asset-workflow.yml
+    name: Mux Direct Upload to Ready Asset
+    summary: Create a direct upload URL, poll the upload until Mux creates an asset, then poll the asset until it is ready to play.
+  - url: arazzo/mux-com-errors-impact-analysis-workflow.yml
+    name: Mux Errors Impact Analysis
+    summary: List the playback errors in a timeframe, then read the overall playback-failure rate so errors can be weighed against total traffic.
+  - url: arazzo/mux-com-incident-drilldown-workflow.yml
+    name: Mux Incident Drilldown
+    summary: List open Mux Data incidents, read the first incident in detail, and pull the incidents related to it.
+  - url: arazzo/mux-com-live-stream-add-playback-id-workflow.yml
+    name: Mux Add Playback ID to Live Stream
+    summary: Create a live stream, add a second playback ID with a chosen policy, and confirm the playback ID resolves.
+  - url: arazzo/mux-com-live-stream-generated-subtitles-workflow.yml
+    name: Mux Live Stream Generated Subtitles
+    summary: Create a live stream, enable automated speech-recognition subtitles for it, then read it back to confirm the subtitle config.
+  - url: arazzo/mux-com-live-stream-lifecycle-workflow.yml
+    name: Mux Live Stream Lifecycle Control
+    summary: Create a live stream, disable it, re-enable it, and signal it complete to walk the operational lifecycle.
+  - url: arazzo/mux-com-live-stream-with-simulcast-workflow.yml
+    name: Mux Live Stream With Simulcast Target
+    summary: Create a live stream, read it back, add an RTMP simulcast target, and confirm the target is registered.
+  - url: arazzo/mux-com-metric-breakdown-analysis-workflow.yml
+    name: Mux Metric Breakdown Analysis
+    summary: Read a metric's overall value for a timeframe, then break it down by a dimension to see which segments drive it.
+  - url: arazzo/mux-com-metric-timeseries-trend-workflow.yml
+    name: Mux Metric Timeseries Trend
+    summary: Read a metric's overall value for a timeframe, then pull its timeseries to see how the metric trended over time.
+  - url: arazzo/mux-com-monitoring-breakdown-workflow.yml
+    name: Mux Monitoring Metric Breakdown
+    summary: List the available monitoring dimensions, then break a chosen monitoring metric down by a dimension at a timestamp.
+  - url: arazzo/mux-com-playback-restriction-setup-workflow.yml
+    name: Mux Configure Playback Restriction
+    summary: Create a playback restriction, tighten its referrer and user-agent rules, then read it back to confirm the policy.
+  - url: arazzo/mux-com-realtime-breakdown-workflow.yml
+    name: Mux Real-Time Metric Breakdown
+    summary: List the available real-time metrics and dimensions, then break a chosen real-time metric down by a dimension right now.
+  - url: arazzo/mux-com-reset-stream-key-workflow.yml
+    name: Mux Rotate Live Stream Key
+    summary: Create a live stream, reset its stream key, and read it back to confirm the new key is in place.
+  - url: arazzo/mux-com-system-signing-key-rotation-workflow.yml
+    name: Mux Rotate System Signing Key
+    summary: Create a new system-level signing key for Mux Data SDK auth, read it back, list keys, then delete the previous key.
+  - url: arazzo/mux-com-url-signing-key-rotation-workflow.yml
+    name: Mux Rotate URL Signing Key
+    summary: Create a new URL signing key, read it back, list all keys, then delete the previous key to complete a rotation.
+  - url: arazzo/mux-com-video-view-drilldown-workflow.yml
+    name: Mux Video View Drilldown
+    summary: List recent video views in a timeframe, then fetch the full detail of the first matching view.
 - url: https://www.mux.com/
   name: Mux
   type: Website

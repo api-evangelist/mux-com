@@ -1,0 +1,73 @@
+arazzo: 1.0.1
+info:
+  title: Mux Dimension Exploration
+  summary: List the available Mux Data dimensions, then enumerate the distinct values of a chosen dimension over a timeframe.
+  description: >-
+    A discovery pattern for building Mux Data filter and grouping UIs. The
+    workflow lists the dimensions available for filtering and breakdowns, then
+    enumerates the distinct values of a chosen dimension over a timeframe so a
+    dropdown or filter list can be populated with the segments that actually have
+    data. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: dimension-exploration
+  summary: List dimensions, then enumerate a chosen dimension's values.
+  description: >-
+    Lists the available dimensions, then lists the distinct values for the
+    chosen dimension over a timeframe.
+  inputs:
+    type: object
+    required:
+    - dimensionId
+    - timeframe
+    properties:
+      dimensionId:
+        type: string
+        description: The dimension id whose values to enumerate (e.g. browser, country, operating_system).
+      timeframe:
+        type: array
+        description: Timeframe window (e.g. ["7:days"] or two epoch timestamps).
+        items:
+          type: string
+      limit:
+        type: integer
+        description: Maximum number of dimension values to return.
+        default: 25
+  steps:
+  - stepId: listDimensions
+    description: >-
+      List the dimensions available for filtering and breakdowns, grouped by
+      basic and advanced tiers.
+    operationId: list-dimensions
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      dimensions: $response.body#/data
+  - stepId: listDimensionValues
+    description: >-
+      Enumerate the distinct values of the chosen dimension over the timeframe so
+      a filter list can be populated.
+    operationId: list-dimension-values
+    parameters:
+    - name: DIMENSION_ID
+      in: path
+      value: $inputs.dimensionId
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      values: $response.body#/data
+      totalRowCount: $response.body#/total_row_count
+  outputs:
+    dimensions: $steps.listDimensions.outputs.dimensions
+    values: $steps.listDimensionValues.outputs.values

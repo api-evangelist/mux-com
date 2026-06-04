@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Mux Rotate URL Signing Key
+  summary: Create a new URL signing key, read it back, list all keys, then delete the previous key to complete a rotation.
+  description: >-
+    Rotates the URL signing keys used to mint signed playback tokens for Mux
+    Video. The workflow creates a fresh signing key, reads it back to capture its
+    public key, lists the signing keys in the environment, and then deletes the
+    caller supplied previous key id so only the new key remains in service. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: url-signing-key-rotation
+  summary: Create a new URL signing key and retire the previous one.
+  description: >-
+    Creates a new URL signing key, reads it back, lists keys, and deletes the
+    previous key to finish the rotation.
+  inputs:
+    type: object
+    required:
+    - previousKeyId
+    properties:
+      previousKeyId:
+        type: string
+        description: The id of the existing URL signing key to retire once the new key is created.
+  steps:
+  - stepId: createKey
+    description: >-
+      Create a new URL signing key, returning its id, private key, and public
+      key.
+    operationId: create-url-signing-key
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      keyId: $response.body#/data/id
+      privateKey: $response.body#/data/private_key
+  - stepId: getKey
+    description: >-
+      Read the newly created signing key back to capture its public key for
+      distribution to verifiers.
+    operationId: get-url-signing-key
+    parameters:
+    - name: SIGNING_KEY_ID
+      in: path
+      value: $steps.createKey.outputs.keyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      keyId: $response.body#/data/id
+      createdAt: $response.body#/data/created_at
+  - stepId: listKeys
+    description: >-
+      List the URL signing keys in the environment to confirm both the new and
+      previous keys are present before retiring the old one.
+    operationId: list-url-signing-keys
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      keys: $response.body#/data
+  - stepId: deletePreviousKey
+    description: >-
+      Delete the previous signing key so signed playback tokens must be minted
+      with the new key going forward.
+    operationId: delete-url-signing-key
+    parameters:
+    - name: SIGNING_KEY_ID
+      in: path
+      value: $inputs.previousKeyId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      statusCode: $statusCode
+  outputs:
+    newKeyId: $steps.createKey.outputs.keyId
+    keys: $steps.listKeys.outputs.keys

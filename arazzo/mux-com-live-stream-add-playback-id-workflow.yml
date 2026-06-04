@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: Mux Add Playback ID to Live Stream
+  summary: Create a live stream, add a second playback ID with a chosen policy, and confirm the playback ID resolves.
+  description: >-
+    Gives a Mux Video live stream an additional playback ID, for example a
+    signed playback ID alongside a public one. The workflow creates a live
+    stream, reads it back to confirm its status, creates a new playback ID with
+    the requested policy, and then reads that playback ID to verify it resolves
+    against the live stream. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: live-stream-add-playback-id
+  summary: Create a live stream, add a playback ID, and verify it resolves.
+  description: >-
+    Creates a live stream, reads it back, adds a playback ID with the requested
+    policy, and reads the playback ID to confirm.
+  inputs:
+    type: object
+    properties:
+      policy:
+        type: string
+        description: Playback policy for the new playback ID (public or signed).
+        default: signed
+      latencyMode:
+        type: string
+        description: Latency mode for the live stream (low, reduced, or standard).
+        default: low
+  steps:
+  - stepId: createLiveStream
+    description: >-
+      Create a live stream with a public playback policy as a baseline before a
+      second playback ID is added.
+    operationId: create-live-stream
+    requestBody:
+      contentType: application/json
+      payload:
+        playback_policies:
+        - public
+        latency_mode: $inputs.latencyMode
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      liveStreamId: $response.body#/data/id
+  - stepId: getLiveStream
+    description: >-
+      Read the live stream back to confirm it exists and capture its current
+      status.
+    operationId: get-live-stream
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/data/status
+  - stepId: addPlaybackId
+    description: >-
+      Create an additional playback ID with the requested policy against the
+      live stream.
+    operationId: create-live-stream-playback-id
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    requestBody:
+      contentType: application/json
+      payload:
+        policy: $inputs.policy
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      playbackId: $response.body#/data/id
+      policy: $response.body#/data/policy
+  - stepId: verifyPlaybackId
+    description: >-
+      Read the new playback ID back from the live stream to confirm it resolves
+      to the expected policy.
+    operationId: get-live-stream-playback-id
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    - name: PLAYBACK_ID
+      in: path
+      value: $steps.addPlaybackId.outputs.playbackId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      playbackId: $response.body#/data/id
+      policy: $response.body#/data/policy
+  outputs:
+    liveStreamId: $steps.createLiveStream.outputs.liveStreamId
+    playbackId: $steps.verifyPlaybackId.outputs.playbackId
+    policy: $steps.verifyPlaybackId.outputs.policy

@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Mux Direct Upload to Ready Asset
+  summary: Create a direct upload URL, poll the upload until Mux creates an asset, then poll the asset until it is ready to play.
+  description: >-
+    The canonical Mux Video ingest pattern for browser or server uploads. The
+    workflow creates a direct upload (returning a signed Google Cloud Storage
+    URL the client PUTs the file to), polls the upload record until Mux reports
+    that an asset has been created from the uploaded file, and then polls that
+    asset until its status flips to ready so a playback ID can be used. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: direct-upload-to-asset
+  summary: Create a direct upload, wait for the asset to be created, and wait for it to become ready.
+  description: >-
+    Creates a direct upload URL with new asset settings, polls the upload for an
+    asset_id, then polls the resulting asset until it reaches the ready state.
+  inputs:
+    type: object
+    required:
+    - corsOrigin
+    properties:
+      corsOrigin:
+        type: string
+        description: The web origin allowed to PUT to the returned upload URL (e.g. https://example.com).
+      playbackPolicy:
+        type: string
+        description: Playback policy applied to the asset created from this upload (public or signed).
+        default: public
+  steps:
+  - stepId: createUpload
+    description: >-
+      Create a new direct upload, returning a signed URL the client uses to PUT
+      the source file plus the upload id used to track ingest progress.
+    operationId: create-direct-upload
+    requestBody:
+      contentType: application/json
+      payload:
+        cors_origin: $inputs.corsOrigin
+        new_asset_settings:
+          playback_policies:
+          - $inputs.playbackPolicy
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      uploadId: $response.body#/data/id
+      uploadUrl: $response.body#/data/url
+      uploadStatus: $response.body#/data/status
+  - stepId: waitForAsset
+    description: >-
+      Poll the upload until Mux has finished ingesting the PUT file and created
+      an asset, exposing the new asset id.
+    operationId: get-direct-upload
+    parameters:
+    - name: UPLOAD_ID
+      in: path
+      value: $steps.createUpload.outputs.uploadId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "asset_created"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/asset_id
+      status: $response.body#/data/status
+  - stepId: waitForAssetReady
+    description: >-
+      Poll the asset created by the upload until its status reaches ready,
+      meaning playback IDs can be streamed.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/id
+      status: $response.body#/data/status
+      duration: $response.body#/data/duration
+      playbackIds: $response.body#/data/playback_ids
+  outputs:
+    uploadId: $steps.createUpload.outputs.uploadId
+    uploadUrl: $steps.createUpload.outputs.uploadUrl
+    assetId: $steps.waitForAssetReady.outputs.assetId
+    status: $steps.waitForAssetReady.outputs.status
+    playbackIds: $steps.waitForAssetReady.outputs.playbackIds

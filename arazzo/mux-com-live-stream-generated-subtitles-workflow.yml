@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Mux Live Stream Generated Subtitles
+  summary: Create a live stream, enable automated speech-recognition subtitles for it, then read it back to confirm the subtitle config.
+  description: >-
+    Turns on automated, generated closed captions for a Mux Video live stream so
+    recorded assets and live playback carry an ASR subtitle track. The workflow
+    creates a live stream, updates its generated-subtitles configuration with a
+    language and track name, and reads the live stream back to confirm the
+    subtitle track is configured. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: live-stream-generated-subtitles
+  summary: Create a live stream, enable generated subtitles, and confirm the config.
+  description: >-
+    Creates a live stream, enables generated ASR subtitles, then reads the stream
+    back to confirm.
+  inputs:
+    type: object
+    properties:
+      languageCode:
+        type: string
+        description: Language of the audio from which subtitles are generated (e.g. en, en-US, es).
+        default: en
+      trackName:
+        type: string
+        description: Name for the generated subtitle track.
+        default: English (CC)
+      latencyMode:
+        type: string
+        description: Latency mode for the live stream (low, reduced, or standard).
+        default: low
+  steps:
+  - stepId: createLiveStream
+    description: >-
+      Create a live stream with a public playback policy to enable generated
+      subtitles on.
+    operationId: create-live-stream
+    requestBody:
+      contentType: application/json
+      payload:
+        playback_policies:
+        - public
+        latency_mode: $inputs.latencyMode
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      liveStreamId: $response.body#/data/id
+  - stepId: enableGeneratedSubtitles
+    description: >-
+      Update the live stream's generated-subtitles configuration to enable an ASR
+      subtitle track in the chosen language.
+    operationId: update-live-stream-generated-subtitles
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    requestBody:
+      contentType: application/json
+      payload:
+        generated_subtitles:
+        - name: $inputs.trackName
+          language_code: $inputs.languageCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      generatedSubtitles: $response.body#/data/generated_subtitles
+  - stepId: confirmConfig
+    description: >-
+      Read the live stream back to confirm the generated subtitle track is now
+      part of its new-asset settings.
+    operationId: get-live-stream
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      liveStream: $response.body#/data
+  outputs:
+    liveStreamId: $steps.createLiveStream.outputs.liveStreamId
+    generatedSubtitles: $steps.enableGeneratedSubtitles.outputs.generatedSubtitles
+    liveStream: $steps.confirmConfig.outputs.liveStream

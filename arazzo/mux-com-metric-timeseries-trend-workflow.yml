@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Mux Metric Timeseries Trend
+  summary: Read a metric's overall value for a timeframe, then pull its timeseries to see how the metric trended over time.
+  description: >-
+    Turns a single Mux Data metric into a trend line. The workflow fetches the
+    overall value of a metric across a timeframe to anchor the analysis, then
+    retrieves the metric's timeseries grouped by a time granularity so you can
+    chart how the metric moved over the window. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: metric-timeseries-trend
+  summary: Get a metric's overall value then its timeseries trend.
+  description: >-
+    Reads the overall value of a metric, then pulls its timeseries over the same
+    timeframe.
+  inputs:
+    type: object
+    required:
+    - metricId
+    - timeframe
+    properties:
+      metricId:
+        type: string
+        description: The metric id to trend (e.g. video_startup_time, playback_failure_percentage).
+      timeframe:
+        type: array
+        description: Timeframe window (e.g. ["7:days"] or two epoch timestamps).
+        items:
+          type: string
+      groupBy:
+        type: string
+        description: Time granularity to group the timeseries by (e.g. hour, day).
+        default: day
+      filters:
+        type: array
+        description: Optional key:value filter clauses to scope the analysis.
+        items:
+          type: string
+  steps:
+  - stepId: getOverall
+    description: >-
+      Fetch the overall value of the metric across the timeframe to anchor the
+      trend.
+    operationId: get-overall-values
+    parameters:
+    - name: METRIC_ID
+      in: path
+      value: $inputs.metricId
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: filters[]
+      in: query
+      value: $inputs.filters
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      overall: $response.body#/data
+  - stepId: getTimeseries
+    description: >-
+      Retrieve the metric's timeseries grouped by the chosen granularity to see
+      how it trended over the timeframe.
+    operationId: get-metric-timeseries-data
+    parameters:
+    - name: METRIC_ID
+      in: path
+      value: $inputs.metricId
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: group_by
+      in: query
+      value: $inputs.groupBy
+    - name: filters[]
+      in: query
+      value: $inputs.filters
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      timeseries: $response.body#/data
+  outputs:
+    overall: $steps.getOverall.outputs.overall
+    timeseries: $steps.getTimeseries.outputs.timeseries

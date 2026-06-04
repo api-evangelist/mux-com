@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Mux Live Stream Lifecycle Control
+  summary: Create a live stream, disable it, re-enable it, and signal it complete to walk the operational lifecycle.
+  description: >-
+    Exercises the operational controls that surround a Mux Video live stream
+    without needing an active broadcast. The workflow creates a live stream,
+    disables it so it rejects new connections, re-enables it, and finally signals
+    that the live stream is complete to close out any active broadcast window.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: live-stream-lifecycle
+  summary: Create a live stream, then disable, enable, and signal complete.
+  description: >-
+    Walks a live stream through disable, enable, and complete signals after
+    creation to demonstrate operational control.
+  inputs:
+    type: object
+    properties:
+      latencyMode:
+        type: string
+        description: Latency mode for the live stream (low, reduced, or standard).
+        default: low
+  steps:
+  - stepId: createLiveStream
+    description: >-
+      Create a live stream with a public playback policy to operate on.
+    operationId: create-live-stream
+    requestBody:
+      contentType: application/json
+      payload:
+        playback_policies:
+        - public
+        latency_mode: $inputs.latencyMode
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      liveStreamId: $response.body#/data/id
+      status: $response.body#/data/status
+  - stepId: disableLiveStream
+    description: >-
+      Disable the live stream so it will reject new RTMP connections.
+    operationId: disable-live-stream
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/data
+  - stepId: enableLiveStream
+    description: >-
+      Re-enable the live stream so it can accept connections again.
+    operationId: enable-live-stream
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/data
+  - stepId: signalComplete
+    description: >-
+      Signal that the live stream is finished to close out any active broadcast
+      window after the configured reconnect period.
+    operationId: signal-live-stream-complete
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/data
+  outputs:
+    liveStreamId: $steps.createLiveStream.outputs.liveStreamId
+    status: $steps.createLiveStream.outputs.status

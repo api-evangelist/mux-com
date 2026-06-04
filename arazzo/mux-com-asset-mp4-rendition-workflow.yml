@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Mux Generate Downloadable Static Rendition
+  summary: Create an asset, wait until ready, request a static MP4 rendition, then poll until the rendition is ready for download.
+  description: >-
+    Produces a downloadable MP4 of a Mux Video asset. The workflow creates an
+    asset from a source URL, waits for the asset to reach ready, requests a
+    static rendition at the chosen resolution, and then polls the asset until
+    that static rendition reports a ready status and is available to download.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: asset-mp4-rendition
+  summary: Create a ready asset, request a static rendition, and wait for it to be downloadable.
+  description: >-
+    Creates an asset, waits for ready, requests a static rendition at the chosen
+    resolution, and polls until the rendition is ready.
+  inputs:
+    type: object
+    required:
+    - inputUrl
+    properties:
+      inputUrl:
+        type: string
+        description: A publicly accessible URL to the source video file Mux should ingest.
+      resolution:
+        type: string
+        description: Static rendition resolution to produce (e.g. highest, audio-only, 1080p, 720p).
+        default: highest
+  steps:
+  - stepId: createAsset
+    description: >-
+      Create a new asset from the source URL so a static rendition can be
+      requested once it is ready.
+    operationId: create-asset
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs:
+        - url: $inputs.inputUrl
+        playback_policies:
+        - public
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: waitForReady
+    description: >-
+      Poll the asset until its status reaches ready so a rendition can be
+      requested.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: requestStaticRendition
+    description: >-
+      Request a static rendition of the ready asset at the chosen resolution so
+      a downloadable MP4 is produced.
+    operationId: create-asset-static-rendition
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    requestBody:
+      contentType: application/json
+      payload:
+        resolution: $inputs.resolution
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      renditionId: $response.body#/data/id
+      renditionStatus: $response.body#/data/status
+  - stepId: waitForRendition
+    description: >-
+      Poll the asset until the requested static rendition appears ready in the
+      asset's static_renditions list.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.static_renditions.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      staticRenditions: $response.body#/data/static_renditions
+  outputs:
+    assetId: $steps.waitForReady.outputs.assetId
+    renditionId: $steps.requestStaticRendition.outputs.renditionId
+    staticRenditions: $steps.waitForRendition.outputs.staticRenditions

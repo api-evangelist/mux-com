@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Mux Video View Drilldown
+  summary: List recent video views in a timeframe, then fetch the full detail of the first matching view.
+  description: >-
+    The standard Mux Data investigation pattern for debugging a viewer
+    experience. The workflow lists video views within a timeframe and optional
+    filters, captures the id of the first view in the result set, and then
+    fetches the full video view detail including playback events, errors, and
+    device context. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: video-view-drilldown
+  summary: List video views and drill into the first view's full detail.
+  description: >-
+    Lists video views within a timeframe, then reads the full detail of the
+    first returned view.
+  inputs:
+    type: object
+    required:
+    - timeframe
+    properties:
+      timeframe:
+        type: array
+        description: Timeframe window for the views (e.g. ["7:days"] or two epoch timestamps).
+        items:
+          type: string
+      filters:
+        type: array
+        description: Optional key:value filter clauses to narrow the views (e.g. ["country:US"]).
+        items:
+          type: string
+      limit:
+        type: integer
+        description: Maximum number of views to return.
+        default: 25
+  steps:
+  - stepId: listViews
+    description: >-
+      List video views within the supplied timeframe and filters, ordered by
+      most recent.
+    operationId: list-video-views
+    parameters:
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: filters[]
+      in: query
+      value: $inputs.filters
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      views: $response.body#/data
+      firstViewId: $response.body#/data/0/id
+      totalRowCount: $response.body#/total_row_count
+  - stepId: getViewDetail
+    description: >-
+      Fetch the full detail of the first returned video view, including its
+      playback events and any errors.
+    operationId: get-video-view
+    parameters:
+    - name: VIDEO_VIEW_ID
+      in: path
+      value: $steps.listViews.outputs.firstViewId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      view: $response.body#/data
+  outputs:
+    views: $steps.listViews.outputs.views
+    firstViewId: $steps.listViews.outputs.firstViewId
+    view: $steps.getViewDetail.outputs.view

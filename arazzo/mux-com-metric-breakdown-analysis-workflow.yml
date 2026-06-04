@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Mux Metric Breakdown Analysis
+  summary: Read a metric's overall value for a timeframe, then break it down by a dimension to see which segments drive it.
+  description: >-
+    A core Mux Data analytics pattern that puts a single quality-of-experience
+    metric in context. The workflow fetches the overall value of a metric across
+    a timeframe to establish the baseline, then breaks the same metric down by a
+    grouping dimension such as browser, country, or CDN so you can see which
+    segments are pulling the number up or down. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: metric-breakdown-analysis
+  summary: Get a metric's overall value then break it down by a dimension.
+  description: >-
+    Reads the overall value of a metric for a timeframe, then breaks the metric
+    down by the chosen dimension to surface the top segments.
+  inputs:
+    type: object
+    required:
+    - metricId
+    - groupBy
+    - timeframe
+    properties:
+      metricId:
+        type: string
+        description: The metric id to analyze (e.g. video_startup_time, rebuffer_percentage).
+      groupBy:
+        type: string
+        description: The dimension to break the metric down by (e.g. browser, country, cdn).
+      timeframe:
+        type: array
+        description: Timeframe window (e.g. ["7:days"] or two epoch timestamps).
+        items:
+          type: string
+      filters:
+        type: array
+        description: Optional key:value filter clauses to scope the analysis.
+        items:
+          type: string
+      limit:
+        type: integer
+        description: Maximum number of breakdown rows to return.
+        default: 10
+  steps:
+  - stepId: getOverall
+    description: >-
+      Fetch the overall value of the metric across the timeframe to establish a
+      baseline before breaking it down.
+    operationId: get-overall-values
+    parameters:
+    - name: METRIC_ID
+      in: path
+      value: $inputs.metricId
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: filters[]
+      in: query
+      value: $inputs.filters
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      overall: $response.body#/data
+  - stepId: getBreakdown
+    description: >-
+      Break the metric down by the chosen dimension to see which segments drive
+      the overall value.
+    operationId: list-breakdown-values
+    parameters:
+    - name: METRIC_ID
+      in: path
+      value: $inputs.metricId
+    - name: group_by
+      in: query
+      value: $inputs.groupBy
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: filters[]
+      in: query
+      value: $inputs.filters
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      breakdown: $response.body#/data
+      totalRowCount: $response.body#/total_row_count
+  outputs:
+    overall: $steps.getOverall.outputs.overall
+    breakdown: $steps.getBreakdown.outputs.breakdown

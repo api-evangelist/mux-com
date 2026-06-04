@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Mux Create Asset From URL
+  summary: Ingest a video from a hosted URL, poll the new asset until ready, and confirm the input details Mux processed.
+  description: >-
+    Creates a Mux Video asset directly from a publicly reachable source URL,
+    polls the asset until its status reaches ready, and then reads the asset's
+    input info so you can confirm the resolution, frame rate, and container Mux
+    actually ingested. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-asset-from-url
+  summary: Create an asset from a source URL, wait for ready, and read the ingested input info.
+  description: >-
+    Submits a source URL to create an asset, polls the asset until ready, then
+    fetches input-info to verify the file Mux ingested.
+  inputs:
+    type: object
+    required:
+    - inputUrl
+    properties:
+      inputUrl:
+        type: string
+        description: A publicly accessible URL to the source video file Mux should download and ingest.
+      playbackPolicy:
+        type: string
+        description: Playback policy applied to the new asset (public or signed).
+        default: public
+  steps:
+  - stepId: createAsset
+    description: >-
+      Create a new asset from the supplied source URL with a single playback
+      policy so the asset becomes playable once ready.
+    operationId: create-asset
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs:
+        - url: $inputs.inputUrl
+        playback_policies:
+        - $inputs.playbackPolicy
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      assetId: $response.body#/data/id
+      status: $response.body#/data/status
+  - stepId: waitForReady
+    description: >-
+      Poll the asset until Mux finishes encoding and its status reaches ready.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/id
+      status: $response.body#/data/status
+      duration: $response.body#/data/duration
+      playbackIds: $response.body#/data/playback_ids
+  - stepId: readInputInfo
+    description: >-
+      Read the asset's input-info to confirm the source file details that Mux
+      ingested, such as track types and container.
+    operationId: get-asset-input-info
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      inputInfo: $response.body#/data
+  outputs:
+    assetId: $steps.waitForReady.outputs.assetId
+    status: $steps.waitForReady.outputs.status
+    duration: $steps.waitForReady.outputs.duration
+    playbackIds: $steps.waitForReady.outputs.playbackIds
+    inputInfo: $steps.readInputInfo.outputs.inputInfo

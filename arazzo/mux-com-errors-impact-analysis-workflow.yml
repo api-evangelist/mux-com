@@ -1,0 +1,78 @@
+arazzo: 1.0.1
+info:
+  title: Mux Errors Impact Analysis
+  summary: List the playback errors in a timeframe, then read the overall playback-failure rate so errors can be weighed against total traffic.
+  description: >-
+    Quantifies how much playback errors are hurting the viewer experience. The
+    workflow lists the distinct playback errors seen in a timeframe with their
+    counts and percentages, then reads the overall value of the
+    playback_failure_percentage metric across the same window so the error list
+    can be weighed against total traffic. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: errors-impact-analysis
+  summary: List playback errors and read the overall playback-failure rate.
+  description: >-
+    Lists playback errors in a timeframe, then reads the overall
+    playback-failure percentage for the same window.
+  inputs:
+    type: object
+    required:
+    - timeframe
+    properties:
+      timeframe:
+        type: array
+        description: Timeframe window (e.g. ["7:days"] or two epoch timestamps).
+        items:
+          type: string
+      filters:
+        type: array
+        description: Optional key:value filter clauses to scope the analysis.
+        items:
+          type: string
+  steps:
+  - stepId: listErrors
+    description: >-
+      List the distinct playback errors observed in the timeframe with their
+      counts and percentages.
+    operationId: list-errors
+    parameters:
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: filters[]
+      in: query
+      value: $inputs.filters
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      errors: $response.body#/data
+      totalRowCount: $response.body#/total_row_count
+  - stepId: getFailureRate
+    description: >-
+      Read the overall playback-failure percentage for the same timeframe so the
+      error list can be weighed against total traffic.
+    operationId: get-overall-values
+    parameters:
+    - name: METRIC_ID
+      in: path
+      value: playback_failure_percentage
+    - name: timeframe[]
+      in: query
+      value: $inputs.timeframe
+    - name: filters[]
+      in: query
+      value: $inputs.filters
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      failureRate: $response.body#/data
+  outputs:
+    errors: $steps.listErrors.outputs.errors
+    failureRate: $steps.getFailureRate.outputs.failureRate

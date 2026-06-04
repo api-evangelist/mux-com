@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: Mux Add Caption Track to Asset
+  summary: Create an asset, wait until ready, attach a text caption track, then poll the track until it is ready.
+  description: >-
+    Adds external subtitles or closed captions to an existing piece of Mux Video
+    content. The workflow creates an asset from a source URL, waits for the
+    asset to be ready, attaches a text track pointing at an SRT or WebVTT
+    caption file, and then re-reads the asset until the new track reports a ready
+    status. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: asset-add-caption-track
+  summary: Create a ready asset, add a text caption track, and wait for the track to be ready.
+  description: >-
+    Creates an asset, waits for ready, attaches a text caption track from a URL,
+    and polls the asset until the track is ready.
+  inputs:
+    type: object
+    required:
+    - inputUrl
+    - captionUrl
+    - languageCode
+    properties:
+      inputUrl:
+        type: string
+        description: A publicly accessible URL to the source video file Mux should ingest.
+      captionUrl:
+        type: string
+        description: URL of the SRT or WebVTT caption file Mux should download and attach.
+      languageCode:
+        type: string
+        description: BCP 47 language code for the caption track (e.g. en or en-US).
+      trackName:
+        type: string
+        description: Human readable name for the caption track.
+        default: English
+  steps:
+  - stepId: createAsset
+    description: >-
+      Create a new asset from the source URL so a caption track can be attached
+      once it is ready.
+    operationId: create-asset
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs:
+        - url: $inputs.inputUrl
+        playback_policies:
+        - public
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: waitForReady
+    description: >-
+      Poll the asset until its status reaches ready so a track can be added.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: addCaptionTrack
+    description: >-
+      Attach a text caption track to the ready asset, pointing Mux at the
+      external caption file to download.
+    operationId: create-asset-track
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    requestBody:
+      contentType: application/json
+      payload:
+        url: $inputs.captionUrl
+        type: text
+        text_type: subtitles
+        language_code: $inputs.languageCode
+        name: $inputs.trackName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      trackId: $response.body#/data/id
+      trackStatus: $response.body#/data/status
+  - stepId: waitForTrackReady
+    description: >-
+      Re-read the asset until the newly added caption track reports a ready
+      status in the asset's tracks list.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 30
+    outputs:
+      tracks: $response.body#/data/tracks
+  outputs:
+    assetId: $steps.waitForReady.outputs.assetId
+    trackId: $steps.addCaptionTrack.outputs.trackId
+    tracks: $steps.waitForTrackReady.outputs.tracks

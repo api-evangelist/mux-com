@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Mux Add Playback ID to Asset
+  summary: Create an asset, wait until it is ready, then attach a new playback ID and confirm it resolves.
+  description: >-
+    Builds a ready-to-stream asset and gives it a fresh playback ID with the
+    policy of your choice. The workflow creates the asset from a source URL,
+    polls it until ready, creates a new playback ID against the asset, and then
+    reads that playback ID back to confirm it was registered. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: asset-add-playback-id
+  summary: Create an asset, wait for ready, add a playback ID, and verify it.
+  description: >-
+    Creates an asset from a URL, waits for ready, adds a playback ID with the
+    requested policy, and reads it back to confirm.
+  inputs:
+    type: object
+    required:
+    - inputUrl
+    properties:
+      inputUrl:
+        type: string
+        description: A publicly accessible URL to the source video file Mux should ingest.
+      policy:
+        type: string
+        description: Playback policy for the new playback ID (public or signed).
+        default: public
+  steps:
+  - stepId: createAsset
+    description: >-
+      Create a new asset from the source URL so a playback ID can be attached
+      once it is ready.
+    operationId: create-asset
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs:
+        - url: $inputs.inputUrl
+        playback_policies:
+        - $inputs.policy
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: waitForReady
+    description: >-
+      Poll the asset until its status reaches ready.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/id
+      status: $response.body#/data/status
+  - stepId: createPlaybackId
+    description: >-
+      Create a new playback ID against the ready asset using the requested
+      playback policy.
+    operationId: create-asset-playback-id
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    requestBody:
+      contentType: application/json
+      payload:
+        policy: $inputs.policy
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      playbackId: $response.body#/data/id
+      playbackPolicy: $response.body#/data/policy
+  - stepId: verifyPlaybackId
+    description: >-
+      Read the newly created playback ID back from the asset to confirm it
+      resolves to the expected object type and policy.
+    operationId: get-asset-playback-id
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.waitForReady.outputs.assetId
+    - name: PLAYBACK_ID
+      in: path
+      value: $steps.createPlaybackId.outputs.playbackId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      playbackId: $response.body#/data/id
+      policy: $response.body#/data/policy
+  outputs:
+    assetId: $steps.waitForReady.outputs.assetId
+    playbackId: $steps.verifyPlaybackId.outputs.playbackId
+    policy: $steps.verifyPlaybackId.outputs.policy

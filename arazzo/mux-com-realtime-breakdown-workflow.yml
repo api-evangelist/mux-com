@@ -1,0 +1,74 @@
+arazzo: 1.0.1
+info:
+  title: Mux Real-Time Metric Breakdown
+  summary: List the available real-time metrics and dimensions, then break a chosen real-time metric down by a dimension right now.
+  description: >-
+    Powers a live operations dashboard from Mux Data real-time monitoring. The
+    workflow lists the real-time metrics available, lists the real-time
+    dimensions available, and then breaks a chosen real-time metric down by a
+    chosen dimension as of the current moment so you can see, for example, which
+    countries or CDNs are experiencing the most rebuffering right now. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: realtime-breakdown
+  summary: List real-time metrics and dimensions, then break a metric down now.
+  description: >-
+    Lists real-time metrics, lists real-time dimensions, then breaks the chosen
+    metric down by the chosen dimension.
+  inputs:
+    type: object
+    required:
+    - realtimeMetricId
+    - dimension
+    properties:
+      realtimeMetricId:
+        type: string
+        description: The real-time metric id to break down (e.g. current-concurrent-viewers, playback-failure-percentage).
+      dimension:
+        type: string
+        description: The dimension the breakdown should be grouped by (e.g. country, cdn, asn).
+  steps:
+  - stepId: listRealtimeMetrics
+    description: >-
+      List the real-time metrics available so the requested metric id can be
+      confirmed.
+    operationId: list-realtime-metrics
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      metrics: $response.body#/data
+  - stepId: listRealtimeDimensions
+    description: >-
+      List the real-time dimensions available so the requested grouping
+      dimension can be confirmed.
+    operationId: list-realtime-dimensions
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      dimensions: $response.body#/data
+  - stepId: getRealtimeBreakdown
+    description: >-
+      Break the chosen real-time metric down by the chosen dimension as of the
+      current moment.
+    operationId: get-realtime-breakdown
+    parameters:
+    - name: REALTIME_METRIC_ID
+      in: path
+      value: $inputs.realtimeMetricId
+    - name: dimension
+      in: query
+      value: $inputs.dimension
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      breakdown: $response.body#/data
+  outputs:
+    metrics: $steps.listRealtimeMetrics.outputs.metrics
+    dimensions: $steps.listRealtimeDimensions.outputs.dimensions
+    breakdown: $steps.getRealtimeBreakdown.outputs.breakdown

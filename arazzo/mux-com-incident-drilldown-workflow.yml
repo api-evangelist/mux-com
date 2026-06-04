@@ -1,0 +1,86 @@
+arazzo: 1.0.1
+info:
+  title: Mux Incident Drilldown
+  summary: List open Mux Data incidents, read the first incident in detail, and pull the incidents related to it.
+  description: >-
+    A triage pattern for Mux Data alerting. The workflow lists incidents filtered
+    by status and severity, captures the id of the first incident, reads its full
+    detail, and then lists the incidents related to it so you can understand
+    whether the alert is part of a broader pattern. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: incident-drilldown
+  summary: List incidents, read the first one, and pull its related incidents.
+  description: >-
+    Lists incidents by status and severity, reads the first incident's detail,
+    then lists incidents related to it.
+  inputs:
+    type: object
+    properties:
+      status:
+        type: string
+        description: Incident status to filter by (e.g. open, closed).
+        default: open
+      severity:
+        type: string
+        description: Incident severity to filter by (e.g. warning, alert).
+      limit:
+        type: integer
+        description: Maximum number of incidents to return.
+        default: 25
+  steps:
+  - stepId: listIncidents
+    description: >-
+      List incidents filtered by status and severity, ordered by most recent.
+    operationId: list-incidents
+    parameters:
+    - name: status
+      in: query
+      value: $inputs.status
+    - name: severity
+      in: query
+      value: $inputs.severity
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      incidents: $response.body#/data
+      firstIncidentId: $response.body#/data/0/id
+  - stepId: getIncident
+    description: >-
+      Read the first incident's full detail including its threshold and affected
+      measurements.
+    operationId: get-incident
+    parameters:
+    - name: INCIDENT_ID
+      in: path
+      value: $steps.listIncidents.outputs.firstIncidentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      incident: $response.body#/data
+  - stepId: listRelatedIncidents
+    description: >-
+      List the incidents related to the first incident to see whether it is part
+      of a broader pattern.
+    operationId: list-related-incidents
+    parameters:
+    - name: INCIDENT_ID
+      in: path
+      value: $steps.listIncidents.outputs.firstIncidentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      relatedIncidents: $response.body#/data
+  outputs:
+    incidents: $steps.listIncidents.outputs.incidents
+    incident: $steps.getIncident.outputs.incident
+    relatedIncidents: $steps.listRelatedIncidents.outputs.relatedIncidents

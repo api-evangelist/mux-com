@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Mux Asset Library Drilldown
+  summary: List assets in the environment, then read the first asset's full detail and its input info.
+  description: >-
+    A browsing pattern for building a Mux Video asset library view. The workflow
+    lists assets in the current environment, captures the id of the first asset,
+    reads that asset's full detail including playback IDs and tracks, and then
+    reads its input info to expose the source file characteristics. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: asset-library-drilldown
+  summary: List assets, then read the first asset's detail and input info.
+  description: >-
+    Lists assets, reads the first asset's full detail, then reads that asset's
+    input info.
+  inputs:
+    type: object
+    properties:
+      limit:
+        type: integer
+        description: Maximum number of assets to return in the list.
+        default: 25
+      page:
+        type: integer
+        description: Page of assets to fetch.
+        default: 1
+  steps:
+  - stepId: listAssets
+    description: >-
+      List assets in the current environment, ordered by most recent.
+    operationId: list-assets
+    parameters:
+    - name: limit
+      in: query
+      value: $inputs.limit
+    - name: page
+      in: query
+      value: $inputs.page
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assets: $response.body#/data
+      firstAssetId: $response.body#/data/0/id
+  - stepId: getAsset
+    description: >-
+      Read the first asset's full detail, including its playback IDs and tracks.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.listAssets.outputs.firstAssetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      asset: $response.body#/data
+      status: $response.body#/data/status
+  - stepId: getInputInfo
+    description: >-
+      Read the first asset's input info to expose the characteristics of the
+      source file Mux ingested.
+    operationId: get-asset-input-info
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.listAssets.outputs.firstAssetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      inputInfo: $response.body#/data
+  outputs:
+    assets: $steps.listAssets.outputs.assets
+    asset: $steps.getAsset.outputs.asset
+    inputInfo: $steps.getInputInfo.outputs.inputInfo

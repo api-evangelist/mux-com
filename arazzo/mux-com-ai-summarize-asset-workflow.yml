@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Mux AI Summarize Asset
+  summary: Create an asset, wait until ready, queue an AI summarize job against it, then poll the job until it completes.
+  description: >-
+    Uses Mux Video AI to generate a title, description, and tags for a piece of
+    content. The workflow creates an asset from a source URL, waits for the asset
+    to reach ready, queues a summarize job targeting that asset with a chosen
+    tone, and then polls the job until its status reaches completed so the
+    generated outputs can be read. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: ai-summarize-asset
+  summary: Create a ready asset, queue an AI summarize job, and wait for it to complete.
+  description: >-
+    Creates an asset, waits for ready, queues a summarize job, and polls the job
+    until completed.
+  inputs:
+    type: object
+    required:
+    - inputUrl
+    properties:
+      inputUrl:
+        type: string
+        description: A publicly accessible URL to the source video file Mux should ingest.
+      tone:
+        type: string
+        description: Tone for the generated summary (neutral, playful, or professional).
+        default: neutral
+  steps:
+  - stepId: createAsset
+    description: >-
+      Create a new asset from the source URL to summarize once it is ready.
+    operationId: create-asset
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs:
+        - url: $inputs.inputUrl
+        playback_policies:
+        - public
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: waitForReady
+    description: >-
+      Poll the asset until its status reaches ready so it can be summarized.
+    operationId: get-asset
+    parameters:
+    - name: ASSET_ID
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "ready"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      assetId: $response.body#/data/id
+  - stepId: queueSummarizeJob
+    description: >-
+      Queue an AI summarize job that targets the ready asset with the chosen
+      tone.
+    operationId: create-summarize-job
+    requestBody:
+      contentType: application/json
+      payload:
+        parameters:
+          asset_id: $steps.waitForReady.outputs.assetId
+          tone: $inputs.tone
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      jobId: $response.body#/data/id
+      jobStatus: $response.body#/data/status
+  - stepId: waitForJob
+    description: >-
+      Poll the summarize job until its status reaches completed so the generated
+      title, description, and tags can be read.
+    operationId: get-summarize-job
+    parameters:
+    - name: JOB_ID
+      in: path
+      value: $steps.queueSummarizeJob.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.data.status == "completed"
+      type: jsonpath
+    retryAfter: 5
+    retryLimit: 60
+    outputs:
+      jobId: $response.body#/data/id
+      status: $response.body#/data/status
+      outputs: $response.body#/data/outputs
+  outputs:
+    assetId: $steps.waitForReady.outputs.assetId
+    jobId: $steps.waitForJob.outputs.jobId
+    status: $steps.waitForJob.outputs.status
+    summaryOutputs: $steps.waitForJob.outputs.outputs

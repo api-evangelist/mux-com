@@ -1,0 +1,75 @@
+arazzo: 1.0.1
+info:
+  title: Mux Rotate Live Stream Key
+  summary: Create a live stream, reset its stream key, and read it back to confirm the new key is in place.
+  description: >-
+    Rotates the RTMP stream key for a Mux Video live stream, the standard
+    response when a key is leaked or needs to be cycled. The workflow creates a
+    live stream, captures its original stream key, resets the key to generate a
+    new one, and reads the live stream back to confirm the rotated key is now
+    active. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: muxApi
+  url: ../openapi/mux-openapi.yml
+  type: openapi
+workflows:
+- workflowId: reset-stream-key
+  summary: Create a live stream, reset its stream key, and confirm the new key.
+  description: >-
+    Creates a live stream, records its original key, resets the key, and reads
+    the stream back to confirm the new key.
+  inputs:
+    type: object
+    properties:
+      latencyMode:
+        type: string
+        description: Latency mode for the live stream (low, reduced, or standard).
+        default: low
+  steps:
+  - stepId: createLiveStream
+    description: >-
+      Create a live stream and capture its initial stream key.
+    operationId: create-live-stream
+    requestBody:
+      contentType: application/json
+      payload:
+        playback_policies:
+        - public
+        latency_mode: $inputs.latencyMode
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      liveStreamId: $response.body#/data/id
+      originalStreamKey: $response.body#/data/stream_key
+  - stepId: resetStreamKey
+    description: >-
+      Reset the live stream's stream key, invalidating the old key and
+      generating a new one.
+    operationId: reset-stream-key
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      newStreamKey: $response.body#/data/stream_key
+  - stepId: confirmKey
+    description: >-
+      Read the live stream back to confirm the rotated stream key is now the one
+      stored on the stream.
+    operationId: get-live-stream
+    parameters:
+    - name: LIVE_STREAM_ID
+      in: path
+      value: $steps.createLiveStream.outputs.liveStreamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentStreamKey: $response.body#/data/stream_key
+  outputs:
+    liveStreamId: $steps.createLiveStream.outputs.liveStreamId
+    originalStreamKey: $steps.createLiveStream.outputs.originalStreamKey
+    currentStreamKey: $steps.confirmKey.outputs.currentStreamKey

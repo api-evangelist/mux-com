@@ -1,0 +1,4166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transcription Vocabularies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Transcription Vocabularies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all Transcription Vocabularies."
+        },
+        {
+          "info": {
+            "name": "Create a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new Transcription Vocabulary."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies/:TRANSCRIPTION_VOCABULARY_ID",
+            "params": [
+              {
+                "name": "TRANSCRIPTION_VOCABULARY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Transcription Vocabulary."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of a Transcription Vocabulary that has previously been created. Supply the unique Transcription Vocabulary ID and Mux will return the corresponding Transcription Vocabulary information. The same information is returned when creating a Transcription Vocabulary."
+        },
+        {
+          "info": {
+            "name": "Update a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies/:TRANSCRIPTION_VOCABULARY_ID",
+            "params": [
+              {
+                "name": "TRANSCRIPTION_VOCABULARY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Transcription Vocabulary."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the details of a previously-created Transcription Vocabulary. Updates to Transcription Vocabularies are allowed while associated live streams are active. However, updates will not be applied to those streams while they are active."
+        },
+        {
+          "info": {
+            "name": "Delete a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies/:TRANSCRIPTION_VOCABULARY_ID",
+            "params": [
+              {
+                "name": "TRANSCRIPTION_VOCABULARY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Transcription Vocabulary."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a Transcription Vocabulary. The Transcription Vocabulary's ID will be disassociated from any live streams using it. Transcription Vocabularies can be deleted while associated live streams are active. However, the words and phrases in the deleted Transcription Vocabulary will remain attached to those streams while they are active."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is used to request pages beyond the first. You can find the cursor value in the `next_cursor` field of paginated responses."
+              },
+              {
+                "name": "live_stream_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return all the assets for this live stream only"
+              },
+              {
+                "name": "upload_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return an asset created from this direct upload only"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all Mux assets."
+        },
+        {
+          "info": {
+            "name": "Create an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Retrieve an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of an asset that has previously been created. Supply the unique asset ID that was returned from your previous request, and Mux will return the corresponding asset information. The same information is returned when creating an asset."
+        },
+        {
+          "info": {
+            "name": "Update an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the details of an existing Asset with the provided Asset ID. This API currently only supports the `passthrough` and `meta` fields."
+        },
+        {
+          "info": {
+            "name": "Delete an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a video asset and all its data."
+        },
+        {
+          "info": {
+            "name": "Retrieve Asset Input Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/input-info",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of the input objects that were used to create the asset along with any settings that were applied to each input."
+        },
+        {
+          "info": {
+            "name": "Create a Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/playback-ids",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a playback ID that can be used to stream the asset to a viewer."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves information about the specified playback ID."
+        },
+        {
+          "info": {
+            "name": "Delete a Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a playback ID, rendering it nonfunctional for viewing an asset's video content. Please note that deleting the playback ID removes access to the underlying asset; a viewer who started playback before the playback ID was deleted may be able to watch the entire video for a limited duration."
+        },
+        {
+          "info": {
+            "name": "Update MP4 Support",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/mp4-support",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This method has been deprecated. Please see the [Static Rendition API](https://www.mux.com/docs/guides/enable-static-mp4-renditions#after-asset-creation).\nAllows you to add or remove mp4 support for assets that were created without it. The values supported are `capped-1080p`, `audio-only`, `audio-only,capped-1080p`, `standard`(deprecated),  and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from "
+        },
+        {
+          "info": {
+            "name": "Update Master Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/master-access",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Allows you to add temporary access to the master (highest-quality) version of the asset in MP4 format. A URL will be created that can be used to download the master version for 24 hours. After 24 hours Master Access will revert to \"none\".\nThis master version is not optimized for web and not meant to be streamed, only downloaded for purposes like archiving or editing the video offline."
+        },
+        {
+          "info": {
+            "name": "Create a Static Rendition for an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/static-renditions",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a static rendition (i.e. MP4) for an asset"
+        },
+        {
+          "info": {
+            "name": "Delete a Single Static Rendition for an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/static-renditions/:STATIC_RENDITION_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "STATIC_RENDITION_ID",
+                "value": "",
+                "type": "path",
+                "description": "The static rendition ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a single static rendition for an asset"
+        },
+        {
+          "info": {
+            "name": "Create an Asset Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Adds an asset track (for example, subtitles, or an alternate audio track) to an asset. Assets must be in the `ready` state before tracks can be added."
+        },
+        {
+          "info": {
+            "name": "Update an Asset Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks/:TRACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the details of an existing Asset Track with the provided Asset ID and Track ID."
+        },
+        {
+          "info": {
+            "name": "Delete an Asset Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks/:TRACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Removes a text or additional audio track from an asset. Neither video nor the primary audio track can be removed."
+        },
+        {
+          "info": {
+            "name": "Generate Track Subtitles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks/:TRACK_ID/generate-subtitles",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Generates subtitles (captions) for a given audio track. [See docs for more information.](https://mux.com/docs/guides/add-autogenerated-captions-and-use-transcripts#retroactively-enable-auto-generated-captions)"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Live Streams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Live Streams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "stream_key",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return live stream for this stream key only"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return live streams with the specified status only"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the live streams that currently exist in the current environment."
+        },
+        {
+          "info": {
+            "name": "Create a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new live stream. Once created, an encoder can connect to Mux via the specified stream key and begin streaming to an audience."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of a live stream that has previously been created. Supply the unique live stream ID that was returned from your previous request, and Mux will return the corresponding live stream information. The same information is returned when creating a live stream."
+        },
+        {
+          "info": {
+            "name": "Update a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the parameters of a previously-created live stream. This currently supports a subset of variables. Supply the live stream ID and the updated parameters and Mux will return the corresponding live stream information. The information returned will be the same after update as for subsequent get live stream requests."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a live stream from the current environment. If the live stream is currently active and being streamed to, ingest will be terminated and the encoder will be disconnected."
+        },
+        {
+          "info": {
+            "name": "Create a Live Stream Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/playback-ids",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new playback ID for this live stream, through which a viewer can watch the streamed content of the live stream."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Live Stream Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Fetches information about a live stream's playback ID, through which a viewer can watch the streamed content from this live stream."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes the playback ID for the live stream. This will not disable ingest (as the live stream still exists). New attempts to play back the live stream will fail immediately. However, current viewers will be able to continue watching the stream for some period of time."
+        },
+        {
+          "info": {
+            "name": "Reset a Live Stream's Stream Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/reset-stream-key",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Reset a live stream key if you want to immediately stop the current stream key from working and create a new stream key that can be used for future broadcasts."
+        },
+        {
+          "info": {
+            "name": "Signal a Live Stream Is Finished",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/complete",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "(Optional) End the live stream recording immediately instead of waiting for the reconnect_window. `EXT-X-ENDLIST` tag is added to the HLS manifest which notifies the player that this live stream is over.\n\nMux does not close the encoder connection immediately. Encoders are often configured to re-establish connections immediately which would result in a new recorded asset. For this reason, Mux waits for 60s before closing the connection with the encoder. This 60s timeframe is meant to give encoder"
+        },
+        {
+          "info": {
+            "name": "Disable a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/disable",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Disables a live stream, making it reject incoming RTMP streams until re-enabled. The API also ends the live stream recording immediately when active. Ending the live stream recording adds the `EXT-X-ENDLIST` tag to the HLS manifest which notifies the player that this live stream is over.\n\nMux also closes the encoder connection immediately. Any attempt from the encoder to re-establish connection will fail till the live stream is re-enabled.\n"
+        },
+        {
+          "info": {
+            "name": "Enable a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/enable",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Enables a live stream, allowing it to accept an incoming RTMP stream."
+        },
+        {
+          "info": {
+            "name": "Update a Live Stream's Embedded Subtitles",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/embedded-subtitles",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Configures a live stream to receive embedded closed captions.\nThe resulting Asset's subtitle text track will have `closed_captions: true` set.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Live Stream's Generated Subtitles",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/generated-subtitles",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates a live stream's automatic-speech-recognition-generated subtitle configuration.\nAutomatic speech recognition subtitles can be removed by sending an empty array in the\nrequest payload.\n"
+        },
+        {
+          "info": {
+            "name": "Create a Live Stream Simulcast Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/simulcast-targets",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a simulcast target for the parent live stream. Simulcast target can only be created when the parent live stream is in idle state. Only one simulcast target can be created at a time with this API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Live Stream Simulcast Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/simulcast-targets/:SIMULCAST_TARGET_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "SIMULCAST_TARGET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the simulcast target."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of the simulcast target created for the parent live stream. Supply the unique live stream ID and simulcast target ID that was returned in the response of create simulcast target request, and Mux will return the corresponding information."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream Simulcast Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/simulcast-targets/:SIMULCAST_TARGET_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "SIMULCAST_TARGET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the simulcast target."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete the simulcast target using the simulcast target ID returned when creating the simulcast target. Simulcast Target can only be deleted when the parent live stream is in idle state."
+        },
+        {
+          "info": {
+            "name": "Update Live Stream Static Renditions for New Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/new-asset-settings/static-renditions",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates a live stream's static renditions settings for new assets. Further assets made via this live stream will create static renditions per the settings provided. You must provide all static renditions desired."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream's Static Renditions Setting for New Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/new-asset-settings/static-renditions",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a live stream's static renditions settings for new assets. Further assets made via this live stream will not create static renditions unless re-added."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Playback ID",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an Asset or Live Stream ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the Identifier of the Asset or Live Stream associated with the Playback ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "URL Signing Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List URL Signing Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/signing-keys",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Returns a list of URL signing keys.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        },
+        {
+          "info": {
+            "name": "Create a URL Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/signing-keys",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Creates a new signing key pair. When creating a new signing key,\nthe API will generate a 2048-bit RSA key-pair and return the private key and\na generated key-id; the public key will be stored at Mux to validate signed\ntokens.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve a URL Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Retrieves the details of a URL signing key that has previously\nbeen created. Supply the unique signing key ID that was returned from your\nprevious request, and Mux will return the corresponding signing key information.\n**The private key is not returned in this response.**\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a URL Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Deletes an existing signing key. Use with caution, as this will\ninvalidate any existing signatures and no URLs can be signed using the key\nagain.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Direct Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Direct Uploads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/uploads",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists direct uploads in the current environment."
+        },
+        {
+          "info": {
+            "name": "Create a New Direct Upload URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/uploads",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new direct upload, through which video content can be uploaded for ingest to Mux."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Single Direct Upload's Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/uploads/:UPLOAD_ID",
+            "params": [
+              {
+                "name": "UPLOAD_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Upload"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Fetches information about a single direct upload in the current environment."
+        },
+        {
+          "info": {
+            "name": "Cancel a Direct Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/uploads/:UPLOAD_ID/cancel",
+            "params": [
+              {
+                "name": "UPLOAD_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Upload"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Cancels a direct upload and marks it as cancelled. If a pending upload finishes after this\nrequest, no asset will be created. This request will only succeed if the upload is still in\nthe `waiting` state.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Delivery Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/delivery-usage",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return delivery usage for this asset only. You cannot specify both the `asset_id` and `live_stream_id` parameters together."
+              },
+              {
+                "name": "live_stream_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return delivery usage for assets for this live stream. You cannot specify both the `asset_id` and `live_stream_id` parameters together."
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of delivery usage records and their associated Asset IDs or Live Stream IDs."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Playback Restrictions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Playback Restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/playback-restrictions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of all Playback Restrictions."
+        },
+        {
+          "info": {
+            "name": "Create a Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/playback-restrictions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new Playback Restriction."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a Playback Restriction associated with the unique identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a single Playback Restriction."
+        },
+        {
+          "info": {
+            "name": "Update the Referrer Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID/referrer",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Allows you to modify the list of domains or change how Mux validates playback requests without the `Referer` HTTP header. The Referrer restriction fully replaces the old list with this new list of domains."
+        },
+        {
+          "info": {
+            "name": "Update the User Agent Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID/user_agent",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Allows you to modify how Mux validates playback requests with different user agents.  Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "DRM Configurations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List DRM Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/drm-configurations",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of DRM Configurations"
+        },
+        {
+          "info": {
+            "name": "Retrieve a DRM Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/drm-configurations/:DRM_CONFIGURATION_ID",
+            "params": [
+              {
+                "name": "DRM_CONFIGURATION_ID",
+                "value": "",
+                "type": "path",
+                "description": "The DRM Configuration ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a single DRM Configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Video Views",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Video Views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/video-views",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "viewer_id",
+                "value": "",
+                "type": "query",
+                "description": "Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux."
+              },
+              {
+                "name": "error_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error."
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of video views which match the filters and have a `view_end` within the specified timeframe."
+        },
+        {
+          "info": {
+            "name": "Get a Video View",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/video-views/:VIDEO_VIEW_ID",
+            "params": [
+              {
+                "name": "VIDEO_VIEW_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Video View"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns the details of a video view."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Errors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/errors",
+            "params": [
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of errors."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Filters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/filters",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The API has been replaced by the list-dimensions API call.\n\nLists all the filters broken out into basic and advanced.\n"
+        },
+        {
+          "info": {
+            "name": "Lists Values for a Specific Filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/filters/:FILTER_ID",
+            "params": [
+              {
+                "name": "FILTER_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Filter"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The API has been replaced by the list-dimension-values API call.\n\nLists the values for a filter along with a total count of related views.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Dimensions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/dimensions",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all available dimensions.\n\nNote: This API replaces the list-filters API call.\n"
+        },
+        {
+          "info": {
+            "name": "Lists the Values for a Specific Dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/dimensions/:DIMENSION_ID",
+            "params": [
+              {
+                "name": "DIMENSION_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Dimension"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the values for a dimension along with a total count of related views.\n\nNote: This API replaces the list-filter-values API call.\n"
+        },
+        {
+          "info": {
+            "name": "Lists Elements for a Trace Dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/dimensions/:DIMENSION_ID/elements",
+            "params": [
+              {
+                "name": "DIMENSION_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Dimension"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the elements (values) for a trace dimension along with their total counts.\nThis endpoint is specifically designed for trace dimensions like video_cdn_trace\nthat contain arrays of values.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Property Video View Export Links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/exports",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The API has been replaced by the list-exports-views API call.\n\nLists the available video view exports along with URLs to retrieve them.\n"
+        },
+        {
+          "info": {
+            "name": "List Available Property View Exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/exports/views",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the available video view exports along with URLs to retrieve them."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Breakdown Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/metrics/:METRIC_ID/breakdown",
+            "params": [
+              {
+                "name": "METRIC_ID",
+                "value": "video_startup_time",
+                "type": "path",
+                "description": "ID of the Metric"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "Breakdown value to group the results by"
+              },
+              {
+                "name": "measurement",
+                "value": "",
+                "type": "query",
+                "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List the breakdown values for a specific metric."
+        },
+        {
+          "info": {
+            "name": "Get Overall Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/metrics/:METRIC_ID/overall",
+            "params": [
+              {
+                "name": "METRIC_ID",
+                "value": "video_startup_time",
+                "type": "path",
+                "description": "ID of the Metric"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "measurement",
+                "value": "",
+                "type": "query",
+                "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric."
+        },
+        {
+          "info": {
+            "name": "List Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/metrics/:METRIC_ID/insights",
+            "params": [
+              {
+                "name": "METRIC_ID",
+                "value": "video_startup_time",
+                "type": "path",
+                "description": "ID of the Metric"
+              },
+              {
+                "name": "measurement",
+                "value": "",
+                "type": "query",
+                "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric."
+        },
+        {
+          "info": {
+            "name": "Get Metric Timeseries Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/metrics/:METRIC_ID/timeseries",
+            "params": [
+              {
+                "name": "METRIC_ID",
+                "value": "video_startup_time",
+                "type": "path",
+                "description": "ID of the Metric"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "measurement",
+                "value": "",
+                "type": "query",
+                "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the timeframe.\n\nFor timeframes of less than 90 minutes, the default granularity is `minute`. Between 90 minutes and 6 hours, the default granularity is `ten_minutes`. Between 6 hours and 15 days inclusive, the default granularity is `hour`. The granularity of timeframes that exceed 15 days is `day`. This default behavior is subject to change; it is strongly suggested that you explicitly specify the granularity.\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns timeseries data for a specific metric.\n\nEach interval represented in the data array contains an array with the following values:\n  * the first element is the interval time\n  * the second element is the calculated metric value\n  * the third element is the number of views in the interval that have a valid metric value\n"
+        },
+        {
+          "info": {
+            "name": "List All Metric Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/metrics/comparison",
+            "params": [
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension the specified value belongs to"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "query",
+                "description": "Value to show all available metrics for"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all of the values across every breakdown for a specific metric."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Monitoring Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/dimensions",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available monitoring dimensions."
+        },
+        {
+          "info": {
+            "name": "List Monitoring Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available monitoring metrics."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_METRIC_ID/breakdown",
+            "params": [
+              {
+                "name": "MONITORING_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Monitoring Metric"
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension the specified value belongs to"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp."
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets breakdown information for a specific dimension and metric along with the number of concurrent viewers and negative impact score."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Breakdown Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_METRIC_ID/breakdown-timeseries",
+            "params": [
+              {
+                "name": "MONITORING_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Monitoring Metric"
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension the specified value belongs to"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nThe default for this is the last 60 seconds of available data. Timeframes larger than 10 minutes are not allowed, and must be within the last 24 hours.\n"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in each timestamp's `value` list.\n\nThe default is 10, and the maximum is 100.\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets timeseries of breakdown information for a specific dimension and metric. Each datapoint in the response represents 5 seconds worth of data."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Histogram Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_HISTOGRAM_METRIC_ID/histogram-timeseries",
+            "params": [
+              {
+                "name": "MONITORING_HISTOGRAM_METRIC_ID",
+                "value": "video-startup-time",
+                "type": "path",
+                "description": "ID of the Monitoring Histogram Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets histogram timeseries information for a specific metric."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_METRIC_ID/timeseries",
+            "params": [
+              {
+                "name": "MONITORING_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Monitoring Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to use as the start of the timeseries data. This value must be provided as a unix timestamp. Defaults to 30 minutes ago."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets Time series information for a specific metric along with the number of concurrent viewers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Real-Time",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Real-Time Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/dimensions",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available real-time dimensions. This API is now deprecated, please use the `List Monitoring Dimensions` API."
+        },
+        {
+          "info": {
+            "name": "List Real-Time Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available real-time metrics. This API is now deprecated, please use the `List Monitoring Metrics` API."
+        },
+        {
+          "info": {
+            "name": "Get Real-Time Breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics/:REALTIME_METRIC_ID/breakdown",
+            "params": [
+              {
+                "name": "REALTIME_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Realtime Metric"
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension the specified value belongs to"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp."
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets breakdown information for a specific dimension and metric along with the number of concurrent viewers and negative impact score. This API is now deprecated, please use the `Get Monitoring Breakdown` API."
+        },
+        {
+          "info": {
+            "name": "Get Real-Time Histogram Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics/:REALTIME_HISTOGRAM_METRIC_ID/histogram-timeseries",
+            "params": [
+              {
+                "name": "REALTIME_HISTOGRAM_METRIC_ID",
+                "value": "video-startup-time",
+                "type": "path",
+                "description": "ID of the Realtime Histogram Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets histogram timeseries information for a specific metric. This API is now deprecated, please use the `Get Monitoring Histogram Timeseries` API."
+        },
+        {
+          "info": {
+            "name": "Get Real-Time Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics/:REALTIME_METRIC_ID/timeseries",
+            "params": [
+              {
+                "name": "REALTIME_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Realtime Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to use as the start of the timeseries data. This value must be provided as a unix timestamp. Defaults to 30 minutes ago."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets Time series information for a specific metric along with the number of concurrent viewers. This API is now deprecated, please use the `Get Monitoring Timeseries` API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Incidents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/incidents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status to filter incidents by"
+              },
+              {
+                "name": "severity",
+                "value": "",
+                "type": "query",
+                "description": "Severity to filter incidents by"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of incidents."
+        },
+        {
+          "info": {
+            "name": "Get an Incident",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/incidents/:INCIDENT_ID",
+            "params": [
+              {
+                "name": "INCIDENT_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Incident"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns the details of an incident."
+        },
+        {
+          "info": {
+            "name": "List Related Incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/incidents/:INCIDENT_ID/related",
+            "params": [
+              {
+                "name": "INCIDENT_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Incident"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns all the incidents that seem related to a specific incident."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Annotations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/annotations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of annotations."
+        },
+        {
+          "info": {
+            "name": "Create Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/data/v1/annotations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new annotation."
+        },
+        {
+          "info": {
+            "name": "Get Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/annotations/:ANNOTATION_ID",
+            "params": [
+              {
+                "name": "ANNOTATION_ID",
+                "value": "",
+                "type": "path",
+                "description": "The annotation ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns the details of a specific annotation."
+        },
+        {
+          "info": {
+            "name": "Update Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mux.com/data/v1/annotations/:ANNOTATION_ID",
+            "params": [
+              {
+                "name": "ANNOTATION_ID",
+                "value": "",
+                "type": "path",
+                "description": "The annotation ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates an existing annotation."
+        },
+        {
+          "info": {
+            "name": "Delete Annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/data/v1/annotations/:ANNOTATION_ID",
+            "params": [
+              {
+                "name": "ANNOTATION_ID",
+                "value": "",
+                "type": "path",
+                "description": "The annotation ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes an annotation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Utilities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Information About Your Current Access Token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/system/v1/whoami",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve information about your current access token, including organization, environment, and permissions. Note that this can only be access with an access token, and _all_ access tokens can access this route, regardless of what permissions they have assigned."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Signing Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Signing Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/system/v1/signing-keys",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of signing keys."
+        },
+        {
+          "info": {
+            "name": "Create a Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/system/v1/signing-keys",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/system/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of a signing key that has previously\nbeen created. Supply the unique signing key ID that was returned from your\nprevious request, and Mux will return the corresponding signing key information.\n**The private key is not returned in this response.**\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/system/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no JWTs can be signed using the key again."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs",
+            "params": [
+              {
+                "name": "workflow",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workflow name"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by job status"
+              },
+              {
+                "name": "asset_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Mux asset ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of jobs to return (default 25, max 100)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default 1)"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a paginated list of Robots jobs, with optional filters for workflow, status, and asset_id. Jobs are automatically deleted after 30 days."
+        },
+        {
+          "info": {
+            "name": "Cancel a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/:JOB_ID/cancel",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Cancels a job that is currently pending or processing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Ask Questions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an 'ask-Questions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/ask-questions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to answer questions about a Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Get an 'ask-Questions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/ask-questions/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of an 'ask-questions' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Edit Captions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an 'edit-Captions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/edit-captions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that edits an existing Mux text track using static replacements and optional profanity censoring. Provide at least one of `replacements` or `auto_censor_profanity`."
+        },
+        {
+          "info": {
+            "name": "Get an 'edit-Captions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/edit-captions/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of an 'edit-captions' job."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Find Key Moments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'find-Key-Moments' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/find-key-moments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to identify key moments in a Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Get a 'find-Key-Moments' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/find-key-moments/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'find-key-moments' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Generate Chapters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'generate-Chapters' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/generate-chapters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to generate chapters for a Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Get a 'generate-Chapters' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/generate-chapters/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'generate-chapters' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Moderate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'moderate' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/moderate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to analyze a Mux Video asset for inappropriate content."
+        },
+        {
+          "info": {
+            "name": "Get a 'moderate' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/moderate/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'moderate' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Summarize",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'summarize' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/summarize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to generate a title, description, and tags for a Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Get a 'summarize' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/summarize/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'summarize' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Translate Captions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'translate-Captions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/translate-captions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that translates captions on a Mux Video asset from one language to another."
+        },
+        {
+          "info": {
+            "name": "Get a 'translate-Captions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/translate-captions/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'translate-captions' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Thumbnails",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Video Thumbnail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/thumbnail.:EXTENSION",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "EXTENSION",
+                "value": "",
+                "type": "path",
+                "description": "The image file extension, either 'jpg', 'png', or 'webp'."
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "The time (in seconds) of the video timeline where the image should be pulled. Defaults to the middle of the original video."
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "The width of the thumbnail (in pixels). Defaults to the width of the original video."
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "The height of the thumbnail (in pixels). Defaults to the height of the original video."
+              },
+              {
+                "name": "rotate",
+                "value": "",
+                "type": "query",
+                "description": "Rotate the image clockwise by the given number of degrees."
+              },
+              {
+                "name": "fit_mode",
+                "value": "",
+                "type": "query",
+                "description": "How to fit a thumbnail within the specified width + height."
+              },
+              {
+                "name": "flip_v",
+                "value": "",
+                "type": "query",
+                "description": "Flip the image top-bottom after performing all other transformations."
+              },
+              {
+                "name": "flip_h",
+                "value": "",
+                "type": "query",
+                "description": "Flip the image left-right after performing all other transformations."
+              },
+              {
+                "name": "program_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the time of the thumbnail for an asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "latest",
+                "value": "",
+                "type": "query",
+                "description": "When set to `true`, pulls the latest thumbnail from the playback ID of an ongoing live stream. Can only be used with live streams. Can be used to build moderation and classification workflows, [see documentation for more details](https://mux.com/docs/guides/get-images-from-a-video#getting-the-latest-thumbnail-from-a-live-stream)."
+              }
+            ]
+          },
+          "docs": "[Fetch a thumbnail image from a video](https://docs.mux.com/guides/get-images-from-a-video) at a specified time with optional transformations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Animated Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an Animated Image from a Video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/animated.:EXTENSION",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "EXTENSION",
+                "value": "",
+                "type": "path",
+                "description": "The image file extension, either 'gif' or 'webp'."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The time (in seconds) of the video timeline where the animated GIF should begin. Defaults to 0."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The time (in seconds) of the video timeline where the GIF ends. Defaults to 5 seconds after the start. Maximum total duration of GIF is limited to 10 seconds; minimum total duration of GIF is 250ms."
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "The width in pixels of the animated GIF. Default is 320px, or if height is provided, the width is determined by preserving aspect ratio with the height. Max width is 640px."
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "The height in pixels of the animated GIF. The default height is determined by preserving aspect ratio with the width provided. Maximum height is 640px."
+              },
+              {
+                "name": "fps",
+                "value": "",
+                "type": "query",
+                "description": "The frame rate of the generated GIF. Defaults to 15 fps. Max 30 fps."
+              }
+            ]
+          },
+          "docs": "[Fetch an animated GIF or WebP image](https://docs.mux.com/guides/get-images-from-a-video#get-an-animated-gif-from-a-video) from a video segment with optional transformations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Storyboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Storyboard Image for Timeline Hover Previews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/storyboard.:EXTENSION",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "EXTENSION",
+                "value": "",
+                "type": "path",
+                "description": "The storyboard image extension, either 'jpg', 'png', or 'webp'."
+              },
+              {
+                "name": "program_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the start time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "program_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the end time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "asset_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative start time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              },
+              {
+                "name": "asset_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative end time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              }
+            ]
+          },
+          "docs": "Fetch a storyboard image composed of multiple thumbnails for use in [timeline hover previews](https://docs.mux.com/guides/create-timeline-hover-previews)."
+        },
+        {
+          "info": {
+            "name": "Retrieve Storyboard Metadata in WebVTT Format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/storyboard.vtt",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "program_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the start time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "program_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the end time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "asset_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative start time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              },
+              {
+                "name": "asset_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative end time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              }
+            ]
+          },
+          "docs": "Fetch metadata for the [storyboard image in WebVTT format](https://docs.mux.com/guides/create-timeline-hover-previews#webvtt), detailing the coordinates and time ranges of each thumbnail."
+        },
+        {
+          "info": {
+            "name": "Retrieve Storyboard Metadata in JSON Format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/storyboard.json",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "program_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the start time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "program_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the end time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "asset_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative start time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              },
+              {
+                "name": "asset_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative end time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "The format of the storyboard image URL in the response. Can be either 'jpg', 'png', or 'webp'. Defaults to 'jpg'."
+              }
+            ]
+          },
+          "docs": "Fetch metadata for the [storyboard image in JSON format](https://docs.mux.com/guides/create-timeline-hover-previews#json), detailing the coordinates and time ranges of each thumbnail."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Streaming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve HLS Manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID.m3u8",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "redundant_streams",
+                "value": "",
+                "type": "query",
+                "description": "Include [HLS redundant streams](https://docs.mux.com/guides/play-your-videos#add-delivery-redundancy-with-redundant-streams) in the manifest."
+              },
+              {
+                "name": "roku_trick_play",
+                "value": "",
+                "type": "query",
+                "description": "Add support for [timeline hover previews on Roku devices](https://docs.mux.com/guides/create-timeline-hover-previews#roku-trick-play)."
+              },
+              {
+                "name": "default_subtitles_lang",
+                "value": "",
+                "type": "query",
+                "description": "Set the [default subtitles/captions language](https://docs.mux.com/guides/add-subtitles-to-your-videos#showing-subtitles-by-default) (BCP47 compliant language code)."
+              },
+              {
+                "name": "max_resolution",
+                "value": "",
+                "type": "query",
+                "description": "Set the [maximum resolution](https://docs.mux.com/guides/control-playback-resolution#specify-maximum-resolution) of renditions included in the manifest."
+              },
+              {
+                "name": "min_resolution",
+                "value": "",
+                "type": "query",
+                "description": "Set the [minimum resolution](https://docs.mux.com/guides/control-playback-resolution#specify-minimum-resolution) of renditions included in the manifest."
+              },
+              {
+                "name": "rendition_order",
+                "value": "",
+                "type": "query",
+                "description": "Set the logic to [order renditions in the HLS manifest](https://www.mux.com/blog/more-tools-to-control-playback-behavior-min-resolution-and-rendition-order#rendition_order)."
+              },
+              {
+                "name": "program_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the start time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "program_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the end time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream."
+              },
+              {
+                "name": "asset_start_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative start time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              },
+              {
+                "name": "asset_end_time",
+                "value": "",
+                "type": "query",
+                "description": "Set the relative end time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips)."
+              },
+              {
+                "name": "exclude_pdt",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, EXT-X-PROGRAM-DATE-TIME tags will be omitted from HLS manifests for assets from live streams."
+              }
+            ]
+          },
+          "docs": "Fetch an HLS (HTTP Live Streaming) playlist for the specified video asset, with optional query parameters to [modify playback behavior](https://docs.mux.com/guides/modify-playback-behavior)."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Static Rendition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/:FILENAME",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "FILENAME",
+                "value": "",
+                "type": "path",
+                "description": "The filename of the static rendition file, as returned from the static renditions API files list. [See the MP4 guide for more details.](https://docs.mux.com/guides/enable-static-mp4-renditions)"
+              }
+            ]
+          },
+          "docs": "Fetch a static rendition (usually an MP4 or M4A file) of the specified video asset. [MP4 Support](https://docs.mux.com/guides/enable-static-mp4-renditions) must be enabled on the asset before using these URLs."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Captions and Transcripts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a WebVTT File for a Text Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/text/:TRACK_ID.vtt",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              }
+            ]
+          },
+          "docs": "Fetch a standalone WebVTT version of a text track from an asset."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Transcript",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/text/:TRACK_ID.txt",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              }
+            ]
+          },
+          "docs": "Fetch a [transcript of an asset](https://docs.mux.com/guides/add-autogenerated-captions-and-use-transcripts#retrieve-a-transcript). This is only possible for assets with a text track generated using the [VOD generated captions feature](https://docs.mux.com/guides/add-autogenerated-captions-and-use-transcripts)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "View and Viewer Counts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the View and Viewer Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/counts",
+            "params": [
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              }
+            ]
+          },
+          "docs": "[Fetch the real-time view and viewer counts for a video](https://docs.mux.com/guides/see-how-many-people-are-watching)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

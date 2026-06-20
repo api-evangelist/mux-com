@@ -9,7 +9,7 @@ tags:
 - Video AI
 - Encoding
 kind: company
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 description: >-
   Mux is a video infrastructure platform that gives developers an end-to-end API for ingesting, encoding,
@@ -28,7 +28,7 @@ apis:
   - Assets
   - Direct Uploads
   - Playback
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.mux.com
   humanURL: https://www.mux.com/docs/api-reference
   properties:
@@ -51,7 +51,7 @@ apis:
   - RTMP
   - SRT
   - Low Latency
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.mux.com
   humanURL: https://www.mux.com/docs/guides/start-live-streaming
   properties:
@@ -74,7 +74,7 @@ apis:
   - Quality Of Experience
   - Monitoring
   - Metrics
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.mux.com
   humanURL: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
   properties:
@@ -97,7 +97,7 @@ apis:
   - HLS
   - DASH
   - Playback
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://stream.mux.com
   humanURL: https://www.mux.com/docs/guides/play-your-videos
   properties:
@@ -118,7 +118,7 @@ apis:
   - Thumbnails
   - Storyboards
   - Animated Images
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://image.mux.com
   humanURL: https://www.mux.com/docs/guides/get-images-from-a-video
   properties:
@@ -141,7 +141,7 @@ apis:
   - Summarization
   - Content Moderation
   - Chaptering
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.mux.com
   humanURL: https://www.mux.com/docs/guides/mux-robots
   properties:
@@ -162,7 +162,7 @@ apis:
   - Signing Keys
   - Account Management
   - Utilities
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.mux.com
   humanURL: https://www.mux.com/docs/api-reference#tag/Signing-Keys
   properties:
@@ -182,7 +182,7 @@ apis:
   - Webhooks
   - Events
   - Notifications
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.mux.com
   humanURL: https://www.mux.com/docs/webhook-reference
   properties:

@@ -198,297 +198,294 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/mux/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/mux-com-account-delivery-usage-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-account-delivery-usage-workflow.yml
     name: Mux Account Delivery Usage Audit
-    summary: Confirm the active environment with whoami, then list per-asset delivery usage for a timeframe to audit billed delivery.
-  - url: arazzo/mux-com-ai-summarize-asset-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-ai-summarize-asset-workflow.yml
     name: Mux AI Summarize Asset
-    summary: Create an asset, wait until ready, queue an AI summarize job against it, then poll the job until it completes.
-  - url: arazzo/mux-com-annotation-manage-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-annotation-manage-workflow.yml
     name: Mux Manage Data Annotation
-    summary: Create a Mux Data annotation marking a deploy or event, read it back, update its note, then list annotations to confirm.
-  - url: arazzo/mux-com-asset-add-caption-track-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-asset-add-caption-track-workflow.yml
     name: Mux Add Caption Track to Asset
-    summary: Create an asset, wait until ready, attach a text caption track, then poll the track until it is ready.
-  - url: arazzo/mux-com-asset-add-playback-id-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-asset-add-playback-id-workflow.yml
     name: Mux Add Playback ID to Asset
-    summary: Create an asset, wait until it is ready, then attach a new playback ID and confirm it resolves.
-  - url: arazzo/mux-com-asset-library-drilldown-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-asset-library-drilldown-workflow.yml
     name: Mux Asset Library Drilldown
-    summary: List assets in the environment, then read the first asset's full detail and its input info.
-  - url: arazzo/mux-com-asset-mp4-rendition-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-asset-mp4-rendition-workflow.yml
     name: Mux Generate Downloadable Static Rendition
-    summary: Create an asset, wait until ready, request a static MP4 rendition, then poll until the rendition is ready for download.
-  - url: arazzo/mux-com-asset-tag-and-cleanup-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-asset-tag-and-cleanup-workflow.yml
     name: Mux Asset Tag and Cleanup
-    summary: Create an asset, wait until ready, attach title and external-id metadata, then delete it to demonstrate full lifecycle management.
-  - url: arazzo/mux-com-create-asset-from-url-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-create-asset-from-url-workflow.yml
     name: Mux Create Asset From URL
-    summary: Ingest a video from a hosted URL, poll the new asset until ready, and confirm the input details Mux processed.
-  - url: arazzo/mux-com-dimension-exploration-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-dimension-exploration-workflow.yml
     name: Mux Dimension Exploration
-    summary: List the available Mux Data dimensions, then enumerate the distinct values of a chosen dimension over a timeframe.
-  - url: arazzo/mux-com-direct-upload-to-asset-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-direct-upload-to-asset-workflow.yml
     name: Mux Direct Upload to Ready Asset
-    summary: Create a direct upload URL, poll the upload until Mux creates an asset, then poll the asset until it is ready to play.
-  - url: arazzo/mux-com-errors-impact-analysis-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-errors-impact-analysis-workflow.yml
     name: Mux Errors Impact Analysis
-    summary: List the playback errors in a timeframe, then read the overall playback-failure rate so errors can be weighed against total traffic.
-  - url: arazzo/mux-com-incident-drilldown-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-incident-drilldown-workflow.yml
     name: Mux Incident Drilldown
-    summary: List open Mux Data incidents, read the first incident in detail, and pull the incidents related to it.
-  - url: arazzo/mux-com-live-stream-add-playback-id-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-live-stream-add-playback-id-workflow.yml
     name: Mux Add Playback ID to Live Stream
-    summary: Create a live stream, add a second playback ID with a chosen policy, and confirm the playback ID resolves.
-  - url: arazzo/mux-com-live-stream-generated-subtitles-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-live-stream-generated-subtitles-workflow.yml
     name: Mux Live Stream Generated Subtitles
-    summary: Create a live stream, enable automated speech-recognition subtitles for it, then read it back to confirm the subtitle config.
-  - url: arazzo/mux-com-live-stream-lifecycle-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-live-stream-lifecycle-workflow.yml
     name: Mux Live Stream Lifecycle Control
-    summary: Create a live stream, disable it, re-enable it, and signal it complete to walk the operational lifecycle.
-  - url: arazzo/mux-com-live-stream-with-simulcast-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-live-stream-with-simulcast-workflow.yml
     name: Mux Live Stream With Simulcast Target
-    summary: Create a live stream, read it back, add an RTMP simulcast target, and confirm the target is registered.
-  - url: arazzo/mux-com-metric-breakdown-analysis-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-metric-breakdown-analysis-workflow.yml
     name: Mux Metric Breakdown Analysis
-    summary: Read a metric's overall value for a timeframe, then break it down by a dimension to see which segments drive it.
-  - url: arazzo/mux-com-metric-timeseries-trend-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-metric-timeseries-trend-workflow.yml
     name: Mux Metric Timeseries Trend
-    summary: Read a metric's overall value for a timeframe, then pull its timeseries to see how the metric trended over time.
-  - url: arazzo/mux-com-monitoring-breakdown-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-monitoring-breakdown-workflow.yml
     name: Mux Monitoring Metric Breakdown
-    summary: List the available monitoring dimensions, then break a chosen monitoring metric down by a dimension at a timestamp.
-  - url: arazzo/mux-com-playback-restriction-setup-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-playback-restriction-setup-workflow.yml
     name: Mux Configure Playback Restriction
-    summary: Create a playback restriction, tighten its referrer and user-agent rules, then read it back to confirm the policy.
-  - url: arazzo/mux-com-realtime-breakdown-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-realtime-breakdown-workflow.yml
     name: Mux Real-Time Metric Breakdown
-    summary: List the available real-time metrics and dimensions, then break a chosen real-time metric down by a dimension right now.
-  - url: arazzo/mux-com-reset-stream-key-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-reset-stream-key-workflow.yml
     name: Mux Rotate Live Stream Key
-    summary: Create a live stream, reset its stream key, and read it back to confirm the new key is in place.
-  - url: arazzo/mux-com-system-signing-key-rotation-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-system-signing-key-rotation-workflow.yml
     name: Mux Rotate System Signing Key
-    summary: Create a new system-level signing key for Mux Data SDK auth, read it back, list keys, then delete the previous key.
-  - url: arazzo/mux-com-url-signing-key-rotation-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-url-signing-key-rotation-workflow.yml
     name: Mux Rotate URL Signing Key
-    summary: Create a new URL signing key, read it back, list all keys, then delete the previous key to complete a rotation.
-  - url: arazzo/mux-com-video-view-drilldown-workflow.yml
+  - type: Arazzo
+    url: arazzo/mux-com-video-view-drilldown-workflow.yml
     name: Mux Video View Drilldown
-    summary: List recent video views in a timeframe, then fetch the full detail of the first matching view.
-- url: https://www.mux.com/
-  name: Mux
-  type: Website
-- url: https://www.mux.com/docs
-  name: Documentation
-  type: Documentation
-- url: https://www.mux.com/docs/api-reference
-  name: API Reference
-  type: APIReference
-- url: https://www.mux.com/docs/core/make-your-first-api-request
-  name: Getting Started
-  type: GettingStarted
-- url: https://www.mux.com/docs/guides/signing-jwts
-  name: Authentication
-  type: Authentication
-- url: https://dashboard.mux.com/
-  name: Dashboard
-  type: Console
-- url: https://dashboard.mux.com/signup
-  name: Sign Up
-  type: SignUp
-- url: https://www.mux.com/pricing/video
-  name: Pricing
-  type: Pricing
-- url: https://www.mux.com/docs/changelog
-  name: Changelog
-  type: ChangeLog
-- url: https://www.mux.com/blog
-  name: Blog
-  type: Blog
-- url: https://status.mux.com/
-  name: Status Page
-  type: StatusPage
-- url: https://www.mux.com/support
-  name: Support
-  type: Support
-- url: https://www.mux.com/terms
-  name: Terms of Service
-  type: TermsOfService
-- url: https://www.mux.com/privacy
-  name: Privacy Policy
-  type: PrivacyPolicy
-- url: https://www.mux.com/security
-  name: Security
-  type: Security
-- url: https://github.com/muxinc
-  name: GitHub Organization
-  type: GitHubOrganization
-- url: https://www.linkedin.com/company/mux/
-  name: LinkedIn
-  type: LinkedIn
-- url: https://x.com/MuxHQ
-  name: X
-  type: X-Twitter
-- url: https://www.youtube.com/@MuxHQ
-  name: YouTube
-  type: YouTube
-- url: https://github.com/muxinc/mux-node-sdk
-  name: Node SDK
-  type: SDK
-- url: https://github.com/muxinc/mux-python
-  name: Python SDK
-  type: SDK
-- url: https://github.com/muxinc/mux-ruby
-  name: Ruby SDK
-  type: SDK
-- url: https://github.com/muxinc/mux-php
-  name: PHP SDK
-  type: SDK
-- url: https://github.com/muxinc/mux-go
-  name: Go SDK
-  type: SDK
-- url: https://github.com/muxinc/mux-elixir
-  name: Elixir SDK
-  type: SDK
-- url: https://github.com/muxinc/cli
-  name: Mux CLI
-  type: CLI
-- url: https://github.com/muxinc/upchunk
-  name: UpChunk (Chunked Upload Library)
-  type: SDK
-- url: https://github.com/muxinc/elements
-  name: Mux Elements (Web Components)
-  type: SDK
-- url: https://github.com/muxinc/media-chrome
-  name: Media Chrome (Player Controls)
-  type: SDK
-- url: https://github.com/muxinc/next-video
-  name: next-video (Next.js Integration)
-  type: SDK
-- url: https://github.com/muxinc/mux-stats-sdk-avplayer
-  name: Mux Data SDK for AVPlayer (iOS)
-  type: SDK
-- url: https://github.com/muxinc/mux-stats-sdk-exoplayer
-  name: Mux Data SDK for ExoPlayer (Android)
-  type: SDK
-- url: https://github.com/muxinc/swift-upload-sdk
-  name: Swift Upload SDK
-  type: SDK
-- url: https://github.com/muxinc/mux-player-swift
-  name: Mux Player Swift
-  type: SDK
-- type: Features
-  data:
-  - name: Video Encoding
-    description: Adaptive bitrate encoding with smart per-title settings and average playback-ready times under 2 seconds.
-  - name: Direct Uploads
-    description: Resumable chunked PUT uploads via UpChunk that bypass the application server.
-  - name: Live Streaming
-    description: Managed RTMP and SRT (with HEVC) ingest with 4-second standard latency and reduced-latency mode.
-  - name: Simulcast Targets
-    description: Restream a single live broadcast to YouTube, Twitch, Facebook, and other RTMP destinations.
-  - name: Mux Player
-    description: Drop-in HTML5 player available as React component, web component, and iframe embed.
-  - name: Auto-Generated Captions
-    description: Real-time and on-demand caption generation across multiple languages with Transcription Vocabularies for domain terms.
-  - name: Mux Data Analytics
-    description: Quality-of-experience analytics covering views, rebuffering, startup time, exits before video starts, and player errors.
-  - name: Real-Time Metrics
-    description: Live concurrent viewer counts and stream health monitoring for live broadcasts.
-  - name: Mux Robots AI
-    description: Asynchronous AI jobs for summarization, chaptering, key-moment detection, captions translation, content moderation, and video Q&A.
-  - name: Signed Playback and DRM
-    description: JWT-signed playback URLs and Media-grade DRM (Widevine, FairPlay, PlayReady) at $100/month plus $0.003/play.
-  - name: Playback Restrictions
-    description: Domain, geo, and user-agent restriction policies enforced at the manifest layer.
-  - name: Thumbnails and Storyboards
-    description: On-the-fly JPG/PNG/WebP thumbnails, animated GIFs, and VTT storyboards via image.mux.com.
-  - name: Webhooks
-    description: HMAC-SHA256 signed webhook events covering asset, upload, live stream, and robots job lifecycle.
-  - name: Self-Serve Free Tier
-    description: 100K free monthly delivery minutes and up to 10 stored videos with no credit card required.
-  sources:
-  - https://www.mux.com/
-  - https://www.mux.com/pricing/video
-  updated: '2026-05-25'
-- type: UseCases
-  data:
-  - name: User-Generated Content Platforms
-    description: Power video upload, transcoding, and playback for social, community, and creator apps.
-  - name: AI Video Generation Platforms
-    description: Host and deliver outputs from generative video models with analytics on viewer behavior.
-  - name: Live Events and Broadcast
-    description: Ingest concerts, sports, gaming streams, and conferences via RTMP/SRT with simulcasting.
-  - name: E-Commerce Video
-    description: Embed product, demo, and shoppable video into storefronts with low-latency live shopping.
-  - name: Education and Training
-    description: Course platforms and LMS providers using on-demand and live with captions and chapters.
-  - name: Enterprise Communications
-    description: Internal town halls, webinars, and corporate communications with DRM and access controls.
-  - name: Media and Publishing
-    description: News organizations and publishers delivering editorial video with quality analytics.
-- type: Integrations
-  data:
-  - name: Next.js
-    description: First-party next-video package for adding video components to Next.js apps.
-  - name: React
-    description: Mux Player and Mux Elements React components for embedding playback.
-  - name: Astro
-    description: Astro framework integration documented in Mux guides.
-  - name: WordPress
-    description: WordPress plugin for embedding Mux video in posts and pages.
-  - name: Laravel
-    description: PHP SDK and Laravel guides for Mux Video integration.
-  - name: Flutter
-    description: Flutter integration for playing Mux video in mobile apps.
-  - name: Roku
-    description: roku-mux SDK for Mux Data analytics on the Roku platform.
-  - name: Chromecast
-    description: chromecast-mux SDK for measuring playback on Google Cast receivers.
-  - name: ExoPlayer
-    description: mux-stats-sdk-exoplayer for Mux Data analytics on Android.
-  - name: AVPlayer
-    description: mux-stats-sdk-avplayer for iOS, tvOS, and visionOS analytics.
-  - name: JWPlayer
-    description: Mux Data SDKs for JWPlayer on iOS and web.
-  - name: THEOplayer
-    description: Mux Data SDKs for THEOplayer on iOS and Android.
-  - name: Video.js
-    description: Mux Data analytics SDK for the Video.js HTML5 player.
-  - name: Cloudflare
-    description: Use Mux delivery behind Cloudflare for edge caching and access controls.
-  - name: Zapier
-    description: No-code workflow automation via Zapier connectors.
-- type: Solutions
-  data:
-  - name: Free Plan
-    description: 100K monthly delivery minutes, up to 10 stored videos, on-demand only, no credit card.
-  - name: Pay As You Go
-    description: Usage-based billing with $20 monthly credit, unlimited storage, on-demand and live, Robots access.
-  - name: Launch (Pre-pay)
-    description: $20/month for $100 in monthly credits.
-  - name: Scale (Pre-pay)
-    description: $500/month for $1,000 in monthly credits.
-  - name: Enterprise
-    description: Volume discounts above $3k/month, account security, SLAs, 24/7 support, custom pricing.
-- url: rules/mux-com-rules.yml
-  type: Rules
-- url: json-ld/mux-com-context.jsonld
-  type: JSONLD
-- url: vocabulary/mux-com-vocabulary.yml
-  type: Vocabulary
-- url: plans/mux-com-plans-pricing.yml
-  type: Plans
-- url: rate-limits/mux-com-rate-limits.yml
-  type: RateLimits
-- url: finops/mux-com-finops.yml
-  type: FinOps
-- type: LLMsTxt
-  url: https://www.mux.com/llms.txt
+  - url: https://www.mux.com/
+    name: Mux
+    type: Website
+  - url: https://www.mux.com/docs
+    name: Documentation
+    type: Documentation
+  - url: https://www.mux.com/docs/api-reference
+    name: API Reference
+    type: APIReference
+  - url: https://www.mux.com/docs/core/make-your-first-api-request
+    name: Getting Started
+    type: GettingStarted
+  - url: https://www.mux.com/docs/guides/signing-jwts
+    name: Authentication
+    type: Authentication
+  - url: https://dashboard.mux.com/
+    name: Dashboard
+    type: Console
+  - url: https://dashboard.mux.com/signup
+    name: Sign Up
+    type: Signup
+  - url: https://www.mux.com/pricing/video
+    name: Pricing
+    type: Pricing
+  - url: https://www.mux.com/docs/changelog
+    name: Changelog
+    type: ChangeLog
+  - url: https://www.mux.com/blog
+    name: Blog
+    type: Blog
+  - url: https://status.mux.com/
+    name: Status Page
+    type: StatusPage
+  - url: https://www.mux.com/support
+    name: Support
+    type: Support
+  - url: https://www.mux.com/terms
+    name: Terms of Service
+    type: TermsOfService
+  - url: https://www.mux.com/privacy
+    name: Privacy Policy
+    type: PrivacyPolicy
+  - url: https://www.mux.com/security
+    name: Security
+    type: Security
+  - url: https://github.com/muxinc
+    name: GitHub Organization
+    type: GitHubOrganization
+  - url: https://www.linkedin.com/company/mux/
+    name: LinkedIn
+    type: LinkedIn
+  - url: https://x.com/MuxHQ
+    name: X
+    type: X-Twitter
+  - url: https://www.youtube.com/@MuxHQ
+    name: YouTube
+    type: YouTube
+  - url: https://github.com/muxinc/mux-node-sdk
+    name: Node SDK
+    type: SDKs
+  - url: https://github.com/muxinc/mux-python
+    name: Python SDK
+    type: SDKs
+  - url: https://github.com/muxinc/mux-ruby
+    name: Ruby SDK
+    type: SDKs
+  - url: https://github.com/muxinc/mux-php
+    name: PHP SDK
+    type: SDKs
+  - url: https://github.com/muxinc/mux-go
+    name: Go SDK
+    type: SDKs
+  - url: https://github.com/muxinc/mux-elixir
+    name: Elixir SDK
+    type: SDKs
+  - url: https://github.com/muxinc/cli
+    name: Mux CLI
+    type: CLI
+  - url: https://github.com/muxinc/upchunk
+    name: UpChunk (Chunked Upload Library)
+    type: SDKs
+  - url: https://github.com/muxinc/elements
+    name: Mux Elements (Web Components)
+    type: SDKs
+  - url: https://github.com/muxinc/media-chrome
+    name: Media Chrome (Player Controls)
+    type: SDKs
+  - url: https://github.com/muxinc/next-video
+    name: next-video (Next.js Integration)
+    type: SDKs
+  - url: https://github.com/muxinc/mux-stats-sdk-avplayer
+    name: Mux Data SDK for AVPlayer (iOS)
+    type: SDKs
+  - url: https://github.com/muxinc/mux-stats-sdk-exoplayer
+    name: Mux Data SDK for ExoPlayer (Android)
+    type: SDKs
+  - url: https://github.com/muxinc/swift-upload-sdk
+    name: Swift Upload SDK
+    type: SDKs
+  - url: https://github.com/muxinc/mux-player-swift
+    name: Mux Player Swift
+    type: SDKs
+  - type: Features
+    data:
+    - name: Video Encoding
+      description: Adaptive bitrate encoding with smart per-title settings and average playback-ready times under 2 seconds.
+    - name: Direct Uploads
+      description: Resumable chunked PUT uploads via UpChunk that bypass the application server.
+    - name: Live Streaming
+      description: Managed RTMP and SRT (with HEVC) ingest with 4-second standard latency and reduced-latency mode.
+    - name: Simulcast Targets
+      description: Restream a single live broadcast to YouTube, Twitch, Facebook, and other RTMP destinations.
+    - name: Mux Player
+      description: Drop-in HTML5 player available as React component, web component, and iframe embed.
+    - name: Auto-Generated Captions
+      description: Real-time and on-demand caption generation across multiple languages with Transcription Vocabularies for domain terms.
+    - name: Mux Data Analytics
+      description: Quality-of-experience analytics covering views, rebuffering, startup time, exits before video starts, and player errors.
+    - name: Real-Time Metrics
+      description: Live concurrent viewer counts and stream health monitoring for live broadcasts.
+    - name: Mux Robots AI
+      description: Asynchronous AI jobs for summarization, chaptering, key-moment detection, captions translation, content moderation, and video Q&A.
+    - name: Signed Playback and DRM
+      description: JWT-signed playback URLs and Media-grade DRM (Widevine, FairPlay, PlayReady) at $100/month plus $0.003/play.
+    - name: Playback Restrictions
+      description: Domain, geo, and user-agent restriction policies enforced at the manifest layer.
+    - name: Thumbnails and Storyboards
+      description: On-the-fly JPG/PNG/WebP thumbnails, animated GIFs, and VTT storyboards via image.mux.com.
+    - name: Webhooks
+      description: HMAC-SHA256 signed webhook events covering asset, upload, live stream, and robots job lifecycle.
+    - name: Self-Serve Free Tier
+      description: 100K free monthly delivery minutes and up to 10 stored videos with no credit card required.
+    sources:
+    - https://www.mux.com/
+    - https://www.mux.com/pricing/video
+    updated: '2026-05-25'
+  - type: UseCases
+    data:
+    - name: User-Generated Content Platforms
+      description: Power video upload, transcoding, and playback for social, community, and creator apps.
+    - name: AI Video Generation Platforms
+      description: Host and deliver outputs from generative video models with analytics on viewer behavior.
+    - name: Live Events and Broadcast
+      description: Ingest concerts, sports, gaming streams, and conferences via RTMP/SRT with simulcasting.
+    - name: E-Commerce Video
+      description: Embed product, demo, and shoppable video into storefronts with low-latency live shopping.
+    - name: Education and Training
+      description: Course platforms and LMS providers using on-demand and live with captions and chapters.
+    - name: Enterprise Communications
+      description: Internal town halls, webinars, and corporate communications with DRM and access controls.
+    - name: Media and Publishing
+      description: News organizations and publishers delivering editorial video with quality analytics.
+  - type: Integrations
+    data:
+    - name: Next.js
+      description: First-party next-video package for adding video components to Next.js apps.
+    - name: React
+      description: Mux Player and Mux Elements React components for embedding playback.
+    - name: Astro
+      description: Astro framework integration documented in Mux guides.
+    - name: WordPress
+      description: WordPress plugin for embedding Mux video in posts and pages.
+    - name: Laravel
+      description: PHP SDK and Laravel guides for Mux Video integration.
+    - name: Flutter
+      description: Flutter integration for playing Mux video in mobile apps.
+    - name: Roku
+      description: roku-mux SDK for Mux Data analytics on the Roku platform.
+    - name: Chromecast
+      description: chromecast-mux SDK for measuring playback on Google Cast receivers.
+    - name: ExoPlayer
+      description: mux-stats-sdk-exoplayer for Mux Data analytics on Android.
+    - name: AVPlayer
+      description: mux-stats-sdk-avplayer for iOS, tvOS, and visionOS analytics.
+    - name: JWPlayer
+      description: Mux Data SDKs for JWPlayer on iOS and web.
+    - name: THEOplayer
+      description: Mux Data SDKs for THEOplayer on iOS and Android.
+    - name: Video.js
+      description: Mux Data analytics SDK for the Video.js HTML5 player.
+    - name: Cloudflare
+      description: Use Mux delivery behind Cloudflare for edge caching and access controls.
+    - name: Zapier
+      description: No-code workflow automation via Zapier connectors.
+  - type: Solutions
+    data:
+    - name: Free Plan
+      description: 100K monthly delivery minutes, up to 10 stored videos, on-demand only, no credit card.
+    - name: Pay As You Go
+      description: Usage-based billing with $20 monthly credit, unlimited storage, on-demand and live, Robots access.
+    - name: Launch (Pre-pay)
+      description: $20/month for $100 in monthly credits.
+    - name: Scale (Pre-pay)
+      description: $500/month for $1,000 in monthly credits.
+    - name: Enterprise
+      description: Volume discounts above $3k/month, account security, SLAs, 24/7 support, custom pricing.
+  - url: rules/mux-com-rules.yml
+    type: Rules
+  - url: json-ld/mux-com-context.jsonld
+    type: JSONLD
+  - url: vocabulary/mux-com-vocabulary.yml
+    type: Vocabulary
+  - url: plans/mux-com-plans-pricing.yml
+    type: Plans
+  - url: rate-limits/mux-com-rate-limits.yml
+    type: RateLimits
+  - url: finops/mux-com-finops.yml
+    type: FinOps
+  - type: LlmsText
+    url: https://www.mux.com/llms.txt
 created: '2026-05-25'
 modified: '2026-05-25'
 position: Consuming

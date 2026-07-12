@@ -196,6 +196,14 @@ apis:
     robots.job.completed, and many more). Each delivery carries a Mux-Signature header (HMAC-SHA256
     over the raw body and a per-endpoint secret) and includes attempt history visible in the dashboard.
 common:
+  - type: TrustCenter
+    url: security/mux-com-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/mux-com-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/mux-com-domain-security.yml
+  - type: Authentication
+    url: authentication/mux-com-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/mux/overview
   - type: Arazzo

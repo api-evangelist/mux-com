@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/mux-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: accessToken
+  type: http
+  scheme: basic
+  description: |-
+    The Mux Video API uses an Access Token and Secret Key for authentication. If you haven't already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+    Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional bas
+  sources:
+  - openapi/mux-openapi.yml
+- name: authorizationToken
+  type: http
+  scheme: bearer
+  description: OAuth authorization token, used as a Bearer Auth header
+  sources:
+  - openapi/mux-openapi.yml

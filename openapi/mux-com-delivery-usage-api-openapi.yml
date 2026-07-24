@@ -1,0 +1,306 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Delivery Usage API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Delivery Usage
+  description: 'The Delivery Usage API allows you to get delivery/streaming usage details for each asset and across all assets. Delivery usage details are aggregated every hour at the top of the hour and can be requested for a specified time window within the last 90 days starting at 12 hours prior to when the request is made.
+
+
+    Assets are ordered by delivery usage starting with the one with the highest usage. Only assets with delivery usage greater than 0 seconds are returned in the response.'
+  x-displayName: Delivery Usage
+paths:
+  /video/v1/delivery-usage:
+    get:
+      tags:
+      - Delivery Usage
+      summary: List Usage
+      description: Returns a list of delivery usage records and their associated Asset IDs or Live Stream IDs.
+      operationId: list-delivery-usage
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/delivery_usage_limit'
+      - $ref: '#/components/parameters/delivery_usage_asset_id'
+      - $ref: '#/components/parameters/delivery_usage_live_stream_id'
+      - $ref: '#/components/parameters/delivery_usage_timeframe'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDeliveryUsageResponse'
+              example:
+                total_row_count: 2
+                timeframe:
+                - 1607817600
+                - 1607990400
+                page: 1
+                limit: 100
+                data:
+                - live_stream_id: B65hEUWW01ErVKDDGImKcBquYhwEAkjW6Ic3lPY0299Cc
+                  delivered_seconds: 206.366667
+                  delivered_seconds_by_resolution:
+                    tier_1080p: 100
+                    tier_720p: 100
+                    tier_audio_only: 6.366667
+                  deleted_at: '1607945257'
+                  created_at: '1607939184'
+                  asset_state: deleted
+                  asset_id: Ww4v2q2H4MNbHIAM2wApKb3cmrh7eHjGLUjdKohR5wM
+                  asset_duration: 154.366667
+                  asset_resolution_tier: 1080p
+                  asset_encoding_tier: baseline
+                  asset_video_quality: basic
+                - delivered_seconds: 30
+                  delivered_seconds_by_resolution:
+                    tier_1080p: 10
+                    tier_720p: 10
+                    tier_audio_only: 10
+                  deleted_at: '1607935288'
+                  created_at: '1607617107'
+                  asset_state: deleted
+                  asset_id: Qlb007on1TwN43XLIG027QJlUxm3jd01v5PRi1aXhnyFZY
+                  asset_duration: 98.773667
+                  asset_resolution_tier: 1080p
+                  asset_encoding_tier: smart
+                  asset_video_quality: plus
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  parameters:
+    delivery_usage_timeframe:
+      name: timeframe[]
+      in: query
+      description: Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    delivery_usage_live_stream_id:
+      name: live_stream_id
+      in: query
+      description: Filter response to return delivery usage for assets for this live stream. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
+      required: false
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    delivery_usage_asset_id:
+      name: asset_id
+      in: query
+      description: Filter response to return delivery usage for this asset only. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
+      required: false
+      schema:
+        type: string
+    delivery_usage_limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 100
+  schemas:
+    ListDeliveryUsageResponse:
+      type: object
+      required:
+      - data
+      - timeframe
+      - page
+      - limit
+      - total_row_count
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryReport'
+        total_row_count:
+          type: integer
+          format: int64
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        limit:
+          type: integer
+          format: int64
+          description: Number of assets returned in this response. Default value is 100.
+    DeliveryReport:
+      type: object
+      required:
+      - asset_id
+      - asset_state
+      - asset_resolution_tier
+      - asset_encoding_tier
+      - asset_duration
+      - created_at
+      - delivered_seconds
+      - delivered_seconds_by_resolution
+      properties:
+        live_stream_id:
+          type: string
+          description: Unique identifier for the live stream that created the asset.
+        asset_id:
+          type: string
+          description: Unique identifier for the asset.
+        passthrough:
+          type: string
+          description: The `passthrough` value for the asset.
+        created_at:
+          type: string
+          description: Time at which the asset was created. Measured in seconds since the Unix epoch.
+        deleted_at:
+          type: string
+          description: If exists, time at which the asset was deleted. Measured in seconds since the Unix epoch.
+        asset_state:
+          type: string
+          enum:
+          - ready
+          - errored
+          - deleted
+          description: The state of the asset.
+        asset_duration:
+          type: number
+          format: double
+          description: The duration of the asset in seconds.
+        asset_resolution_tier:
+          type: string
+          enum:
+          - audio-only
+          - 720p
+          - 1080p
+          - 1440p
+          - 2160p
+          description: The resolution tier that the asset was ingested at, affecting billing for ingest & storage
+        asset_encoding_tier:
+          type: string
+          deprecated: true
+          enum:
+          - smart
+          - baseline
+          - premium
+          description: This field is deprecated. Please use `asset_video_quality` instead. The encoding tier that the asset was ingested at. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
+        asset_video_quality:
+          type: string
+          enum:
+          - basic
+          - plus
+          - premium
+          description: The video quality that the asset was ingested at. This field replaces `asset_encoding_tier`. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
+        delivered_seconds:
+          type: number
+          format: double
+          description: Total number of delivered seconds during this time window.
+        delivered_seconds_by_resolution:
+          type: object
+          description: Seconds delivered broken into resolution tiers. Each tier will only be displayed if there was content delivered in the tier.
+          properties:
+            tier_2160p:
+              type: number
+              format: double
+              description: Total number of delivered seconds during this time window that had a resolution larger than the 1440p tier (over 4,194,304 pixels total).
+            tier_1440p:
+              type: number
+              format: double
+              description: Total number of delivered seconds during this time window that had a resolution larger than the 1080p tier but less than or equal to the 2160p tier (over 2,073,600 and <= 4,194,304 pixels total).
+            tier_1080p:
+              type: number
+              format: double
+              description: Total number of delivered seconds during this time window that had a resolution larger than the 720p tier but less than or equal to the 1440p tier (over 921,600 and <= 2,073,600 pixels total).
+            tier_720p:
+              type: number
+              format: double
+              description: Total number of delivered seconds during this time window that had a resolution within the 720p tier (up to 921,600 pixels total, based on typical 1280x720).
+            tier_audio_only:
+              type: number
+              format: double
+              description: Total number of delivered seconds during this time window that had a resolution of audio only.
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

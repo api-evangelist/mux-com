@@ -1,0 +1,285 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images URL Signing Keys API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: URL Signing Keys
+  description: A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON Web Token](https://jwt.io/) as the value of the token query parameter. The token query parameter must be set for URLs that reference a playback ID with a signed playback policy.
+  x-displayName: URL Signing Keys
+paths:
+  /video/v1/signing-keys:
+    post:
+      deprecated: true
+      tags:
+      - URL Signing Keys
+      summary: Create a URL Signing Key
+      description: 'This route is now deprecated, please use the `Signing Keys` API. Creates a new signing key pair. When creating a new signing key,
+
+        the API will generate a 2048-bit RSA key-pair and return the private key and
+
+        a generated key-id; the public key will be stored at Mux to validate signed
+
+        tokens.
+
+
+        Note: Any new access tokens authenticating this route will be required to have `System` level permissions.
+
+        '
+      operationId: create-url-signing-key
+      servers:
+      - url: https://api.mux.com
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningKeyCreateResponse'
+              example:
+                data:
+                  private_key: abcd123=
+                  id: vI5KTQ78ohYriuvWKHY6COtZWXexHGLllxksOdZuya8
+                  created_at: '1610108345'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    get:
+      deprecated: true
+      tags:
+      - URL Signing Keys
+      summary: List URL Signing Keys
+      description: 'This route is now deprecated, please use the `Signing Keys` API. Returns a list of URL signing keys.
+
+
+        Note: Any new access tokens authenticating this route will be required to have `System` level permissions.
+
+        '
+      operationId: list-url-signing-keys
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSigningKeysResponse'
+              example:
+                data:
+                - id: vI5KTQ78ohYriuvWKHY6COtZWXexHGLllxksOdZuya8
+                  created_at: '1610108345'
+                - id: jc6lJiCLMjyC202EXtRQ644sShzDv6x5tWJrbvUFpvmo
+                  created_at: '1608632647'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /video/v1/signing-keys/{SIGNING_KEY_ID}:
+    get:
+      deprecated: true
+      tags:
+      - URL Signing Keys
+      summary: Retrieve a URL Signing Key
+      description: 'This route is now deprecated, please use the `Signing Keys` API. Retrieves the details of a URL signing key that has previously
+
+        been created. Supply the unique signing key ID that was returned from your
+
+        previous request, and Mux will return the corresponding signing key information.
+
+        **The private key is not returned in this response.**
+
+
+        Note: Any new access tokens authenticating this route will be required to have `System` level permissions.
+
+        '
+      operationId: get-url-signing-key
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/signing_key_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningKeyResponse'
+              example:
+                data:
+                  id: jc6lJiCLMjyC202EXtRQ644sShzDv6x5tWJrbvUFpvmo
+                  created_at: '1608632647'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    delete:
+      deprecated: true
+      tags:
+      - URL Signing Keys
+      summary: Delete a URL Signing Key
+      description: 'This route is now deprecated, please use the `Signing Keys` API. Deletes an existing signing key. Use with caution, as this will
+
+        invalidate any existing signatures and no URLs can be signed using the key
+
+        again.
+
+
+        Note: Any new access tokens authenticating this route will be required to have `System` level permissions.
+
+        '
+      operationId: delete-url-signing-key
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/signing_key_id'
+      responses:
+        '204':
+          description: No Content
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    SigningKeyResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/SigningKey'
+    SigningKey:
+      type: object
+      required:
+      - id
+      - created_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Signing Key.
+        created_at:
+          type: string
+          format: int64
+          description: Time at which the object was created. Measured in seconds since the Unix epoch.
+        private_key:
+          type: string
+          format: byte
+          description: A Base64 encoded private key that can be used with the RS256 algorithm when creating a [JWT](https://jwt.io/). **Note that this value is only returned once when creating a URL signing key.**
+    SigningKeyCreateResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/SigningKey'
+          - required:
+            - private_key
+    ListSigningKeysResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SigningKey'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    signing_key_id:
+      name: SIGNING_KEY_ID
+      in: path
+      description: The ID of the signing key.
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

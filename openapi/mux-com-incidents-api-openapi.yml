@@ -1,0 +1,605 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Incidents API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Incidents
+  description: Incidents occur when an anomaly alert is triggered in Mux Data. The Incidents API provides operations related to the raising and managing of alerting incidents.
+  x-displayName: Incidents
+paths:
+  /data/v1/incidents:
+    get:
+      tags:
+      - Incidents
+      summary: List Incidents
+      description: Returns a list of incidents.
+      operationId: list-incidents
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order_direction'
+      - $ref: '#/components/parameters/incident_status'
+      - $ref: '#/components/parameters/severity'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListIncidentsResponse'
+              example:
+                data:
+                - affected_views: 71
+                  affected_views_per_hour: 29
+                  affected_views_per_hour_on_open: 75
+                  breakdowns:
+                  - id: abcdef
+                    name: error_type_id
+                    value: '697070'
+                  description: Something is broken
+                  error_description: No seriously, something is really really broken :(
+                  id: 4u13td
+                  impact: '*71 views* were affected at a rate of *29 per hour*'
+                  incident_key: 5312a7c0bbb5d8353bd88602f01fe58eb15e9febac8fd2f0d8ce8f1cb138145c
+                  measured_value: 5.9
+                  measured_value_on_close: 0.1
+                  measurement: error_rate
+                  notification_rules: []
+                  notifications:
+                  - attempted_at: '2021-01-05T09:52:15.119040Z'
+                    id: 103014
+                    queued_at: '2021-01-05T09:52:14.945157Z'
+                  - attempted_at: '2021-01-05T11:31:08.244462Z'
+                    id: 102025
+                    queued_at: '2021-01-05T11:31:08.061924Z'
+                  resolved_at: '2021-01-05T11:31:04.000000Z'
+                  sample_size: 1000
+                  sample_size_unit: views
+                  severity: alert
+                  started_at: '2021-01-05T09:04:46.000000Z'
+                  status: closed
+                  threshold: 5
+                - affected_views: 132
+                  affected_views_per_hour: 11
+                  affected_views_per_hour_on_open: 65
+                  breakdowns:
+                  - id: abcdef
+                    name: video_title
+                    value: Layla the dog video 1337
+                  - id: abcdef
+                    name: error_type_id
+                    value: '697065'
+                  description: Something else is broken
+                  error_description: 'Detailed error: On no!'
+                  id: rd9579
+                  impact: '*132 views* were affected at a rate of *11 per hour*'
+                  incident_key: fd9add7a85a013d768f4039f9e726133eddb476c2f16b22ebfe56f18f7c03b27
+                  measured_value: 97
+                  measured_value_on_close: 1
+                  measurement: error_rate
+                  notification_rules: []
+                  notifications:
+                  - attempted_at: '2020-12-31T09:26:19.416919Z'
+                    id: 102198
+                    queued_at: '2020-12-31T09:26:18.987717Z'
+                  - attempted_at: '2020-12-31T20:23:57.279325Z'
+                    id: 101269
+                    queued_at: '2020-12-31T20:23:56.997068Z'
+                  resolved_at: '2020-12-31T20:22:54.000000Z'
+                  sample_size: 100
+                  sample_size_unit: views
+                  severity: alert
+                  started_at: '2020-12-31T07:56:22.000000Z'
+                  status: closed
+                  threshold: 96
+                timeframe:
+                - 1610035979
+                - 1610122379
+                total_row_count: 2
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/incidents/{INCIDENT_ID}:
+    get:
+      tags:
+      - Incidents
+      summary: Get an Incident
+      description: Returns the details of an incident.
+      operationId: get-incident
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/incident_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentResponse'
+              example:
+                data:
+                  affected_views: 2026
+                  affected_views_per_hour: 84
+                  affected_views_per_hour_on_open: 12857
+                  breakdowns:
+                  - id: abcdef
+                    name: error_type_id
+                    value: '499680'
+                  - id: abcdef
+                    name: video_title
+                    value: Cute dogs
+                  description: This video is erroring a lot
+                  error_description: Error Type ID 499680
+                  id: g7q2df
+                  impact: '*2026 views* were affected at a rate of *84 per hour*'
+                  incident_key: 045dfcbefdb68c6003aaf3bf5ed217493772519f28f14d129f95eaff159ea6d6b
+                  measured_value: 100
+                  measured_value_on_close: 8
+                  measurement: error_rate
+                  notification_rules: []
+                  notifications:
+                  - attempted_at: '2020-05-14T17:23:08.034662Z'
+                    id: 63293
+                    queued_at: '2020-05-14T17:23:07.944457Z'
+                  - attempted_at: '2020-05-13T17:22:30.444389Z'
+                    id: 62212
+                    queued_at: '2020-05-13T17:22:30.354828Z'
+                  resolved_at: '2020-05-14T17:22:30.000000Z'
+                  sample_size: 100
+                  sample_size_unit: views
+                  severity: alert
+                  started_at: '2020-05-13T17:21:54.000000Z'
+                  status: closed
+                  threshold: 100
+                timeframe:
+                - 1610036456
+                - 1610122856
+                total_row_count: 1
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/incidents/{INCIDENT_ID}/related:
+    get:
+      tags:
+      - Incidents
+      summary: List Related Incidents
+      description: Returns all the incidents that seem related to a specific incident.
+      operationId: list-related-incidents
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/incident_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order_direction'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRelatedIncidentsResponse'
+              example:
+                data:
+                - affected_views: 71
+                  affected_views_per_hour: 29
+                  affected_views_per_hour_on_open: 75
+                  breakdowns:
+                  - id: abcdef
+                    name: error_type_id
+                    value: '697070'
+                  description: Something is broken
+                  error_description: No seriously, something is really really broken :(
+                  id: 4u13td
+                  impact: '*71 views* were affected at a rate of *29 per hour*'
+                  incident_key: 5312a7c0bbb5d8353bd88602f01fe58eb15e9febac8fd2f0d8ce8f1cb138145c
+                  measured_value: 5.9
+                  measured_value_on_close: 0.1
+                  measurement: error_rate
+                  notification_rules: []
+                  notifications:
+                  - attempted_at: '2021-01-05T09:52:15.119040Z'
+                    id: 103014
+                    queued_at: '2021-01-05T09:52:14.945157Z'
+                  - attempted_at: '2021-01-05T11:31:08.244462Z'
+                    id: 102025
+                    queued_at: '2021-01-05T11:31:08.061924Z'
+                  resolved_at: '2021-01-05T11:31:04.000000Z'
+                  sample_size: 1000
+                  sample_size_unit: views
+                  severity: alert
+                  started_at: '2021-01-05T09:04:46.000000Z'
+                  status: closed
+                  threshold: 5
+                - affected_views: 132
+                  affected_views_per_hour: 11
+                  affected_views_per_hour_on_open: 65
+                  breakdowns:
+                  - id: abcdef
+                    name: video_title
+                    value: Layla the dog video 1337
+                  - id: abcdef
+                    name: error_type_id
+                    value: '697065'
+                  description: Something else is broken
+                  error_description: 'Detailed error: On no!'
+                  id: rd9579
+                  impact: '*132 views* were affected at a rate of *11 per hour*'
+                  incident_key: fd9add7a85a013d768f4039f9e726133eddb476c2f16b22ebfe56f18f7c03b27
+                  measured_value: 97
+                  measured_value_on_close: 1
+                  measurement: error_rate
+                  notification_rules: []
+                  notifications:
+                  - attempted_at: '2020-12-31T09:26:19.416919Z'
+                    id: 102198
+                    queued_at: '2020-12-31T09:26:18.987717Z'
+                  - attempted_at: '2020-12-31T20:23:57.279325Z'
+                    id: 101269
+                    queued_at: '2020-12-31T20:23:56.997068Z'
+                  resolved_at: '2020-12-31T20:22:54.000000Z'
+                  sample_size: 100
+                  sample_size_unit: views
+                  severity: alert
+                  started_at: '2020-12-31T07:56:22.000000Z'
+                  status: closed
+                  threshold: 96
+                timeframe:
+                - 1610035979
+                - 1610122379
+                total_row_count: 2
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  parameters:
+    incident_status:
+      name: status
+      in: query
+      description: Status to filter incidents by
+      required: false
+      schema:
+        type: string
+        enum:
+        - open
+        - closed
+        - expired
+    severity:
+      name: severity
+      in: query
+      description: Severity to filter incidents by
+      required: false
+      schema:
+        type: string
+        enum:
+        - warning
+        - alert
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    order_by:
+      name: order_by
+      in: query
+      description: Value to order the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    incident_id:
+      name: INCIDENT_ID
+      in: path
+      description: ID of the Incident
+      required: true
+      example: abcd1234
+      schema:
+        type: string
+  schemas:
+    IncidentNotificationRule:
+      type: object
+      properties:
+        status:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationRule'
+        property_id:
+          type: string
+        id:
+          type: string
+        action:
+          type: string
+      required:
+      - status
+      - rules
+      - property_id
+      - id
+      - action
+    IncidentResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Incident'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    NotificationRule:
+      type: object
+      properties:
+        value:
+          type: string
+        name:
+          type: string
+        id:
+          type: string
+      required:
+      - value
+      - name
+      - id
+    Incident:
+      type: object
+      properties:
+        threshold:
+          type: number
+          format: double
+        status:
+          type: string
+        started_at:
+          type: string
+        severity:
+          type: string
+        sample_size_unit:
+          type: string
+        sample_size:
+          type: integer
+          format: int64
+        resolved_at:
+          type: string
+          nullable: true
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentNotification'
+        notification_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentNotificationRule'
+        measurement:
+          type: string
+        measured_value_on_close:
+          type: number
+          format: double
+          nullable: true
+        measured_value:
+          type: number
+          format: double
+          nullable: true
+        incident_key:
+          type: string
+        impact:
+          type: string
+        id:
+          type: string
+        error_description:
+          type: string
+        description:
+          type: string
+        breakdowns:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentBreakdown'
+        affected_views_per_hour_on_open:
+          type: integer
+          format: int64
+        affected_views_per_hour:
+          type: integer
+          format: int64
+        affected_views:
+          type: integer
+          format: int64
+      required:
+      - id
+      - started_at
+      - resolved_at
+      - incident_key
+      - measurement
+      - measured_value
+      - measured_value_on_close
+      - sample_size
+      - sample_size_unit
+      - breakdowns
+      - severity
+      - description
+      - impact
+      - affected_views
+      - affected_views_per_hour
+      - affected_views_per_hour_on_open
+      - threshold
+      - notifications
+      - notification_rules
+      - error_description
+      - status
+    IncidentBreakdown:
+      type: object
+      properties:
+        value:
+          type: string
+        name:
+          type: string
+        id:
+          type: string
+      required:
+      - id
+      - name
+      - value
+    IncidentNotification:
+      type: object
+      properties:
+        queued_at:
+          type: string
+        id:
+          type: integer
+          format: int64
+        attempted_at:
+          type: string
+      required:
+      - queued_at
+      - id
+      - attempted_at
+    ListIncidentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Incident'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    ListRelatedIncidentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Incident'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

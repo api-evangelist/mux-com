@@ -1,0 +1,528 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Ask Questions API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Ask Questions
+  description: Ask questions about a video and get structured answers.
+  x-displayName: Ask Questions
+paths:
+  /robots/v0/jobs/ask-questions:
+    post:
+      operationId: create-ask-questions-job
+      summary: Create an 'ask-Questions' Job
+      description: Creates a new job that uses AI to answer questions about a Mux Video asset.
+      tags:
+      - Ask Questions
+      requestBody:
+        description: Ask questions parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAskQuestionsJobRequest'
+            example:
+              parameters:
+                asset_id: mux_asset_123abc
+                questions:
+                - question: Is this video about glasses?
+                - question: What is the primary subject?
+                  answer_options:
+                  - glasses
+                  - watches
+                  - shoes
+                  - hats
+                - question: Describe the primary subject in one sentence.
+                  free_form_reply: true
+                max_free_form_answer_length: 300
+      responses:
+        '202':
+          description: Ask questions job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AskQuestionsJobResponse'
+              example:
+                data:
+                  id: rjob_example123
+                  workflow: ask-questions
+                  status: pending
+                  units_consumed: 0
+                  created_at: 1700000000
+                  updated_at: 1700000060
+                  parameters:
+                    asset_id: mux_asset_123abc
+                    questions:
+                    - question: Is this video about glasses?
+                    - question: What is the primary subject?
+                      answer_options:
+                      - glasses
+                      - watches
+                      - shoes
+                      - hats
+                    - question: Describe the primary subject in one sentence.
+                      free_form_reply: true
+                    max_free_form_answer_length: 300
+        '401':
+          description: Missing Mux credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Asset not found or missing playback ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /robots/v0/jobs/ask-questions/{JOB_ID}:
+    get:
+      operationId: get-ask-questions-job
+      summary: Get an 'ask-Questions' Job
+      description: Retrieves the current status and results of an 'ask-questions' job. Jobs are automatically deleted after 30 days.
+      tags:
+      - Ask Questions
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 255
+        required: true
+        name: JOB_ID
+        in: path
+      responses:
+        '200':
+          description: Current status for the requested job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AskQuestionsJobResponse'
+              example:
+                data:
+                  id: rjob_example123
+                  workflow: ask-questions
+                  status: completed
+                  units_consumed: 1
+                  created_at: 1700000000
+                  updated_at: 1700000060
+                  parameters:
+                    asset_id: mux_asset_123abc
+                    questions:
+                    - question: Is this video about glasses?
+                    - question: What is the primary subject?
+                      answer_options:
+                      - glasses
+                      - watches
+                      - shoes
+                      - hats
+                    - question: Describe the primary subject in one sentence.
+                      free_form_reply: true
+                    max_free_form_answer_length: 300
+                  outputs:
+                    answers:
+                    - question: Is this video about glasses?
+                      answer: 'no'
+                      confidence: 0.92
+                      reasoning: No glasses appear on screen and the narration does not mention eyewear.
+                      skipped: false
+                    - question: What is the primary subject?
+                      answer: watches
+                      confidence: 0.88
+                      reasoning: Multiple wristwatches are featured prominently throughout the video.
+                      skipped: false
+                    - question: Describe the primary subject in one sentence.
+                      answer: A close-up showcase of luxury wristwatches arranged on a wooden display.
+                      confidence: 0.86
+                      reasoning: Visual evidence shows several wristwatches displayed against a wooden backdrop with no other competing subjects.
+                      skipped: false
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No job exists for the supplied id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    CreateAskQuestionsJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/AskQuestionsJobParameters'
+      required:
+      - parameters
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    AskQuestionsJobOutputs:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              question:
+                type: string
+                minLength: 1
+                description: The original question that was asked.
+              answer:
+                type:
+                - string
+                - 'null'
+                minLength: 1
+                description: For enum questions, constrained to one of the provided answer_options. For free-form questions, responds with prose up to max_free_form_answer_length characters - treat as untrusted model output. Null when the question was skipped.
+              confidence:
+                type: number
+                minimum: 0
+                maximum: 1
+                description: Confidence score from 0.0 to 1.0. Values above 0.9 indicate clear, unambiguous evidence; 0.7-0.9 strong evidence with minor ambiguity; 0.5-0.7 moderate evidence; below 0.5 weak or uncertain evidence. Always 0 when skipped.
+              reasoning:
+                type: string
+                minLength: 1
+                description: Explanation citing specific visual or audio evidence from the video, or why the question was skipped.
+              skipped:
+                type: boolean
+                description: Whether the question was skipped due to irrelevance to the video content.
+            required:
+            - question
+            - answer
+            - confidence
+            - reasoning
+            - skipped
+          minItems: 1
+          description: One answer per question, in the same order as the input questions.
+      required:
+      - answers
+      example:
+        answers:
+        - question: Is this video about glasses?
+          answer: 'no'
+          confidence: 0.92
+          reasoning: No glasses appear on screen and the narration does not mention eyewear.
+          skipped: false
+        - question: What is the primary subject?
+          answer: watches
+          confidence: 0.88
+          reasoning: Multiple wristwatches are featured prominently throughout the video.
+          skipped: false
+        - question: Describe the primary subject in one sentence.
+          answer: A close-up showcase of luxury wristwatches arranged on a wooden display.
+          confidence: 0.86
+          reasoning: Visual evidence shows several wristwatches displayed against a wooden backdrop with no other competing subjects.
+          skipped: false
+      description: Workflow results. Present when status is 'completed'.
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
+    SlimlineAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Mux asset ID.
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Asset title from Mux metadata.
+            creator_id:
+              type: string
+              description: Creator identifier from Mux metadata.
+            external_id:
+              type: string
+              description: External identifier from Mux metadata.
+          description: Mux asset metadata, if available.
+        passthrough:
+          type: string
+          description: Passthrough string from the Mux asset.
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to the Mux asset resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for the asset.
+      required:
+      - id
+      - _links
+    AskQuestionsJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AskQuestionsJob'
+      required:
+      - data
+    AskQuestionsJobParameters:
+      type: object
+      properties:
+        asset_id:
+          type: string
+          minLength: 1
+          description: The Mux asset ID of the video to analyze.
+        questions:
+          type: array
+          items:
+            type: object
+            properties:
+              question:
+                type: string
+                minLength: 1
+                description: The question to ask about the video content.
+              answer_options:
+                type: array
+                items:
+                  type: string
+                  minLength: 1
+                minItems: 1
+                description: Allowed answer values for this question. Defaults to ["yes", "no"] when omitted and free_form_reply is not true. Mutually exclusive with free_form_reply.
+              free_form_reply:
+                type: boolean
+                description: Experimental. When true, the model replies with free-form prose instead of selecting from answer_options. Mutually exclusive with answer_options. Treat the answer as untrusted model output.
+            required:
+            - question
+          minItems: 1
+          description: 'One or more questions to ask about the video. Each question can either select from answer_options (defaults to yes/no) or, by setting free_form_reply: true, receive a free-form prose answer.'
+        language_code:
+          type: string
+          minLength: 1
+          description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK uses the default track.
+        max_free_form_answer_length:
+          type: integer
+          minimum: 1
+          default: 500
+          description: 'Experimental. Max character length for free-form answers. Ignored unless at least one question sets free_form_reply: true.'
+      required:
+      - asset_id
+      - questions
+      example:
+        asset_id: mux_asset_123abc
+        questions:
+        - question: Is this video about glasses?
+        - question: What is the primary subject?
+          answer_options:
+          - glasses
+          - watches
+          - shoes
+          - hats
+        - question: Describe the primary subject in one sentence.
+          free_form_reply: true
+        max_free_form_answer_length: 300
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+    AskQuestionsJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - ask-questions
+        parameters:
+          $ref: '#/components/schemas/AskQuestionsJobParameters'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        outputs:
+          $ref: '#/components/schemas/AskQuestionsJobOutputs'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobError'
+          description: Error details. Present when status is 'errored'.
+        resources:
+          $ref: '#/components/schemas/Resources'
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

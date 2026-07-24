@@ -1,0 +1,360 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Annotations API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Annotations
+  description: Annotations allow you to add notes at a specific datetime to view in the Mux Data dashboard.
+  x-displayName: Annotations
+paths:
+  /data/v1/annotations:
+    get:
+      tags:
+      - Annotations
+      summary: List Annotations
+      description: Returns a list of annotations.
+      operationId: list-annotations
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_direction'
+      - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAnnotationsResponse'
+              example:
+                data:
+                - id: 123e4567-e89b-12d3-a456-426614174000
+                  note: This is one note
+                  date: '2025-04-23T19:10:00Z'
+                  sub_property_id: '123456'
+                - id: 234e4567-e89b-12d3-a456-426614174000
+                  note: This is another note
+                  date: '2025-04-23T19:20:00Z'
+                  sub_property_id: null
+                total_row_count: 2
+                timeframe:
+                - 1745434800
+                - 1745438400
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    post:
+      tags:
+      - Annotations
+      summary: Create Annotation
+      description: Creates a new annotation.
+      operationId: create-annotation
+      servers:
+      - url: https://api.mux.com
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationInput'
+            example:
+              note: This is a note
+              date: 1745438400
+              sub_property_id: '123456'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnotationResponse'
+              example:
+                data:
+                  id: 123e4567-e89b-12d3-a456-426614174000
+                  note: This is a note
+                  date: '2025-04-23T20:00:00Z'
+                  sub_property_id: '123456'
+                total_row_count: 1
+                timeframe:
+                - 1745434800
+                - 1745438400
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/annotations/{ANNOTATION_ID}:
+    get:
+      tags:
+      - Annotations
+      summary: Get Annotation
+      description: Returns the details of a specific annotation.
+      operationId: get-annotation
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/annotation_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnotationResponse'
+              example:
+                data:
+                  id: 123e4567-e89b-12d3-a456-426614174000
+                  note: This is a note
+                  date: '2025-04-23T19:10:00Z'
+                  sub_property_id: '123456'
+                total_row_count: 1
+                timeframe:
+                - 1745434800
+                - 1745438400
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    patch:
+      tags:
+      - Annotations
+      summary: Update Annotation
+      description: Updates an existing annotation.
+      operationId: update-annotation
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/annotation_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnnotationInput'
+            example:
+              note: This is a note
+              date: 1745438400
+              sub_property_id: '123456'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnnotationResponse'
+              example:
+                data:
+                  id: 123e4567-e89b-12d3-a456-426614174000
+                  note: This is a note
+                  date: '2025-04-23T20:00:00Z'
+                  sub_property_id: '123456'
+                total_row_count: 1
+                timeframe:
+                - 1745434800
+                - 1745438400
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    delete:
+      tags:
+      - Annotations
+      summary: Delete Annotation
+      description: Deletes an annotation.
+      operationId: delete-annotation
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/annotation_id'
+      responses:
+        '204':
+          description: No Content
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    ListAnnotationsResponse:
+      type: object
+      required:
+      - data
+      - total_row_count
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+        total_row_count:
+          type: integer
+          description: Total number of annotations available
+        timeframe:
+          type: array
+          items:
+            type: integer
+          minItems: 2
+          maxItems: 2
+          description: Start and end unix timestamps for the data range
+    AnnotationResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Annotation'
+    AnnotationInput:
+      type: object
+      required:
+      - note
+      - date
+      properties:
+        note:
+          type: string
+          description: The annotation note content
+        date:
+          type: integer
+          format: int64
+          description: Datetime when the annotation applies (Unix timestamp)
+        sub_property_id:
+          type: string
+          description: Customer-defined sub-property identifier
+    Annotation:
+      type: object
+      required:
+      - id
+      - note
+      - date
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the annotation
+        note:
+          type: string
+          description: The annotation note content
+        date:
+          type: string
+          format: date-time
+          description: Datetime when the annotation applies
+        sub_property_id:
+          type: string
+          nullable: true
+          description: Customer-defined sub-property identifier
+  parameters:
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    annotation_id:
+      name: ANNOTATION_ID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The annotation ID
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    timeframe:
+      name: timeframe[]
+      in: query
+      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

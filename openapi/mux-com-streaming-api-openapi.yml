@@ -1,0 +1,301 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Streaming API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Streaming
+  description: APIs for streaming video content via HLS and MP4 with customizable playback options.
+  x-displayName: Streaming
+paths:
+  /{PLAYBACK_ID}.m3u8:
+    get:
+      summary: Retrieve HLS Manifest
+      description: Fetch an HLS (HTTP Live Streaming) playlist for the specified video asset, with optional query parameters to [modify playback behavior](https://docs.mux.com/guides/modify-playback-behavior).
+      operationId: get-hls-manifest
+      servers:
+      - url: https://stream.mux.com
+      tags:
+      - Streaming
+      parameters:
+      - $ref: '#/components/parameters/playback_id'
+      - $ref: '#/components/parameters/token'
+      - name: redundant_streams
+        in: query
+        description: Include [HLS redundant streams](https://docs.mux.com/guides/play-your-videos#add-delivery-redundancy-with-redundant-streams) in the manifest.
+        schema:
+          type: boolean
+      - name: roku_trick_play
+        in: query
+        description: Add support for [timeline hover previews on Roku devices](https://docs.mux.com/guides/create-timeline-hover-previews#roku-trick-play).
+        schema:
+          type: boolean
+      - name: default_subtitles_lang
+        in: query
+        description: Set the [default subtitles/captions language](https://docs.mux.com/guides/add-subtitles-to-your-videos#showing-subtitles-by-default) (BCP47 compliant language code).
+        schema:
+          type: string
+      - name: max_resolution
+        in: query
+        description: Set the [maximum resolution](https://docs.mux.com/guides/control-playback-resolution#specify-maximum-resolution) of renditions included in the manifest.
+        schema:
+          type: string
+          enum:
+          - 270p
+          - 360p
+          - 480p
+          - 540p
+          - 720p
+          - 1080p
+          - 1440p
+          - 2160p
+      - name: min_resolution
+        in: query
+        description: Set the [minimum resolution](https://docs.mux.com/guides/control-playback-resolution#specify-minimum-resolution) of renditions included in the manifest.
+        schema:
+          type: string
+          enum:
+          - 270p
+          - 360p
+          - 480p
+          - 540p
+          - 720p
+          - 1080p
+          - 1440p
+          - 2160p
+      - name: rendition_order
+        in: query
+        description: Set the logic to [order renditions in the HLS manifest](https://www.mux.com/blog/more-tools-to-control-playback-behavior-min-resolution-and-rendition-order#rendition_order).
+        schema:
+          type: string
+          enum:
+          - desc
+      - $ref: '#/components/parameters/program_start_time'
+      - $ref: '#/components/parameters/program_end_time'
+      - $ref: '#/components/parameters/asset_start_time'
+      - $ref: '#/components/parameters/asset_end_time'
+      - name: exclude_pdt
+        in: query
+        description: If set to true, EXT-X-PROGRAM-DATE-TIME tags will be omitted from HLS manifests for assets from live streams.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: HLS playlist retrieved successfully.
+          content:
+            application/vnd.apple.mpegurl:
+              schema:
+                type: string
+        '400':
+          description: Bad request due to invalid parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - message
+                    properties:
+                      message:
+                        type: string
+                        description: Description of the error
+                      messages:
+                        type: array
+                        items:
+                          type: string
+                        description: Description of the errors
+                      type:
+                        type: string
+                        description: Category of the error
+                      code:
+                        type: integer
+                        format: int32
+                        description: Internal error code
+                  code:
+                    type: integer
+                    format: int32
+                    description: Internal error code
+                  message:
+                    type: string
+                    description: Description of the error
+              example:
+                code: 3
+                message: Invalid parameter
+        '404':
+          description: Video asset not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D.m3u8/get/responses/400/content/application~1json/schema'
+              example:
+                code: 5
+                message: Not Found
+  /{PLAYBACK_ID}/{FILENAME}:
+    get:
+      summary: Retrieve a Static Rendition
+      description: Fetch a static rendition (usually an MP4 or M4A file) of the specified video asset. [MP4 Support](https://docs.mux.com/guides/enable-static-mp4-renditions) must be enabled on the asset before using these URLs.
+      operationId: get-static-rendition
+      servers:
+      - url: https://stream.mux.com
+      tags:
+      - Streaming
+      parameters:
+      - $ref: '#/components/parameters/playback_id'
+      - $ref: '#/components/parameters/token'
+      - name: FILENAME
+        in: path
+        required: true
+        description: The filename of the static rendition file, as returned from the static renditions API files list. [See the MP4 guide for more details.](https://docs.mux.com/guides/enable-static-mp4-renditions)
+        schema:
+          type: string
+          enum:
+          - capped-1080p.mp4
+          - audio.m4a
+          - low.mp4
+          - medium.mp4
+          - high.mp4
+      responses:
+        '200':
+          description: MP4 file retrieved successfully.
+          content:
+            video/mp4:
+              schema:
+                type: string
+                format: binary
+            audio/m4a:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid request due to missing or incorrect parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D.m3u8/get/responses/400/content/application~1json/schema'
+              example:
+                code: 3
+                message: Invalid parameter
+        '404':
+          description: The requested video asset or rendition was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D.m3u8/get/responses/400/content/application~1json/schema'
+              example:
+                code: 5
+                message: Not Found
+components:
+  parameters:
+    token:
+      name: TOKEN
+      in: query
+      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
+    asset_start_time:
+      name: asset_start_time
+      in: query
+      description: Set the relative start time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips).
+      schema:
+        type: number
+        format: float
+    program_end_time:
+      name: program_end_time
+      in: query
+      description: Set the end time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream.
+      schema:
+        type: integer
+    program_start_time:
+      name: program_start_time
+      in: query
+      description: Set the start time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream.
+      schema:
+        type: integer
+    playback_id:
+      name: PLAYBACK_ID
+      in: path
+      description: The asset or live stream's playback ID.
+      required: true
+      schema:
+        type: string
+    asset_end_time:
+      name: asset_end_time
+      in: query
+      description: Set the relative end time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips).
+      schema:
+        type: number
+        format: float
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

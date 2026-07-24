@@ -1,0 +1,1444 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Video Views API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Video Views
+  description: An individual video view tracked by Mux Data. For the full list of properties for each view please refer to the table of data fields in the [Export raw video view data guide](https://docs.mux.com/guides/export-raw-video-view-data).
+  x-displayName: Video Views
+paths:
+  /data/v1/video-views:
+    get:
+      tags:
+      - Video Views
+      summary: List Video Views
+      description: Returns a list of video views which match the filters and have a `view_end` within the specified timeframe.
+      operationId: list-video-views
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/viewer_id'
+      - $ref: '#/components/parameters/error_id'
+      - $ref: '#/components/parameters/order_direction'
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/metric_filters'
+      - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVideoViewsResponse'
+              example:
+                total_row_count: 4
+                timeframe:
+                - 1610025789
+                - 1610112189
+                data:
+                - viewer_os_family: OS X
+                  viewer_application_name: Chrome
+                  view_start: '2021-01-07T20:34:06Z'
+                  view_end: '2021-01-07T20:46:04Z'
+                  video_title: my-title
+                  total_row_count: 4
+                  player_error_message: null
+                  player_error_code: null
+                  id: JpA81zBfGaGZ85C6aGF3bptyD4CKwpdNgamr
+                  error_type_id: 1
+                  country_code: US
+                  viewer_experience_score: 0.8
+                  watch_time: 1000
+                  playback_failure: false
+                - viewer_os_family: OS X
+                  viewer_application_name: Chrome
+                  view_start: '2021-01-07T20:21:53Z'
+                  view_end: '2021-01-07T20:34:03Z'
+                  video_title: ''
+                  total_row_count: 4
+                  player_error_message: null
+                  player_error_code: null
+                  id: jPVLR5giYMrLYbHM88Tkn3cM3qCRDk0jL114
+                  error_type_id: 1
+                  country_code: US
+                  viewer_experience_score: 0.8
+                  watch_time: 1000
+                  playback_failure: false
+                - viewer_os_family: OS X
+                  viewer_application_name: Chrome
+                  view_start: '2021-01-07T15:16:06Z'
+                  view_end: '2021-01-07T15:17:06Z'
+                  video_title: Video Test Title 12.14.20
+                  total_row_count: 4
+                  player_error_message: this is an error message from the player
+                  player_error_code: '1001'
+                  id: pdLDVKBuPZJJ9YsPVmtmB9FG9gsWBWMmYar4
+                  error_type_id: 1
+                  country_code: US
+                  viewer_experience_score: 0.8
+                  watch_time: 1000
+                  playback_failure: true
+                - viewer_os_family: OS X
+                  viewer_application_name: Chrome
+                  view_start: '2021-01-07T15:15:09Z'
+                  view_end: '2021-01-07T15:15:17Z'
+                  video_title: Video Test Title 12.14.20
+                  total_row_count: 4
+                  player_error_message: null
+                  player_error_code: null
+                  id: zbZPowWtD3z54jcGMLCJJpF79zCjB03bV7o8
+                  error_type_id: 1
+                  country_code: US
+                  viewer_experience_score: 0.8
+                  watch_time: 1000
+                  playback_failure: false
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/video-views/{VIDEO_VIEW_ID}:
+    get:
+      tags:
+      - Video Views
+      summary: Get a Video View
+      description: Returns the details of a video view.
+      operationId: get-video-view
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/video_view_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoViewResponse'
+              example:
+                total_row_count: null
+                timeframe:
+                - 1643133378
+                - 1643219778
+                data:
+                  id: LOpk9M00bMWgOJ3hcTcCHmz1JjxMFRRI
+                  ad_attempt_count: null
+                  ad_break_count: null
+                  ad_break_error_count: null
+                  ad_break_error_percentage: null
+                  ad_error_count: null
+                  ad_error_percentage: null
+                  ad_exit_before_start_count: null
+                  ad_exit_before_start_percentage: null
+                  ad_impression_count: null
+                  ad_playback_failure_error_type_id: null
+                  ad_preroll_startup_time: null
+                  ad_startup_error_count: null
+                  ad_startup_error_percentage: null
+                  asn: 11427
+                  asn_name: null
+                  asset_id: rmp7fvw5lPD01l8PZ2aN74js84XrTWxHy
+                  audio_codec: null
+                  audio_codec_initial: null
+                  buffering_count: null
+                  buffering_duration: null
+                  buffering_rate: null
+                  cdn: null
+                  city: Austin
+                  client_application_name: null
+                  client_application_version: null
+                  continent_code: null
+                  country_code: US
+                  country_name: United States
+                  custom_1: null
+                  custom_2: null
+                  custom_3: null
+                  custom_4: null
+                  custom_5: null
+                  custom_6: null
+                  custom_7: null
+                  custom_8: null
+                  custom_9: null
+                  custom_10: null
+                  environment_id: envid123
+                  error_type_id: null
+                  events:
+                  - viewer_time: 1643216891851
+                    playback_time: 0
+                    name: playerready
+                    event_time: 1643216898061
+                    details: {}
+                  - viewer_time: 1643216891853
+                    playback_time: 0
+                    name: viewstart
+                    event_time: 1643216898101
+                    details: {}
+                  exit_before_video_start: false
+                  experiment_name: null
+                  inserted_at: '2022-01-26T17:08:18Z'
+                  isp: null
+                  latitude: null
+                  live_stream_id: null
+                  live_stream_latency: null
+                  long_rebuffering: false
+                  long_resume: false
+                  longitude: null
+                  metro: null
+                  mux_api_version: v1
+                  mux_embed: null
+                  mux_embed_version: null
+                  mux_viewer_id: abc123viewerid
+                  page_load_time: null
+                  page_type: null
+                  page_url: null
+                  platform_description: null
+                  platform_summary: null
+                  playback_business_exception_error_type_id: null
+                  playback_failure: false
+                  playback_failure_error_type_id: null
+                  playback_id: null
+                  playback_score: null
+                  player_autoplay: false
+                  player_error_code: '1001'
+                  player_error_context: error context
+                  player_error_message: error from player
+                  player_height: null
+                  player_instance_id: null
+                  player_language: null
+                  player_load_time: null
+                  player_mux_plugin_name: apple-mux
+                  player_mux_plugin_version: null
+                  player_name: null
+                  player_poster: null
+                  player_preload: false
+                  player_remote_played: null
+                  player_software: null
+                  player_software_version: null
+                  player_source_domain: null
+                  player_source_duration: null
+                  player_source_height: null
+                  player_source_host_name: stream.mux.com
+                  player_source_stream_type: null
+                  player_source_type: null
+                  player_source_url: https://stream.mux.com/ax9qwyTIaUDLdmhesYDKir5kfE4Ve215.m3u8
+                  player_source_width: null
+                  player_startup_time: null
+                  player_version: null
+                  player_view_count: null
+                  player_width: null
+                  preroll_ad_asset_hostname: null
+                  preroll_ad_tag_hostname: null
+                  preroll_played: null
+                  preroll_requested: null
+                  property_id: 1234
+                  quality_score: null
+                  rebuffer_percentage: null
+                  rebuffering_score: null
+                  region: null
+                  rendition_change_count: null
+                  rendition_downshift_count: null
+                  rendition_upshift_count: null
+                  requests_for_first_preroll: null
+                  session_id: b97d7b4a-8de7-4b18-8984-1f9ec3d3b5bc
+                  short_time: '2022-01-26T17:08:18Z'
+                  startup_score: null
+                  sub_property_id: null
+                  time_shift_enabled: false
+                  time_to_first_frame: null
+                  updated_at: '2022-01-26T17:56:12Z'
+                  used_captions: false
+                  used_fullscreen: false
+                  used_pip: false
+                  video_affiliate: null
+                  video_brand: null
+                  video_cdn_trace: []
+                  video_codec: null
+                  video_codec_initial: null
+                  video_content_type: null
+                  video_creator_id: null
+                  video_duration: null
+                  video_dynamic_range_type: null
+                  video_dynamic_range_type_initial: null
+                  video_encoding_variant: null
+                  video_id: rmp7fvw5lPD01l8PZ2aN74js84XrTWxHy
+                  video_language: null
+                  video_producer: null
+                  video_series: null
+                  video_source_bitrate: null
+                  video_source_bitrate_initial: null
+                  video_source_fps: null
+                  video_source_fps_initial: null
+                  video_source_height: null
+                  video_source_height_initial: null
+                  video_source_width: null
+                  video_source_width_initial: null
+                  video_startup_business_exception_error_type_id: null
+                  video_startup_failure: false
+                  video_startup_preroll_load_time: null
+                  video_startup_preroll_request_time: null
+                  video_stream_type: null
+                  video_title: null
+                  video_variant_id: null
+                  video_variant_name: null
+                  view_average_request_latency: null
+                  view_average_request_throughput: null
+                  view_cdn_edge_pop: null
+                  view_cdn_origin: null
+                  view_content_startup_time: null
+                  view_drm_level: null
+                  view_drm_type: null
+                  view_dropped: false
+                  view_dropped_frame_count: null
+                  view_end: '2022-01-26T17:56:12Z'
+                  view_error_id: null
+                  view_has_ad: false
+                  view_id: 8d00a0ca-8456-4e55-9ff8-dc501814a6b1
+                  view_max_downscale_percentage: '0.32222223'
+                  view_max_playhead_position: '41126'
+                  view_max_request_latency: null
+                  view_max_upscale_percentage: '0'
+                  view_playing_time: '58134'
+                  view_seek_count: null
+                  view_seek_duration: null
+                  view_session_id: null
+                  view_start: '2022-01-26T17:08:18Z'
+                  view_total_content_playback_time: 37521
+                  view_total_downscaling: null
+                  view_total_upscaling: null
+                  viewer_application_engine: null
+                  viewer_application_name: null
+                  viewer_application_version: null
+                  viewer_connection_type: null
+                  viewer_device_category: null
+                  viewer_device_manufacturer: null
+                  viewer_device_model: iPhone10,4
+                  viewer_device_name: null
+                  viewer_experience_score: null
+                  viewer_os_architecture: null
+                  viewer_os_family: null
+                  viewer_os_version: '15.1'
+                  viewer_plan: null
+                  viewer_plan_category: null
+                  viewer_plan_status: null
+                  viewer_user_agent: null
+                  viewer_user_id: null
+                  watch_time: null
+                  watched: true
+                  weighted_average_bitrate: 697078
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    VideoViewResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/VideoView'
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    ListVideoViewsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbridgedVideoView'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - total_row_count
+      - timeframe
+    VideoViewEvent:
+      type: object
+      properties:
+        viewer_time:
+          type: integer
+          format: int64
+        playback_time:
+          type: integer
+          format: int64
+        name:
+          type: string
+        event_time:
+          type: integer
+          format: int64
+        details:
+          type: object
+          additionalProperties: true
+      required:
+      - viewer_time
+      - playback_time
+      - name
+      - event_time
+      - details
+    AbridgedVideoView:
+      type: object
+      properties:
+        id:
+          type: string
+        viewer_os_family:
+          type: string
+          nullable: true
+        viewer_application_name:
+          type: string
+          nullable: true
+        video_title:
+          type: string
+          nullable: true
+        total_row_count:
+          type: integer
+          format: int64
+        player_error_message:
+          type: string
+          nullable: true
+        player_error_code:
+          type: string
+          nullable: true
+        error_type_id:
+          type: integer
+          format: int32
+          nullable: true
+        country_code:
+          type: string
+          nullable: true
+        view_start:
+          type: string
+        view_end:
+          type: string
+        viewer_experience_score:
+          type: number
+          format: float
+          nullable: true
+        watch_time:
+          type: integer
+          format: int32
+          nullable: true
+        playback_failure:
+          type: boolean
+      required:
+      - id
+      - viewer_os_family
+      - viewer_application_name
+      - video_title
+      - total_row_count
+      - player_error_message
+      - player_error_code
+      - error_type_id
+      - country_code
+      - view_start
+      - view_end
+      - viewer_experience_score
+      - watch_time
+      - playback_failure
+    VideoView:
+      type: object
+      properties:
+        view_total_upscaling:
+          type: string
+          nullable: true
+        preroll_ad_asset_hostname:
+          type: string
+          nullable: true
+        player_source_domain:
+          type: string
+          nullable: true
+        region:
+          type: string
+          nullable: true
+        viewer_user_agent:
+          type: string
+          nullable: true
+        preroll_requested:
+          type: boolean
+          nullable: true
+        page_type:
+          type: string
+          nullable: true
+        startup_score:
+          type: string
+          nullable: true
+        view_seek_duration:
+          type: integer
+          format: int64
+          nullable: true
+        country_name:
+          type: string
+          nullable: true
+        player_source_height:
+          type: integer
+          format: int32
+          nullable: true
+        longitude:
+          type: string
+          nullable: true
+        buffering_count:
+          type: integer
+          format: int64
+          nullable: true
+        video_duration:
+          type: integer
+          format: int64
+          nullable: true
+        player_source_type:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        view_id:
+          type: string
+        platform_description:
+          type: string
+          nullable: true
+        video_startup_preroll_request_time:
+          type: integer
+          format: int64
+          nullable: true
+        viewer_device_name:
+          type: string
+          nullable: true
+        video_series:
+          type: string
+          nullable: true
+        viewer_application_name:
+          type: string
+          nullable: true
+        updated_at:
+          type: string
+        view_total_content_playback_time:
+          type: integer
+          format: int64
+          nullable: true
+        cdn:
+          type: string
+          nullable: true
+        player_instance_id:
+          type: string
+          nullable: true
+        video_language:
+          type: string
+          nullable: true
+        player_source_width:
+          type: integer
+          format: int32
+          nullable: true
+        player_error_message:
+          type: string
+          nullable: true
+        player_mux_plugin_version:
+          type: string
+          nullable: true
+        watched:
+          type: boolean
+        playback_score:
+          type: string
+          nullable: true
+        page_url:
+          type: string
+          nullable: true
+        metro:
+          type: string
+          nullable: true
+        view_max_request_latency:
+          type: integer
+          format: int64
+          nullable: true
+        requests_for_first_preroll:
+          type: integer
+          format: int64
+          nullable: true
+        view_total_downscaling:
+          type: string
+          nullable: true
+        latitude:
+          type: string
+          nullable: true
+        player_source_host_name:
+          type: string
+          nullable: true
+        inserted_at:
+          type: string
+        view_end:
+          type: string
+        mux_embed_version:
+          type: string
+          nullable: true
+        player_language:
+          type: string
+          nullable: true
+        page_load_time:
+          type: integer
+          format: int64
+          nullable: true
+        viewer_device_category:
+          type: string
+          nullable: true
+        video_startup_preroll_load_time:
+          type: integer
+          format: int64
+          nullable: true
+        player_version:
+          type: string
+          nullable: true
+        watch_time:
+          type: integer
+          format: int64
+          nullable: true
+        player_source_stream_type:
+          type: string
+          nullable: true
+        preroll_ad_tag_hostname:
+          type: string
+          nullable: true
+        viewer_device_manufacturer:
+          type: string
+          nullable: true
+        rebuffering_score:
+          type: string
+          nullable: true
+        experiment_name:
+          type: string
+          nullable: true
+        viewer_os_version:
+          type: string
+          nullable: true
+        player_preload:
+          type: boolean
+        buffering_duration:
+          type: integer
+          format: int64
+          nullable: true
+        player_view_count:
+          type: integer
+          format: int64
+          nullable: true
+        player_software:
+          type: string
+          nullable: true
+        player_load_time:
+          type: integer
+          format: int64
+          nullable: true
+        platform_summary:
+          type: string
+          nullable: true
+        video_encoding_variant:
+          type: string
+          nullable: true
+        player_width:
+          type: integer
+          format: int32
+          nullable: true
+        view_seek_count:
+          type: integer
+          format: int64
+          nullable: true
+        viewer_experience_score:
+          type: string
+          nullable: true
+        view_error_id:
+          type: integer
+          format: int32
+          nullable: true
+        video_variant_name:
+          type: string
+          nullable: true
+        preroll_played:
+          type: boolean
+          nullable: true
+        viewer_application_engine:
+          type: string
+          nullable: true
+        viewer_os_architecture:
+          type: string
+          nullable: true
+        player_error_code:
+          type: string
+          nullable: true
+        buffering_rate:
+          type: string
+          nullable: true
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoViewEvent'
+        player_name:
+          type: string
+          nullable: true
+        view_start:
+          type: string
+        view_average_request_throughput:
+          type: integer
+          format: int64
+          nullable: true
+        video_producer:
+          type: string
+          nullable: true
+        error_type_id:
+          type: integer
+          format: int32
+          nullable: true
+        mux_viewer_id:
+          type: string
+        video_id:
+          type: string
+          nullable: true
+        continent_code:
+          type: string
+          nullable: true
+        session_id:
+          type: string
+        exit_before_video_start:
+          type: boolean
+        video_content_type:
+          type: string
+          nullable: true
+        viewer_os_family:
+          type: string
+          nullable: true
+        player_poster:
+          type: string
+          nullable: true
+        view_average_request_latency:
+          type: integer
+          format: int64
+          nullable: true
+        video_variant_id:
+          type: string
+          nullable: true
+        player_source_duration:
+          type: integer
+          format: int64
+          nullable: true
+        player_source_url:
+          type: string
+          nullable: true
+        mux_api_version:
+          type: string
+        video_title:
+          type: string
+          nullable: true
+        id:
+          type: string
+        short_time:
+          type: string
+        rebuffer_percentage:
+          type: string
+          nullable: true
+        time_to_first_frame:
+          type: integer
+          format: int64
+          nullable: true
+        viewer_user_id:
+          type: string
+          nullable: true
+        video_stream_type:
+          type: string
+          nullable: true
+        player_startup_time:
+          type: integer
+          format: int64
+          nullable: true
+        viewer_application_version:
+          type: string
+          nullable: true
+        view_max_downscale_percentage:
+          type: string
+          nullable: true
+        view_max_upscale_percentage:
+          type: string
+          nullable: true
+        country_code:
+          type: string
+          nullable: true
+        used_fullscreen:
+          type: boolean
+        isp:
+          type: string
+          nullable: true
+        property_id:
+          type: integer
+          format: int64
+        player_autoplay:
+          type: boolean
+        player_height:
+          type: integer
+          format: int32
+          nullable: true
+        asn:
+          type: integer
+          format: int64
+          nullable: true
+        asn_name:
+          type: string
+          nullable: true
+        quality_score:
+          type: string
+          nullable: true
+        player_software_version:
+          type: string
+          nullable: true
+        player_mux_plugin_name:
+          type: string
+          nullable: true
+        sub_property_id:
+          type: string
+          nullable: true
+        player_remote_played:
+          type: boolean
+          nullable: true
+        view_max_playhead_position:
+          type: string
+          nullable: true
+        view_playing_time:
+          type: string
+          nullable: true
+        view_session_id:
+          type: string
+          nullable: true
+        viewer_connection_type:
+          type: string
+          nullable: true
+        viewer_device_model:
+          type: string
+          nullable: true
+        weighted_average_bitrate:
+          type: number
+          format: double
+          nullable: true
+        custom_1:
+          type: string
+          nullable: true
+        custom_2:
+          type: string
+          nullable: true
+        custom_3:
+          type: string
+          nullable: true
+        custom_4:
+          type: string
+          nullable: true
+        custom_5:
+          type: string
+          nullable: true
+        custom_6:
+          type: string
+          nullable: true
+        custom_7:
+          type: string
+          nullable: true
+        custom_8:
+          type: string
+          nullable: true
+        custom_9:
+          type: string
+          nullable: true
+        custom_10:
+          type: string
+          nullable: true
+        live_stream_latency:
+          type: integer
+          format: int64
+          nullable: true
+        asset_id:
+          type: string
+          nullable: true
+        environment_id:
+          type: string
+        live_stream_id:
+          type: string
+          nullable: true
+        mux_embed:
+          type: string
+          nullable: true
+        playback_id:
+          type: string
+          nullable: true
+        player_error_context:
+          type: string
+          nullable: true
+        view_drm_type:
+          type: string
+          nullable: true
+        view_dropped_frame_count:
+          type: integer
+          format: int64
+          nullable: true
+        view_has_ad:
+          type: boolean
+        video_startup_failure:
+          type: boolean
+        ad_attempt_count:
+          type: integer
+          format: int32
+          nullable: true
+        ad_break_count:
+          type: integer
+          format: int32
+          nullable: true
+        ad_break_error_count:
+          type: integer
+          format: int32
+          nullable: true
+        ad_break_error_percentage:
+          type: string
+          nullable: true
+        ad_error_count:
+          type: integer
+          format: int32
+          nullable: true
+        ad_error_percentage:
+          type: string
+          nullable: true
+        ad_impression_count:
+          type: integer
+          format: int32
+          nullable: true
+        ad_startup_error_count:
+          type: integer
+          format: int32
+          nullable: true
+        ad_startup_error_percentage:
+          type: string
+          nullable: true
+        ad_exit_before_start_count:
+          type: integer
+          format: int32
+          nullable: true
+        ad_exit_before_start_percentage:
+          type: string
+          nullable: true
+        rendition_change_count:
+          type: integer
+          format: int32
+          nullable: true
+        rendition_upshift_count:
+          type: integer
+          format: int32
+          nullable: true
+        rendition_downshift_count:
+          type: integer
+          format: int32
+          nullable: true
+        long_resume:
+          type: boolean
+        long_rebuffering:
+          type: boolean
+        playback_failure_error_type_id:
+          type: integer
+          format: int32
+          nullable: true
+        playback_business_exception_error_type_id:
+          type: integer
+          format: int32
+          nullable: true
+        video_startup_business_exception_error_type_id:
+          type: integer
+          format: int32
+          nullable: true
+        playback_failure:
+          type: boolean
+        ad_playback_failure_error_type_id:
+          type: integer
+          format: int32
+          nullable: true
+        view_content_startup_time:
+          type: integer
+          format: int32
+          nullable: true
+        ad_preroll_startup_time:
+          type: integer
+          format: int32
+          nullable: true
+        view_dropped:
+          type: boolean
+        client_application_name:
+          type: string
+          nullable: true
+        client_application_version:
+          type: string
+          nullable: true
+        video_affiliate:
+          type: string
+          nullable: true
+        viewer_plan:
+          type: string
+          nullable: true
+        viewer_plan_status:
+          type: string
+          nullable: true
+        viewer_plan_category:
+          type: string
+          nullable: true
+        view_drm_level:
+          type: string
+          nullable: true
+        video_brand:
+          type: string
+          nullable: true
+        used_pip:
+          type: boolean
+        time_shift_enabled:
+          type: boolean
+        used_captions:
+          type: boolean
+        video_codec:
+          type: string
+          nullable: true
+        audio_codec:
+          type: string
+          nullable: true
+        video_dynamic_range_type:
+          type: string
+          nullable: true
+        video_source_height_initial:
+          type: integer
+          format: int32
+          nullable: true
+        video_source_width_initial:
+          type: integer
+          format: int32
+          nullable: true
+        video_source_bitrate_initial:
+          type: integer
+          format: int64
+          nullable: true
+        video_codec_initial:
+          type: string
+          nullable: true
+        audio_codec_initial:
+          type: string
+          nullable: true
+        video_source_fps_initial:
+          type: number
+          format: double
+          nullable: true
+        video_dynamic_range_type_initial:
+          type: string
+          nullable: true
+        video_source_fps:
+          type: number
+          format: double
+          nullable: true
+        video_source_bitrate:
+          type: integer
+          format: int64
+          nullable: true
+        video_source_height:
+          type: integer
+          format: int32
+          nullable: true
+        video_source_width:
+          type: integer
+          format: int32
+          nullable: true
+        view_cdn_edge_pop:
+          type: string
+          nullable: true
+        view_cdn_origin:
+          type: string
+          nullable: true
+        video_creator_id:
+          type: string
+          nullable: true
+        video_cdn_trace:
+          type: array
+          items:
+            type: string
+      required:
+      - ad_attempt_count
+      - ad_break_count
+      - ad_break_error_count
+      - ad_break_error_percentage
+      - ad_error_count
+      - ad_error_percentage
+      - ad_exit_before_start_count
+      - ad_exit_before_start_percentage
+      - ad_impression_count
+      - ad_startup_error_count
+      - ad_startup_error_percentage
+      - rendition_change_count
+      - rendition_upshift_count
+      - rendition_downshift_count
+      - asn
+      - asn_name
+      - asset_id
+      - audio_codec
+      - buffering_count
+      - buffering_duration
+      - buffering_rate
+      - cdn
+      - city
+      - client_application_name
+      - client_application_version
+      - continent_code
+      - country_code
+      - country_name
+      - custom_1
+      - custom_10
+      - custom_2
+      - custom_3
+      - custom_4
+      - custom_5
+      - custom_6
+      - custom_7
+      - custom_8
+      - custom_9
+      - environment_id
+      - error_type_id
+      - events
+      - exit_before_video_start
+      - experiment_name
+      - id
+      - inserted_at
+      - isp
+      - latitude
+      - live_stream_id
+      - live_stream_latency
+      - long_rebuffering
+      - long_resume
+      - longitude
+      - metro
+      - mux_api_version
+      - mux_embed
+      - mux_embed_version
+      - mux_viewer_id
+      - page_load_time
+      - page_type
+      - page_url
+      - platform_description
+      - platform_summary
+      - playback_id
+      - playback_score
+      - player_autoplay
+      - player_error_code
+      - player_error_message
+      - player_height
+      - player_instance_id
+      - player_language
+      - player_load_time
+      - player_mux_plugin_name
+      - player_mux_plugin_version
+      - player_name
+      - player_poster
+      - player_preload
+      - player_remote_played
+      - player_software
+      - player_software_version
+      - player_source_domain
+      - player_source_duration
+      - player_source_height
+      - player_source_host_name
+      - player_source_stream_type
+      - player_source_type
+      - player_source_url
+      - player_source_width
+      - player_startup_time
+      - player_version
+      - player_view_count
+      - player_width
+      - preroll_ad_asset_hostname
+      - preroll_ad_tag_hostname
+      - preroll_played
+      - preroll_requested
+      - property_id
+      - quality_score
+      - rebuffer_percentage
+      - rebuffering_score
+      - region
+      - requests_for_first_preroll
+      - session_id
+      - short_time
+      - startup_score
+      - sub_property_id
+      - time_shift_enabled
+      - time_to_first_frame
+      - updated_at
+      - used_captions
+      - used_fullscreen
+      - used_pip
+      - video_affiliate
+      - video_brand
+      - video_cdn_trace
+      - video_codec
+      - video_content_type
+      - video_creator_id
+      - video_duration
+      - video_dynamic_range_type
+      - video_source_height_initial
+      - video_source_width_initial
+      - video_source_bitrate_initial
+      - video_codec_initial
+      - audio_codec_initial
+      - video_source_fps_initial
+      - video_dynamic_range_type_initial
+      - video_source_fps
+      - video_source_bitrate
+      - video_source_height
+      - video_source_width
+      - video_encoding_variant
+      - video_id
+      - video_language
+      - video_producer
+      - video_series
+      - video_startup_failure
+      - video_startup_preroll_load_time
+      - video_startup_preroll_request_time
+      - video_stream_type
+      - video_title
+      - video_variant_id
+      - video_variant_name
+      - view_average_request_latency
+      - view_average_request_throughput
+      - view_cdn_edge_pop
+      - view_cdn_origin
+      - view_drm_level
+      - view_drm_type
+      - view_dropped
+      - view_dropped_frame_count
+      - view_end
+      - view_error_id
+      - view_has_ad
+      - view_id
+      - view_max_downscale_percentage
+      - view_max_playhead_position
+      - view_max_request_latency
+      - view_max_upscale_percentage
+      - view_playing_time
+      - view_seek_count
+      - view_seek_duration
+      - view_session_id
+      - view_start
+      - view_total_content_playback_time
+      - view_total_downscaling
+      - view_total_upscaling
+      - viewer_application_engine
+      - viewer_application_name
+      - viewer_application_version
+      - viewer_connection_type
+      - viewer_device_category
+      - viewer_device_manufacturer
+      - viewer_device_model
+      - viewer_device_name
+      - viewer_experience_score
+      - viewer_os_architecture
+      - viewer_os_family
+      - viewer_os_version
+      - viewer_plan
+      - viewer_plan_status
+      - viewer_plan_category
+      - viewer_user_agent
+      - viewer_user_id
+      - watch_time
+      - watched
+      - weighted_average_bitrate
+      - playback_failure_error_type_id
+      - playback_business_exception_error_type_id
+      - video_startup_business_exception_error_type_id
+      - playback_failure
+      - ad_playback_failure_error_type_id
+      - view_content_startup_time
+      - ad_preroll_startup_time
+  parameters:
+    filters:
+      name: filters[]
+      in: query
+      description: 'Filter results using key:value pairs. Must be provided as an array query string parameter.
+
+
+        **Basic filtering:**
+
+        * `filters[]=dimension:value` - Include rows where dimension equals value
+
+        * `filters[]=!dimension:value` - Exclude rows where dimension equals value
+
+
+        **For trace dimensions (like video_cdn_trace):**
+
+        * `filters[]=+dimension:value` - Include rows where trace contains value
+
+        * `filters[]=-dimension:value` - Exclude rows where trace contains value
+
+        * `filters[]=dimension:[value1,value2]` - Exact trace match
+
+
+        **Examples:**
+
+        * `filters[]=country:US` - US views only
+
+        * `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN
+
+        '
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    video_view_id:
+      name: VIDEO_VIEW_ID
+      in: path
+      description: ID of the Video View
+      required: true
+      example: abcd1234
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    timeframe:
+      name: timeframe[]
+      in: query
+      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    viewer_id:
+      name: viewer_id
+      in: query
+      description: Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux.
+      required: false
+      schema:
+        type: string
+    error_id:
+      name: error_id
+      in: query
+      description: Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error.
+      required: false
+      schema:
+        type: integer
+        format: int32
+    metric_filters:
+      name: metric_filters[]
+      in: query
+      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

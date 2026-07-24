@@ -1,0 +1,312 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Jobs API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Jobs
+  description: List and cancel jobs across all workflows.
+  x-displayName: Jobs
+paths:
+  /robots/v0/jobs:
+    get:
+      operationId: list-jobs
+      summary: List Jobs
+      description: Returns a paginated list of Robots jobs, with optional filters for workflow, status, and asset_id. Jobs are automatically deleted after 30 days.
+      tags:
+      - Jobs
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - summarize
+          - moderate
+          - generate-chapters
+          - edit-captions
+          - translate-captions
+          - ask-questions
+          - find-key-moments
+          description: Filter by workflow name
+        required: false
+        description: Filter by workflow name
+        name: workflow
+        in: query
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/JobStatus'
+          - description: Filter by job status
+        required: false
+        description: Filter by job status
+        name: status
+        in: query
+      - schema:
+          type: string
+          minLength: 1
+          description: Filter by Mux asset ID
+        required: false
+        description: Filter by Mux asset ID
+        name: asset_id
+        in: query
+      - schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 25
+          description: Maximum number of jobs to return (default 25, max 100)
+        required: false
+        description: Maximum number of jobs to return (default 25, max 100)
+        name: limit
+        in: query
+      - schema:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Page number (default 1)
+        required: false
+        description: Page number (default 1)
+        name: page
+        in: query
+      responses:
+        '200':
+          description: List of jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListJobsResponse'
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /robots/v0/jobs/{JOB_ID}/cancel:
+    post:
+      operationId: cancel-job
+      summary: Cancel a Job
+      description: Cancels a job that is currently pending or processing.
+      tags:
+      - Jobs
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 255
+        required: true
+        name: JOB_ID
+        in: path
+      responses:
+        '200':
+          description: Job cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelJobResponse'
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Job is already in a terminal state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    CancelJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/JobSummary'
+      required:
+      - data
+    ListJobsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobSummary'
+        total_row_count:
+          type: integer
+          description: Total number of jobs matching the query filters
+          example: 42
+      required:
+      - data
+      - total_row_count
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
+    JobSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        workflow:
+          type: string
+          enum:
+          - summarize
+          - moderate
+          - generate-chapters
+          - edit-captions
+          - translate-captions
+          - ask-questions
+          - find-key-moments
+          description: Workflow type that created this job.
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to this resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for this job.
+      required:
+      - id
+      - workflow
+      - status
+      - created_at
+      - updated_at
+      - _links
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

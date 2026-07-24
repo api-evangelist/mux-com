@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Utilities API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Utilities
+  description: Collection of utility methods for using Mux APIs. There's only one thing in here right now, maybe there will be more later.
+  x-displayName: Utilities
+paths:
+  /system/v1/whoami:
+    get:
+      summary: Retrieve Information About Your Current Access Token.
+      description: Retrieve information about your current access token, including organization, environment, and permissions. Note that this can only be access with an access token, and _all_ access tokens can access this route, regardless of what permissions they have assigned.
+      operationId: get-whoami
+      servers:
+      - url: https://api.mux.com
+      tags:
+      - Utilities
+      responses:
+        '200':
+          description: Information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WhoAmIResponse'
+              example:
+                data:
+                  permissions:
+                  - video:read
+                  - data:read
+                  organization_name: Mux
+                  organization_id: orgid123
+                  environment_type: development
+                  environment_name: Development
+                  environment_id: envid123
+                  access_token_name: Development access token
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+              example:
+                error:
+                  type: unauthorized
+                  messages:
+                  - Unauthorized request
+        '429':
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedResponse'
+              example:
+                errors:
+                - Too many requests, retry later.
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    RateLimitedResponse:
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+          description: Description of the error
+    WhoAmIResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - permissions
+          - organization_name
+          - organization_id
+          - environment_type
+          - environment_name
+          - environment_id
+          - access_token_name
+          properties:
+            permissions:
+              type: array
+              items:
+                type: string
+            organization_name:
+              type: string
+            organization_id:
+              type: string
+            environment_type:
+              type: string
+            environment_name:
+              type: string
+            environment_id:
+              type: string
+            access_token_name:
+              type: string
+    UnauthorizedResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - type
+          - messages
+          properties:
+            type:
+              type: string
+              description: The type of the error
+            messages:
+              type: array
+              items:
+                type: string
+              description: Friendly messages of errors encountered
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

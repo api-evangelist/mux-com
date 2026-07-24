@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Animated Images
+  description: APIs for retrieving animated images from videos hosted using Mux.
+  x-displayName: Animated Images
+paths:
+  /{PLAYBACK_ID}/animated.{EXTENSION}:
+    get:
+      summary: Retrieve an Animated Image from a Video
+      description: '[Fetch an animated GIF or WebP image](https://docs.mux.com/guides/get-images-from-a-video#get-an-animated-gif-from-a-video) from a video segment with optional transformations.'
+      operationId: get-animated
+      servers:
+      - url: https://image.mux.com
+      tags:
+      - Animated Images
+      parameters:
+      - $ref: '#/components/parameters/playback_id'
+      - $ref: '#/components/parameters/token'
+      - name: EXTENSION
+        in: path
+        required: true
+        description: The image file extension, either 'gif' or 'webp'.
+        schema:
+          type: string
+          enum:
+          - gif
+          - webp
+      - name: start
+        in: query
+        description: The time (in seconds) of the video timeline where the animated GIF should begin. Defaults to 0.
+        schema:
+          type: number
+          format: float
+      - name: end
+        in: query
+        description: The time (in seconds) of the video timeline where the GIF ends. Defaults to 5 seconds after the start. Maximum total duration of GIF is limited to 10 seconds; minimum total duration of GIF is 250ms.
+        schema:
+          type: number
+          format: float
+      - name: width
+        in: query
+        description: The width in pixels of the animated GIF. Default is 320px, or if height is provided, the width is determined by preserving aspect ratio with the height. Max width is 640px.
+        schema:
+          type: integer
+      - name: height
+        in: query
+        description: The height in pixels of the animated GIF. The default height is determined by preserving aspect ratio with the width provided. Maximum height is 640px.
+        schema:
+          type: integer
+      - name: fps
+        in: query
+        description: The frame rate of the generated GIF. Defaults to 15 fps. Max 30 fps.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Animated image retrieved successfully.
+          content:
+            image/gif:
+              schema:
+                type: string
+                format: binary
+            image/webp:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad request due to invalid parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema'
+              example:
+                code: 3
+                message: Invalid parameter
+        '404':
+          description: Video asset not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema'
+              example:
+                code: 5
+                message: Not Found
+components:
+  parameters:
+    playback_id:
+      name: PLAYBACK_ID
+      in: path
+      description: The asset or live stream's playback ID.
+      required: true
+      schema:
+        type: string
+    token:
+      name: TOKEN
+      in: query
+      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

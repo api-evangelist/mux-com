@@ -1,0 +1,187 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images DRM Configurations API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: DRM Configurations
+  description: DRM Configurations allow you to adjust the security level of content delivered through Mux Video's Digital Rights Management (DRM) feature.
+  x-displayName: DRM Configurations
+paths:
+  /video/v1/drm-configurations:
+    get:
+      tags:
+      - DRM Configurations
+      summary: List DRM Configurations
+      description: Returns a list of DRM Configurations
+      operationId: list-drm-configurations
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDRMConfigurationsResponse'
+              example:
+                total_row_count: 2
+                page: 1
+                limit: 100
+                data:
+                - id: 9dbEg8o00uqQzZbzJT6NXdqNA00SdnSo8O
+                - id: 012uTQqPygDYWz3jey8cyOX9n01Bd5SDH1
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /video/v1/drm-configurations/{DRM_CONFIGURATION_ID}:
+    get:
+      tags:
+      - DRM Configurations
+      summary: Retrieve a DRM Configuration
+      description: Retrieves a single DRM Configuration.
+      operationId: get-drm-configuration
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/drm_configuration_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DRMConfigurationResponse'
+              example:
+                data:
+                  id: lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  parameters:
+    drm_configuration_id:
+      name: DRM_CONFIGURATION_ID
+      in: path
+      description: The DRM Configuration ID.
+      required: true
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+  schemas:
+    DRMConfigurationResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/DRMConfiguration'
+    ListDRMConfigurationsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DRMConfiguration'
+    DRMConfiguration:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the DRM Configuration. Max 255 characters.
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

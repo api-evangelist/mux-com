@@ -1,0 +1,250 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Errors API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Errors
+  description: Playback errors are tracked and aggregated by Mux Data. Errors can be listed by the API, which contains data about the error code, message, and how often the error occurred.
+  x-displayName: Errors
+paths:
+  /data/v1/errors:
+    get:
+      tags:
+      - Errors
+      summary: List Errors
+      description: Returns a list of errors.
+      operationId: list-errors
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/metric_filters'
+      - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListErrorsResponse'
+              example:
+                total_row_count: 1
+                timeframe:
+                - 1610027061
+                - 1610113461
+                data:
+                - percentage: 30
+                  notes: a helpful note
+                  message: an error message
+                  last_seen: '2021-01-08T13:42:39Z'
+                  id: 1
+                  description: a description for this error
+                  count: 1
+                  code: 100
+                  player_error_code: '100'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  parameters:
+    filters:
+      name: filters[]
+      in: query
+      description: 'Filter results using key:value pairs. Must be provided as an array query string parameter.
+
+
+        **Basic filtering:**
+
+        * `filters[]=dimension:value` - Include rows where dimension equals value
+
+        * `filters[]=!dimension:value` - Exclude rows where dimension equals value
+
+
+        **For trace dimensions (like video_cdn_trace):**
+
+        * `filters[]=+dimension:value` - Include rows where trace contains value
+
+        * `filters[]=-dimension:value` - Exclude rows where trace contains value
+
+        * `filters[]=dimension:[value1,value2]` - Exact trace match
+
+
+        **Examples:**
+
+        * `filters[]=country:US` - US views only
+
+        * `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN
+
+        '
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    timeframe:
+      name: timeframe[]
+      in: query
+      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    metric_filters:
+      name: metric_filters[]
+      in: query
+      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+  schemas:
+    ListErrorsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - total_row_count
+      - timeframe
+    Error:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: A unique identifier for this error.
+        percentage:
+          type: number
+          format: double
+          description: The percentage of views that experienced this error.
+        notes:
+          type: string
+          description: Notes that are attached to this error.
+          nullable: true
+        message:
+          type: string
+          description: The error message.
+          nullable: true
+        last_seen:
+          type: string
+          description: The last time this error was seen (ISO 8601 timestamp).
+        description:
+          type: string
+          description: Description of the error.
+          nullable: true
+        count:
+          type: integer
+          format: int64
+          description: The total number of views that experienced this error.
+        code:
+          type: integer
+          format: int64
+          description: The error code
+          nullable: true
+        player_error_code:
+          type: string
+          nullable: true
+          description: The string version of the error code
+      required:
+      - id
+      - percentage
+      - notes
+      - message
+      - last_seen
+      - description
+      - count
+      - code
+      - player_error_code
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

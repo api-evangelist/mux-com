@@ -1,0 +1,452 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Generate Chapters API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Generate Chapters
+  description: Generate chapters for a video.
+  x-displayName: Generate Chapters
+paths:
+  /robots/v0/jobs/generate-chapters:
+    post:
+      operationId: create-generate-chapters-job
+      summary: Create a 'generate-Chapters' Job
+      description: Creates a new job that uses AI to generate chapters for a Mux Video asset.
+      tags:
+      - Generate Chapters
+      requestBody:
+        description: Chapters parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGenerateChaptersJobRequest'
+            example:
+              parameters:
+                asset_id: mux_asset_123abc
+      responses:
+        '202':
+          description: Chapters job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateChaptersJobResponse'
+              example:
+                data:
+                  id: rjob_example123
+                  workflow: generate-chapters
+                  status: pending
+                  units_consumed: 0
+                  created_at: 1700000000
+                  updated_at: 1700000060
+                  parameters:
+                    asset_id: mux_asset_123abc
+        '401':
+          description: Missing Mux credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Asset not found, missing playback ID, or no transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /robots/v0/jobs/generate-chapters/{JOB_ID}:
+    get:
+      operationId: get-generate-chapters-job
+      summary: Get a 'generate-Chapters' Job
+      description: Retrieves the current status and results of a 'generate-chapters' job. Jobs are automatically deleted after 30 days.
+      tags:
+      - Generate Chapters
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 255
+        required: true
+        name: JOB_ID
+        in: path
+      responses:
+        '200':
+          description: Current status for the requested job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateChaptersJobResponse'
+              example:
+                data:
+                  id: rjob_example123
+                  workflow: generate-chapters
+                  status: completed
+                  units_consumed: 1
+                  created_at: 1700000000
+                  updated_at: 1700000060
+                  parameters:
+                    asset_id: mux_asset_123abc
+                  outputs:
+                    chapters:
+                    - start_time: 0
+                      title: Introduction
+                    - start_time: 45
+                      title: Setting Up the Workspace
+                    - start_time: 180
+                      title: Core Implementation
+                    - start_time: 420
+                      title: Testing and Debugging
+                    - start_time: 600
+                      title: Wrap-Up and Next Steps
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No job exists for the supplied id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    GenerateChaptersJobParameters:
+      type: object
+      properties:
+        asset_id:
+          type: string
+          minLength: 1
+          description: The Mux asset ID of the video to generate chapters for.
+        language_code:
+          type: string
+          minLength: 1
+          description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK prefers English if available.
+        output_language_code:
+          type: string
+          minLength: 1
+          description: BCP 47 language code for the output chapter titles. Auto-detected from the transcript if omitted.
+        prompt_overrides:
+          type: object
+          properties:
+            task:
+              type: string
+              minLength: 1
+              description: Override the core task instruction for chapter generation.
+            output_format:
+              type: string
+              minLength: 1
+              description: Override the JSON output format instructions.
+            chapter_guidelines:
+              type: string
+              minLength: 1
+              description: Override the chapter density and timing constraints.
+            title_guidelines:
+              type: string
+              minLength: 1
+              description: Override the chapter title style requirements.
+          description: Override specific sections of the chapter generation prompt.
+      required:
+      - asset_id
+      example:
+        asset_id: mux_asset_123abc
+    SlimlineAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Mux asset ID.
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Asset title from Mux metadata.
+            creator_id:
+              type: string
+              description: Creator identifier from Mux metadata.
+            external_id:
+              type: string
+              description: External identifier from Mux metadata.
+          description: Mux asset metadata, if available.
+        passthrough:
+          type: string
+          description: Passthrough string from the Mux asset.
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to the Mux asset resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for the asset.
+      required:
+      - id
+      - _links
+    GenerateChaptersJobOutputs:
+      type: object
+      properties:
+        chapters:
+          type: array
+          items:
+            type: object
+            properties:
+              start_time:
+                type: number
+                minimum: 0
+                description: Chapter start time in seconds. The first chapter always starts at 0.
+              title:
+                type: string
+                minLength: 1
+                description: Concise chapter title.
+            required:
+            - start_time
+            - title
+          minItems: 1
+          description: Generated chapters, ordered by start time.
+      required:
+      - chapters
+      example:
+        chapters:
+        - start_time: 0
+          title: Introduction
+        - start_time: 45
+          title: Setting Up the Workspace
+        - start_time: 180
+          title: Core Implementation
+        - start_time: 420
+          title: Testing and Debugging
+        - start_time: 600
+          title: Wrap-Up and Next Steps
+      description: Workflow results. Present when status is 'completed'.
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
+    GenerateChaptersJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/GenerateChaptersJob'
+      required:
+      - data
+    GenerateChaptersJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - generate-chapters
+        parameters:
+          $ref: '#/components/schemas/GenerateChaptersJobParameters'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        outputs:
+          $ref: '#/components/schemas/GenerateChaptersJobOutputs'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobError'
+          description: Error details. Present when status is 'errored'.
+        resources:
+          $ref: '#/components/schemas/Resources'
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
+    CreateGenerateChaptersJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/GenerateChaptersJobParameters'
+      required:
+      - parameters
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

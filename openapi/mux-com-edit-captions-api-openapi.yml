@@ -1,0 +1,511 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Edit Captions API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Edit Captions
+  description: Edit an existing caption track with find-and-replace edits and optional profanity censoring. This workflow is currently in beta.
+  x-displayName: Edit Captions
+paths:
+  /robots/v0/jobs/edit-captions:
+    post:
+      operationId: create-edit-captions-job
+      summary: Create an 'edit-Captions' Job
+      description: Creates a new job that edits an existing Mux text track using static replacements and optional profanity censoring. Provide at least one of `replacements` or `auto_censor_profanity`.
+      tags:
+      - Edit Captions
+      requestBody:
+        description: Caption editing parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEditCaptionsJobRequest'
+            example:
+              parameters:
+                asset_id: mux_asset_123abc
+                track_id: text_track_456def
+                replacements:
+                - find: Mucks
+                  replace: Mux
+                  case_sensitive: true
+                - find: gonna
+                  replace: going to
+                upload_to_mux: true
+                delete_original_track: true
+      responses:
+        '202':
+          description: Caption editing job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditCaptionsJobResponse'
+              example:
+                data:
+                  id: rjob_example123
+                  workflow: edit-captions
+                  status: pending
+                  units_consumed: 0
+                  created_at: 1700000000
+                  updated_at: 1700000060
+                  parameters:
+                    asset_id: mux_asset_123abc
+                    track_id: text_track_456def
+                    replacements:
+                    - find: Mucks
+                      replace: Mux
+                      case_sensitive: true
+                    - find: gonna
+                      replace: going to
+                    upload_to_mux: true
+                    delete_original_track: true
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing Mux credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Asset not found, no playback ID, or the requested text track is not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /robots/v0/jobs/edit-captions/{JOB_ID}:
+    get:
+      operationId: get-edit-captions-job
+      summary: Get an 'edit-Captions' Job
+      description: Retrieves the current status and results of an 'edit-captions' job.
+      tags:
+      - Edit Captions
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 255
+        required: true
+        name: JOB_ID
+        in: path
+      responses:
+        '200':
+          description: Current status for the requested job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditCaptionsJobResponse'
+              example:
+                data:
+                  id: rjob_example123
+                  workflow: edit-captions
+                  status: completed
+                  units_consumed: 1
+                  created_at: 1700000000
+                  updated_at: 1700000060
+                  parameters:
+                    asset_id: mux_asset_123abc
+                    track_id: text_track_456def
+                    replacements:
+                    - find: Mucks
+                      replace: Mux
+                      case_sensitive: true
+                    - find: gonna
+                      replace: going to
+                    upload_to_mux: true
+                    delete_original_track: true
+                  outputs:
+                    total_replacement_count: 5
+                    uploaded_track_id: text_track_789ghi
+                    temporary_vtt_url: https://s3.example.com/edited.vtt?sig=abc
+        '403':
+          description: Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No job exists for the supplied id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      servers:
+      - url: https://api.mux.com
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    EditCaptionsJobOutputs:
+      type: object
+      properties:
+        total_replacement_count:
+          type: integer
+          minimum: 0
+          description: Total count of cue text replacements applied across all edit operations.
+        uploaded_track_id:
+          type: string
+          minLength: 1
+          description: Mux text track ID for the uploaded edited captions. Present when upload_to_mux is true and the upload succeeds.
+        temporary_vtt_url:
+          type: string
+          minLength: 1
+          description: Temporary pre-signed URL for downloading the edited VTT file.
+      required:
+      - total_replacement_count
+      example:
+        total_replacement_count: 5
+        uploaded_track_id: text_track_789ghi
+        temporary_vtt_url: https://s3.example.com/edited.vtt?sig=abc
+      description: Workflow results. Present when status is 'completed'.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    EditCaptionsJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - edit-captions
+        parameters:
+          $ref: '#/components/schemas/EditCaptionsJobParameters'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        outputs:
+          $ref: '#/components/schemas/EditCaptionsJobOutputs'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobError'
+          description: Error details. Present when status is 'errored'.
+        resources:
+          $ref: '#/components/schemas/Resources'
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
+    SlimlineAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Mux asset ID.
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Asset title from Mux metadata.
+            creator_id:
+              type: string
+              description: Creator identifier from Mux metadata.
+            external_id:
+              type: string
+              description: External identifier from Mux metadata.
+          description: Mux asset metadata, if available.
+        passthrough:
+          type: string
+          description: Passthrough string from the Mux asset.
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to the Mux asset resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for the asset.
+      required:
+      - id
+      - _links
+    CreateEditCaptionsJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/EditCaptionsJobParameters'
+      required:
+      - parameters
+    EditCaptionsJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/EditCaptionsJob'
+      required:
+      - data
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+    EditCaptionsJobParameters:
+      type: object
+      properties:
+        asset_id:
+          type: string
+          minLength: 1
+          description: The Mux asset ID whose existing text track should be edited.
+        track_id:
+          type: string
+          minLength: 1
+          description: The existing ready Mux text track ID to edit and optionally replace.
+        auto_censor_profanity:
+          type: object
+          properties:
+            detection_method:
+              type: string
+              enum:
+              - llm
+              default: llm
+              description: How profanity is detected. Currently only `llm` is supported, which uses an LLM to identify profanity in cue text.
+            mode:
+              type: string
+              enum:
+              - blank
+              - remove
+              - mask
+              default: blank
+              description: 'Replacement strategy for detected profanity: blank inserts bracketed underscores, remove drops the match, and mask replaces characters with question marks. Defaults to "blank".'
+            always_censor:
+              type: array
+              items:
+                type: string
+                minLength: 1
+              description: Additional words or short phrases that should always be censored even if the model does not detect them.
+            never_censor:
+              type: array
+              items:
+                type: string
+                minLength: 1
+              description: Words or short phrases that should never be censored even if the model flags them.
+          description: Optional LLM-driven profanity detection and censorship rules applied to the selected caption track.
+        replacements:
+          type: array
+          items:
+            type: object
+            properties:
+              find:
+                type: string
+                minLength: 1
+                description: Exact word or phrase to replace in cue text.
+              replace:
+                type: string
+                description: Replacement text to insert when a match is found.
+              case_sensitive:
+                type: boolean
+                default: false
+                description: When true, `find` is matched only with exact case. Defaults to false (case-insensitive matching), so "gonna" also matches "Gonna" and "GONNA".
+            required:
+            - find
+            - replace
+          description: Optional static word or phrase replacements applied directly to cue text.
+        upload_to_mux:
+          type: boolean
+          default: true
+          description: Whether to upload the edited VTT back to the Mux asset as a new text track. Defaults to true.
+        delete_original_track:
+          type: boolean
+          default: true
+          description: Whether to delete the original source text track after the edited track upload succeeds. Has effect only when upload_to_mux is true. Defaults to true.
+        track_name_suffix:
+          type: string
+          minLength: 1
+          description: Optional suffix appended to the uploaded replacement track name. Defaults to "edited".
+      required:
+      - asset_id
+      - track_id
+      example:
+        asset_id: mux_asset_123abc
+        track_id: text_track_456def
+        replacements:
+        - find: Mucks
+          replace: Mux
+          case_sensitive: true
+        - find: gonna
+          replace: going to
+        upload_to_mux: true
+        delete_original_track: true
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

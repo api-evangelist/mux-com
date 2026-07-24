@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images View and Viewer Counts API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: View and Viewer Counts
+  description: API for retrieving the real-time count of views and viewers based on ID as collected by Mux Data.
+  x-displayName: View and Viewer Counts
+paths:
+  /counts:
+    get:
+      summary: Retrieve the View and Viewer Counts
+      description: '[Fetch the real-time view and viewer counts for a video](https://docs.mux.com/guides/see-how-many-people-are-watching).'
+      operationId: get-engagement-counts
+      servers:
+      - url: https://stats.mux.com
+      tags:
+      - View and Viewer Counts
+      parameters:
+      - $ref: '#/components/parameters/token'
+      responses:
+        '200':
+          description: Counts retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsCountsResponse'
+        '403':
+          description: Bad request due to missing or invalid JWT token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsCountsErrorResponse'
+        '500':
+          description: Server timeout or unknown error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsCountsErrorResponse'
+components:
+  schemas:
+    StatsCountsError:
+      type: object
+      properties:
+        type:
+          schema:
+            type: string
+        messages:
+          schema:
+            type: array
+            items:
+              type: string
+    StatsCountsErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/StatsCountsError'
+    StatsCounts:
+      type: object
+      properties:
+        views:
+          schema:
+            type: integer
+            format: int32
+        viewers:
+          schema:
+            type: integer
+            format: int32
+        updated_at:
+          schema:
+            type: string
+            format: date
+    StatsCountsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          $ref: '#/components/schemas/StatsCounts'
+  parameters:
+    token:
+      name: TOKEN
+      in: query
+      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

@@ -1,0 +1,1309 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Metrics API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Metrics
+  description: 'Historical metrics are used for tracking KPIs, diagnosing issues, and
+
+    measuring viewers'' quality of experience. Metrics are calculated using the
+
+    video views that have been completed and are bucketed on the view end time
+
+    for quality of experience metrics and view start time for engagement
+
+    metrics. Historical metrics provide a large collection of dimensions that
+
+    can be used to aggregate quality of experience based on view metadata. You
+
+    can also easily compare experiences across viewer populations to, for
+
+    example, find issues with specific devices or geographies.
+
+
+    Historical metrics are similar but not directly comparable to the real-time
+
+    metrics in the Real-time APIs. These metrics are aggregated for long-term
+
+    storage historical reporting and are generated using different viewer
+
+    populations.
+
+    '
+  x-displayName: Metrics
+paths:
+  /data/v1/metrics/{METRIC_ID}/breakdown:
+    get:
+      tags:
+      - Metrics
+      summary: List Breakdown Values
+      description: List the breakdown values for a specific metric.
+      operationId: list-breakdown-values
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/metric_id'
+      - $ref: '#/components/parameters/group_by'
+      - $ref: '#/components/parameters/measurement'
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/metric_filters'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order_direction'
+      - $ref: '#/components/parameters/timeframe'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBreakdownValuesResponse'
+              example:
+                total_row_count: 1
+                timeframe:
+                - 1610028298
+                - 1610114698
+                meta:
+                  aggregation: view_end
+                data:
+                - views: 5
+                  value: 4
+                  total_watch_time: 513934
+                  total_playing_time: 413934
+                  negative_impact: 1
+                  field: US
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/metrics/{METRIC_ID}/overall:
+    get:
+      tags:
+      - Metrics
+      summary: Get Overall Values
+      description: Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric.
+      operationId: get-overall-values
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/metric_id'
+      - $ref: '#/components/parameters/timeframe'
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/metric_filters'
+      - $ref: '#/components/parameters/measurement'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOverallValuesResponse'
+              example:
+                total_row_count: 1
+                timeframe:
+                - 1610029525
+                - 1610115925
+                meta:
+                  aggregation: view_end
+                data:
+                  value: 4
+                  total_watch_time: 513934
+                  total_playing_time: 413934
+                  total_views: 5
+                  global_value: 1169.1832095168065
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/metrics/{METRIC_ID}/insights:
+    get:
+      tags:
+      - Metrics
+      summary: List Insights
+      description: Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric.
+      operationId: list-insights
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/metric_id'
+      - $ref: '#/components/parameters/measurement'
+      - $ref: '#/components/parameters/order_direction_deprecated'
+      - $ref: '#/components/parameters/timeframe'
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/metric_filters'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInsightsResponse'
+              example:
+                total_row_count: 18
+                timeframe:
+                - 1610029610
+                - 1610116010
+                meta:
+                  aggregation: view_end
+                data:
+                - total_watch_time: 351144
+                  total_playing_time: 341144
+                  total_views: 1
+                  negative_impact_score: -5
+                  metric: 9
+                  filter_value: ''
+                  filter_column: video_title
+                - total_watch_time: 513934
+                  total_playing_time: 413934
+                  total_views: 5
+                  negative_impact_score: 0
+                  metric: 4
+                  filter_value: US
+                  filter_column: country
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/metrics/{METRIC_ID}/timeseries:
+    get:
+      tags:
+      - Metrics
+      summary: Get Metric Timeseries Data
+      description: "Returns timeseries data for a specific metric.\n\nEach interval represented in the data array contains an array with the following values:\n  * the first element is the interval time\n  * the second element is the calculated metric value\n  * the third element is the number of views in the interval that have a valid metric value\n"
+      operationId: get-metric-timeseries-data
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/metric_id'
+      - $ref: '#/components/parameters/timeframe'
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/metric_filters'
+      - $ref: '#/components/parameters/measurement'
+      - $ref: '#/components/parameters/order_direction'
+      - $ref: '#/components/parameters/timeseries_group_by'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMetricTimeseriesDataResponse'
+              example:
+                total_row_count: 2
+                timeframe:
+                - 1610029711
+                - 1610116111
+                meta:
+                  aggregation: view_end
+                data:
+                - - '2021-01-07T14:00:00Z'
+                  - '0.8743536882994202'
+                  - '154240'
+                - - '2021-01-07T15:00:00Z'
+                  - '0.8929105055911401'
+                  - '156056'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /data/v1/metrics/comparison:
+    get:
+      tags:
+      - Metrics
+      summary: List All Metric Values
+      description: List all of the values across every breakdown for a specific metric.
+      operationId: list-all-metric-values
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/timeframe'
+      - $ref: '#/components/parameters/filters'
+      - $ref: '#/components/parameters/metric_filters'
+      - $ref: '#/components/parameters/dimension'
+      - $ref: '#/components/parameters/value'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAllMetricValuesResponse'
+              example:
+                total_row_count: 1
+                timeframe:
+                - 1610029906
+                - 1610116306
+                data:
+                - watch_time: 513934
+                  view_count: 5
+                  started_views: 6
+                  ended_views: 5
+                  unique_viewers: 6
+                  total_playing_time: 503934
+                  name: totals
+                - value: 6
+                  type: number
+                  name: Views
+                  metric: views
+                  items:
+                  - value: 6
+                    type: number
+                    name: Unique Viewers
+                    metric: unique_viewers
+                  - value: 503934
+                    type: milliseconds
+                    name: Playing Time
+                    metric: playing_time
+                  - value: 0
+                    type: number
+                    name: Ad Attempts (total)
+                    metric: ad_attempt_count
+                    measurement: avg
+                  - value: 0
+                    type: number
+                    name: Ad Attempts (average)
+                    metric: ad_attempt_count
+                    measurement: avg
+                  - value: 0
+                    type: number
+                    name: Ad Breaks (total)
+                    metric: ad_break_count
+                    measurement: avg
+                  - value: 0
+                    type: number
+                    name: Ad Breaks (average)
+                    metric: ad_break_count
+                    measurement: avg
+                  - value: 0
+                    type: number
+                    name: Ad Impressions (total)
+                    metric: ad_impression_count
+                    measurement: avg
+                  - value: 0
+                    type: number
+                    name: Ad Impressions (average)
+                    metric: ad_impression_count
+                    measurement: avg
+                - value: 0.7803472280502319
+                  type: score
+                  name: Overall Score
+                  metric: viewer_experience_score
+                - value: 0.8
+                  type: score
+                  name: Playback Failure Score
+                  metric: playback_failure_score
+                  items:
+                  - value: 0.2
+                    type: percentage
+                    name: Playback Failure Percentage
+                    metric: playback_failure_percentage
+                  - value: 0
+                    type: percentage
+                    name: Video Startup Failure Percentage
+                    metric: video_startup_failure_percentage
+                  - value: 0
+                    type: percentage
+                    name: Exits Before Video Start
+                    metric: exits_before_video_start
+                  - value: 0
+                    type: percentage
+                    name: View Dropped Percentage
+                    metric: view_dropped_percentage
+                  - value: 0
+                    type: number
+                    name: Ad Errors (total)
+                    metric: ad_error_count
+                    measurement: sum
+                  - value: 0
+                    type: number
+                    name: Ad Errors (average)
+                    metric: ad_error_count
+                    measurement: avg
+                  - value: 0
+                    type: percentage
+                    name: Ad Error Percentage (average)
+                    metric: ad_error_percentage
+                    measurement: avg
+                  - value: 0
+                    type: number
+                    name: Ad Break Errors (total)
+                    metric: ad_break_error_count
+                    measurement: sum
+                  - value: 0
+                    type: number
+                    name: Ad Break Errors (average)
+                    metric: ad_break_error_count
+                    measurement: avg
+                  - value: 0
+                    type: percentage
+                    name: Ad Break Error Percentage (average)
+                    metric: ad_break_error_percentage
+                    measurement: avg
+                  - value: 0
+                    type: percentage
+                    name: Ad Startup Error Percentage (average)
+                    metric: ad_startup_error_percentage
+                    measurement: avg
+                  - value: 0
+                    type: percentage
+                    name: Ad Exit Before Start Percentage (average)
+                    metric: ad_exit_before_start_percentage
+                    measurement: avg
+                  - value: 0
+                    type: percentage
+                    name: Playback Business Exception Percentage (average)
+                    metric: playback_business_exception_percentage
+                    measurement: avg
+                  - value: 0
+                    type: percentage
+                    name: Video Startup Business Exception Percentage (average)
+                    metric: video_startup_business_exception_percentage
+                    measurement: avg
+                - value: 0.9991008877754212
+                  type: score
+                  name: Startup Time Score
+                  metric: startup_time_score
+                  items:
+                  - value: 4
+                    type: milliseconds
+                    name: Video Startup Time (median)
+                    metric: video_startup_time
+                    measurement: median
+                  - value: 9
+                    type: milliseconds
+                    name: Video Startup Time (95th %)
+                    metric: video_startup_time
+                    measurement: 95th
+                  - value: 52.5625
+                    type: milliseconds
+                    name: Player Startup Time (median)
+                    metric: player_startup_time
+                    measurement: median
+                  - value: 60.0625
+                    type: milliseconds
+                    name: Player Startup Time (95th %)
+                    metric: player_startup_time
+                    measurement: 95th
+                  - value: 122.37890625
+                    type: milliseconds
+                    name: Page Load Time (median)
+                    metric: page_load_time
+                    measurement: median
+                  - value: 264.0625
+                    type: milliseconds
+                    name: Page Load Time (95th %)
+                    metric: page_load_time
+                    measurement: 95th
+                  - value: 182.25
+                    type: milliseconds
+                    name: Aggregate Startup Time (median)
+                    metric: aggregate_startup_time
+                    measurement: median
+                  - value: 319.515625
+                    type: milliseconds
+                    name: Aggregate Startup Time (95th %)
+                    metric: aggregate_startup_time
+                    measurement: 95th
+                  - value: 3042
+                    type: milliseconds
+                    name: Seek Latency
+                    metric: seek_latency
+                  - value: 1000
+                    type: milliseconds
+                    name: Content Startup Time (median)
+                    metric: view_content_startup_time
+                    measurement: median
+                  - value: 1403
+                    type: milliseconds
+                    name: Content Startup Time (95th %)
+                    metric: view_content_startup_time
+                    measurement: 95th
+                  - value: 800
+                    type: milliseconds
+                    name: Ad Preroll Startup Time (median)
+                    metric: ad_preroll_startup_time
+                    measurement: median
+                  - value: 1243
+                    type: milliseconds
+                    name: Ad Preroll Startup Time (95th %)
+                    metric: ad_preroll_startup_time
+                    measurement: 95th
+                - value: 0.9523247838020324
+                  type: score
+                  name: Rebuffer Score
+                  metric: rebuffer_score
+                  items:
+                  - value: 0.0005564916895943838
+                    type: percentage
+                    name: Rebuffer Percentage
+                    metric: rebuffer_percentage
+                  - value: 0.11674650830651406
+                    type: per_minute
+                    name: Rebuffer Frequency
+                    metric: rebuffer_frequency
+                  - value: 0
+                    type: milliseconds
+                    name: Rebuffer Duration (median)
+                    metric: rebuffer_duration
+                    measurement: median
+                  - value: 256
+                    type: milliseconds
+                    name: Rebuffer Duration (95th %)
+                    metric: rebuffer_duration
+                    measurement: 95th
+                  - value: 0
+                    type: number
+                    name: Rebuffer Count (median)
+                    metric: rebuffer_count
+                    measurement: median
+                  - value: 1
+                    type: number
+                    name: Rebuffer Count (95th %)
+                    metric: rebuffer_count
+                    measurement: 95th
+                - value: 1
+                  type: score
+                  name: Video Quality Score
+                  metric: video_quality_score
+                  items:
+                  - value: 0
+                    type: percentage
+                    name: Upscale Percentage (median)
+                    metric: upscale_percentage
+                    measurement: median
+                  - value: 0
+                    type: percentage
+                    name: Upscale Percentage (95th %)
+                    metric: upscale_percentage
+                    measurement: 95th
+                  - value: 0
+                    type: percentage
+                    name: Upscale Percentage (average)
+                    metric: upscale_percentage
+                    measurement: avg
+                  - value: 0.007
+                    type: percentage
+                    name: Downscale Percentage (median)
+                    metric: downscale_percentage
+                    measurement: median
+                  - value: 0.449
+                    type: percentage
+                    name: Downscale Percentage (95th %)
+                    metric: downscale_percentage
+                    measurement: 95th
+                  - value: 0.11813909473676262
+                    type: percentage
+                    name: Downscale Percentage (average)
+                    metric: downscale_percentage
+                    measurement: avg
+                  - value: 0
+                    type: percentage
+                    name: Max Upscale Percentage (median)
+                    metric: max_upscale_percentage
+                    measurement: median
+                  - value: 0
+                    type: percentage
+                    name: Max Upscale Percentage (95th %)
+                    metric: max_upscale_percentage
+                    measurement: 95th
+                  - value: 0.007
+                    type: percentage
+                    name: Max Downscale Percentage (median)
+                    metric: max_downscale_percentage
+                    measurement: median
+                  - value: 0.449
+                    type: percentage
+                    name: Max Downscale Percentage (95th %)
+                    metric: max_downscale_percentage
+                    measurement: 95th
+                  - value: 851582.91015625
+                    type: mbps
+                    name: Weighted Average Bitrate (median)
+                    metric: weighted_average_bitrate
+                    measurement: median
+                  - value: 697016.265625
+                    type: mbps
+                    name: Weighted Average Bitrate (95th %)
+                    metric: weighted_average_bitrate
+                    measurement: 95th
+                  - value: 2195
+                    type: milliseconds
+                    name: Live Stream Latency (median)
+                    metric: live_stream_latency
+                    measurement: median
+                  - value: 3523
+                    type: milliseconds
+                    name: Live Stream Latency (95th %)
+                    metric: live_stream_latency
+                    measurement: 95th
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  parameters:
+    value:
+      name: value
+      in: query
+      description: Value to show all available metrics for
+      required: false
+      schema:
+        type: string
+    group_by:
+      name: group_by
+      in: query
+      description: Breakdown value to group the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - asn
+        - asset_id
+        - browser
+        - browser_version
+        - cdn
+        - continent_code
+        - country
+        - custom_1
+        - custom_2
+        - custom_3
+        - custom_4
+        - custom_5
+        - custom_6
+        - custom_7
+        - custom_8
+        - custom_9
+        - custom_10
+        - exit_before_video_start
+        - experiment_name
+        - live_stream_id
+        - operating_system
+        - operating_system_version
+        - page_type
+        - page_url
+        - playback_failure
+        - playback_business_exception
+        - playback_id
+        - player_autoplay
+        - player_error_code
+        - player_mux_plugin_name
+        - player_mux_plugin_version
+        - player_name
+        - player_preload
+        - player_remote_played
+        - player_software
+        - player_software_version
+        - player_version
+        - preroll_ad_asset_hostname
+        - preroll_ad_tag_hostname
+        - preroll_played
+        - preroll_requested
+        - region
+        - source_hostname
+        - source_type
+        - stream_type
+        - sub_property_id
+        - video_content_type
+        - video_encoding_variant
+        - video_id
+        - video_series
+        - video_startup_business_exception
+        - video_startup_failure
+        - video_title
+        - view_drm_type
+        - view_has_ad
+        - view_session_id
+        - viewer_connection_type
+        - viewer_device_category
+        - viewer_device_manufacturer
+        - viewer_device_model
+        - viewer_device_name
+        - viewer_user_id
+        - ad_playback_failure
+        - content_playback_failure
+        - view_dropped
+        - client_application_name
+        - client_application_version
+        - video_affiliate
+        - viewer_plan
+        - viewer_plan_status
+        - viewer_plan_category
+        - view_drm_level
+        - video_brand
+        - used_pip
+        - time_shift_enabled
+        - used_captions
+        - video_codec
+        - audio_codec
+        - video_dynamic_range_type
+        - view_cdn_edge_pop
+        - view_cdn_origin
+        - video_creator_id
+        - video_cdn_trace
+        - video_source_height_initial
+        - video_source_width_initial
+        - video_source_bitrate_initial
+        - video_codec_initial
+        - audio_codec_initial
+        - video_source_fps_initial
+        - video_dynamic_range_type_initial
+        - video_source_fps
+        - video_source_bitrate
+        - video_source_height
+        - video_source_width
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    timeframe:
+      name: timeframe[]
+      in: query
+      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    metric_filters:
+      name: metric_filters[]
+      in: query
+      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    filters:
+      name: filters[]
+      in: query
+      description: 'Filter results using key:value pairs. Must be provided as an array query string parameter.
+
+
+        **Basic filtering:**
+
+        * `filters[]=dimension:value` - Include rows where dimension equals value
+
+        * `filters[]=!dimension:value` - Exclude rows where dimension equals value
+
+
+        **For trace dimensions (like video_cdn_trace):**
+
+        * `filters[]=+dimension:value` - Include rows where trace contains value
+
+        * `filters[]=-dimension:value` - Exclude rows where trace contains value
+
+        * `filters[]=dimension:[value1,value2]` - Exact trace match
+
+
+        **Examples:**
+
+        * `filters[]=country:US` - US views only
+
+        * `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN
+
+        '
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    dimension:
+      name: dimension
+      in: query
+      description: Dimension the specified value belongs to
+      required: false
+      schema:
+        type: string
+        enum:
+        - asn
+        - asset_id
+        - browser
+        - browser_version
+        - cdn
+        - continent_code
+        - country
+        - custom_1
+        - custom_2
+        - custom_3
+        - custom_4
+        - custom_5
+        - custom_6
+        - custom_7
+        - custom_8
+        - custom_9
+        - custom_10
+        - exit_before_video_start
+        - experiment_name
+        - live_stream_id
+        - operating_system
+        - operating_system_version
+        - page_type
+        - page_url
+        - playback_failure
+        - playback_business_exception
+        - playback_id
+        - player_autoplay
+        - player_error_code
+        - player_mux_plugin_name
+        - player_mux_plugin_version
+        - player_name
+        - player_preload
+        - player_remote_played
+        - player_software
+        - player_software_version
+        - player_version
+        - preroll_ad_asset_hostname
+        - preroll_ad_tag_hostname
+        - preroll_played
+        - preroll_requested
+        - region
+        - source_hostname
+        - source_type
+        - stream_type
+        - sub_property_id
+        - video_content_type
+        - video_encoding_variant
+        - video_id
+        - video_series
+        - video_startup_failure
+        - video_startup_business_exception
+        - video_title
+        - view_drm_type
+        - view_has_ad
+        - view_session_id
+        - viewer_connection_type
+        - viewer_device_category
+        - viewer_device_manufacturer
+        - viewer_device_model
+        - viewer_device_name
+        - viewer_user_id
+        - ad_playback_failure
+        - content_playback_failure
+        - view_dropped
+        - client_application_name
+        - client_application_version
+        - video_affiliate
+        - viewer_plan
+        - viewer_plan_status
+        - viewer_plan_category
+        - view_drm_level
+        - video_brand
+        - used_pip
+        - time_shift_enabled
+        - used_captions
+        - video_codec
+        - audio_codec
+        - video_dynamic_range_type
+        - view_cdn_edge_pop
+        - view_cdn_origin
+        - video_creator_id
+        - video_cdn_trace
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    order_direction_deprecated:
+      name: order_direction
+      in: query
+      description: Sort order.
+      deprecated: true
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    timeseries_group_by:
+      name: group_by
+      in: query
+      description: 'Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the timeframe.
+
+
+        For timeframes of less than 90 minutes, the default granularity is `minute`. Between 90 minutes and 6 hours, the default granularity is `ten_minutes`. Between 6 hours and 15 days inclusive, the default granularity is `hour`. The granularity of timeframes that exceed 15 days is `day`. This default behavior is subject to change; it is strongly suggested that you explicitly specify the granularity.
+
+        '
+      required: false
+      schema:
+        type: string
+        enum:
+        - minute
+        - ten_minutes
+        - hour
+        - day
+    order_by:
+      name: order_by
+      in: query
+      description: Value to order the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
+    metric_id:
+      name: METRIC_ID
+      in: path
+      description: ID of the Metric
+      required: true
+      example: video_startup_time
+      schema:
+        type: string
+        enum:
+        - aggregate_startup_time
+        - downscale_percentage
+        - exits_before_video_start
+        - live_stream_latency
+        - max_downscale_percentage
+        - max_request_latency
+        - max_upscale_percentage
+        - page_load_time
+        - playback_failure_percentage
+        - playback_success_score
+        - player_startup_time
+        - playing_time
+        - rebuffer_count
+        - rebuffer_duration
+        - rebuffer_frequency
+        - rebuffer_percentage
+        - request_latency
+        - request_throughput
+        - rebuffer_score
+        - requests_for_first_preroll
+        - seek_latency
+        - startup_time_score
+        - unique_viewers
+        - upscale_percentage
+        - video_quality_score
+        - video_startup_preroll_load_time
+        - video_startup_preroll_request_time
+        - video_startup_time
+        - viewer_experience_score
+        - views
+        - weighted_average_bitrate
+        - video_startup_failure_percentage
+        - ad_attempt_count
+        - ad_break_count
+        - ad_break_error_count
+        - ad_break_error_percentage
+        - ad_error_count
+        - ad_error_percentage
+        - ad_exit_before_start_count
+        - ad_exit_before_start_percentage
+        - ad_impression_count
+        - ad_startup_error_count
+        - ad_startup_error_percentage
+        - playback_business_exception_percentage
+        - video_startup_business_exception_percentage
+        - view_content_startup_time
+        - ad_preroll_startup_time
+        - view_dropped_percentage
+        - rendition_change_count
+        - rendition_upshift_count
+        - rendition_downshift_count
+    measurement:
+      name: measurement
+      in: query
+      description: 'Measurement for the provided metric. If omitted, the default for the metric will be used.
+
+        The default measurement for each metric is:
+
+        "sum" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`
+
+        "median" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`
+
+        "avg" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`
+
+        "count" : `started_views`, `unique_viewers`
+
+        '
+      required: false
+      schema:
+        type: string
+        enum:
+        - 95th
+        - median
+        - avg
+        - count
+        - sum
+  schemas:
+    ListInsightsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insight'
+        total_row_count:
+          type: integer
+          format: int64
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        meta:
+          type: object
+          properties:
+            granularity:
+              type: string
+            aggregation:
+              type: string
+      required:
+      - data
+      - timeframe
+      - total_row_count
+      - meta
+    ListBreakdownValuesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BreakdownValue'
+        total_row_count:
+          type: integer
+          format: int64
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        meta:
+          type: object
+          properties:
+            granularity:
+              type: string
+            aggregation:
+              type: string
+      required:
+      - data
+      - total_row_count
+      - timeframe
+      - meta
+    OverallValues:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+        total_watch_time:
+          type: integer
+          format: int64
+          nullable: true
+        total_views:
+          type: integer
+          format: int64
+        total_playing_time:
+          type: integer
+          format: int64
+          nullable: true
+        global_value:
+          type: number
+          format: double
+          nullable: true
+      required:
+      - value
+      - total_watch_time
+      - total_views
+      - total_playing_time
+      - global_value
+    Insight:
+      type: object
+      properties:
+        total_watch_time:
+          type: integer
+          format: int64
+          nullable: true
+        total_playing_time:
+          type: integer
+          format: int64
+          nullable: true
+        total_views:
+          type: integer
+          format: int64
+        negative_impact_score:
+          type: number
+          format: float
+        metric:
+          type: number
+          format: double
+        filter_value:
+          type: string
+          nullable: true
+        filter_column:
+          type: string
+      required:
+      - total_watch_time
+      - total_playing_time
+      - total_views
+      - negative_impact_score
+      - metric
+      - filter_value
+      - filter_column
+    BreakdownValue:
+      type: object
+      properties:
+        views:
+          type: integer
+          format: int64
+        value:
+          type: number
+          format: double
+        total_watch_time:
+          type: integer
+          format: int64
+          nullable: true
+        total_playing_time:
+          type: integer
+          format: int64
+          nullable: true
+        negative_impact:
+          type: integer
+          format: int32
+        field:
+          type: string
+          nullable: true
+      required:
+      - field
+      - value
+      - views
+      - negative_impact
+      - total_watch_time
+      - total_playing_time
+    ListAllMetricValuesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Score'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    Score:
+      type: object
+      properties:
+        watch_time:
+          type: integer
+          format: int64
+          nullable: true
+        view_count:
+          type: integer
+          format: int64
+        unique_viewers:
+          type: integer
+          format: int64
+        started_views:
+          type: integer
+          format: int64
+        total_playing_time:
+          type: integer
+          format: int64
+          nullable: true
+        name:
+          type: string
+        ended_views:
+          type: integer
+          format: int64
+        value:
+          type: number
+          format: double
+        type:
+          type: string
+        metric:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+      required:
+      - name
+    GetOverallValuesResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/OverallValues'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        meta:
+          type: object
+          properties:
+            granularity:
+              type: string
+            aggregation:
+              type: string
+      required:
+      - data
+      - timeframe
+      - total_row_count
+      - meta
+    Metric:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+          nullable: true
+        type:
+          type: string
+        name:
+          type: string
+        metric:
+          type: string
+        measurement:
+          type: string
+      required:
+      - name
+      - value
+      - type
+      - metric
+    GetMetricTimeseriesDataResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+              - type: string
+              - type: integer
+                format: int64
+                nullable: true
+              - type: number
+                format: double
+                nullable: true
+        total_row_count:
+          type: integer
+          format: int64
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        meta:
+          type: object
+          properties:
+            granularity:
+              type: string
+            aggregation:
+              type: string
+      required:
+      - data
+      - timeframe
+      - total_row_count
+      - meta
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

@@ -1,0 +1,302 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Storyboards API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Storyboards
+  description: APIs for retrieving storyboards, sprites, and metadata about the storyboards from videos hosted using Mux.
+  x-displayName: Storyboards
+paths:
+  /{PLAYBACK_ID}/storyboard.{EXTENSION}:
+    get:
+      summary: Retrieve a Storyboard Image for Timeline Hover Previews
+      description: Fetch a storyboard image composed of multiple thumbnails for use in [timeline hover previews](https://docs.mux.com/guides/create-timeline-hover-previews).
+      operationId: get-image-storyboard
+      servers:
+      - url: https://image.mux.com
+      tags:
+      - Storyboards
+      parameters:
+      - $ref: '#/components/parameters/playback_id'
+      - $ref: '#/components/parameters/token'
+      - name: EXTENSION
+        in: path
+        required: true
+        description: The storyboard image extension, either 'jpg', 'png', or 'webp'.
+        schema:
+          type: string
+          enum:
+          - jpg
+          - png
+          - webp
+      - $ref: '#/components/parameters/program_start_time'
+      - $ref: '#/components/parameters/program_end_time'
+      - $ref: '#/components/parameters/asset_start_time'
+      - $ref: '#/components/parameters/asset_end_time'
+      responses:
+        '200':
+          description: Storyboard image retrieved successfully.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/webp:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad request due to invalid parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema'
+              example:
+                code: 3
+                message: Invalid parameter
+        '404':
+          description: Video asset not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema'
+              example:
+                code: 5
+                message: Not Found
+  /{PLAYBACK_ID}/storyboard.vtt:
+    get:
+      summary: Retrieve Storyboard Metadata in WebVTT Format
+      description: Fetch metadata for the [storyboard image in WebVTT format](https://docs.mux.com/guides/create-timeline-hover-previews#webvtt), detailing the coordinates and time ranges of each thumbnail.
+      operationId: get-vtt-storyboard
+      servers:
+      - url: https://image.mux.com
+      tags:
+      - Storyboards
+      parameters:
+      - $ref: '#/components/parameters/playback_id'
+      - $ref: '#/components/parameters/token'
+      - $ref: '#/components/parameters/program_start_time'
+      - $ref: '#/components/parameters/program_end_time'
+      - $ref: '#/components/parameters/asset_start_time'
+      - $ref: '#/components/parameters/asset_end_time'
+      responses:
+        '200':
+          description: WebVTT metadata retrieved successfully.
+          content:
+            text/vtt:
+              schema:
+                type: string
+        '400':
+          description: Bad request due to invalid parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - message
+                    properties:
+                      message:
+                        type: string
+                        description: Description of the error
+                      messages:
+                        type: array
+                        items:
+                          type: string
+                        description: Description of the errors
+                      type:
+                        type: string
+                        description: Category of the error
+                      code:
+                        type: integer
+                        format: int32
+                        description: Internal error code
+                  code:
+                    type: integer
+                    format: int32
+                    description: Internal error code
+                  message:
+                    type: string
+                    description: Description of the error
+              example:
+                code: 3
+                message: Invalid parameter
+        '404':
+          description: Video asset not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema'
+              example:
+                code: 5
+                message: Not Found
+  /{PLAYBACK_ID}/storyboard.json:
+    get:
+      summary: Retrieve Storyboard Metadata in JSON Format
+      description: Fetch metadata for the [storyboard image in JSON format](https://docs.mux.com/guides/create-timeline-hover-previews#json), detailing the coordinates and time ranges of each thumbnail.
+      operationId: get-json-storyboard
+      servers:
+      - url: https://image.mux.com
+      tags:
+      - Storyboards
+      parameters:
+      - $ref: '#/components/parameters/playback_id'
+      - $ref: '#/components/parameters/token'
+      - $ref: '#/components/parameters/program_start_time'
+      - $ref: '#/components/parameters/program_end_time'
+      - $ref: '#/components/parameters/asset_start_time'
+      - $ref: '#/components/parameters/asset_end_time'
+      - name: format
+        in: query
+        description: The format of the storyboard image URL in the response. Can be either 'jpg', 'png', or 'webp'. Defaults to 'jpg'.
+        schema:
+          type: string
+          enum:
+          - jpg
+          - png
+          - webp
+      responses:
+        '200':
+          description: JSON storyboard retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad request due to invalid parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema'
+              example:
+                code: 3
+                message: Invalid parameter
+        '404':
+          description: Video asset not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema'
+              example:
+                code: 5
+                message: Not Found
+components:
+  parameters:
+    token:
+      name: TOKEN
+      in: query
+      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
+    asset_start_time:
+      name: asset_start_time
+      in: query
+      description: Set the relative start time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips).
+      schema:
+        type: number
+        format: float
+    program_end_time:
+      name: program_end_time
+      in: query
+      description: Set the end time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream.
+      schema:
+        type: integer
+    program_start_time:
+      name: program_start_time
+      in: query
+      description: Set the start time of the asset created from a live stream when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips). The timestamp should be provided as an epoch integer, and is compared to the program date time (PDT) generated by a live stream.
+      schema:
+        type: integer
+    playback_id:
+      name: PLAYBACK_ID
+      in: path
+      description: The asset or live stream's playback ID.
+      required: true
+      schema:
+        type: string
+    asset_end_time:
+      name: asset_end_time
+      in: query
+      description: Set the relative end time of the asset (in seconds) when using the [instant clipping feature](https://docs.mux.com/guides/create-instant-clips).
+      schema:
+        type: number
+        format: float
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

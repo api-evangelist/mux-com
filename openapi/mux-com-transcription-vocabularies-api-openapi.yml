@@ -1,0 +1,368 @@
+openapi: 3.1.0
+info:
+  title: Mux Animated Images Transcription Vocabularies API
+  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  version: v1
+  contact:
+    name: Mux DevEx
+    url: https://docs.mux.com
+    email: devex@mux.com
+servers:
+- url: https://api.mux.com
+  description: Mux Production API
+- url: https://image.mux.com
+- url: https://stream.mux.com
+- url: https://stats.mux.com
+tags:
+- name: Transcription Vocabularies
+  description: Transcription Vocabularies allows you to provide collections of phrases like proper nouns, technical jargon, and uncommon words as part of captioning workflows. When using Auto-Generated Captions, Transcription Vocabularies increase the likelihood of correct speech recognition for these words and phrases.
+  x-displayName: Transcription Vocabularies
+paths:
+  /video/v1/transcription-vocabularies:
+    post:
+      tags:
+      - Transcription Vocabularies
+      summary: Create a Transcription Vocabulary
+      description: Create a new Transcription Vocabulary.
+      operationId: create-transcription-vocabulary
+      servers:
+      - url: https://api.mux.com
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTranscriptionVocabularyRequest'
+            example:
+              name: Mux API Vocabulary
+              phrases:
+              - Mux
+              - Live Stream
+              - Playback ID
+              - video encoding
+      responses:
+        '201':
+          description: Transcription Vocabulary Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscriptionVocabularyResponse'
+              example:
+                data:
+                  id: VDm3npt2eaEDvz9emzun8Q
+                  name: Mux API Vocabulary
+                  phrases:
+                  - Mux
+                  - Live Stream
+                  - Playback ID
+                  - video encoding
+                  created_at: '1609869152'
+                  updated_at: '1609869152'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    get:
+      tags:
+      - Transcription Vocabularies
+      summary: List Transcription Vocabularies
+      description: List all Transcription Vocabularies.
+      operationId: list-transcription-vocabularies
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - name: limit
+        in: query
+        description: Number of items to include in the response
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+          maximum: 10
+      - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTranscriptionVocabulariesResponse'
+              example:
+                data:
+                - id: VDm3npt2eaEDvz9emzun8Q
+                  name: Mux API Vocabulary
+                  phrases:
+                  - Mux
+                  - Live Stream
+                  - Playback ID
+                  - video encoding
+                  created_at: '1609869152'
+                  updated_at: '1609870000'
+                - id: M1lDlzSP102NgukTnyQyLqw
+                  name: Video Codecs
+                  phrases:
+                  - h.264
+                  - HEVC
+                  - AV1
+                  created_at: '1609869152'
+                  updated_at: '1609870000'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+  /video/v1/transcription-vocabularies/{TRANSCRIPTION_VOCABULARY_ID}:
+    get:
+      tags:
+      - Transcription Vocabularies
+      summary: Retrieve a Transcription Vocabulary
+      description: Retrieves the details of a Transcription Vocabulary that has previously been created. Supply the unique Transcription Vocabulary ID and Mux will return the corresponding Transcription Vocabulary information. The same information is returned when creating a Transcription Vocabulary.
+      operationId: get-transcription-vocabulary
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/transcription_vocabulary_id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscriptionVocabularyResponse'
+              example:
+                data:
+                  id: VDm3npt2eaEDvz9emzun8Q
+                  name: Mux API Vocabulary
+                  phrases:
+                  - Mux
+                  - Live Stream
+                  - Playback ID
+                  - video encoding
+                  created_at: '1609869152'
+                  updated_at: '1609870000'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    delete:
+      tags:
+      - Transcription Vocabularies
+      summary: Delete a Transcription Vocabulary
+      description: Deletes a Transcription Vocabulary. The Transcription Vocabulary's ID will be disassociated from any live streams using it. Transcription Vocabularies can be deleted while associated live streams are active. However, the words and phrases in the deleted Transcription Vocabulary will remain attached to those streams while they are active.
+      operationId: delete-transcription-vocabulary
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/transcription_vocabulary_id'
+      responses:
+        '204':
+          description: No Content
+      security:
+      - accessToken: []
+      - authorizationToken: []
+    put:
+      tags:
+      - Transcription Vocabularies
+      summary: Update a Transcription Vocabulary
+      description: Updates the details of a previously-created Transcription Vocabulary. Updates to Transcription Vocabularies are allowed while associated live streams are active. However, updates will not be applied to those streams while they are active.
+      operationId: update-transcription-vocabulary
+      servers:
+      - url: https://api.mux.com
+      parameters:
+      - $ref: '#/components/parameters/transcription_vocabulary_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTranscriptionVocabularyRequest'
+            example:
+              name: Mux API Vocabulary - Updated
+              phrases:
+              - Mux
+              - Live Stream
+              - RTMP
+              - Stream Key
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscriptionVocabularyResponse'
+              example:
+                data:
+                  id: VDm3npt2eaEDvz9emzun8Q
+                  name: Mux API Vocabulary - Updated
+                  phrases:
+                  - Mux
+                  - Live Stream
+                  - RTMP
+                  - Stream Key
+                  created_at: '1609869152'
+                  updated_at: '1609870000'
+      security:
+      - accessToken: []
+      - authorizationToken: []
+components:
+  schemas:
+    TranscriptionVocabularyResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/TranscriptionVocabulary'
+    TranscriptionVocabularyPhrase:
+      type: string
+      description: A phrase or word belonging to a Transcription Vocabulary.
+      minLength: 1
+      maxLength: 32
+    UpdateTranscriptionVocabularyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The user-supplied name of the Transcription Vocabulary.
+        phrases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionVocabularyPhrase'
+          maxItems: 1000
+          description: Phrases, individual words, or proper names to include in the Transcription Vocabulary. When the Transcription Vocabulary is attached to a live stream's `generated_subtitles`, the probability of successful speech recognition for these words or phrases is boosted.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the Transcription Vocabulary. Max 255 characters.
+      required:
+      - phrases
+    CreateTranscriptionVocabularyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The user-supplied name of the Transcription Vocabulary.
+        phrases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionVocabularyPhrase'
+          maxItems: 1000
+          description: Phrases, individual words, or proper names to include in the Transcription Vocabulary. When the Transcription Vocabulary is attached to a live stream's `generated_subtitles`, the probability of successful speech recognition for these words or phrases is boosted.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the Transcription Vocabulary. Max 255 characters.
+      required:
+      - phrases
+    ListTranscriptionVocabulariesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionVocabulary'
+    TranscriptionVocabulary:
+      type: object
+      required:
+      - id
+      - updated_at
+      - created_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Transcription Vocabulary
+        name:
+          type: string
+          description: The user-supplied name of the Transcription Vocabulary.
+        phrases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionVocabularyPhrase'
+          maxItems: 1000
+          description: Phrases, individual words, or proper names to include in the Transcription Vocabulary. When the Transcription Vocabulary is attached to a live stream's `generated_subtitles` configuration, the probability of successful speech recognition for these words or phrases is boosted.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the Transcription Vocabulary. Max 255 characters.
+        created_at:
+          type: string
+          format: int64
+          description: Time the Transcription Vocabulary was created, defined as a Unix timestamp (seconds since epoch).
+        updated_at:
+          type: string
+          format: int64
+          description: Time the Transcription Vocabulary was updated, defined as a Unix timestamp (seconds since epoch).
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    transcription_vocabulary_id:
+      name: TRANSCRIPTION_VOCABULARY_ID
+      in: path
+      description: The ID of the Transcription Vocabulary.
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    accessToken:
+      description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+
+        '
+      scheme: basic
+      type: http
+    authorizationToken:
+      description: 'OAuth authorization token, used as a Bearer Auth header
+
+        '
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - Playback ID
+  - URL Signing Keys
+  - Direct Uploads
+  - Delivery Usage
+  - Playback Restrictions
+  - DRM Configurations
+  - Transcription Vocabularies
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
+  - Monitoring
+  - Real-Time
+  - Dimensions
+  - Incidents
+  - Annotations
+  - View and Viewer Counts
+- name: System
+  tags:
+  - Signing Keys
+  - Utilities
+- name: Robots
+  tags:
+  - Jobs
+  - Ask Questions
+  - Edit Captions
+  - Find Key Moments
+  - Generate Chapters
+  - Moderate
+  - Summarize
+  - Translate Captions
+- name: Playback
+  tags:
+  - Thumbnails
+  - Animated Images
+  - Storyboards
+  - Streaming
+  - Captions and Transcripts

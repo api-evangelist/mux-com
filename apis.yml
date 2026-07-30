@@ -9,7 +9,20 @@ tags:
 - Video AI
 - Encoding
 kind: company
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/mux-com.png
 access: 3rd-Party
 description: >-
   Mux is a video infrastructure platform that gives developers an end-to-end API for ingesting, encoding,
@@ -20,162 +33,6 @@ description: >-
   SDKs in Node, Python, Ruby, PHP, Go, and Elixir, a CLI, and player integrations across web, iOS,
   Android, Roku, and major HTML5 players.
 apis:
-- aid: mux-com:video-api
-  name: Mux Video API
-  tags:
-  - Video
-  - Encoding
-  - Assets
-  - Direct Uploads
-  - Playback
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.mux.com
-  humanURL: https://www.mux.com/docs/api-reference
-  properties:
-  - url: https://www.mux.com/docs/core/stream-video-files
-    type: Documentation
-  - url: https://www.mux.com/docs/api-reference
-    type: APIReference
-  - url: openapi/mux-openapi.yml
-    type: OpenAPI
-  description: >-
-    The Mux Video API manages the lifecycle of on-demand video, including Assets, Direct Uploads, Playback
-    IDs, URL Signing Keys, Playback Restrictions, DRM Configurations, Transcription Vocabularies, and
-    Delivery Usage. Developers can create assets from source URLs or chunked direct uploads, generate
-    secure playback IDs (public, signed, or DRM-protected), and retrieve playback manifests, thumbnails,
-    GIFs, and storyboards through stream.mux.com and image.mux.com.
-- aid: mux-com:live-streaming-api
-  name: Mux Live Streaming API
-  tags:
-  - Live Streaming
-  - RTMP
-  - SRT
-  - Low Latency
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.mux.com
-  humanURL: https://www.mux.com/docs/guides/start-live-streaming
-  properties:
-  - url: https://www.mux.com/docs/guides/start-live-streaming
-    type: Documentation
-  - url: https://www.mux.com/docs/api-reference#tag/Live-Streams
-    type: APIReference
-  - url: openapi/mux-openapi.yml
-    type: OpenAPI
-  description: >-
-    Mux Live Streaming creates managed RTMP and SRT ingest endpoints (rtmp://global-live.mux.com:5222/app)
-    with reusable stream keys, simulcast targets for restreaming to YouTube, Twitch, and other platforms,
-    and live-to-VOD recordings. The API supports standard and low-latency live, auto-generated live
-    captions, live stream health monitoring, and disable/enable operations for per-event lifecycle
-    management.
-- aid: mux-com:data-api
-  name: Mux Data API
-  tags:
-  - Video Analytics
-  - Quality Of Experience
-  - Monitoring
-  - Metrics
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.mux.com
-  humanURL: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
-  properties:
-  - url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
-    type: Documentation
-  - url: https://www.mux.com/docs/api-reference#tag/Video-Views
-    type: APIReference
-  - url: openapi/mux-openapi.yml
-    type: OpenAPI
-  description: >-
-    The Mux Data API exposes video quality-of-experience analytics including Video Views, Errors,
-    Filters, Dimensions, Exports, Metrics, Monitoring, Real-Time data, Incidents, and Annotations.
-    Customers instrument their players with Mux Data SDKs (web, iOS, Android, Roku, Chromecast, ExoPlayer,
-    AVPlayer, JWPlayer, THEOplayer) and query aggregated playback quality, viewer engagement, rebuffering,
-    startup time, and error rates through this API.
-- aid: mux-com:stream-delivery-api
-  name: Mux Stream Delivery API
-  tags:
-  - Delivery
-  - HLS
-  - DASH
-  - Playback
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://stream.mux.com
-  humanURL: https://www.mux.com/docs/guides/play-your-videos
-  properties:
-  - url: https://www.mux.com/docs/guides/play-your-videos
-    type: Documentation
-  - url: https://www.mux.com/docs/api-reference#tag/Streaming
-    type: APIReference
-  - url: openapi/mux-openapi.yml
-    type: OpenAPI
-  description: >-
-    The Mux Stream Delivery API serves HLS and DASH playback manifests, captions, transcripts, and
-    redundant media segments from stream.mux.com keyed on Playback IDs. It honors signed playback tokens,
-    DRM license handshakes, and playback restrictions configured through the Video API to enforce
-    domain, geo, and user-agent rules.
-- aid: mux-com:image-api
-  name: Mux Image API
-  tags:
-  - Thumbnails
-  - Storyboards
-  - Animated Images
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://image.mux.com
-  humanURL: https://www.mux.com/docs/guides/get-images-from-a-video
-  properties:
-  - url: https://www.mux.com/docs/guides/get-images-from-a-video
-    type: Documentation
-  - url: https://www.mux.com/docs/api-reference#tag/Thumbnails
-    type: APIReference
-  - url: openapi/mux-openapi.yml
-    type: OpenAPI
-  description: >-
-    The Mux Image API generates on-the-fly thumbnails (JPG, PNG, WebP), animated GIFs, and VTT storyboard
-    sprites for any asset playback ID via image.mux.com. URL parameters control time offset, width,
-    height, fit mode, FPS, and duration, enabling responsive video posters and scrub-bar previews without
-    server-side image processing.
-- aid: mux-com:robots-ai-api
-  name: Mux Robots AI API
-  tags:
-  - Video AI
-  - Captions
-  - Summarization
-  - Content Moderation
-  - Chaptering
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.mux.com
-  humanURL: https://www.mux.com/docs/guides/mux-robots
-  properties:
-  - url: https://www.mux.com/docs/guides/mux-robots
-    type: Documentation
-  - url: https://www.mux.com/docs/api-reference#tag/Jobs
-    type: APIReference
-  - url: openapi/mux-openapi.yml
-    type: OpenAPI
-  description: >-
-    Mux Robots is an asynchronous job API for running AI workflows against video assets. Robots include
-    Ask Questions (Q&A over a video), Edit Captions, Find Key Moments, Generate Chapters, Moderate
-    (NSFW and violence detection), Summarize, and Translate Captions. Jobs follow a pending → processing
-    → completed lifecycle and emit robots.job.* webhook events when complete.
-- aid: mux-com:system-api
-  name: Mux System API
-  tags:
-  - Signing Keys
-  - Account Management
-  - Utilities
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.mux.com
-  humanURL: https://www.mux.com/docs/api-reference#tag/Signing-Keys
-  properties:
-  - url: https://www.mux.com/docs/guides/signing-jwts
-    type: Documentation
-  - url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
-    type: APIReference
-  - url: openapi/mux-openapi.yml
-    type: OpenAPI
-  description: >-
-    The Mux System API manages account-wide resources such as Signing Keys used to mint short-lived
-    JWTs for signed playback URLs, thumbnails, and storyboards, plus utility endpoints (e.g., dimensions
-    and account-level metadata) used across Video and Data products.
 - aid: mux-com:webhooks
   name: Mux Webhooks
   tags:
@@ -193,8 +50,1471 @@ apis:
   description: >-
     Mux Webhooks deliver signed HTTP callbacks for asset, upload, live stream, and robots job lifecycle
     events (video.asset.created, video.asset.ready, video.live_stream.active, video.upload.asset_created,
-    robots.job.completed, and many more). Each delivery carries a Mux-Signature header (HMAC-SHA256
-    over the raw body and a per-endpoint secret) and includes attempt history visible in the dashboard.
+    robots.job.completed, and many more). Each delivery carries a Mux-Signature header (HMAC-SHA256 over
+    the raw body and a per-endpoint secret) and includes attempt history visible in the dashboard.
+- aid: mux-com:mux-com-animated-images-api
+  name: Mux Animated Images API
+  description: APIs for retrieving animated images from videos hosted using Mux.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Animated Images
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-animated-images-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-annotations-api
+  name: Mux Annotations API
+  description: >-
+    Annotations allow you to add notes at a specific datetime to view in the Mux Data dashboard.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-annotations-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-ask-questions-api
+  name: Mux Ask Questions API
+  description: Ask questions about a video and get structured answers.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Ask Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-ask-questions-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-assets-api
+  name: Mux Assets API
+  description: >-
+    An asset refers to a piece of media content that is stored or is being live streamed through the Mux
+    system. An asset always has a duration and one or more tracks (audio, video, and text data).
+
+
+    The media content of an asset cannot be updated once created, however an asset can be used to create
+    another asset, and can be modified within that process.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-assets-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-captions-and-transcripts-api
+  name: Mux Captions and Transcripts API
+  description: >-
+    APIs for retrieving captions and transcripts from videos hosted using Mux that have had captions generated
+    automatically.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Captions and Transcripts
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-captions-and-transcripts-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-delivery-usage-api
+  name: Mux Delivery Usage API
+  description: >-
+    The Delivery Usage API allows you to get delivery/streaming usage details for each asset and across
+    all assets. Delivery usage details are aggregated every hour at the top of the hour and can be requested
+    for a specified time window within the last 90 days starting at 12 hours prior to when the request
+    is made.
+
+
+    Assets are ordered by delivery usage starting with the one with the highest usage. Only assets with
+    delivery usage greater than 0 seconds are returned in the response.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Delivery Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-delivery-usage-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-dimensions-api
+  name: Mux Dimensions API
+  description: >-
+    Dimensions are the types of metadata that can be collected for a video view. Some dimensions are collected
+    automatically based on the playback or device, such as the viewer's Country or the device information.
+    Other dimensions are specified by the developer when configuring a Mux Data video view such as the
+    video title. The Dimensions APIs allow you to get a list of the supported dimensions and their values.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Dimensions
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-dimensions-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-direct-uploads-api
+  name: Mux Direct Uploads API
+  description: >-
+    Direct upload allows you to push assets directly to Mux storage instead of needing to go through your
+    own first. When you create a new direct upload, we'll give you back a signed URL for a Google Cloud
+    Storage bucket. Their storage API is S3 compatible, so whatever tool you use to upload to either GCS
+    or S3 should work, just remember you're probably uploading large video files and should [take advantage
+    of things like resumable or multipart uploads](https://cloud.google.com/storage/docs/json_api/v1/how-tos/resumable-upload).
+
+
+    Particularly for customers that deal with a lot of user-generated content, it's common to expect quite
+    a few abandoned uploads. To keep those abandoned uploads from cluttering up your asset lists, we don't
+    create an asset for you until the upload is complete. Once that asset is created, you can expect all
+    of the normal asset-related webhooks.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Direct Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-direct-uploads-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-drm-configurations-api
+  name: Mux DRM Configurations API
+  description: >-
+    DRM Configurations allow you to adjust the security level of content delivered through Mux Video's
+    Digital Rights Management (DRM) feature.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - DRM Configurations
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-drm-configurations-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-edit-captions-api
+  name: Mux Edit Captions API
+  description: >-
+    Edit an existing caption track with find-and-replace edits and optional profanity censoring. This
+    workflow is currently in beta.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Edit Captions
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-edit-captions-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-errors-api
+  name: Mux Errors API
+  description: >-
+    Playback errors are tracked and aggregated by Mux Data. Errors can be listed by the API, which contains
+    data about the error code, message, and how often the error occurred.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Errors
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-errors-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-exports-api
+  name: Mux Exports API
+  description: >-
+    Exports allow you to download the daily CSV files that are generated from the video views that occurred
+    in the previous day. Please contact [support](mailto:support@mux.com) for information about enabling
+    exports for your organization.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-exports-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-filters-api
+  name: Mux Filters API
+  description: Deprecated, please refer to the Dimensions APIs.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Filters
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-filters-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-find-key-moments-api
+  name: Mux Find Key Moments API
+  description: Identify key moments in a video.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Find Key Moments
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-find-key-moments-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-generate-chapters-api
+  name: Mux Generate Chapters API
+  description: Generate chapters for a video.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Generate Chapters
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-generate-chapters-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-incidents-api
+  name: Mux Incidents API
+  description: >-
+    Incidents occur when an anomaly alert is triggered in Mux Data. The Incidents API provides operations
+    related to the raising and managing of alerting incidents.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Incidents
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-incidents-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-jobs-api
+  name: Mux Jobs API
+  description: List and cancel jobs across all workflows.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-live-streams-api
+  name: Mux Live Streams API
+  description: >-
+    A Live Stream represents a unique live stream of video being pushed to Mux. It includes configuration
+    details (a Stream Key) for live broadcasting software/hardware and a Playback ID for playing the stream
+    anywhere. Currently, RTMP is the only supported method of ingesting video. Use rtmp://global-live.mux.com:5222/app
+    with the Live Stream's Stream Key for getting the video into Mux, and use https://stream.mux.com with
+    the Live Stream's Playback ID for playback.
+
+
+    A Live Stream can be used once for a specific event, or re-used forever. If you're building an application
+    like Facebook Live or Twitch, you could create one Live Stream per user. This allows them to configure
+    their broadcasting software once, and the Live Stream Playback ID will always show their latest stream.
+
+
+    Each RTMP session creates a new video asset automatically. You can set up a webhook to be notified
+    each time a broadcast (or Live Stream RTMP session) begins or ends with the video.live_stream.active
+    and video.live_stream.idle events respectively. Assets that are created from a Live Stream have the
+    same behavior as other Assets you create.
+
+
+    Learn more about [how to go live in our guides](https://docs.mux.com/guides/start-live-streaming).
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Live Streams
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-live-streams-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-metrics-api
+  name: Mux Metrics API
+  description: >-
+    Historical metrics are used for tracking KPIs, diagnosing issues, and
+
+    measuring viewers' quality of experience. Metrics are calculated using the
+
+    video views that have been completed and are bucketed on the view end time
+
+    for quality of experience metrics and view start time for engagement
+
+    metrics. Historical metrics provide a large collection of dimensions that
+
+    can be used to aggregate quality of experience based on view metadata. You
+
+    can also easily compare experiences across viewer populations to, for
+
+    example, find issues with specific devices or geographies.
+
+
+    Historical metrics are similar but not directly comparable to the real-time
+
+    metrics in the Real-time APIs. These metrics are aggregated for long-term
+
+    storage historical reporting and are generated using different viewer
+
+    populations.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-moderate-api
+  name: Mux Moderate API
+  description: Analyze a video for inappropriate content.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Moderate
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-moderate-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-monitoring-api
+  name: Mux Monitoring API
+  description: >-
+    Monitoring metrics are used for operational monitoring of a video platform.
+
+    The metrics are aggregated in five second intervals, across the views that
+
+    are currently being watched. The real-time metrics' timeline, breakdown,
+
+    and histogram representations are available via the APIs.
+
+
+    Monitoring metrics are similar but not directly comparable to the historical
+
+    metrics in the Metrics APIs. These metrics are aggregated to provide the most
+
+    operational detail possible used for resolving operational issues.
+
+    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-monitoring-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-playback-id-api
+  name: Mux Playback ID API
+  description: >-
+    Operations related to the manipulation of playback IDs, through which users are able to stream videos
+    and live streams from Mux.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Playback ID
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-playback-id-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-playback-restrictions-api
+  name: Mux Playback Restrictions API
+  description: >-
+    Playback Restrictions allows you to set additional rules for playing videos. You can set the domains/hostnames
+    allowed to play your videos. For instance, viewers can play videos embedded on the `https://example.com`
+    website when you set the Playback Restrictions with `example.com` as an allowed domain. Any Video
+    requests from other websites are denied. Additionally, you can set rules for what user agents to allow.
+    Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation)
+    for more details on this feature.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Playback Restrictions
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-playback-restrictions-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-real-time-api
+  name: Mux Real-Time API
+  description: >-
+    The Mux Data Real-time API has been deprecated, please refer to the
+
+    Mux Data `Monitoring` APIs which provide the same functionality.
+
+    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Real-Time
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-real-time-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-signing-keys-api
+  name: Mux Signing Keys API
+  description: >-
+    Signing keys are used to sign JSON Web Tokens (JWTs) for securing certain requests, such as secure
+    playback URLs and access to real-time viewer counts in Mux Data. **One signing key can be used to
+    sign multiple requests - you probably only need one active at a time.** However, you can create multiple
+    signing keys to enable key rotation, creating a new key and deleting the old only after any existing
+    signed requests have expired.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Signing Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-signing-keys-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-storyboards-api
+  name: Mux Storyboards API
+  description: >-
+    APIs for retrieving storyboards, sprites, and metadata about the storyboards from videos hosted using
+    Mux.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Storyboards
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-storyboards-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-streaming-api
+  name: Mux Streaming API
+  description: APIs for streaming video content via HLS and MP4 with customizable playback options.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Streaming
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-streaming-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-summarize-api
+  name: Mux Summarize API
+  description: Generate a title, description, and tags for a video.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Summarize
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-summarize-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-thumbnails-api
+  name: Mux Thumbnails API
+  description: APIs for retrieving still thumbnails from videos hosted using Mux.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Thumbnails
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-thumbnails-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-transcription-vocabularies-api
+  name: Mux Transcription Vocabularies API
+  description: >-
+    Transcription Vocabularies allows you to provide collections of phrases like proper nouns, technical
+    jargon, and uncommon words as part of captioning workflows. When using Auto-Generated Captions, Transcription
+    Vocabularies increase the likelihood of correct speech recognition for these words and phrases.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Transcription Vocabularies
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-transcription-vocabularies-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-translate-captions-api
+  name: Mux Translate Captions API
+  description: Translate captions from one language to another.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Translate Captions
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-translate-captions-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-url-signing-keys-api
+  name: Mux URL Signing Keys API
+  description: >-
+    A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON Web Token](https://jwt.io/)
+    as the value of the token query parameter. The token query parameter must be set for URLs that reference
+    a playback ID with a signed playback policy.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - URL Signing Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-url-signing-keys-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-utilities-api
+  name: Mux Utilities API
+  description: >-
+    Collection of utility methods for using Mux APIs. There's only one thing in here right now, maybe
+    there will be more later.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Utilities
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-utilities-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-video-views-api
+  name: Mux Video Views API
+  description: >-
+    An individual video view tracked by Mux Data. For the full list of properties for each view please
+    refer to the table of data fields in the [Export raw video view data guide](https://docs.mux.com/guides/export-raw-video-view-data).
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Video Views
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-video-views-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-view-and-viewer-counts-api
+  name: Mux View and Viewer Counts API
+  description: >-
+    API for retrieving the real-time count of views and viewers based on ID as collected by Mux Data.
+  humanURL: https://www.mux.com/docs/api-reference
+  baseURL: https://api.mux.com
+  tags:
+  - View and Viewer Counts
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-view-and-viewer-counts-api-openapi.yml
+  - type: Documentation
+    url: https://www.mux.com/docs/core/stream-video-files
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/start-live-streaming
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Live-Streams
+  - type: Documentation
+    url: https://www.mux.com/docs/core/monitor-your-video-streaming-performance
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Video-Views
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/play-your-videos
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Streaming
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/get-images-from-a-video
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Thumbnails
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/mux-robots
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Jobs
+  - type: Documentation
+    url: https://www.mux.com/docs/guides/signing-jwts
+  - type: APIReference
+    url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 common:
   - type: AgenticAccess
     url: agentic-access/mux-com-agentic-access.yml

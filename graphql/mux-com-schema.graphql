@@ -1,0 +1,1026 @@
+# Mux GraphQL Schema (Derived from REST API / OpenAPI Spec)
+# Source: https://www.mux.com/api-spec.json
+# Note: Mux does not offer a public GraphQL endpoint. This schema is
+# a representative mapping of the Mux REST API types to GraphQL.
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum AssetStatus {
+  PREPARING
+  READY
+  ERRORED
+}
+
+enum AssetMasterAccess {
+  TEMPORARY
+  NONE
+}
+
+enum AssetMp4Support {
+  STANDARD
+  NONE
+}
+
+enum AssetResolutionTier {
+  AUDIO_ONLY
+  SD
+  HD
+  ONE_080P
+  ONE_440P
+  TWO_160P
+}
+
+enum TrackType {
+  VIDEO
+  AUDIO
+  TEXT
+}
+
+enum TrackStatus {
+  PREPARING
+  READY
+  ERRORED
+}
+
+enum TextTrackType {
+  SUBTITLES
+  CAPTIONS
+  DESCRIPTIONS
+  CHAPTERS
+  METADATA
+}
+
+enum PlaybackPolicy {
+  PUBLIC
+  SIGNED
+  DRM_TOKEN
+}
+
+enum LiveStreamStatus {
+  ACTIVE
+  IDLE
+  DISABLED
+}
+
+enum SimulcastTargetStatus {
+  IDLE
+  STARTING
+  BROADCASTING
+  ERRORED
+}
+
+enum DirectUploadStatus {
+  WAITING
+  ASSET_CREATED
+  ERRORED
+  CANCELLED
+  TIMED_OUT
+}
+
+enum WebhookEventType {
+  VIDEO_ASSET_CREATED
+  VIDEO_ASSET_READY
+  VIDEO_ASSET_ERRORED
+  VIDEO_ASSET_UPDATED
+  VIDEO_ASSET_DELETED
+  VIDEO_ASSET_LIVE_STREAM_COMPLETED
+  VIDEO_ASSET_MASTER_READY
+  VIDEO_ASSET_MASTER_ERRORED
+  VIDEO_ASSET_STATIC_RENDITION_READY
+  VIDEO_ASSET_STATIC_RENDITION_ERRORED
+  VIDEO_ASSET_STATIC_RENDITION_DELETED
+  VIDEO_UPLOAD_ASSET_CREATED
+  VIDEO_UPLOAD_CANCELLED
+  VIDEO_UPLOAD_CREATED
+  VIDEO_UPLOAD_ERRORED
+  VIDEO_LIVE_STREAM_CREATED
+  VIDEO_LIVE_STREAM_CONNECTED
+  VIDEO_LIVE_STREAM_RECORDING
+  VIDEO_LIVE_STREAM_ACTIVE
+  VIDEO_LIVE_STREAM_DISCONNECTED
+  VIDEO_LIVE_STREAM_IDLE
+  VIDEO_LIVE_STREAM_UPDATED
+  VIDEO_LIVE_STREAM_ENABLED
+  VIDEO_LIVE_STREAM_DISABLED
+  VIDEO_LIVE_STREAM_DELETED
+  VIDEO_LIVE_STREAM_SIMULCAST_TARGET_CREATED
+  VIDEO_LIVE_STREAM_SIMULCAST_TARGET_ERRORED
+  VIDEO_LIVE_STREAM_SIMULCAST_TARGET_DELETED
+  VIDEO_SIGNING_KEY_CREATED
+  VIDEO_SIGNING_KEY_DELETED
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+enum MetricType {
+  VIDEO_STARTUP_TIME
+  REBUFFER_PERCENTAGE
+  EXIT_BEFORE_VIDEO_START
+  PLAYBACK_FAILURE_PERCENTAGE
+  PLAYBACK_FAILURE_ERROR_TYPE_PERCENTAGE
+  UNIQUE_VIEWERS
+  VIDEO_QUALITY_SCORE
+  WEIGHTED_AVERAGE_BITRATE
+  TIME_TO_FIRST_FRAME
+  SEEK_LATENCY
+}
+
+enum Granularity {
+  TEN_MINUTES
+  HOUR
+  DAY
+}
+
+# ─────────────────────────────────────────────
+# Asset Types
+# ─────────────────────────────────────────────
+
+type VideoTrack {
+  id: ID!
+  type: TrackType!
+  duration: Float
+  maxWidth: Int
+  maxHeight: Int
+  maxFrameRate: Float
+  status: TrackStatus!
+}
+
+type AudioTrack {
+  id: ID!
+  type: TrackType!
+  duration: Float
+  maxChannels: Int
+  maxChannelLayout: String
+  languageCode: String
+  name: String
+  status: TrackStatus!
+}
+
+type TextTrack {
+  id: ID!
+  type: TrackType!
+  textType: TextTrackType
+  languageCode: String
+  name: String
+  closedCaptions: Boolean
+  passthrough: String
+  status: TrackStatus!
+}
+
+union AssetTrack = VideoTrack | AudioTrack | TextTrack
+
+type AssetError {
+  type: String
+  messages: [String!]
+}
+
+type AssetMaster {
+  status: String
+  url: URL
+}
+
+type StaticRendition {
+  name: String
+  ext: String
+  width: Int
+  height: Int
+  bitrate: Int
+  filesize: Int
+}
+
+type StaticRenditions {
+  status: String
+  files: [StaticRendition!]
+}
+
+type Asset {
+  id: ID!
+  createdAt: DateTime!
+  status: AssetStatus!
+  duration: Float
+  maxStoredResolution: String
+  maxStoredFrameRate: Float
+  maxResolutionTier: AssetResolutionTier
+  resolutionTier: AssetResolutionTier
+  aspectRatio: String
+  playbackIds: [PlaybackID!]
+  tracks: [AssetTrack!]
+  errors: AssetError
+  perTitleEncode: Boolean
+  isLive: Boolean
+  passthrough: String
+  liveStreamId: ID
+  master: AssetMaster
+  masterAccess: AssetMasterAccess!
+  mp4Support: AssetMp4Support!
+  normalizeAudio: Boolean
+  staticRenditions: StaticRenditions
+  recordingTimes: [RecordingTime!]
+  nonStandardInputReasons: NonStandardInputReasons
+  test: Boolean
+  ingestType: String
+  uploads: [ID!]
+  videoQualityScore: Float
+}
+
+type RecordingTime {
+  started: DateTime
+  duration: Float
+  type: String
+}
+
+type NonStandardInputReasons {
+  videoCodec: String
+  audioCodec: String
+  videoGopSize: String
+  videoFrameRate: String
+  videoResolution: String
+  videoBitrate: String
+  pixelAspectRatio: String
+  videoEditList: String
+  audioEditList: String
+  unexpectedMediaFileParameters: String
+  unsupportedPixelFormat: String
+}
+
+# ─────────────────────────────────────────────
+# Playback Types
+# ─────────────────────────────────────────────
+
+type PlaybackID {
+  id: ID!
+  policy: PlaybackPolicy!
+  drm: DRMConfiguration
+}
+
+type DRMConfiguration {
+  drm: String
+}
+
+type PlaybackRestriction {
+  id: ID!
+  allowedOrigins: [String!]
+  allowedReferrers: [String!]
+  userAgentRestriction: UserAgentRestriction
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UserAgentRestriction {
+  allowNoUserAgent: Boolean
+  allowHighRiskUserAgent: Boolean
+}
+
+# ─────────────────────────────────────────────
+# Live Stream Types
+# ─────────────────────────────────────────────
+
+type SimulcastTarget {
+  id: ID!
+  url: URL!
+  streamKey: String
+  passthrough: String
+  status: SimulcastTargetStatus!
+  error: SimulcastTargetError
+}
+
+type SimulcastTargetError {
+  type: String
+  messages: [String!]
+}
+
+type LiveStream {
+  id: ID!
+  createdAt: DateTime!
+  streamKey: String!
+  status: LiveStreamStatus!
+  playbackIds: [PlaybackID!]
+  newAssetSettings: AssetSettings
+  activeAssetId: ID
+  recentAssetIds: [ID!]
+  passthrough: String
+  reconnectWindow: Int
+  useSlateForStandardLatency: Boolean
+  reducedLatency: Boolean
+  lowLatency: Boolean
+  simulcastTargets: [SimulcastTarget!]
+  test: Boolean
+  maxContinuousDuration: Int
+  latencyMode: String
+  srtPassphrase: String
+  activeIngestProtocol: String
+}
+
+type AssetSettings {
+  playbackPolicies: [PlaybackPolicy!]
+  mp4Support: AssetMp4Support
+}
+
+# ─────────────────────────────────────────────
+# Signing & DRM Types
+# ─────────────────────────────────────────────
+
+type SigningKey {
+  id: ID!
+  createdAt: DateTime!
+  privateKey: String
+}
+
+type DRMLicenseKeyServer {
+  id: ID!
+  url: URL!
+  headers: [DRMLicenseKeyServerHeader!]
+}
+
+type DRMLicenseKeyServerHeader {
+  name: String!
+  value: String!
+}
+
+type TranscriptionVocabulary {
+  id: ID!
+  name: String!
+  phrases: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  passthrough: String
+}
+
+# ─────────────────────────────────────────────
+# Upload Types
+# ─────────────────────────────────────────────
+
+type UploadLink {
+  url: URL!
+  timeout: Int
+}
+
+type DirectUpload {
+  id: ID!
+  timeout: Int!
+  status: DirectUploadStatus!
+  newAssetSettings: AssetSettings
+  assetId: ID
+  corsOrigin: String
+  url: URL!
+  test: Boolean
+  error: DirectUploadError
+}
+
+type DirectUploadError {
+  type: String
+  message: String
+}
+
+# ─────────────────────────────────────────────
+# Data / Analytics Types
+# ─────────────────────────────────────────────
+
+type Environment {
+  id: ID!
+  name: String!
+}
+
+type Filter {
+  subType: String
+  type: String
+  values: [String!]
+}
+
+type TimeRange {
+  start: DateTime!
+  end: DateTime!
+}
+
+type VideoView {
+  id: ID!
+  viewStart: DateTime
+  viewEnd: DateTime
+  viewerUserId: String
+  viewerDeviceCategory: String
+  viewerDeviceManufacturer: String
+  viewerDeviceName: String
+  viewerOsFamily: String
+  viewerOsVersion: String
+  viewerApplicationName: String
+  viewerApplicationVersion: String
+  videoId: String
+  videoTitle: String
+  videoLanguageCode: String
+  videoSeries: String
+  videoProducer: String
+  videoEncodingVariant: String
+  videoCdn: String
+  videoSourceHostname: String
+  videoSourceUrl: URL
+  videoStreamType: String
+  playerSourceHostname: String
+  playerSourceUrl: URL
+  playerSourceType: String
+  playerVersion: String
+  playerMuxPluginName: String
+  playerMuxPluginVersion: String
+  playerLanguage: String
+  playerSoftwareName: String
+  playerSoftwareVersion: String
+  watchTime: Int
+  viewedSeconds: Int
+  bufferingCount: Int
+  bufferingDuration: Int
+  rebufferPercentage: Float
+  errorTypeId: Int
+  errorTypeTitle: String
+  exitBeforeVideoStart: Boolean
+  playbackFailure: Boolean
+  playerStartupTime: Int
+  videoStartupPrerollLoadTime: Int
+  videoStartupPrerollRequestTime: Int
+  videoStartupTime: Int
+  playerAutoplay: Boolean
+  playerPreload: Boolean
+  playerIsFullscreen: Boolean
+  viewCountry: String
+  viewCountryCode: String
+  viewRegion: String
+  viewRegionCode: String
+  viewCity: String
+  viewIsp: String
+  viewConnectionType: String
+  viewMaxDownscalePercentage: Float
+  viewMaxUpscalePercentage: Float
+  viewDroppedFrameCount: Int
+  viewMaxPlayheadPosition: Int
+  viewPlaytime: Int
+  viewSeekCount: Int
+  viewSeekDuration: Int
+  viewTotalContentPlaybackTime: Int
+  viewQualityScore: Float
+  assetId: ID
+  liveStreamId: ID
+  playbackId: ID
+  requestedCdn: String
+  usedFullscreen: Boolean
+  muxViewerId: String
+  customData1: String
+  customData2: String
+  customData3: String
+  customData4: String
+  customData5: String
+  environmentId: ID
+  subPropertyId: String
+  viewerConnectionType: String
+  viewerDeviceModel: String
+  viewerUsageType: String
+  abExperimentName: String
+}
+
+type PlaybackSession {
+  id: ID!
+  assetId: ID
+  liveStreamId: ID
+  playbackId: ID
+  viewerUserId: String
+  viewStart: DateTime
+  viewEnd: DateTime
+  countryCode: String
+  playerSoftware: String
+  playerVersion: String
+  videoTitle: String
+}
+
+type Error {
+  id: ID!
+  percentage: Float
+  description: String
+  code: Int
+  playerErrorCode: Int
+  notes: String
+  sourceType: String
+  lastSeen: DateTime
+  count: Int
+}
+
+type Experiment {
+  name: String!
+}
+
+type Metric {
+  type: MetricType!
+  value: Float
+  globalValue: Float
+  percentile: Int
+  watchTime: Int
+  numberOfSamples: Int
+  positiveImpact: Boolean
+  displayValue: String
+}
+
+type Score {
+  score: Float
+  watchTime: Int
+  viewCount: Int
+}
+
+type VideoQualityScore {
+  score: Float
+  watchTime: Int
+  viewCount: Int
+  date: String
+}
+
+# ─────────────────────────────────────────────
+# Insights Types
+# ─────────────────────────────────────────────
+
+type Insights {
+  metric: MetricType!
+  value: Float
+  globalValue: Float
+  percentile: Int
+  watchTime: Int
+  numberOfSamples: Int
+  filters: [String!]
+  type: String
+}
+
+type BreakdownValue {
+  id: String
+  views: Int
+  value: Float
+  negativeSamples: Int
+  positiveSamples: Int
+  totalSamples: Int
+  watchTime: Int
+  displayValue: String
+}
+
+type Breakdown {
+  metric: MetricType!
+  values: [BreakdownValue!]
+}
+
+type TimeseriesPoint {
+  timestamp: DateTime
+  value: Float
+  views: Int
+  watchTime: Int
+}
+
+type Timeseries {
+  metric: MetricType!
+  data: [TimeseriesPoint!]
+}
+
+type ComparisonTimeseriesPoint {
+  timestamp: DateTime
+  value1: Float
+  value2: Float
+  views1: Int
+  views2: Int
+}
+
+type ComparisonTimeseries {
+  metric: MetricType!
+  data: [ComparisonTimeseriesPoint!]
+}
+
+# ─────────────────────────────────────────────
+# Webhooks
+# ─────────────────────────────────────────────
+
+type WebhookEvent {
+  type: WebhookEventType!
+  requestId: String
+  object: WebhookObject
+  id: String
+  environment: Environment
+  data: JSON
+  createdAt: DateTime
+  attempts: [WebhookAttempt!]
+}
+
+type WebhookObject {
+  type: String
+  id: ID
+}
+
+type WebhookAttempt {
+  webhookId: Int
+  responseStatusCode: Int
+  responseHeaders: JSON
+  responseBody: String
+  maxAttempts: Int
+  id: Int
+  createdAt: DateTime
+  address: URL
+}
+
+# ─────────────────────────────────────────────
+# Usage & Export Types
+# ─────────────────────────────────────────────
+
+type DeliveryUsage {
+  assetId: ID
+  liveStreamId: ID
+  passthrough: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  assetState: String
+  liveStreamState: String
+  deliveredSeconds: Float
+  deliveredSecondsByResolution: DeliveredSecondsByResolution
+}
+
+type DeliveredSecondsByResolution {
+  tierAudio: Float
+  tierSd: Float
+  tierHd: Float
+  tier1080p: Float
+  tier1440p: Float
+  tier2160p: Float
+}
+
+type Data {
+  total: Int
+  timeframe: [Int!]
+  data: JSON
+}
+
+type Export {
+  exportedAt: DateTime
+  path: String
+}
+
+type Dimension {
+  name: String
+  displayName: String
+}
+
+# ─────────────────────────────────────────────
+# Pagination
+# ─────────────────────────────────────────────
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Connection / List Wrappers
+# ─────────────────────────────────────────────
+
+type AssetConnection {
+  nodes: [Asset!]!
+  pageInfo: PageInfo!
+}
+
+type LiveStreamConnection {
+  nodes: [LiveStream!]!
+  pageInfo: PageInfo!
+}
+
+type DirectUploadConnection {
+  nodes: [DirectUpload!]!
+  pageInfo: PageInfo!
+}
+
+type SigningKeyConnection {
+  nodes: [SigningKey!]!
+  pageInfo: PageInfo!
+}
+
+type PlaybackRestrictionConnection {
+  nodes: [PlaybackRestriction!]!
+  pageInfo: PageInfo!
+}
+
+type VideoViewConnection {
+  nodes: [VideoView!]!
+  pageInfo: PageInfo!
+}
+
+type TranscriptionVocabularyConnection {
+  nodes: [TranscriptionVocabulary!]!
+  pageInfo: PageInfo!
+}
+
+type DRMLicenseKeyServerConnection {
+  nodes: [DRMLicenseKeyServer!]!
+  pageInfo: PageInfo!
+}
+
+type ExportConnection {
+  nodes: [Export!]!
+  pageInfo: PageInfo!
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input CreateAssetInput {
+  input: [AssetInputItem!]!
+  playbackPolicy: [PlaybackPolicy!]
+  perTitleEncode: Boolean
+  mp4Support: AssetMp4Support
+  masterAccess: AssetMasterAccess
+  normalizeAudio: Boolean
+  passthrough: String
+  resolutionTier: AssetResolutionTier
+  maxResolutionTier: AssetResolutionTier
+  videoQualityScore: Boolean
+  test: Boolean
+}
+
+input AssetInputItem {
+  url: URL!
+  generatedSubtitles: [GeneratedSubtitleInput!]
+  overlaySettings: OverlaySettingsInput
+}
+
+input GeneratedSubtitleInput {
+  languageCode: String!
+  name: String
+  passthrough: String
+  transcriptionVocabularyIds: [ID!]
+}
+
+input OverlaySettingsInput {
+  verticalAlign: String
+  verticalMargin: String
+  horizontalAlign: String
+  horizontalMargin: String
+  width: String
+  height: String
+  opacity: String
+}
+
+input CreateLiveStreamInput {
+  playbackPolicy: [PlaybackPolicy!]
+  newAssetSettings: AssetSettingsInput
+  reconnectWindow: Int
+  passthrough: String
+  reducedLatency: Boolean
+  lowLatency: Boolean
+  latencyMode: String
+  test: Boolean
+  simulcastTargets: [CreateSimulcastTargetInput!]
+  maxContinuousDuration: Int
+}
+
+input AssetSettingsInput {
+  playbackPolicies: [PlaybackPolicy!]
+  mp4Support: AssetMp4Support
+}
+
+input CreateSimulcastTargetInput {
+  url: URL!
+  streamKey: String
+  passthrough: String
+}
+
+input CreateDirectUploadInput {
+  timeout: Int
+  corsOrigin: String
+  newAssetSettings: AssetSettingsInput
+  test: Boolean
+  passthrough: String
+}
+
+input VideoViewsFilterInput {
+  playerVersion: String
+  viewerUserId: String
+  errorTypeId: String
+  experimentName: String
+  assetId: ID
+  liveStreamId: ID
+  playbackId: ID
+  playerName: String
+  customData1: String
+  customData2: String
+  customData3: String
+  customData4: String
+  customData5: String
+  viewerDeviceCategory: String
+  viewerCountry: String
+}
+
+input MetricsFilterInput {
+  dimension: String
+  value: String
+}
+
+input TimeframeInput {
+  start: DateTime
+  end: DateTime
+}
+
+input CreatePlaybackRestrictionInput {
+  allowedOrigins: [String!]
+  allowedReferrers: [String!]
+  userAgentRestriction: UserAgentRestrictionInput
+}
+
+input UserAgentRestrictionInput {
+  allowNoUserAgent: Boolean
+  allowHighRiskUserAgent: Boolean
+}
+
+input CreateTranscriptionVocabularyInput {
+  name: String!
+  phrases: [String!]!
+  passthrough: String
+}
+
+# ─────────────────────────────────────────────
+# Root Query
+# ─────────────────────────────────────────────
+
+type Query {
+  # Assets
+  asset(id: ID!): Asset
+  assets(limit: Int, page: Int, liveStreamId: ID): AssetConnection!
+
+  # Live Streams
+  liveStream(id: ID!): LiveStream
+  liveStreams(limit: Int, page: Int, streamKey: String): LiveStreamConnection!
+
+  # Simulcast Targets
+  simulcastTarget(liveStreamId: ID!, simulcastTargetId: ID!): SimulcastTarget
+
+  # Playback
+  playbackRestriction(id: ID!): PlaybackRestriction
+  playbackRestrictions(limit: Int, page: Int): PlaybackRestrictionConnection!
+
+  # Signing Keys
+  signingKey(id: ID!): SigningKey
+  signingKeys(limit: Int, page: Int): SigningKeyConnection!
+
+  # Uploads
+  directUpload(id: ID!): DirectUpload
+  directUploads(limit: Int, page: Int): DirectUploadConnection!
+
+  # Transcription Vocabularies
+  transcriptionVocabulary(id: ID!): TranscriptionVocabulary
+  transcriptionVocabularies(limit: Int, page: Int): TranscriptionVocabularyConnection!
+
+  # DRM
+  drmLicenseKeyServer(id: ID!): DRMLicenseKeyServer
+  drmLicenseKeyServers(limit: Int, page: Int): DRMLicenseKeyServerConnection!
+
+  # Data / Analytics
+  videoView(id: ID!, environmentId: ID): VideoView
+  videoViews(
+    environmentId: ID
+    limit: Int
+    page: Int
+    filters: VideoViewsFilterInput
+    orderDirection: OrderDirection
+    timeframe: [String!]
+  ): VideoViewConnection!
+
+  metrics(
+    environmentId: ID
+    metric: MetricType!
+    dimension: String
+    filters: [MetricsFilterInput!]
+    timeframe: [String!]
+    granularity: Granularity
+  ): Timeseries!
+
+  breakdown(
+    environmentId: ID
+    metric: MetricType!
+    dimension: String!
+    filters: [MetricsFilterInput!]
+    timeframe: [String!]
+    orderDirection: OrderDirection
+    limit: Int
+    page: Int
+  ): Breakdown!
+
+  comparisonTimeseries(
+    environmentId: ID
+    metric: MetricType!
+    dimension: String
+    filters: [MetricsFilterInput!]
+    timeframe: [String!]
+    granularity: Granularity
+  ): ComparisonTimeseries!
+
+  insights(
+    environmentId: ID
+    metric: MetricType!
+    filters: [MetricsFilterInput!]
+    timeframe: [String!]
+  ): [Insights!]!
+
+  errors(
+    environmentId: ID
+    filters: [MetricsFilterInput!]
+    timeframe: [String!]
+    orderDirection: OrderDirection
+    limit: Int
+    page: Int
+  ): [Error!]!
+
+  videoQualityScores(
+    environmentId: ID
+    timeframe: [String!]
+    filters: [MetricsFilterInput!]
+  ): [VideoQualityScore!]!
+
+  deliveryUsage(
+    limit: Int
+    page: Int
+    assetId: ID
+    liveStreamId: ID
+    timeframe: [Int!]
+  ): [DeliveryUsage!]!
+
+  exports(
+    environmentId: ID
+    property: String
+    filters: [MetricsFilterInput!]
+  ): ExportConnection!
+
+  dimensions(environmentId: ID): [Dimension!]!
+
+  filters(environmentId: ID): [Filter!]!
+
+  experiments(environmentId: ID): [Experiment!]!
+
+  environments: [Environment!]!
+}
+
+# ─────────────────────────────────────────────
+# Root Mutation
+# ─────────────────────────────────────────────
+
+type Mutation {
+  # Assets
+  createAsset(input: CreateAssetInput!): Asset!
+  updateAsset(id: ID!, mp4Support: AssetMp4Support, masterAccess: AssetMasterAccess, passthrough: String): Asset!
+  deleteAsset(id: ID!): Boolean!
+  createAssetPlaybackId(assetId: ID!, policy: PlaybackPolicy!): PlaybackID!
+  deleteAssetPlaybackId(assetId: ID!, playbackId: ID!): Boolean!
+  updateAssetMasterAccess(id: ID!, masterAccess: AssetMasterAccess!): Asset!
+  updateAssetMp4Support(id: ID!, mp4Support: AssetMp4Support!): Asset!
+  createAssetTrack(assetId: ID!, url: URL!, type: TrackType!, languageCode: String, name: String, closedCaptions: Boolean, passthrough: String): AssetTrack!
+  deleteAssetTrack(assetId: ID!, trackId: ID!): Boolean!
+
+  # Live Streams
+  createLiveStream(input: CreateLiveStreamInput!): LiveStream!
+  updateLiveStream(id: ID!, latencyMode: String, reconnectWindow: Int, maxContinuousDuration: Int, newAssetSettings: AssetSettingsInput, passthrough: String): LiveStream!
+  deleteLiveStream(id: ID!): Boolean!
+  enableLiveStream(id: ID!): LiveStream!
+  disableLiveStream(id: ID!): LiveStream!
+  resetStreamKey(id: ID!): LiveStream!
+  completeLiveStream(id: ID!): Boolean!
+  createLiveStreamPlaybackId(liveStreamId: ID!, policy: PlaybackPolicy!): PlaybackID!
+  deleteLiveStreamPlaybackId(liveStreamId: ID!, playbackId: ID!): Boolean!
+
+  # Simulcast Targets
+  createSimulcastTarget(liveStreamId: ID!, input: CreateSimulcastTargetInput!): SimulcastTarget!
+  deleteSimulcastTarget(liveStreamId: ID!, simulcastTargetId: ID!): Boolean!
+
+  # Uploads
+  createDirectUpload(input: CreateDirectUploadInput!): DirectUpload!
+  cancelDirectUpload(id: ID!): DirectUpload!
+
+  # Signing Keys
+  createSigningKey: SigningKey!
+  deleteSigningKey(id: ID!): Boolean!
+
+  # Playback Restrictions
+  createPlaybackRestriction(input: CreatePlaybackRestrictionInput!): PlaybackRestriction!
+  updatePlaybackRestriction(id: ID!, allowedOrigins: [String!], allowedReferrers: [String!], userAgentRestriction: UserAgentRestrictionInput): PlaybackRestriction!
+  deletePlaybackRestriction(id: ID!): Boolean!
+
+  # Transcription Vocabularies
+  createTranscriptionVocabulary(input: CreateTranscriptionVocabularyInput!): TranscriptionVocabulary!
+  updateTranscriptionVocabulary(id: ID!, name: String, phrases: [String!], passthrough: String): TranscriptionVocabulary!
+  deleteTranscriptionVocabulary(id: ID!): Boolean!
+
+  # DRM
+  createDRMLicenseKeyServer(url: URL!, headers: [DRMLicenseKeyServerHeaderInput!]): DRMLicenseKeyServer!
+  updateDRMLicenseKeyServer(id: ID!, url: URL, headers: [DRMLicenseKeyServerHeaderInput!]): DRMLicenseKeyServer!
+  deleteDRMLicenseKeyServer(id: ID!): Boolean!
+}
+
+input DRMLicenseKeyServerHeaderInput {
+  name: String!
+  value: String!
+}

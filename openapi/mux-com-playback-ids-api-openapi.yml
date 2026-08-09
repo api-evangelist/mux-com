@@ -1,0 +1,49 @@
+openapi: 3.1.0
+info:
+  title: Mux Video Assets Playback IDs API
+  description: 'REST API for ingesting, transcoding, storing, and delivering on-demand
+
+    and live video. Provides endpoints for direct uploads, assets, playback
+
+    IDs, live streams, and related resources. Authenticated via HTTP Basic
+
+    auth using a Mux Access Token ID and Secret.
+
+    '
+  version: v1
+servers:
+- url: https://api.mux.com
+  description: Mux production API
+security:
+- basicAuth: []
+tags:
+- name: Playback IDs
+  description: Manage playback IDs for assets.
+paths:
+  /video/v1/assets/{ASSET_ID}/playback_ids:
+    parameters:
+    - in: path
+      name: ASSET_ID
+      required: true
+      schema:
+        type: string
+    post:
+      tags:
+      - Playback IDs
+      summary: Create a playback ID
+      operationId: createPlaybackId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Playback ID created.
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using a Mux Access Token ID (username) and Secret (password).

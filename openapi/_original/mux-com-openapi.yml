@@ -1,0 +1,184 @@
+openapi: 3.1.0
+info:
+  title: Mux Video API
+  description: |
+    REST API for ingesting, transcoding, storing, and delivering on-demand
+    and live video. Provides endpoints for direct uploads, assets, playback
+    IDs, live streams, and related resources. Authenticated via HTTP Basic
+    auth using a Mux Access Token ID and Secret.
+  version: v1
+servers:
+  - url: https://api.mux.com
+    description: Mux production API
+security:
+  - basicAuth: []
+tags:
+  - name: Assets
+    description: Manage video on-demand assets.
+  - name: Direct Uploads
+    description: Create direct upload URLs and inspect upload status.
+  - name: Live Streams
+    description: Create and manage live streams.
+  - name: Playback IDs
+    description: Manage playback IDs for assets.
+paths:
+  /video/v1/assets:
+    get:
+      tags: [Assets]
+      summary: List assets
+      operationId: listAssets
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of assets.
+    post:
+      tags: [Assets]
+      summary: Create an asset
+      operationId: createAsset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Asset created.
+  /video/v1/assets/{ASSET_ID}:
+    parameters:
+      - in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Assets]
+      summary: Retrieve an asset
+      operationId: getAsset
+      responses:
+        '200':
+          description: Asset details.
+    patch:
+      tags: [Assets]
+      summary: Update an asset
+      operationId: updateAsset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Asset updated.
+    delete:
+      tags: [Assets]
+      summary: Delete an asset
+      operationId: deleteAsset
+      responses:
+        '204':
+          description: Asset deleted.
+  /video/v1/assets/{ASSET_ID}/playback_ids:
+    parameters:
+      - in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+    post:
+      tags: [Playback IDs]
+      summary: Create a playback ID
+      operationId: createPlaybackId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Playback ID created.
+  /video/v1/uploads:
+    get:
+      tags: [Direct Uploads]
+      summary: List direct uploads
+      operationId: listUploads
+      responses:
+        '200':
+          description: List of direct uploads.
+    post:
+      tags: [Direct Uploads]
+      summary: Create a direct upload URL
+      operationId: createUpload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Direct upload created.
+  /video/v1/uploads/{UPLOAD_ID}:
+    parameters:
+      - in: path
+        name: UPLOAD_ID
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Direct Uploads]
+      summary: Retrieve a direct upload
+      operationId: getUpload
+      responses:
+        '200':
+          description: Direct upload details.
+  /video/v1/live_streams:
+    get:
+      tags: [Live Streams]
+      summary: List live streams
+      operationId: listLiveStreams
+      responses:
+        '200':
+          description: List of live streams.
+    post:
+      tags: [Live Streams]
+      summary: Create a live stream
+      operationId: createLiveStream
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Live stream created.
+  /video/v1/live_streams/{LIVE_STREAM_ID}:
+    parameters:
+      - in: path
+        name: LIVE_STREAM_ID
+        required: true
+        schema:
+          type: string
+    get:
+      tags: [Live Streams]
+      summary: Retrieve a live stream
+      operationId: getLiveStream
+      responses:
+        '200':
+          description: Live stream details.
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using a Mux Access Token ID (username) and Secret (password).

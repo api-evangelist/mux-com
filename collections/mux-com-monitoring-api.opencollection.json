@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Monitoring API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Monitoring Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/dimensions",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available monitoring dimensions."
+        },
+        {
+          "info": {
+            "name": "List Monitoring Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available monitoring metrics."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_METRIC_ID/breakdown",
+            "params": [
+              {
+                "name": "MONITORING_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Monitoring Metric"
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension the specified value belongs to"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp."
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets breakdown information for a specific dimension and metric along with the number of concurrent viewers and negative impact score."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Breakdown Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_METRIC_ID/breakdown-timeseries",
+            "params": [
+              {
+                "name": "MONITORING_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Monitoring Metric"
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension the specified value belongs to"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nThe default for this is the last 60 seconds of available data. Timeframes larger than 10 minutes are not allowed, and must be within the last 24 hours.\n"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in each timestamp's `value` list.\n\nThe default is 10, and the maximum is 100.\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets timeseries of breakdown information for a specific dimension and metric. Each datapoint in the response represents 5 seconds worth of data."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Histogram Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_HISTOGRAM_METRIC_ID/histogram-timeseries",
+            "params": [
+              {
+                "name": "MONITORING_HISTOGRAM_METRIC_ID",
+                "value": "video-startup-time",
+                "type": "path",
+                "description": "ID of the Monitoring Histogram Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets histogram timeseries information for a specific metric."
+        },
+        {
+          "info": {
+            "name": "Get Monitoring Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/monitoring/metrics/:MONITORING_METRIC_ID/timeseries",
+            "params": [
+              {
+                "name": "MONITORING_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Monitoring Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to use as the start of the timeseries data. This value must be provided as a unix timestamp. Defaults to 30 minutes ago."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets Time series information for a specific metric along with the number of concurrent viewers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

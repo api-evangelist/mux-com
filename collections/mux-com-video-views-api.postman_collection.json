@@ -1,0 +1,362 @@
+{
+  "item": [
+    {
+      "id": "4340ab26-8beb-43cb-8089-eea321a20e74",
+      "name": "Video Views",
+      "description": {
+        "content": "An individual video view tracked by Mux Data. For the full list of properties for each view please refer to the table of data fields in the [Export raw video view data guide](https://docs.mux.com/guides/export-raw-video-view-data).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71b58e30-abff-425e-bee4-4603ec965a24",
+          "name": "List Video Views",
+          "request": {
+            "name": "List Video Views",
+            "description": {
+              "content": "Returns a list of video views which match the filters and have a `view_end` within the specified timeframe.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "video-views"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "viewer_id",
+                  "value": "<string>",
+                  "description": "Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux."
+                },
+                {
+                  "disabled": false,
+                  "key": "error_id",
+                  "value": "<integer>",
+                  "description": "Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3d475085-be9c-41e6-a8d1-ec42af4e0c71",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "video-views"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "viewer_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "error_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 4,\n  \"timeframe\": [\n    1610025789,\n    1610112189\n  ],\n  \"data\": [\n    {\n      \"viewer_os_family\": \"OS X\",\n      \"viewer_application_name\": \"Chrome\",\n      \"view_start\": \"2021-01-07T20:34:06Z\",\n      \"view_end\": \"2021-01-07T20:46:04Z\",\n      \"video_title\": \"my-title\",\n      \"total_row_count\": 4,\n      \"player_error_message\": null,\n      \"player_error_code\": null,\n      \"id\": \"JpA81zBfGaGZ85C6aGF3bptyD4CKwpdNgamr\",\n      \"error_type_id\": 1,\n      \"country_code\": \"US\",\n      \"viewer_experience_score\": 0.8,\n      \"watch_time\": 1000,\n      \"playback_failure\": false\n    },\n    {\n      \"viewer_os_family\": \"OS X\",\n      \"viewer_application_name\": \"Chrome\",\n      \"view_start\": \"2021-01-07T20:21:53Z\",\n      \"view_end\": \"2021-01-07T20:34:03Z\",\n      \"video_title\": \"\",\n      \"total_row_count\": 4,\n      \"player_error_message\": null,\n      \"player_error_code\": null,\n      \"id\": \"jPVLR5giYMrLYbHM88Tkn3cM3qCRDk0jL114\",\n      \"error_type_id\": 1,\n      \"country_code\": \"US\",\n      \"viewer_experience_score\": 0.8,\n      \"watch_time\": 1000,\n      \"playback_failure\": false\n    },\n    {\n      \"viewer_os_family\": \"OS X\",\n      \"viewer_application_name\": \"Chrome\",\n      \"view_start\": \"2021-01-07T15:16:06Z\",\n      \"view_end\": \"2021-01-07T15:17:06Z\",\n      \"video_title\": \"Video Test Title 12.14.20\",\n      \"total_row_count\": 4,\n      \"player_error_message\": \"this is an error message from the player\",\n      \"player_error_code\": \"1001\",\n      \"id\": \"pdLDVKBuPZJJ9YsPVmtmB9FG9gsWBWMmYar4\",\n      \"error_type_id\": 1,\n      \"country_code\": \"US\",\n      \"viewer_experience_score\": 0.8,\n      \"watch_time\": 1000,\n      \"playback_failure\": true\n    },\n    {\n      \"viewer_os_family\": \"OS X\",\n      \"viewer_application_name\": \"Chrome\",\n      \"view_start\": \"2021-01-07T15:15:09Z\",\n      \"view_end\": \"2021-01-07T15:15:17Z\",\n      \"video_title\": \"Video Test Title 12.14.20\",\n      \"total_row_count\": 4,\n      \"player_error_message\": null,\n      \"player_error_code\": null,\n      \"id\": \"zbZPowWtD3z54jcGMLCJJpF79zCjB03bV7o8\",\n      \"error_type_id\": 1,\n      \"country_code\": \"US\",\n      \"viewer_experience_score\": 0.8,\n      \"watch_time\": 1000,\n      \"playback_failure\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4753c74d-12d2-436c-983e-190a94df8fe8",
+          "name": "Get a Video View",
+          "request": {
+            "name": "Get a Video View",
+            "description": {
+              "content": "Returns the details of a video view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "video-views",
+                ":VIDEO_VIEW_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "VIDEO_VIEW_ID",
+                  "description": "(Required) ID of the Video View"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4de9142c-26c3-4993-8862-cfcb6ce18735",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "video-views",
+                    ":VIDEO_VIEW_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "VIDEO_VIEW_ID",
+                      "description": "(Required) ID of the Video View"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": null,\n  \"timeframe\": [\n    1643133378,\n    1643219778\n  ],\n  \"data\": {\n    \"id\": \"LOpk9M00bMWgOJ3hcTcCHmz1JjxMFRRI\",\n    \"ad_attempt_count\": null,\n    \"ad_break_count\": null,\n    \"ad_break_error_count\": null,\n    \"ad_break_error_percentage\": null,\n    \"ad_error_count\": null,\n    \"ad_error_percentage\": null,\n    \"ad_exit_before_start_count\": null,\n    \"ad_exit_before_start_percentage\": null,\n    \"ad_impression_count\": null,\n    \"ad_playback_failure_error_type_id\": null,\n    \"ad_preroll_startup_time\": null,\n    \"ad_startup_error_count\": null,\n    \"ad_startup_error_percentage\": null,\n    \"asn\": 11427,\n    \"asn_name\": null,\n    \"asset_id\": \"rmp7fvw5lPD01l8PZ2aN74js84XrTWxHy\",\n    \"audio_codec\": null,\n    \"audio_codec_initial\": null,\n    \"buffering_count\": null,\n    \"buffering_duration\": null,\n    \"buffering_rate\": null,\n    \"cdn\": null,\n    \"city\": \"Austin\",\n    \"client_application_name\": null,\n    \"client_application_version\": null,\n    \"continent_code\": null,\n    \"country_code\": \"US\",\n    \"country_name\": \"United States\",\n    \"custom_1\": null,\n    \"custom_2\": null,\n    \"custom_3\": null,\n    \"custom_4\": null,\n    \"custom_5\": null,\n    \"custom_6\": null,\n    \"custom_7\": null,\n    \"custom_8\": null,\n    \"custom_9\": null,\n    \"custom_10\": null,\n    \"environment_id\": \"envid123\",\n    \"error_type_id\": null,\n    \"events\": [\n      {\n        \"viewer_time\": 1643216891851,\n        \"playback_time\": 0,\n        \"name\": \"playerready\",\n        \"event_time\": 1643216898061,\n        \"details\": {}\n      },\n      {\n        \"viewer_time\": 1643216891853,\n        \"playback_time\": 0,\n        \"name\": \"viewstart\",\n        \"event_time\": 1643216898101,\n        \"details\": {}\n      }\n    ],\n    \"exit_before_video_start\": false,\n    \"experiment_name\": null,\n    \"inserted_at\": \"2022-01-26T17:08:18Z\",\n    \"isp\": null,\n    \"latitude\": null,\n    \"live_stream_id\": null,\n    \"live_stream_latency\": null,\n    \"long_rebuffering\": false,\n    \"long_resume\": false,\n    \"longitude\": null,\n    \"metro\": null,\n    \"mux_api_version\": \"v1\",\n    \"mux_embed\": null,\n    \"mux_embed_version\": null,\n    \"mux_viewer_id\": \"abc123viewerid\",\n    \"page_load_time\": null,\n    \"page_type\": null,\n    \"page_url\": null,\n    \"platform_description\": null,\n    \"platform_summary\": null,\n    \"playback_business_exception_error_type_id\": null,\n    \"playback_failure\": false,\n    \"playback_failure_error_type_id\": null,\n    \"playback_id\": null,\n    \"playback_score\": null,\n    \"player_autoplay\": false,\n    \"player_error_code\": \"1001\",\n    \"player_error_context\": \"error context\",\n    \"player_error_message\": \"error from player\",\n    \"player_height\": null,\n    \"player_instance_id\": null,\n    \"player_language\": null,\n    \"player_load_time\": null,\n    \"player_mux_plugin_name\": \"apple-mux\",\n    \"player_mux_plugin_version\": null,\n    \"player_name\": null,\n    \"player_poster\": null,\n    \"player_preload\": false,\n    \"player_remote_played\": null,\n    \"player_software\": null,\n    \"player_software_version\": null,\n    \"player_source_domain\": null,\n    \"player_source_duration\": null,\n    \"player_source_height\": null,\n    \"player_source_host_name\": \"stream.mux.com\",\n    \"player_source_stream_type\": null,\n    \"player_source_type\": null,\n    \"player_source_url\": \"https://stream.mux.com/ax9qwyTIaUDLdmhesYDKir5kfE4Ve215.m3u8\",\n    \"player_source_width\": null,\n    \"player_startup_time\": null,\n    \"player_version\": null,\n    \"player_view_count\": null,\n    \"player_width\": null,\n    \"preroll_ad_asset_hostname\": null,\n    \"preroll_ad_tag_hostname\": null,\n    \"preroll_played\": null,\n    \"preroll_requested\": null,\n    \"property_id\": 1234,\n    \"quality_score\": null,\n    \"rebuffer_percentage\": null,\n    \"rebuffering_score\": null,\n    \"region\": null,\n    \"rendition_change_count\": null,\n    \"rendition_downshift_count\": null,\n    \"rendition_upshift_count\": null,\n    \"requests_for_first_preroll\": null,\n    \"session_id\": \"b97d7b4a-8de7-4b18-8984-1f9ec3d3b5bc\",\n    \"short_time\": \"2022-01-26T17:08:18Z\",\n    \"startup_score\": null,\n    \"sub_property_id\": null,\n    \"time_shift_enabled\": false,\n    \"time_to_first_frame\": null,\n    \"updated_at\": \"2022-01-26T17:56:12Z\",\n    \"used_captions\": false,\n    \"used_fullscreen\": false,\n    \"used_pip\": false,\n    \"video_affiliate\": null,\n    \"video_brand\": null,\n    \"video_cdn_trace\": [],\n    \"video_codec\": null,\n    \"video_codec_initial\": null,\n    \"video_content_type\": null,\n    \"video_creator_id\": null,\n    \"video_duration\": null,\n    \"video_dynamic_range_type\": null,\n    \"video_dynamic_range_type_initial\": null,\n    \"video_encoding_variant\": null,\n    \"video_id\": \"rmp7fvw5lPD01l8PZ2aN74js84XrTWxHy\",\n    \"video_language\": null,\n    \"video_producer\": null,\n    \"video_series\": null,\n    \"video_source_bitrate\": null,\n    \"video_source_bitrate_initial\": null,\n    \"video_source_fps\": null,\n    \"video_source_fps_initial\": null,\n    \"video_source_height\": null,\n    \"video_source_height_initial\": null,\n    \"video_source_width\": null,\n    \"video_source_width_initial\": null,\n    \"video_startup_business_exception_error_type_id\": null,\n    \"video_startup_failure\": false,\n    \"video_startup_preroll_load_time\": null,\n    \"video_startup_preroll_request_time\": null,\n    \"video_stream_type\": null,\n    \"video_title\": null,\n    \"video_variant_id\": null,\n    \"video_variant_name\": null,\n    \"view_average_request_latency\": null,\n    \"view_average_request_throughput\": null,\n    \"view_cdn_edge_pop\": null,\n    \"view_cdn_origin\": null,\n    \"view_content_startup_time\": null,\n    \"view_drm_level\": null,\n    \"view_drm_type\": null,\n    \"view_dropped\": false,\n    \"view_dropped_frame_count\": null,\n    \"view_end\": \"2022-01-26T17:56:12Z\",\n    \"view_error_id\": null,\n    \"view_has_ad\": false,\n    \"view_id\": \"8d00a0ca-8456-4e55-9ff8-dc501814a6b1\",\n    \"view_max_downscale_percentage\": \"0.32222223\",\n    \"view_max_playhead_position\": \"41126\",\n    \"view_max_request_latency\": null,\n    \"view_max_upscale_percentage\": \"0\",\n    \"view_playing_time\": \"58134\",\n    \"view_seek_count\": null,\n    \"view_seek_duration\": null,\n    \"view_session_id\": null,\n    \"view_start\": \"2022-01-26T17:08:18Z\",\n    \"view_total_content_playback_time\": 37521,\n    \"view_total_downscaling\": null,\n    \"view_total_upscaling\": null,\n    \"viewer_application_engine\": null,\n    \"viewer_application_name\": null,\n    \"viewer_application_version\": null,\n    \"viewer_connection_type\": null,\n    \"viewer_device_category\": null,\n    \"viewer_device_manufacturer\": null,\n    \"viewer_device_model\": \"iPhone10,4\",\n    \"viewer_device_name\": null,\n    \"viewer_experience_score\": null,\n    \"viewer_os_architecture\": null,\n    \"viewer_os_family\": null,\n    \"viewer_os_version\": \"15.1\",\n    \"viewer_plan\": null,\n    \"viewer_plan_category\": null,\n    \"viewer_plan_status\": null,\n    \"viewer_user_agent\": null,\n    \"viewer_user_id\": null,\n    \"watch_time\": null,\n    \"watched\": true,\n    \"weighted_average_bitrate\": 697078\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "32c5e329-967d-4c49-8b7f-401e03fb4ecd",
+    "name": "Mux Animated Images Video Views API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

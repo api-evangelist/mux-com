@@ -1,0 +1,1064 @@
+{
+  "item": [
+    {
+      "id": "52a68a7e-4873-4e2b-aba3-689029db0d81",
+      "name": "Metrics",
+      "description": {
+        "content": "Historical metrics are used for tracking KPIs, diagnosing issues, and\nmeasuring viewers' quality of experience. Metrics are calculated using the\nvideo views that have been completed and are bucketed on the view end time\nfor quality of experience metrics and view start time for engagement\nmetrics. Historical metrics provide a large collection of dimensions that\ncan be used to aggregate quality of experience based on view metadata. You\ncan also easily compare experiences across viewer populations to, for\nexample, find issues with specific devices or geographies.\n\nHistorical metrics are similar but not directly comparable to the real-time\nmetrics in the Real-time APIs. These metrics are aggregated for long-term\nstorage historical reporting and are generated using different viewer\npopulations.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8015907f-56f4-43b9-ba7c-4dc2ee82b62d",
+          "name": "List Breakdown Values",
+          "request": {
+            "name": "List Breakdown Values",
+            "description": {
+              "content": "List the breakdown values for a specific metric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "metrics",
+                ":METRIC_ID",
+                "breakdown"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_by",
+                  "value": "<string>",
+                  "description": "Breakdown value to group the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "measurement",
+                  "value": "<string>",
+                  "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Value to order the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "METRIC_ID",
+                  "description": "(Required) ID of the Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6df1cdc-7dd9-4996-972b-57c4704c18df",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "metrics",
+                    ":METRIC_ID",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "measurement",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "METRIC_ID",
+                      "description": "(Required) ID of the Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 1,\n  \"timeframe\": [\n    1610028298,\n    1610114698\n  ],\n  \"meta\": {\n    \"aggregation\": \"view_end\"\n  },\n  \"data\": [\n    {\n      \"views\": 5,\n      \"value\": 4,\n      \"total_watch_time\": 513934,\n      \"total_playing_time\": 413934,\n      \"negative_impact\": 1,\n      \"field\": \"US\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26e8c2bf-6b90-4d3b-9416-83a67c50d435",
+          "name": "Get Overall Values",
+          "request": {
+            "name": "Get Overall Values",
+            "description": {
+              "content": "Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "metrics",
+                ":METRIC_ID",
+                "overall"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "measurement",
+                  "value": "<string>",
+                  "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "METRIC_ID",
+                  "description": "(Required) ID of the Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "69b091be-d894-4aa2-9ecc-5c68e91285d5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "metrics",
+                    ":METRIC_ID",
+                    "overall"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "measurement",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "METRIC_ID",
+                      "description": "(Required) ID of the Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 1,\n  \"timeframe\": [\n    1610029525,\n    1610115925\n  ],\n  \"meta\": {\n    \"aggregation\": \"view_end\"\n  },\n  \"data\": {\n    \"value\": 4,\n    \"total_watch_time\": 513934,\n    \"total_playing_time\": 413934,\n    \"total_views\": 5,\n    \"global_value\": 1169.1832095168065\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47dfb151-8411-4f70-8695-8710deaf5a50",
+          "name": "List Insights",
+          "request": {
+            "name": "List Insights",
+            "description": {
+              "content": "Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "metrics",
+                ":METRIC_ID",
+                "insights"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "measurement",
+                  "value": "<string>",
+                  "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "METRIC_ID",
+                  "description": "(Required) ID of the Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5a5b1f96-8229-4ca6-aad8-c0a12bc981dd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "metrics",
+                    ":METRIC_ID",
+                    "insights"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "measurement",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "METRIC_ID",
+                      "description": "(Required) ID of the Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 18,\n  \"timeframe\": [\n    1610029610,\n    1610116010\n  ],\n  \"meta\": {\n    \"aggregation\": \"view_end\"\n  },\n  \"data\": [\n    {\n      \"total_watch_time\": 351144,\n      \"total_playing_time\": 341144,\n      \"total_views\": 1,\n      \"negative_impact_score\": -5,\n      \"metric\": 9,\n      \"filter_value\": \"\",\n      \"filter_column\": \"video_title\"\n    },\n    {\n      \"total_watch_time\": 513934,\n      \"total_playing_time\": 413934,\n      \"total_views\": 5,\n      \"negative_impact_score\": 0,\n      \"metric\": 4,\n      \"filter_value\": \"US\",\n      \"filter_column\": \"country\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ba2aa1f-bf14-4140-8fa1-c0c9a158a3cb",
+          "name": "Get Metric Timeseries Data",
+          "request": {
+            "name": "Get Metric Timeseries Data",
+            "description": {
+              "content": "Returns timeseries data for a specific metric.\n\nEach interval represented in the data array contains an array with the following values:\n  * the first element is the interval time\n  * the second element is the calculated metric value\n  * the third element is the number of views in the interval that have a valid metric value\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "metrics",
+                ":METRIC_ID",
+                "timeseries"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "measurement",
+                  "value": "<string>",
+                  "description": "Measurement for the provided metric. If omitted, the default for the metric will be used.\nThe default measurement for each metric is:\n\"sum\" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`\n\"median\" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`\n\"avg\" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`\n\"count\" : `started_views`, `unique_viewers`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "group_by",
+                  "value": "<string>",
+                  "description": "Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the timeframe.\n\nFor timeframes of less than 90 minutes, the default granularity is `minute`. Between 90 minutes and 6 hours, the default granularity is `ten_minutes`. Between 6 hours and 15 days inclusive, the default granularity is `hour`. The granularity of timeframes that exceed 15 days is `day`. This default behavior is subject to change; it is strongly suggested that you explicitly specify the granularity.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "METRIC_ID",
+                  "description": "(Required) ID of the Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "95b0a929-de16-41ae-9a92-d4042bc62469",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "metrics",
+                    ":METRIC_ID",
+                    "timeseries"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "measurement",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "METRIC_ID",
+                      "description": "(Required) ID of the Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 2,\n  \"timeframe\": [\n    1610029711,\n    1610116111\n  ],\n  \"meta\": {\n    \"aggregation\": \"view_end\"\n  },\n  \"data\": [\n    [\n      \"2021-01-07T14:00:00Z\",\n      \"0.8743536882994202\",\n      \"154240\"\n    ],\n    [\n      \"2021-01-07T15:00:00Z\",\n      \"0.8929105055911401\",\n      \"156056\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d537bc9b-33b0-4ad6-9b63-d3cee39f2165",
+          "name": "List All Metric Values",
+          "request": {
+            "name": "List All Metric Values",
+            "description": {
+              "content": "List all of the values across every breakdown for a specific metric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "metrics",
+                "comparison"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "dimension",
+                  "value": "<string>",
+                  "description": "Dimension the specified value belongs to"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<string>",
+                  "description": "Value to show all available metrics for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0dbbf776-a1e0-4b5f-a1d1-b6e2b5e35147",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "metrics",
+                    "comparison"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dimension",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 1,\n  \"timeframe\": [\n    1610029906,\n    1610116306\n  ],\n  \"data\": [\n    {\n      \"watch_time\": 513934,\n      \"view_count\": 5,\n      \"started_views\": 6,\n      \"ended_views\": 5,\n      \"unique_viewers\": 6,\n      \"total_playing_time\": 503934,\n      \"name\": \"totals\"\n    },\n    {\n      \"value\": 6,\n      \"type\": \"number\",\n      \"name\": \"Views\",\n      \"metric\": \"views\",\n      \"items\": [\n        {\n          \"value\": 6,\n          \"type\": \"number\",\n          \"name\": \"Unique Viewers\",\n          \"metric\": \"unique_viewers\"\n        },\n        {\n          \"value\": 503934,\n          \"type\": \"milliseconds\",\n          \"name\": \"Playing Time\",\n          \"metric\": \"playing_time\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Attempts (total)\",\n          \"metric\": \"ad_attempt_count\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Attempts (average)\",\n          \"metric\": \"ad_attempt_count\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Breaks (total)\",\n          \"metric\": \"ad_break_count\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Breaks (average)\",\n          \"metric\": \"ad_break_count\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Impressions (total)\",\n          \"metric\": \"ad_impression_count\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Impressions (average)\",\n          \"metric\": \"ad_impression_count\",\n          \"measurement\": \"avg\"\n        }\n      ]\n    },\n    {\n      \"value\": 0.7803472280502319,\n      \"type\": \"score\",\n      \"name\": \"Overall Score\",\n      \"metric\": \"viewer_experience_score\"\n    },\n    {\n      \"value\": 0.8,\n      \"type\": \"score\",\n      \"name\": \"Playback Failure Score\",\n      \"metric\": \"playback_failure_score\",\n      \"items\": [\n        {\n          \"value\": 0.2,\n          \"type\": \"percentage\",\n          \"name\": \"Playback Failure Percentage\",\n          \"metric\": \"playback_failure_percentage\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Video Startup Failure Percentage\",\n          \"metric\": \"video_startup_failure_percentage\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Exits Before Video Start\",\n          \"metric\": \"exits_before_video_start\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"View Dropped Percentage\",\n          \"metric\": \"view_dropped_percentage\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Errors (total)\",\n          \"metric\": \"ad_error_count\",\n          \"measurement\": \"sum\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Errors (average)\",\n          \"metric\": \"ad_error_count\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Ad Error Percentage (average)\",\n          \"metric\": \"ad_error_percentage\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Break Errors (total)\",\n          \"metric\": \"ad_break_error_count\",\n          \"measurement\": \"sum\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Ad Break Errors (average)\",\n          \"metric\": \"ad_break_error_count\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Ad Break Error Percentage (average)\",\n          \"metric\": \"ad_break_error_percentage\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Ad Startup Error Percentage (average)\",\n          \"metric\": \"ad_startup_error_percentage\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Ad Exit Before Start Percentage (average)\",\n          \"metric\": \"ad_exit_before_start_percentage\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Playback Business Exception Percentage (average)\",\n          \"metric\": \"playback_business_exception_percentage\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Video Startup Business Exception Percentage (average)\",\n          \"metric\": \"video_startup_business_exception_percentage\",\n          \"measurement\": \"avg\"\n        }\n      ]\n    },\n    {\n      \"value\": 0.9991008877754212,\n      \"type\": \"score\",\n      \"name\": \"Startup Time Score\",\n      \"metric\": \"startup_time_score\",\n      \"items\": [\n        {\n          \"value\": 4,\n          \"type\": \"milliseconds\",\n          \"name\": \"Video Startup Time (median)\",\n          \"metric\": \"video_startup_time\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 9,\n          \"type\": \"milliseconds\",\n          \"name\": \"Video Startup Time (95th %)\",\n          \"metric\": \"video_startup_time\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 52.5625,\n          \"type\": \"milliseconds\",\n          \"name\": \"Player Startup Time (median)\",\n          \"metric\": \"player_startup_time\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 60.0625,\n          \"type\": \"milliseconds\",\n          \"name\": \"Player Startup Time (95th %)\",\n          \"metric\": \"player_startup_time\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 122.37890625,\n          \"type\": \"milliseconds\",\n          \"name\": \"Page Load Time (median)\",\n          \"metric\": \"page_load_time\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 264.0625,\n          \"type\": \"milliseconds\",\n          \"name\": \"Page Load Time (95th %)\",\n          \"metric\": \"page_load_time\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 182.25,\n          \"type\": \"milliseconds\",\n          \"name\": \"Aggregate Startup Time (median)\",\n          \"metric\": \"aggregate_startup_time\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 319.515625,\n          \"type\": \"milliseconds\",\n          \"name\": \"Aggregate Startup Time (95th %)\",\n          \"metric\": \"aggregate_startup_time\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 3042,\n          \"type\": \"milliseconds\",\n          \"name\": \"Seek Latency\",\n          \"metric\": \"seek_latency\"\n        },\n        {\n          \"value\": 1000,\n          \"type\": \"milliseconds\",\n          \"name\": \"Content Startup Time (median)\",\n          \"metric\": \"view_content_startup_time\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 1403,\n          \"type\": \"milliseconds\",\n          \"name\": \"Content Startup Time (95th %)\",\n          \"metric\": \"view_content_startup_time\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 800,\n          \"type\": \"milliseconds\",\n          \"name\": \"Ad Preroll Startup Time (median)\",\n          \"metric\": \"ad_preroll_startup_time\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 1243,\n          \"type\": \"milliseconds\",\n          \"name\": \"Ad Preroll Startup Time (95th %)\",\n          \"metric\": \"ad_preroll_startup_time\",\n          \"measurement\": \"95th\"\n        }\n      ]\n    },\n    {\n      \"value\": 0.9523247838020324,\n      \"type\": \"score\",\n      \"name\": \"Rebuffer Score\",\n      \"metric\": \"rebuffer_score\",\n      \"items\": [\n        {\n          \"value\": 0.0005564916895943838,\n          \"type\": \"percentage\",\n          \"name\": \"Rebuffer Percentage\",\n          \"metric\": \"rebuffer_percentage\"\n        },\n        {\n          \"value\": 0.11674650830651406,\n          \"type\": \"per_minute\",\n          \"name\": \"Rebuffer Frequency\",\n          \"metric\": \"rebuffer_frequency\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"milliseconds\",\n          \"name\": \"Rebuffer Duration (median)\",\n          \"metric\": \"rebuffer_duration\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 256,\n          \"type\": \"milliseconds\",\n          \"name\": \"Rebuffer Duration (95th %)\",\n          \"metric\": \"rebuffer_duration\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"number\",\n          \"name\": \"Rebuffer Count (median)\",\n          \"metric\": \"rebuffer_count\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 1,\n          \"type\": \"number\",\n          \"name\": \"Rebuffer Count (95th %)\",\n          \"metric\": \"rebuffer_count\",\n          \"measurement\": \"95th\"\n        }\n      ]\n    },\n    {\n      \"value\": 1,\n      \"type\": \"score\",\n      \"name\": \"Video Quality Score\",\n      \"metric\": \"video_quality_score\",\n      \"items\": [\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Upscale Percentage (median)\",\n          \"metric\": \"upscale_percentage\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Upscale Percentage (95th %)\",\n          \"metric\": \"upscale_percentage\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Upscale Percentage (average)\",\n          \"metric\": \"upscale_percentage\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0.007,\n          \"type\": \"percentage\",\n          \"name\": \"Downscale Percentage (median)\",\n          \"metric\": \"downscale_percentage\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 0.449,\n          \"type\": \"percentage\",\n          \"name\": \"Downscale Percentage (95th %)\",\n          \"metric\": \"downscale_percentage\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 0.11813909473676262,\n          \"type\": \"percentage\",\n          \"name\": \"Downscale Percentage (average)\",\n          \"metric\": \"downscale_percentage\",\n          \"measurement\": \"avg\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Max Upscale Percentage (median)\",\n          \"metric\": \"max_upscale_percentage\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 0,\n          \"type\": \"percentage\",\n          \"name\": \"Max Upscale Percentage (95th %)\",\n          \"metric\": \"max_upscale_percentage\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 0.007,\n          \"type\": \"percentage\",\n          \"name\": \"Max Downscale Percentage (median)\",\n          \"metric\": \"max_downscale_percentage\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 0.449,\n          \"type\": \"percentage\",\n          \"name\": \"Max Downscale Percentage (95th %)\",\n          \"metric\": \"max_downscale_percentage\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 851582.91015625,\n          \"type\": \"mbps\",\n          \"name\": \"Weighted Average Bitrate (median)\",\n          \"metric\": \"weighted_average_bitrate\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 697016.265625,\n          \"type\": \"mbps\",\n          \"name\": \"Weighted Average Bitrate (95th %)\",\n          \"metric\": \"weighted_average_bitrate\",\n          \"measurement\": \"95th\"\n        },\n        {\n          \"value\": 2195,\n          \"type\": \"milliseconds\",\n          \"name\": \"Live Stream Latency (median)\",\n          \"metric\": \"live_stream_latency\",\n          \"measurement\": \"median\"\n        },\n        {\n          \"value\": 3523,\n          \"type\": \"milliseconds\",\n          \"name\": \"Live Stream Latency (95th %)\",\n          \"metric\": \"live_stream_latency\",\n          \"measurement\": \"95th\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "85523c6c-6997-404a-bbad-8943564d29cf",
+    "name": "Mux Animated Images Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,677 @@
+{
+  "item": [
+    {
+      "id": "a40402a0-72c2-48ef-a156-871798c2ce5b",
+      "name": "Summarize",
+      "description": {
+        "content": "Generate a title, description, and tags for a video.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a6bc961-4828-4c25-905c-2c1a191d3ac2",
+          "name": "Create a 'summarize' Job",
+          "request": {
+            "name": "Create a 'summarize' Job",
+            "description": {
+              "content": "Creates a new job that uses AI to generate a title, description, and tags for a Mux Video asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "robots",
+                "v0",
+                "jobs",
+                "summarize"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"<string>\",\n    \"tone\": \"<string>\",\n    \"prompt_overrides\": {\n      \"task\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"keywords\": \"<string>\",\n      \"quality_guidelines\": \"<string>\"\n    },\n    \"title_length\": \"<integer>\",\n    \"description_length\": \"<integer>\",\n    \"tag_count\": \"<integer>\",\n    \"language_code\": \"<string>\",\n    \"output_language_code\": \"<string>\"\n  },\n  \"passthrough\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7136e324-669b-453f-b5dc-c16e53642f4b",
+              "name": "Summarize job queued",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"tone\": \"neutral\",\n    \"tag_count\": 10\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rjob_example123\",\n    \"workflow\": \"summarize\",\n    \"status\": \"pending\",\n    \"units_consumed\": 0,\n    \"created_at\": 1700000000,\n    \"updated_at\": 1700000060,\n    \"parameters\": {\n      \"asset_id\": \"mux_asset_123abc\",\n      \"tone\": \"neutral\",\n      \"tag_count\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1fef793-1b47-46bb-92cd-a3cc1117aef0",
+              "name": "Missing Mux credentials",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"tone\": \"neutral\",\n    \"tag_count\": 10\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f30eaa9-c525-48b7-9cec-abc46f2fd8b3",
+              "name": "Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"tone\": \"neutral\",\n    \"tag_count\": 10\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2f28171-da3c-4c12-af45-e7c538ef101a",
+              "name": "Asset not found or missing playback ID",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"tone\": \"neutral\",\n    \"tag_count\": 10\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8eda4cb0-2f2b-4902-9261-86e32a04cffd",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"tone\": \"neutral\",\n    \"tag_count\": 10\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bcd8d17-a2cf-4a07-9a5c-9029af849998",
+          "name": "Get a 'summarize' Job",
+          "request": {
+            "name": "Get a 'summarize' Job",
+            "description": {
+              "content": "Retrieves the current status and results of a 'summarize' job. Jobs are automatically deleted after 30 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "robots",
+                "v0",
+                "jobs",
+                "summarize",
+                ":JOB_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "JOB_ID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f31cffbe-413e-4308-82ad-8083aaaa3e33",
+              "name": "Current status for the requested job",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rjob_example123\",\n    \"workflow\": \"summarize\",\n    \"status\": \"completed\",\n    \"units_consumed\": 1,\n    \"created_at\": 1700000000,\n    \"updated_at\": 1700000060,\n    \"parameters\": {\n      \"asset_id\": \"mux_asset_123abc\",\n      \"tone\": \"neutral\",\n      \"tag_count\": 10\n    },\n    \"outputs\": {\n      \"title\": \"How to Build a Sustainable Garden in Your Backyard\",\n      \"description\": \"This video walks through the step-by-step process of creating a sustainable backyard garden, covering soil preparation, plant selection, and organic pest control methods.\",\n      \"tags\": [\n        \"gardening\",\n        \"sustainability\",\n        \"backyard\",\n        \"organic\",\n        \"soil preparation\",\n        \"composting\",\n        \"pest control\",\n        \"beginner\",\n        \"how-to\",\n        \"plants\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "632d1a80-c182-45a6-91be-232940c50664",
+              "name": "Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c761913-3198-43d4-935f-5a66b8195020",
+              "name": "No job exists for the supplied id",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9995c2c3-d1cf-4fe5-b1e8-7b00c9843c2e",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "summarize",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fa519200-fe07-4eaa-9e7d-d228fde74886",
+    "name": "Mux Animated Images Summarize API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

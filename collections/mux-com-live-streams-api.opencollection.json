@@ -1,0 +1,536 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Live Streams API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Live Streams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Live Streams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "stream_key",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return live stream for this stream key only"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return live streams with the specified status only"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the live streams that currently exist in the current environment."
+        },
+        {
+          "info": {
+            "name": "Create a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new live stream. Once created, an encoder can connect to Mux via the specified stream key and begin streaming to an audience."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of a live stream that has previously been created. Supply the unique live stream ID that was returned from your previous request, and Mux will return the corresponding live stream information. The same information is returned when creating a live stream."
+        },
+        {
+          "info": {
+            "name": "Update a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the parameters of a previously-created live stream. This currently supports a subset of variables. Supply the live stream ID and the updated parameters and Mux will return the corresponding live stream information. The information returned will be the same after update as for subsequent get live stream requests."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a live stream from the current environment. If the live stream is currently active and being streamed to, ingest will be terminated and the encoder will be disconnected."
+        },
+        {
+          "info": {
+            "name": "Create a Live Stream Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/playback-ids",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new playback ID for this live stream, through which a viewer can watch the streamed content of the live stream."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Live Stream Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Fetches information about a live stream's playback ID, through which a viewer can watch the streamed content from this live stream."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes the playback ID for the live stream. This will not disable ingest (as the live stream still exists). New attempts to play back the live stream will fail immediately. However, current viewers will be able to continue watching the stream for some period of time."
+        },
+        {
+          "info": {
+            "name": "Reset a Live Stream's Stream Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/reset-stream-key",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Reset a live stream key if you want to immediately stop the current stream key from working and create a new stream key that can be used for future broadcasts."
+        },
+        {
+          "info": {
+            "name": "Signal a Live Stream Is Finished",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/complete",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "(Optional) End the live stream recording immediately instead of waiting for the reconnect_window. `EXT-X-ENDLIST` tag is added to the HLS manifest which notifies the player that this live stream is over.\n\nMux does not close the encoder connection immediately. Encoders are often configured to re-establish connections immediately which would result in a new recorded asset. For this reason, Mux waits for 60s before closing the connection with the encoder. This 60s timeframe is meant to give encoder"
+        },
+        {
+          "info": {
+            "name": "Disable a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/disable",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Disables a live stream, making it reject incoming RTMP streams until re-enabled. The API also ends the live stream recording immediately when active. Ending the live stream recording adds the `EXT-X-ENDLIST` tag to the HLS manifest which notifies the player that this live stream is over.\n\nMux also closes the encoder connection immediately. Any attempt from the encoder to re-establish connection will fail till the live stream is re-enabled.\n"
+        },
+        {
+          "info": {
+            "name": "Enable a Live Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/enable",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Enables a live stream, allowing it to accept an incoming RTMP stream."
+        },
+        {
+          "info": {
+            "name": "Update a Live Stream's Embedded Subtitles",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/embedded-subtitles",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Configures a live stream to receive embedded closed captions.\nThe resulting Asset's subtitle text track will have `closed_captions: true` set.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Live Stream's Generated Subtitles",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/generated-subtitles",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates a live stream's automatic-speech-recognition-generated subtitle configuration.\nAutomatic speech recognition subtitles can be removed by sending an empty array in the\nrequest payload.\n"
+        },
+        {
+          "info": {
+            "name": "Create a Live Stream Simulcast Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/simulcast-targets",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a simulcast target for the parent live stream. Simulcast target can only be created when the parent live stream is in idle state. Only one simulcast target can be created at a time with this API."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Live Stream Simulcast Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/simulcast-targets/:SIMULCAST_TARGET_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "SIMULCAST_TARGET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the simulcast target."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of the simulcast target created for the parent live stream. Supply the unique live stream ID and simulcast target ID that was returned in the response of create simulcast target request, and Mux will return the corresponding information."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream Simulcast Target",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/simulcast-targets/:SIMULCAST_TARGET_ID",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              },
+              {
+                "name": "SIMULCAST_TARGET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the simulcast target."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete the simulcast target using the simulcast target ID returned when creating the simulcast target. Simulcast Target can only be deleted when the parent live stream is in idle state."
+        },
+        {
+          "info": {
+            "name": "Update Live Stream Static Renditions for New Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/new-asset-settings/static-renditions",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates a live stream's static renditions settings for new assets. Further assets made via this live stream will create static renditions per the settings provided. You must provide all static renditions desired."
+        },
+        {
+          "info": {
+            "name": "Delete a Live Stream's Static Renditions Setting for New Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/live-streams/:LIVE_STREAM_ID/new-asset-settings/static-renditions",
+            "params": [
+              {
+                "name": "LIVE_STREAM_ID",
+                "value": "",
+                "type": "path",
+                "description": "The live stream ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a live stream's static renditions settings for new assets. Further assets made via this live stream will not create static renditions unless re-added."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

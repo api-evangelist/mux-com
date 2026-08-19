@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Ask Questions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ask Questions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an 'ask-Questions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/ask-questions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to answer questions about a Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Get an 'ask-Questions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/ask-questions/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of an 'ask-questions' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

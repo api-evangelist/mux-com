@@ -1,0 +1,677 @@
+{
+  "item": [
+    {
+      "id": "10bab2c1-6cb2-438d-8682-b40e029ceaf0",
+      "name": "Find Key Moments",
+      "description": {
+        "content": "Identify key moments in a video.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3361b783-7bd7-48e5-b9f8-0b22922f7a3e",
+          "name": "Create a 'find-Key-Moments' Job",
+          "request": {
+            "name": "Create a 'find-Key-Moments' Job",
+            "description": {
+              "content": "Creates a new job that uses AI to identify key moments in a Mux Video asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "robots",
+                "v0",
+                "jobs",
+                "find-key-moments"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"<string>\",\n    \"max_moments\": \"<integer>\",\n    \"target_duration_ms\": {\n      \"min\": \"<integer>\",\n      \"max\": \"<integer>\"\n    }\n  },\n  \"passthrough\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "49b15ecf-c59e-4131-8134-14483bf247df",
+              "name": "Key moments job queued",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"max_moments\": 5,\n    \"target_duration_ms\": {\n      \"min\": 15000,\n      \"max\": 45000\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rjob_example123\",\n    \"workflow\": \"find-key-moments\",\n    \"status\": \"pending\",\n    \"units_consumed\": 0,\n    \"created_at\": 1700000000,\n    \"updated_at\": 1700000060,\n    \"parameters\": {\n      \"asset_id\": \"mux_asset_123abc\",\n      \"max_moments\": 5,\n      \"target_duration_ms\": {\n        \"min\": 15000,\n        \"max\": 45000\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcc6ee53-bb53-416d-923c-dc61db291f71",
+              "name": "Missing Mux credentials for transcript access",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"max_moments\": 5,\n    \"target_duration_ms\": {\n      \"min\": 15000,\n      \"max\": 45000\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2f08522-44ca-4a21-a871-cbb741b1d49f",
+              "name": "Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"max_moments\": 5,\n    \"target_duration_ms\": {\n      \"min\": 15000,\n      \"max\": 45000\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b46f524b-066a-4a53-a369-d1c58dd3aa74",
+              "name": "Asset not found, missing playback ID, or no transcript",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"max_moments\": 5,\n    \"target_duration_ms\": {\n      \"min\": 15000,\n      \"max\": 45000\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54c95df8-f2ee-4795-a3a3-04fe650047b4",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"asset_id\": \"mux_asset_123abc\",\n    \"max_moments\": 5,\n    \"target_duration_ms\": {\n      \"min\": 15000,\n      \"max\": 45000\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca622b73-627f-405b-9cdd-bbdd898291f1",
+          "name": "Get a 'find-Key-Moments' Job",
+          "request": {
+            "name": "Get a 'find-Key-Moments' Job",
+            "description": {
+              "content": "Retrieves the current status and results of a 'find-key-moments' job. Jobs are automatically deleted after 30 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "robots",
+                "v0",
+                "jobs",
+                "find-key-moments",
+                ":JOB_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "JOB_ID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c61daf64-10e5-420e-a416-569c305f598a",
+              "name": "Current status for the requested job",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"rjob_example123\",\n    \"workflow\": \"find-key-moments\",\n    \"status\": \"completed\",\n    \"units_consumed\": 1,\n    \"created_at\": 1700000000,\n    \"updated_at\": 1700000060,\n    \"parameters\": {\n      \"asset_id\": \"mux_asset_123abc\",\n      \"max_moments\": 5,\n      \"target_duration_ms\": {\n        \"min\": 15000,\n        \"max\": 45000\n      }\n    },\n    \"outputs\": {\n      \"moments\": [\n        {\n          \"start_ms\": 15000,\n          \"end_ms\": 45000,\n          \"cues\": [\n            {\n              \"start_ms\": 15000,\n              \"end_ms\": 20000,\n              \"text\": \"This is the moment everything changed.\"\n            },\n            {\n              \"start_ms\": 20000,\n              \"end_ms\": 30000,\n              \"text\": \"We realized the entire approach was wrong.\"\n            }\n          ],\n          \"overall_score\": 0.92,\n          \"title\": \"The Pivotal Realization\",\n          \"audible_narrative\": \"The speaker describes the turning point that reshaped the project direction.\",\n          \"notable_audible_concepts\": [\n            \"pivotal realization moment\",\n            \"project direction change\"\n          ],\n          \"visual_narrative\": \"The speaker gestures emphatically at a whiteboard diagram while the camera zooms in.\",\n          \"notable_visual_concepts\": [\n            {\n              \"concept\": \"whiteboard diagram emphasis\",\n              \"score\": 0.88,\n              \"rationale\": \"The diagram directly illustrates the pivotal realization being described.\"\n            },\n            {\n              \"concept\": \"speaker emphatic gestures\",\n              \"score\": 0.75,\n              \"rationale\": \"Body language reinforces the emotional weight of the turning point.\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "970e6b13-38a6-41a5-88fa-778dde9f725c",
+              "name": "Robots is not enabled for this environment. Accept the Robots beta terms in the Mux Dashboard to enable access.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c2d778d-b522-4feb-8a27-86df3b11add9",
+              "name": "No job exists for the supplied id",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2552ac9c-5c58-402e-8fda-e0493963145f",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "robots",
+                    "v0",
+                    "jobs",
+                    "find-key-moments",
+                    ":JOB_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "JOB_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5731c4ac-3e27-4eb3-9ff9-71f0b6690f96",
+    "name": "Mux Animated Images Find Key Moments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

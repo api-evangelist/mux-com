@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Summarize API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Summarize",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'summarize' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/summarize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to generate a title, description, and tags for a Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Get a 'summarize' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/summarize/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'summarize' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

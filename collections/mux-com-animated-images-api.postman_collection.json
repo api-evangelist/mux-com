@@ -1,0 +1,342 @@
+{
+  "item": [
+    {
+      "id": "6f591021-75c0-4a6a-b3db-3405d87765a0",
+      "name": "Animated Images",
+      "description": {
+        "content": "APIs for retrieving animated images from videos hosted using Mux.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1645d073-88b7-48d1-8ac2-dd7c8c0ef2b5",
+          "name": "Retrieve an Animated Image from a Video",
+          "request": {
+            "name": "Retrieve an Animated Image from a Video",
+            "description": {
+              "content": "[Fetch an animated GIF or WebP image](https://docs.mux.com/guides/get-images-from-a-video#get-an-animated-gif-from-a-video) from a video segment with optional transformations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                ":PLAYBACK_ID",
+                "animated.{{EXTENSION}}"
+              ],
+              "host": [
+                "image",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "TOKEN",
+                  "value": "<string>",
+                  "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<float>",
+                  "description": "The time (in seconds) of the video timeline where the animated GIF should begin. Defaults to 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<float>",
+                  "description": "The time (in seconds) of the video timeline where the GIF ends. Defaults to 5 seconds after the start. Maximum total duration of GIF is limited to 10 seconds; minimum total duration of GIF is 250ms."
+                },
+                {
+                  "disabled": false,
+                  "key": "width",
+                  "value": "<integer>",
+                  "description": "The width in pixels of the animated GIF. Default is 320px, or if height is provided, the width is determined by preserving aspect ratio with the height. Max width is 640px."
+                },
+                {
+                  "disabled": false,
+                  "key": "height",
+                  "value": "<integer>",
+                  "description": "The height in pixels of the animated GIF. The default height is determined by preserving aspect ratio with the width provided. Maximum height is 640px."
+                },
+                {
+                  "disabled": false,
+                  "key": "fps",
+                  "value": "<integer>",
+                  "description": "The frame rate of the generated GIF. Defaults to 15 fps. Max 30 fps."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/gif"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "378e9303-37bd-4103-835a-820e62b50db2",
+              "name": "Animated image retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "animated.{{EXTENSION}}"
+                  ],
+                  "host": [
+                    "image",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/gif"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/gif"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5843cc2f-c5f0-45c9-bcc4-fbd02e39853d",
+              "name": "Bad request due to invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "animated.{{EXTENSION}}"
+                  ],
+                  "host": [
+                    "image",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3,\n  \"message\": \"Invalid parameter\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc328b63-164f-427e-9d9c-2b5a983529c7",
+              "name": "Video asset not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "animated.{{EXTENSION}}"
+                  ],
+                  "host": [
+                    "image",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5,\n  \"message\": \"Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The image file extension, either 'gif' or 'webp'.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "EXTENSION"
+    }
+  ],
+  "info": {
+    "_postman_id": "7eab147b-1b13-467c-bc47-dedb7eba825f",
+    "name": "Mux Animated Images API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

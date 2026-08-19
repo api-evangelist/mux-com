@@ -1,0 +1,150 @@
+{
+  "item": [
+    {
+      "id": "cd4bc731-3074-4c31-939c-237c24b23b19",
+      "name": "Playback ID",
+      "description": {
+        "content": "Operations related to the manipulation of playback IDs, through which users are able to stream videos and live streams from Mux.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1497a8a7-61c0-44ab-8025-d9526ca6a632",
+          "name": "Retrieve an Asset or Live Stream ID",
+          "request": {
+            "name": "Retrieve an Asset or Live Stream ID",
+            "description": {
+              "content": "Retrieves the Identifier of the Asset or Live Stream associated with the Playback ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "playback-ids",
+                ":PLAYBACK_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b9ae21d5-7662-444c-a6a3-72929568d856",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "playback-ids",
+                    ":PLAYBACK_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"a1B2c3D4e5F6g7H8i9\",\n    \"policy\": \"public\",\n    \"object\": {\n      \"type\": \"asset\",\n      \"id\": \"123456789012345678\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "79f66b20-fca5-423a-9c41-d90d6e69858f",
+    "name": "Mux Animated Images Playback ID API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

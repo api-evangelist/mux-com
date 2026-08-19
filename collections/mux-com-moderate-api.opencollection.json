@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Moderate API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Moderate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'moderate' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/moderate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to analyze a Mux Video asset for inappropriate content."
+        },
+        {
+          "info": {
+            "name": "Get a 'moderate' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/moderate/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'moderate' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

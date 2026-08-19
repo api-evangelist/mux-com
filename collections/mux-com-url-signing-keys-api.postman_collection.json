@@ -1,0 +1,480 @@
+{
+  "item": [
+    {
+      "id": "0e62666d-25b1-4105-8d3b-3b134425a0f2",
+      "name": "URL Signing Keys",
+      "description": {
+        "content": "A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON Web Token](https://jwt.io/) as the value of the token query parameter. The token query parameter must be set for URLs that reference a playback ID with a signed playback policy.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2f8722a5-4235-44fd-851c-69505206b057",
+          "name": "Create a URL Signing Key",
+          "request": {
+            "name": "Create a URL Signing Key",
+            "description": {
+              "content": "This route is now deprecated, please use the `Signing Keys` API. Creates a new signing key pair. When creating a new signing key,\nthe API will generate a 2048-bit RSA key-pair and return the private key and\na generated key-id; the public key will be stored at Mux to validate signed\ntokens.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "signing-keys"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d7010a9d-51de-4a67-ae72-5be8124f0c88",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "signing-keys"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"private_key\": \"abcd123=\",\n    \"id\": \"vI5KTQ78ohYriuvWKHY6COtZWXexHGLllxksOdZuya8\",\n    \"created_at\": \"1610108345\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77b8e358-8d23-4c56-a1e6-157e68b9ce70",
+          "name": "List URL Signing Keys",
+          "request": {
+            "name": "List URL Signing Keys",
+            "description": {
+              "content": "This route is now deprecated, please use the `Signing Keys` API. Returns a list of URL signing keys.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "signing-keys"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6db955ea-1abc-4a46-930c-cb530ba3a430",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "signing-keys"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"vI5KTQ78ohYriuvWKHY6COtZWXexHGLllxksOdZuya8\",\n      \"created_at\": \"1610108345\"\n    },\n    {\n      \"id\": \"jc6lJiCLMjyC202EXtRQ644sShzDv6x5tWJrbvUFpvmo\",\n      \"created_at\": \"1608632647\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30b2aa70-3785-4c82-8639-662dfec69717",
+          "name": "Retrieve a URL Signing Key",
+          "request": {
+            "name": "Retrieve a URL Signing Key",
+            "description": {
+              "content": "This route is now deprecated, please use the `Signing Keys` API. Retrieves the details of a URL signing key that has previously\nbeen created. Supply the unique signing key ID that was returned from your\nprevious request, and Mux will return the corresponding signing key information.\n**The private key is not returned in this response.**\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "signing-keys",
+                ":SIGNING_KEY_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SIGNING_KEY_ID",
+                  "description": "(Required) The ID of the signing key."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "11dd1caf-92c3-44f3-aa9e-a885e25759dd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "signing-keys",
+                    ":SIGNING_KEY_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SIGNING_KEY_ID",
+                      "description": "(Required) The ID of the signing key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"jc6lJiCLMjyC202EXtRQ644sShzDv6x5tWJrbvUFpvmo\",\n    \"created_at\": \"1608632647\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7384f41a-1ed7-4651-9501-b4780960a312",
+          "name": "Delete a URL Signing Key",
+          "request": {
+            "name": "Delete a URL Signing Key",
+            "description": {
+              "content": "This route is now deprecated, please use the `Signing Keys` API. Deletes an existing signing key. Use with caution, as this will\ninvalidate any existing signatures and no URLs can be signed using the key\nagain.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "signing-keys",
+                ":SIGNING_KEY_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SIGNING_KEY_ID",
+                  "description": "(Required) The ID of the signing key."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83c06508-d4f4-4f92-bd54-ed7cc5121235",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "signing-keys",
+                    ":SIGNING_KEY_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SIGNING_KEY_ID",
+                      "description": "(Required) The ID of the signing key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1b9eb25f-308e-420c-ab19-c08aa3b5958c",
+    "name": "Mux Animated Images URL Signing Keys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

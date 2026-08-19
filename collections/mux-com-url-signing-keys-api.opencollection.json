@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images URL Signing Keys API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "URL Signing Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List URL Signing Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/signing-keys",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Returns a list of URL signing keys.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        },
+        {
+          "info": {
+            "name": "Create a URL Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/signing-keys",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Creates a new signing key pair. When creating a new signing key,\nthe API will generate a 2048-bit RSA key-pair and return the private key and\na generated key-id; the public key will be stored at Mux to validate signed\ntokens.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve a URL Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Retrieves the details of a URL signing key that has previously\nbeen created. Supply the unique signing key ID that was returned from your\nprevious request, and Mux will return the corresponding signing key information.\n**The private key is not returned in this response.**\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a URL Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This route is now deprecated, please use the `Signing Keys` API. Deletes an existing signing key. Use with caution, as this will\ninvalidate any existing signatures and no URLs can be signed using the key\nagain.\n\nNote: Any new access tokens authenticating this route will be required to have `System` level permissions.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

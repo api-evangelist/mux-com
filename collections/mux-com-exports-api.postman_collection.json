@@ -1,0 +1,234 @@
+{
+  "item": [
+    {
+      "id": "e233d484-e01b-4f39-a795-631f592d8232",
+      "name": "Exports",
+      "description": {
+        "content": "Exports allow you to download the daily CSV files that are generated from the video views that occurred in the previous day. Please contact [support](mailto:support@mux.com) for information about enabling exports for your organization.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d377a941-4649-4c7c-b457-da5fe17b0eda",
+          "name": "List Property Video View Export Links",
+          "request": {
+            "name": "List Property Video View Export Links",
+            "description": {
+              "content": "The API has been replaced by the list-exports-views API call.\n\nLists the available video view exports along with URLs to retrieve them.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "exports"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2c318d56-da7f-421a-9eee-524e31df6844",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "exports"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 10,\n  \"timeframe\": [\n    1610024528,\n    1610110928\n  ],\n  \"data\": [\n    \"https://s3.amazonaws.com/mux-data-exports/1/2021_01_01.csv.gz?...signature...\",\n    \"https://s3.amazonaws.com/mux-data-exports/1/2021_01_02.csv.gz?...signature...\",\n    \"https://s3.amazonaws.com/mux-data-exports/1/2021_01_03.csv.gz?...signature...\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c926858-00d5-4fdd-8b02-c87718814a61",
+          "name": "List Available Property View Exports",
+          "request": {
+            "name": "List Available Property View Exports",
+            "description": {
+              "content": "Lists the available video view exports along with URLs to retrieve them.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "exports",
+                "views"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "41f2a346-5f3f-47fa-8b60-504d9e2661c1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "exports",
+                    "views"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 7,\n  \"timeframe\": [\n    1626296941,\n    1626383341\n  ],\n  \"data\": [\n    {\n      \"files\": [\n        {\n          \"version\": 2,\n          \"type\": \"csv\",\n          \"path\": \"https://s3.amazonaws.com/mux-data-exports/1/2021_01_03.csv.gz?...signature...\"\n        }\n      ],\n      \"export_date\": \"2021-01-03\"\n    },\n    {\n      \"files\": [\n        {\n          \"version\": 2,\n          \"type\": \"csv\",\n          \"path\": \"https://s3.amazonaws.com/mux-data-exports/1/2021_01_02.csv.gz?...signature...\"\n        }\n      ],\n      \"export_date\": \"2021-01-02\"\n    },\n    {\n      \"files\": [\n        {\n          \"version\": 2,\n          \"type\": \"csv\",\n          \"path\": \"https://s3.amazonaws.com/mux-data-exports/1/2021_01_01.csv.gz?...signature...\"\n        }\n      ],\n      \"export_date\": \"2021-01-01\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "08bb26f0-1faa-4a69-aa2a-a8a98f702a0a",
+    "name": "Mux Animated Images Exports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

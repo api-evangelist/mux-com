@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Edit Captions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Edit Captions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an 'edit-Captions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/edit-captions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that edits an existing Mux text track using static replacements and optional profanity censoring. Provide at least one of `replacements` or `auto_censor_profanity`."
+        },
+        {
+          "info": {
+            "name": "Get an 'edit-Captions' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/edit-captions/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of an 'edit-captions' job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

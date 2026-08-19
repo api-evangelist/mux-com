@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images DRM Configurations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DRM Configurations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List DRM Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/drm-configurations",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of DRM Configurations"
+        },
+        {
+          "info": {
+            "name": "Retrieve a DRM Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/drm-configurations/:DRM_CONFIGURATION_ID",
+            "params": [
+              {
+                "name": "DRM_CONFIGURATION_ID",
+                "value": "",
+                "type": "path",
+                "description": "The DRM Configuration ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a single DRM Configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

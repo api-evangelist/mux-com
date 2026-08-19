@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Playback ID API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Playback ID",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an Asset or Live Stream ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the Identifier of the Asset or Live Stream associated with the Playback ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

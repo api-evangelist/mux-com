@@ -1,0 +1,2325 @@
+{
+  "item": [
+    {
+      "id": "1e7575ba-11d6-4988-8c60-40eb375551e0",
+      "name": "Assets",
+      "description": {
+        "content": "An asset refers to a piece of media content that is stored or is being live streamed through the Mux system. An asset always has a duration and one or more tracks (audio, video, and text data).\n\nThe media content of an asset cannot be updated once created, however an asset can be used to create another asset, and can be modified within that process.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cf9b3b2f-8406-41e5-bccd-f39dce9b29ce",
+          "name": "Create an Asset",
+          "request": {
+            "name": "Create an Asset",
+            "description": {
+              "content": "Create a new Mux Video asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": [\n    {\n      \"url\": \"<string>\",\n      \"overlay_settings\": {\n        \"vertical_align\": \"<string>\",\n        \"vertical_margin\": \"<string>\",\n        \"horizontal_align\": \"<string>\",\n        \"horizontal_margin\": \"<string>\",\n        \"width\": \"<string>\",\n        \"height\": \"<string>\",\n        \"opacity\": \"<string>\"\n      },\n      \"generated_subtitles\": [\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        }\n      ],\n      \"start_time\": \"<double>\",\n      \"end_time\": \"<double>\",\n      \"type\": \"<string>\",\n      \"text_type\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"name\": \"<string>\",\n      \"closed_captions\": \"<boolean>\",\n      \"passthrough\": \"<string>\"\n    },\n    {\n      \"url\": \"<string>\",\n      \"overlay_settings\": {\n        \"vertical_align\": \"<string>\",\n        \"vertical_margin\": \"<string>\",\n        \"horizontal_align\": \"<string>\",\n        \"horizontal_margin\": \"<string>\",\n        \"width\": \"<string>\",\n        \"height\": \"<string>\",\n        \"opacity\": \"<string>\"\n      },\n      \"generated_subtitles\": [\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        }\n      ],\n      \"start_time\": \"<double>\",\n      \"end_time\": \"<double>\",\n      \"type\": \"<string>\",\n      \"text_type\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"name\": \"<string>\",\n      \"closed_captions\": \"<boolean>\",\n      \"passthrough\": \"<string>\"\n    }\n  ],\n  \"input\": [\n    {\n      \"url\": \"<string>\",\n      \"overlay_settings\": {\n        \"vertical_align\": \"<string>\",\n        \"vertical_margin\": \"<string>\",\n        \"horizontal_align\": \"<string>\",\n        \"horizontal_margin\": \"<string>\",\n        \"width\": \"<string>\",\n        \"height\": \"<string>\",\n        \"opacity\": \"<string>\"\n      },\n      \"generated_subtitles\": [\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        }\n      ],\n      \"start_time\": \"<double>\",\n      \"end_time\": \"<double>\",\n      \"type\": \"<string>\",\n      \"text_type\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"name\": \"<string>\",\n      \"closed_captions\": \"<boolean>\",\n      \"passthrough\": \"<string>\"\n    },\n    {\n      \"url\": \"<string>\",\n      \"overlay_settings\": {\n        \"vertical_align\": \"<string>\",\n        \"vertical_margin\": \"<string>\",\n        \"horizontal_align\": \"<string>\",\n        \"horizontal_margin\": \"<string>\",\n        \"width\": \"<string>\",\n        \"height\": \"<string>\",\n        \"opacity\": \"<string>\"\n      },\n      \"generated_subtitles\": [\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"passthrough\": \"<string>\",\n          \"language_code\": \"en\"\n        }\n      ],\n      \"start_time\": \"<double>\",\n      \"end_time\": \"<double>\",\n      \"type\": \"<string>\",\n      \"text_type\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"name\": \"<string>\",\n      \"closed_captions\": \"<boolean>\",\n      \"passthrough\": \"<string>\"\n    }\n  ],\n  \"playback_policy\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"playback_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"advanced_playback_policies\": [\n    {\n      \"policy\": \"<string>\",\n      \"drm_configuration_id\": \"<string>\"\n    },\n    {\n      \"policy\": \"<string>\",\n      \"drm_configuration_id\": \"<string>\"\n    }\n  ],\n  \"per_title_encode\": \"<boolean>\",\n  \"passthrough\": \"<string>\",\n  \"mp4_support\": \"<string>\",\n  \"normalize_audio\": false,\n  \"master_access\": \"<string>\",\n  \"test\": \"<boolean>\",\n  \"max_resolution_tier\": \"<string>\",\n  \"encoding_tier\": \"<string>\",\n  \"video_quality\": \"<string>\",\n  \"static_renditions\": [\n    {\n      \"resolution\": \"<string>\",\n      \"passthrough\": \"<string>\"\n    },\n    {\n      \"resolution\": \"<string>\",\n      \"passthrough\": \"<string>\"\n    }\n  ],\n  \"meta\": {\n    \"title\": \"<string>\",\n    \"creator_id\": \"<string>\",\n    \"external_id\": \"<string>\"\n  },\n  \"copy_overlays\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7318496-86e4-4468-972f-43fd89eb4239",
+              "name": "Asset Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": [\n    {\n      \"url\": \"https://muxed.s3.amazonaws.com/leds.mp4\"\n    }\n  ],\n  \"playback_policies\": [\n    \"public\"\n  ],\n  \"video_quality\": \"basic\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"status\": \"preparing\",\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"uNbxnGLKJ00yfbijDO8COxTOyVKT01xpxW\"\n      }\n    ],\n    \"master_access\": \"none\",\n    \"id\": \"SqQnqz6s5MBuXGvJaUWdXuXM93J9Q2yv\",\n    \"encoding_tier\": \"baseline\",\n    \"video_quality\": \"basic\",\n    \"created_at\": \"1607452572\",\n    \"max_resolution_tier\": \"1080p\",\n    \"progress\": {\n      \"state\": \"ingesting\",\n      \"progress\": 0\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb0bc93d-d219-429f-a5d6-1f32b1647c7d",
+          "name": "List Assets",
+          "request": {
+            "name": "List Assets",
+            "description": {
+              "content": "List all Mux assets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "This parameter is used to request pages beyond the first. You can find the cursor value in the `next_cursor` field of paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "live_stream_id",
+                  "value": "<string>",
+                  "description": "Filter response to return all the assets for this live stream only"
+                },
+                {
+                  "disabled": false,
+                  "key": "upload_id",
+                  "value": "<string>",
+                  "description": "Filter response to return an asset created from this direct upload only"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f76ce9f2-e289-47c6-9ac0-6aa69fc29dd7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "live_stream_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "upload_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"next_cursor\": \"tF601CUtCLmnYuHW01Vwl6BWcWTNv001uoaiK4C01jqk1acX802plAjZhTQ\",\n  \"data\": [\n    {\n      \"tracks\": [\n        {\n          \"type\": \"video\",\n          \"max_width\": 1920,\n          \"max_height\": 800,\n          \"max_frame_rate\": 24,\n          \"id\": \"HK01Bq7FrEQmIu3QpRiZZ98HQOOZjm6BYyg17eEunlyo\",\n          \"duration\": 734.166667\n        },\n        {\n          \"type\": \"audio\",\n          \"max_channels\": 2,\n          \"id\": \"nNKHJqw2G9cE019AoK16CJr3O27gGnbtW4w525hJWqWw\",\n          \"duration\": 734.143991\n        }\n      ],\n      \"status\": \"ready\",\n      \"playback_ids\": [\n        {\n          \"policy\": \"public\",\n          \"id\": \"85g23gYz7NmQu02YsY81ihuod6cZMxCp017ZrfglyLCKc\"\n        }\n      ],\n      \"max_stored_resolution\": \"HD\",\n      \"resolution_tier\": \"1080p\",\n      \"max_stored_frame_rate\": 24,\n      \"master_access\": \"none\",\n      \"id\": \"8jd7M77xQgf2NzuocJRPYdSdEfY5dLlcRwFARtgQqU4\",\n      \"encoding_tier\": \"baseline\",\n      \"video_quality\": \"basic\",\n      \"duration\": 734.25,\n      \"created_at\": \"1609869152\",\n      \"aspect_ratio\": \"12:5\",\n      \"max_resolution_tier\": \"1080p\",\n      \"progress\": {\n        \"state\": \"completed\",\n        \"progress\": 100\n      }\n    },\n    {\n      \"tracks\": [\n        {\n          \"type\": \"video\",\n          \"max_width\": 1920,\n          \"max_height\": 1080,\n          \"max_frame_rate\": 29.97,\n          \"id\": \"RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4\",\n          \"duration\": 23.8238\n        },\n        {\n          \"type\": \"audio\",\n          \"max_channels\": 2,\n          \"id\": \"LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg\",\n          \"duration\": 23.823792\n        }\n      ],\n      \"status\": \"ready\",\n      \"playback_ids\": [\n        {\n          \"policy\": \"public\",\n          \"id\": \"vAFLI2eKFFicXX00iHBS2vqt5JjJGg5HV6fQ4Xijgt1I\"\n        }\n      ],\n      \"max_stored_resolution\": \"HD\",\n      \"resolution_tier\": \"1080p\",\n      \"max_stored_frame_rate\": 29.97,\n      \"master_access\": \"none\",\n      \"id\": \"lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68\",\n      \"encoding_tier\": \"smart\",\n      \"video_quality\": \"plus\",\n      \"duration\": 23.857167,\n      \"created_at\": \"1609868768\",\n      \"aspect_ratio\": \"16:9\",\n      \"max_resolution_tier\": \"1080p\",\n      \"progress\": {\n        \"state\": \"completed\",\n        \"progress\": 100\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "897be2b6-ac2f-44e7-b6e5-4720428cdca6",
+          "name": "Retrieve an Asset",
+          "request": {
+            "name": "Retrieve an Asset",
+            "description": {
+              "content": "Retrieves the details of an asset that has previously been created. Supply the unique asset ID that was returned from your previous request, and Mux will return the corresponding asset information. The same information is returned when creating an asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2e710b52-e404-4de0-8518-2a4ecfcf4e4b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"tracks\": [\n      {\n        \"type\": \"video\",\n        \"max_width\": 1920,\n        \"max_height\": 1080,\n        \"max_frame_rate\": 29.97,\n        \"id\": \"RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4\",\n        \"duration\": 23.8238\n      },\n      {\n        \"type\": \"audio\",\n        \"max_channels\": 2,\n        \"id\": \"LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg\",\n        \"duration\": 23.823792\n      }\n    ],\n    \"status\": \"ready\",\n    \"resolution_tier\": \"1080p\",\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"vAFLI2eKFFicXX00iHBS2vqt5JjJGg5HV6fQ4Xijgt1I\"\n      }\n    ],\n    \"passthrough\": \"example\",\n    \"max_stored_resolution\": \"HD\",\n    \"max_stored_frame_rate\": 29.97,\n    \"max_resolution_tier\": \"1080p\",\n    \"progress\": {\n      \"state\": \"completed\",\n      \"progress\": 100\n    },\n    \"master_access\": \"none\",\n    \"id\": \"lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68\",\n    \"encoding_tier\": \"baseline\",\n    \"video_quality\": \"basic\",\n    \"duration\": 23.857167,\n    \"created_at\": \"1609868768\",\n    \"aspect_ratio\": \"16:9\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0bec421-51b0-4651-95fd-626c88cff431",
+          "name": "Delete an Asset",
+          "request": {
+            "name": "Delete an Asset",
+            "description": {
+              "content": "Deletes a video asset and all its data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1963476c-61bd-44d8-8747-1197f443d05b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "246377d5-14c8-481b-b396-e0aa542648cd",
+          "name": "Update an Asset",
+          "request": {
+            "name": "Update an Asset",
+            "description": {
+              "content": "Updates the details of an existing Asset with the provided Asset ID. This API currently only supports the `passthrough` and `meta` fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"passthrough\": \"<string>\",\n  \"meta\": {\n    \"title\": \"<string>\",\n    \"creator_id\": \"<string>\",\n    \"external_id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eaabbf86-24b0-401e-86e4-9413b58abd9f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"passthrough\": \"Example\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"tracks\": [\n      {\n        \"type\": \"video\",\n        \"max_width\": 1920,\n        \"max_height\": 1080,\n        \"max_frame_rate\": 29.97,\n        \"id\": \"RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4\",\n        \"duration\": 23.8238\n      },\n      {\n        \"type\": \"audio\",\n        \"max_channels\": 2,\n        \"id\": \"LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg\",\n        \"duration\": 23.823792\n      }\n    ],\n    \"status\": \"ready\",\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"vAFLI2eKFFicXX00iHBS2vqt5JjJGg5HV6fQ4Xijgt1I\"\n      }\n    ],\n    \"max_stored_resolution\": \"HD\",\n    \"resolution_tier\": \"1080p\",\n    \"max_stored_frame_rate\": 29.97,\n    \"master_access\": \"none\",\n    \"id\": \"lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68\",\n    \"encoding_tier\": \"baseline\",\n    \"video_quality\": \"basic\",\n    \"duration\": 23.857167,\n    \"created_at\": \"1609868768\",\n    \"updated_at\": \"1609869000\",\n    \"aspect_ratio\": \"16:9\",\n    \"passthrough\": \"Example\",\n    \"max_resolution_tier\": \"1080p\",\n    \"progress\": {\n      \"state\": \"completed\",\n      \"progress\": 100\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "117b4592-2875-44c8-a73e-5624ded6edc7",
+          "name": "Retrieve Asset Input Info",
+          "request": {
+            "name": "Retrieve Asset Input Info",
+            "description": {
+              "content": "Returns a list of the input objects that were used to create the asset along with any settings that were applied to each input.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "input-info"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "181d2a49-2b5e-4b9a-8763-a83088882b61",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "input-info"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"settings\": {\n        \"url\": \"https://muxed.s3.amazonaws.com/leds.mp4\"\n      },\n      \"file\": {\n        \"container_format\": \"mp4\",\n        \"tracks\": [\n          {\n            \"type\": \"video\",\n            \"duration\": 120,\n            \"width\": 1280,\n            \"height\": 720,\n            \"frame_rate\": 30,\n            \"encoding\": \"h.264\"\n          },\n          {\n            \"type\": \"audio\",\n            \"duration\": 120,\n            \"sample_rate\": 16000,\n            \"sample_size\": 24,\n            \"encoding\": \"aac\"\n          }\n        ]\n      }\n    },\n    {\n      \"settings\": {\n        \"url\": \"https://example.com/myVideo_en.srt\"\n      },\n      \"file\": {\n        \"container_format\": \"srt\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb892d20-ac60-4184-b939-9048535e7ab9",
+          "name": "Create a Playback ID",
+          "request": {
+            "name": "Create a Playback ID",
+            "description": {
+              "content": "Creates a playback ID that can be used to stream the asset to a viewer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "playback-ids"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"policy\": \"<string>\",\n  \"drm_configuration_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6e28f50-484c-4bd9-bdba-ddd6309c03ff",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "playback-ids"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policy\": \"public\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"policy\": \"public\",\n    \"id\": \"Lj02VZDorh9hCV00flNqPli8fmwf6KEppug01w8zDEYVlQ\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99d3ae46-a924-4338-84fe-d72571091ef4",
+          "name": "Retrieve a Playback ID",
+          "request": {
+            "name": "Retrieve a Playback ID",
+            "description": {
+              "content": "Retrieves information about the specified playback ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "playback-ids",
+                ":PLAYBACK_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "55c2c1b0-77a0-4844-a228-7db788dce396",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "playback-ids",
+                    ":PLAYBACK_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"policy\": \"public\",\n    \"id\": \"vAFLI2eKFFicXX00iHBS2vqt5JjJGg5HV6fQ4Xijgt1I\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44b3ae77-23d9-4e8c-9eda-9bd32b4f54c9",
+          "name": "Delete a Playback ID",
+          "request": {
+            "name": "Delete a Playback ID",
+            "description": {
+              "content": "Deletes a playback ID, rendering it nonfunctional for viewing an asset's video content. Please note that deleting the playback ID removes access to the underlying asset; a viewer who started playback before the playback ID was deleted may be able to watch the entire video for a limited duration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "playback-ids",
+                ":PLAYBACK_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6461164-f44e-4bd1-a48c-c54fc1676ff0",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "playback-ids",
+                    ":PLAYBACK_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b526fcd4-1bec-4e91-adf6-73075f7bb568",
+          "name": "Update MP4 Support",
+          "request": {
+            "name": "Update MP4 Support",
+            "description": {
+              "content": "This method has been deprecated. Please see the [Static Rendition API](https://www.mux.com/docs/guides/enable-static-mp4-renditions#after-asset-creation).\nAllows you to add or remove mp4 support for assets that were created without it. The values supported are `capped-1080p`, `audio-only`, `audio-only,capped-1080p`, `standard`(deprecated),  and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "mp4-support"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mp4_support\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e36e0ef-2e3a-4e4d-86e6-2080d1cd6e44",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "mp4-support"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mp4_support\": \"capped-1080p\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"tracks\": [\n      {\n        \"type\": \"video\",\n        \"max_width\": 1920,\n        \"max_height\": 1080,\n        \"max_frame_rate\": 29.97,\n        \"id\": \"RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4\",\n        \"duration\": 23.8238\n      },\n      {\n        \"type\": \"audio\",\n        \"max_channels\": 2,\n        \"id\": \"LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg\",\n        \"duration\": 23.823792\n      }\n    ],\n    \"status\": \"ready\",\n    \"static_renditions\": {\n      \"status\": \"preparing\"\n    },\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"Lj02VZDorh9hCV00flNqPli8fmwf6KEppug01w8zDEYVlQ\"\n      }\n    ],\n    \"mp4_support\": \"capped-1080p\",\n    \"max_stored_resolution\": \"HD\",\n    \"resolution_tier\": \"1080p\",\n    \"max_stored_frame_rate\": 29.97,\n    \"master_access\": \"none\",\n    \"id\": \"lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68\",\n    \"encoding_tier\": \"smart\",\n    \"video_quality\": \"plus\",\n    \"duration\": 23.857167,\n    \"created_at\": \"1609868768\",\n    \"aspect_ratio\": \"16:9\",\n    \"max_resolution_tier\": \"1080p\",\n    \"progress\": {\n      \"state\": \"completed\",\n      \"progress\": 100\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c52ff0f-c75c-438c-bc35-91d16cd4a6e2",
+          "name": "Update Master Access",
+          "request": {
+            "name": "Update Master Access",
+            "description": {
+              "content": "Allows you to add temporary access to the master (highest-quality) version of the asset in MP4 format. A URL will be created that can be used to download the master version for 24 hours. After 24 hours Master Access will revert to \"none\".\nThis master version is not optimized for web and not meant to be streamed, only downloaded for purposes like archiving or editing the video offline.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "master-access"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"master_access\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3252c91-35df-4e2d-a6b1-fc2c4ab4d2eb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "master-access"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"master_access\": \"temporary\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"tracks\": [\n      {\n        \"type\": \"video\",\n        \"max_width\": 1920,\n        \"max_height\": 1080,\n        \"max_frame_rate\": 29.97,\n        \"id\": \"RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4\",\n        \"duration\": 23.8238\n      },\n      {\n        \"type\": \"audio\",\n        \"max_channels\": 2,\n        \"id\": \"LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg\",\n        \"duration\": 23.823792\n      }\n    ],\n    \"status\": \"ready\",\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"Lj02VZDorh9hCV00flNqPli8fmwf6KEppug01w8zDEYVlQ\"\n      }\n    ],\n    \"max_stored_resolution\": \"HD\",\n    \"resolution_tier\": \"1080p\",\n    \"max_stored_frame_rate\": 29.97,\n    \"master_access\": \"temporary\",\n    \"master\": {\n      \"status\": \"preparing\"\n    },\n    \"id\": \"lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68\",\n    \"encoding_tier\": \"baseline\",\n    \"video_quality\": \"basic\",\n    \"duration\": 23.857167,\n    \"created_at\": \"1609868768\",\n    \"aspect_ratio\": \"16:9\",\n    \"max_resolution_tier\": \"1080p\",\n    \"progress\": {\n      \"state\": \"completed\",\n      \"progress\": 100\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "443ef1bf-1f49-45d8-837a-7994f7f526bf",
+          "name": "Create a Static Rendition for an Asset",
+          "request": {
+            "name": "Create a Static Rendition for an Asset",
+            "description": {
+              "content": "Creates a static rendition (i.e. MP4) for an asset",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "static-renditions"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resolution\": \"<string>\",\n  \"passthrough\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "71a8da0f-04f2-40c6-bc3b-f6250e192615",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "static-renditions"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resolution\": \"highest\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68\",\n    \"type\": \"standard\",\n    \"ext\": \"mp4\",\n    \"status\": \"preparing\",\n    \"resolution\": \"highest\",\n    \"name\": \"highest.mp4\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7c13985-a3b9-4dce-82e9-c8d804276c60",
+          "name": "Delete a Single Static Rendition for an Asset",
+          "request": {
+            "name": "Delete a Single Static Rendition for an Asset",
+            "description": {
+              "content": "Deletes a single static rendition for an asset",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "static-renditions",
+                ":STATIC_RENDITION_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "STATIC_RENDITION_ID",
+                  "description": "(Required) The static rendition ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cc87b789-307c-489f-83ad-dcf33f10a755",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "static-renditions",
+                    ":STATIC_RENDITION_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "STATIC_RENDITION_ID",
+                      "description": "(Required) The static rendition ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbe6c49c-99b3-40c0-be8e-0a4aa56c468a",
+          "name": "Create an Asset Track",
+          "request": {
+            "name": "Create an Asset Track",
+            "description": {
+              "content": "Adds an asset track (for example, subtitles, or an alternate audio track) to an asset. Assets must be in the `ready` state before tracks can be added.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "tracks"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"type\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"text_type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"closed_captions\": \"<boolean>\",\n  \"passthrough\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f6325bc-0f05-4050-b6b4-2bf0cafeaf02",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "tracks"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"https://example.com/myVideo_en.srt\",\n  \"type\": \"text\",\n  \"text_type\": \"subtitles\",\n  \"language_code\": \"en-US\",\n  \"name\": \"English\",\n  \"closed_captions\": true,\n  \"passthrough\": \"English\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"text\",\n    \"text_type\": \"subtitles\",\n    \"status\": \"preparing\",\n    \"passthrough\": \"English\",\n    \"name\": \"English\",\n    \"language_code\": \"en-US\",\n    \"id\": \"xBe7u01029ipxBLQhYzZCJ1cke01zCkuUsgnYtH0017nNzbpv2YcsoMDmw\",\n    \"closed_captions\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "017677db-32e3-43d6-9dc1-273a87e38e38",
+          "name": "Delete an Asset Track",
+          "request": {
+            "name": "Delete an Asset Track",
+            "description": {
+              "content": "Removes a text or additional audio track from an asset. Neither video nor the primary audio track can be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "tracks",
+                ":TRACK_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TRACK_ID",
+                  "description": "(Required) The ID of the track for an asset."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "074cc6d6-8c9e-4aac-b3d1-1aefd57c554b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "tracks",
+                    ":TRACK_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TRACK_ID",
+                      "description": "(Required) The ID of the track for an asset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d12f415-26be-4565-9094-42970981d329",
+          "name": "Update an Asset Track",
+          "request": {
+            "name": "Update an Asset Track",
+            "description": {
+              "content": "Updates the details of an existing Asset Track with the provided Asset ID and Track ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "tracks",
+                ":TRACK_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TRACK_ID",
+                  "description": "(Required) The ID of the track for an asset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"language_code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"closed_captions\": \"<boolean>\",\n  \"passthrough\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92dee5e4-4e97-45f1-83e1-127135f8c418",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "tracks",
+                    ":TRACK_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TRACK_ID",
+                      "description": "(Required) The ID of the track for an asset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language_code\": \"en-US\",\n  \"name\": \"English\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"text\",\n    \"text_type\": \"subtitles\",\n    \"status\": \"ready\",\n    \"passthrough\": \"passthrough value\",\n    \"name\": \"English\",\n    \"language_code\": \"en-US\",\n    \"id\": \"xBe7u01029ipxBLQhYzZCJ1cke01zCkuUsgnYtH0017nNzbpv2YcsoMDmw\",\n    \"closed_captions\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0fe2418b-a67d-4903-bc76-e96aae5e57aa",
+          "name": "Generate Track Subtitles",
+          "request": {
+            "name": "Generate Track Subtitles",
+            "description": {
+              "content": "Generates subtitles (captions) for a given audio track. [See docs for more information.](https://mux.com/docs/guides/add-autogenerated-captions-and-use-transcripts#retroactively-enable-auto-generated-captions)",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "tracks",
+                ":TRACK_ID",
+                "generate-subtitles"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) The asset ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TRACK_ID",
+                  "description": "(Required) The ID of the track for an asset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"generated_subtitles\": [\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4877eed7-0c11-4482-8eeb-fb3615978819",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "tracks",
+                    ":TRACK_ID",
+                    "generate-subtitles"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) The asset ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TRACK_ID",
+                      "description": "(Required) The ID of the track for an asset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"generated_subtitles\": [\n    {\n      \"language_code\": \"en\",\n      \"name\": \"English (generated)\",\n      \"passthrough\": \"English (generated)\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"text\",\n      \"text_type\": \"subtitles\",\n      \"status\": \"preparing\",\n      \"passthrough\": \"English (generated)\",\n      \"name\": \"English (generated)\",\n      \"language_code\": \"en\",\n      \"id\": \"hXhnqUq0054k9SBFB5aczHhj6xMbOTlriTG7gqRn8kikv101lkFUgKNw\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "477155a7-f8de-471b-b6cb-43cf11e7f712",
+    "name": "Mux Animated Images Assets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

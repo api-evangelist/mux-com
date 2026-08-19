@@ -1,0 +1,640 @@
+{
+  "item": [
+    {
+      "id": "769a8bd7-ff59-4643-9820-b94e04c5d2c8",
+      "name": "Transcription Vocabularies",
+      "description": {
+        "content": "Transcription Vocabularies allows you to provide collections of phrases like proper nouns, technical jargon, and uncommon words as part of captioning workflows. When using Auto-Generated Captions, Transcription Vocabularies increase the likelihood of correct speech recognition for these words and phrases.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e74e2a34-b544-450e-baa0-fd1bc1765fb2",
+          "name": "Create a Transcription Vocabulary",
+          "request": {
+            "name": "Create a Transcription Vocabulary",
+            "description": {
+              "content": "Create a new Transcription Vocabulary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "transcription-vocabularies"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phrases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"passthrough\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "62292f48-9abb-49a7-9c8f-2fd86735de09",
+              "name": "Transcription Vocabulary Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "transcription-vocabularies"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Mux API Vocabulary\",\n  \"phrases\": [\n    \"Mux\",\n    \"Live Stream\",\n    \"Playback ID\",\n    \"video encoding\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"VDm3npt2eaEDvz9emzun8Q\",\n    \"name\": \"Mux API Vocabulary\",\n    \"phrases\": [\n      \"Mux\",\n      \"Live Stream\",\n      \"Playback ID\",\n      \"video encoding\"\n    ],\n    \"created_at\": \"1609869152\",\n    \"updated_at\": \"1609869152\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00942af5-8bb2-43d4-b4fb-63dbd0dc7e48",
+          "name": "List Transcription Vocabularies",
+          "request": {
+            "name": "List Transcription Vocabularies",
+            "description": {
+              "content": "List all Transcription Vocabularies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "transcription-vocabularies"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b883a706-4c41-4afc-a8ce-b52058395ceb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "transcription-vocabularies"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"VDm3npt2eaEDvz9emzun8Q\",\n      \"name\": \"Mux API Vocabulary\",\n      \"phrases\": [\n        \"Mux\",\n        \"Live Stream\",\n        \"Playback ID\",\n        \"video encoding\"\n      ],\n      \"created_at\": \"1609869152\",\n      \"updated_at\": \"1609870000\"\n    },\n    {\n      \"id\": \"M1lDlzSP102NgukTnyQyLqw\",\n      \"name\": \"Video Codecs\",\n      \"phrases\": [\n        \"h.264\",\n        \"HEVC\",\n        \"AV1\"\n      ],\n      \"created_at\": \"1609869152\",\n      \"updated_at\": \"1609870000\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9899280d-b29c-4abe-90c7-78fae673529a",
+          "name": "Retrieve a Transcription Vocabulary",
+          "request": {
+            "name": "Retrieve a Transcription Vocabulary",
+            "description": {
+              "content": "Retrieves the details of a Transcription Vocabulary that has previously been created. Supply the unique Transcription Vocabulary ID and Mux will return the corresponding Transcription Vocabulary information. The same information is returned when creating a Transcription Vocabulary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "transcription-vocabularies",
+                ":TRANSCRIPTION_VOCABULARY_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TRANSCRIPTION_VOCABULARY_ID",
+                  "description": "(Required) The ID of the Transcription Vocabulary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fb60f1a3-4d74-41d3-84e1-5c782f75acee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "transcription-vocabularies",
+                    ":TRANSCRIPTION_VOCABULARY_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TRANSCRIPTION_VOCABULARY_ID",
+                      "description": "(Required) The ID of the Transcription Vocabulary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"VDm3npt2eaEDvz9emzun8Q\",\n    \"name\": \"Mux API Vocabulary\",\n    \"phrases\": [\n      \"Mux\",\n      \"Live Stream\",\n      \"Playback ID\",\n      \"video encoding\"\n    ],\n    \"created_at\": \"1609869152\",\n    \"updated_at\": \"1609870000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba52f79e-dbf9-490d-a584-268cd946594d",
+          "name": "Delete a Transcription Vocabulary",
+          "request": {
+            "name": "Delete a Transcription Vocabulary",
+            "description": {
+              "content": "Deletes a Transcription Vocabulary. The Transcription Vocabulary's ID will be disassociated from any live streams using it. Transcription Vocabularies can be deleted while associated live streams are active. However, the words and phrases in the deleted Transcription Vocabulary will remain attached to those streams while they are active.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "transcription-vocabularies",
+                ":TRANSCRIPTION_VOCABULARY_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TRANSCRIPTION_VOCABULARY_ID",
+                  "description": "(Required) The ID of the Transcription Vocabulary."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5400c07b-78be-4b1d-8899-5ed0ed890eca",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "transcription-vocabularies",
+                    ":TRANSCRIPTION_VOCABULARY_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TRANSCRIPTION_VOCABULARY_ID",
+                      "description": "(Required) The ID of the Transcription Vocabulary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e675eb4b-bded-416b-a086-0fef2c68760e",
+          "name": "Update a Transcription Vocabulary",
+          "request": {
+            "name": "Update a Transcription Vocabulary",
+            "description": {
+              "content": "Updates the details of a previously-created Transcription Vocabulary. Updates to Transcription Vocabularies are allowed while associated live streams are active. However, updates will not be applied to those streams while they are active.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "transcription-vocabularies",
+                ":TRANSCRIPTION_VOCABULARY_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "TRANSCRIPTION_VOCABULARY_ID",
+                  "description": "(Required) The ID of the Transcription Vocabulary."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phrases\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"passthrough\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a96bec19-2c2e-4c2c-bc65-6090924b28fd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "transcription-vocabularies",
+                    ":TRANSCRIPTION_VOCABULARY_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "TRANSCRIPTION_VOCABULARY_ID",
+                      "description": "(Required) The ID of the Transcription Vocabulary."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Mux API Vocabulary - Updated\",\n  \"phrases\": [\n    \"Mux\",\n    \"Live Stream\",\n    \"RTMP\",\n    \"Stream Key\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"VDm3npt2eaEDvz9emzun8Q\",\n    \"name\": \"Mux API Vocabulary - Updated\",\n    \"phrases\": [\n      \"Mux\",\n      \"Live Stream\",\n      \"RTMP\",\n      \"Stream Key\"\n    ],\n    \"created_at\": \"1609869152\",\n    \"updated_at\": \"1609870000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "adc8a3f1-6872-4c66-94aa-301061ff77a3",
+    "name": "Mux Animated Images Transcription Vocabularies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

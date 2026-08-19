@@ -1,0 +1,194 @@
+{
+  "item": [
+    {
+      "id": "dddc3bd7-9782-4101-a3b1-28ef4be06354",
+      "name": "Delivery Usage",
+      "description": {
+        "content": "The Delivery Usage API allows you to get delivery/streaming usage details for each asset and across all assets. Delivery usage details are aggregated every hour at the top of the hour and can be requested for a specified time window within the last 90 days starting at 12 hours prior to when the request is made.\n\nAssets are ordered by delivery usage starting with the one with the highest usage. Only assets with delivery usage greater than 0 seconds are returned in the response.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d08fad4a-b861-4189-8948-2ba6d6da4a61",
+          "name": "List Usage",
+          "request": {
+            "name": "List Usage",
+            "description": {
+              "content": "Returns a list of delivery usage records and their associated Asset IDs or Live Stream IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "delivery-usage"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "asset_id",
+                  "value": "<string>",
+                  "description": "Filter response to return delivery usage for this asset only. You cannot specify both the `asset_id` and `live_stream_id` parameters together."
+                },
+                {
+                  "disabled": false,
+                  "key": "live_stream_id",
+                  "value": "<string>",
+                  "description": "Filter response to return delivery usage for assets for this live stream. You cannot specify both the `asset_id` and `live_stream_id` parameters together."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0f30cc7d-4ae1-4fc6-84c0-0b100cd15c00",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "delivery-usage"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "asset_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "live_stream_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 2,\n  \"timeframe\": [\n    1607817600,\n    1607990400\n  ],\n  \"page\": 1,\n  \"limit\": 100,\n  \"data\": [\n    {\n      \"live_stream_id\": \"B65hEUWW01ErVKDDGImKcBquYhwEAkjW6Ic3lPY0299Cc\",\n      \"delivered_seconds\": 206.366667,\n      \"delivered_seconds_by_resolution\": {\n        \"tier_1080p\": 100,\n        \"tier_720p\": 100,\n        \"tier_audio_only\": 6.366667\n      },\n      \"deleted_at\": \"1607945257\",\n      \"created_at\": \"1607939184\",\n      \"asset_state\": \"deleted\",\n      \"asset_id\": \"Ww4v2q2H4MNbHIAM2wApKb3cmrh7eHjGLUjdKohR5wM\",\n      \"asset_duration\": 154.366667,\n      \"asset_resolution_tier\": \"1080p\",\n      \"asset_encoding_tier\": \"baseline\",\n      \"asset_video_quality\": \"basic\"\n    },\n    {\n      \"delivered_seconds\": 30,\n      \"delivered_seconds_by_resolution\": {\n        \"tier_1080p\": 10,\n        \"tier_720p\": 10,\n        \"tier_audio_only\": 10\n      },\n      \"deleted_at\": \"1607935288\",\n      \"created_at\": \"1607617107\",\n      \"asset_state\": \"deleted\",\n      \"asset_id\": \"Qlb007on1TwN43XLIG027QJlUxm3jd01v5PRi1aXhnyFZY\",\n      \"asset_duration\": 98.773667,\n      \"asset_resolution_tier\": \"1080p\",\n      \"asset_encoding_tier\": \"smart\",\n      \"asset_video_quality\": \"plus\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "81c04dbb-494d-4fa6-9b96-7c292f4804a7",
+    "name": "Mux Animated Images Delivery Usage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Exports API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Property Video View Export Links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/exports",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The API has been replaced by the list-exports-views API call.\n\nLists the available video view exports along with URLs to retrieve them.\n"
+        },
+        {
+          "info": {
+            "name": "List Available Property View Exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/exports/views",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the available video view exports along with URLs to retrieve them."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

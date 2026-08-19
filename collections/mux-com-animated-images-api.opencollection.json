@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Animated Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an Animated Image from a Video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/:PLAYBACK_ID/animated.:EXTENSION",
+            "params": [
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              },
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              },
+              {
+                "name": "EXTENSION",
+                "value": "",
+                "type": "path",
+                "description": "The image file extension, either 'gif' or 'webp'."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The time (in seconds) of the video timeline where the animated GIF should begin. Defaults to 0."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The time (in seconds) of the video timeline where the GIF ends. Defaults to 5 seconds after the start. Maximum total duration of GIF is limited to 10 seconds; minimum total duration of GIF is 250ms."
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "The width in pixels of the animated GIF. Default is 320px, or if height is provided, the width is determined by preserving aspect ratio with the height. Max width is 640px."
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "The height in pixels of the animated GIF. The default height is determined by preserving aspect ratio with the width provided. Maximum height is 640px."
+              },
+              {
+                "name": "fps",
+                "value": "",
+                "type": "query",
+                "description": "The frame rate of the generated GIF. Defaults to 15 fps. Max 30 fps."
+              }
+            ]
+          },
+          "docs": "[Fetch an animated GIF or WebP image](https://docs.mux.com/guides/get-images-from-a-video#get-an-animated-gif-from-a-video) from a video segment with optional transformations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

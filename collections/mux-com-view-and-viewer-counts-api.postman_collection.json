@@ -1,0 +1,206 @@
+{
+  "item": [
+    {
+      "id": "d5a76f25-9e3e-43de-8274-612660d2d1c5",
+      "name": "View and Viewer Counts",
+      "description": {
+        "content": "API for retrieving the real-time count of views and viewers based on ID as collected by Mux Data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f0e127a-47f6-4231-babf-61c797438d78",
+          "name": "Retrieve the View and Viewer Counts",
+          "request": {
+            "name": "Retrieve the View and Viewer Counts",
+            "description": {
+              "content": "[Fetch the real-time view and viewer counts for a video](https://docs.mux.com/guides/see-how-many-people-are-watching).",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "counts"
+              ],
+              "host": [
+                "stats",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "TOKEN",
+                  "value": "<string>",
+                  "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b069084-49b4-4760-be3a-b5f66649c58e",
+              "name": "Counts retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "counts"
+                  ],
+                  "host": [
+                    "stats",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"views\": {},\n    \"viewers\": {},\n    \"updated_at\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c33fc15-27ea-40df-b9ed-588ba3d5fed4",
+              "name": "Bad request due to missing or invalid JWT token.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "counts"
+                  ],
+                  "host": [
+                    "stats",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": {},\n    \"messages\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5fed842-17cd-4f0c-9076-2ea88723e51c",
+              "name": "Server timeout or unknown error.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "counts"
+                  ],
+                  "host": [
+                    "stats",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": {},\n    \"messages\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ebaa0951-cf47-4c8e-9389-25d74630c5b5",
+    "name": "Mux Animated Images View and Viewer Counts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2453 @@
+{
+  "item": [
+    {
+      "id": "08615ae1-20ad-45f4-9658-4000157ef7ca",
+      "name": "Live Streams",
+      "description": {
+        "content": "A Live Stream represents a unique live stream of video being pushed to Mux. It includes configuration details (a Stream Key) for live broadcasting software/hardware and a Playback ID for playing the stream anywhere. Currently, RTMP is the only supported method of ingesting video. Use rtmp://global-live.mux.com:5222/app with the Live Stream's Stream Key for getting the video into Mux, and use https://stream.mux.com with the Live Stream's Playback ID for playback.\n\nA Live Stream can be used once for a specific event, or re-used forever. If you're building an application like Facebook Live or Twitch, you could create one Live Stream per user. This allows them to configure their broadcasting software once, and the Live Stream Playback ID will always show their latest stream.\n\nEach RTMP session creates a new video asset automatically. You can set up a webhook to be notified each time a broadcast (or Live Stream RTMP session) begins or ends with the video.live_stream.active and video.live_stream.idle events respectively. Assets that are created from a Live Stream have the same behavior as other Assets you create.\n\nLearn more about [how to go live in our guides](https://docs.mux.com/guides/start-live-streaming).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58da9583-060d-458f-aedc-c527cb6bcf6e",
+          "name": "Create a Live Stream",
+          "request": {
+            "name": "Create a Live Stream",
+            "description": {
+              "content": "Creates a new live stream. Once created, an encoder can connect to Mux via the specified stream key and begin streaming to an audience.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"playback_policy\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"playback_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"advanced_playback_policies\": [\n    {\n      \"policy\": \"<string>\",\n      \"drm_configuration_id\": \"<string>\"\n    },\n    {\n      \"policy\": \"<string>\",\n      \"drm_configuration_id\": \"<string>\"\n    }\n  ],\n  \"new_asset_settings\": {\n    \"input\": [\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      }\n    ],\n    \"inputs\": [\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      }\n    ],\n    \"playback_policy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"playback_policies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"advanced_playback_policies\": [\n      {\n        \"policy\": \"<string>\",\n        \"drm_configuration_id\": \"<string>\"\n      },\n      {\n        \"policy\": \"<string>\",\n        \"drm_configuration_id\": \"<string>\"\n      }\n    ],\n    \"per_title_encode\": \"<boolean>\",\n    \"passthrough\": \"<string>\",\n    \"mp4_support\": \"<string>\",\n    \"normalize_audio\": false,\n    \"master_access\": \"<string>\",\n    \"test\": \"<boolean>\",\n    \"max_resolution_tier\": \"<string>\",\n    \"encoding_tier\": \"<string>\",\n    \"video_quality\": \"<string>\",\n    \"static_renditions\": [\n      {\n        \"resolution\": \"<string>\",\n        \"passthrough\": \"<string>\"\n      },\n      {\n        \"resolution\": \"<string>\",\n        \"passthrough\": \"<string>\"\n      }\n    ],\n    \"meta\": {\n      \"title\": \"<string>\",\n      \"creator_id\": \"<string>\",\n      \"external_id\": \"<string>\"\n    },\n    \"copy_overlays\": true\n  },\n  \"reconnect_window\": 60,\n  \"use_slate_for_standard_latency\": false,\n  \"reconnect_slate_url\": \"<string>\",\n  \"passthrough\": \"<string>\",\n  \"audio_only\": \"<boolean>\",\n  \"embedded_subtitles\": [\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"language_channel\": \"cc1\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"language_channel\": \"cc1\"\n    }\n  ],\n  \"generated_subtitles\": [\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"transcription_vocabulary_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"transcription_vocabulary_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"reduced_latency\": \"<boolean>\",\n  \"low_latency\": \"<boolean>\",\n  \"latency_mode\": \"<string>\",\n  \"test\": \"<boolean>\",\n  \"simulcast_targets\": [\n    {\n      \"url\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"stream_key\": \"<string>\"\n    },\n    {\n      \"url\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"stream_key\": \"<string>\"\n    }\n  ],\n  \"max_continuous_duration\": 43200,\n  \"meta\": {\n    \"title\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd099643-01ec-42a9-b1f6-d77e68de36c7",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"playback_policies\": [\n    \"public\"\n  ],\n  \"new_asset_settings\": {\n    \"playback_policies\": [\n      \"public\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"stream_key\": \"abcdefgh\",\n    \"status\": \"idle\",\n    \"reconnect_window\": 60,\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n      }\n    ],\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ]\n    },\n    \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n    \"created_at\": \"1609937654\",\n    \"latency_mode\": \"standard\",\n    \"max_continuous_duration\": 43200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "689b8d04-bb96-4ad0-bb54-5dcf34a44255",
+          "name": "List Live Streams",
+          "request": {
+            "name": "List Live Streams",
+            "description": {
+              "content": "Lists the live streams that currently exist in the current environment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "stream_key",
+                  "value": "<string>",
+                  "description": "Filter response to return live stream for this stream key only"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter response to return live streams with the specified status only"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e7a9765-af99-4d52-8ae9-2eef75eace22",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "stream_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "active"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"stream_key\": \"831b5bde-cd8a-5bc4-115d-4ba34b19f481\",\n      \"status\": \"idle\",\n      \"reconnect_window\": 60,\n      \"playback_ids\": [\n        {\n          \"policy\": \"public\",\n          \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n        }\n      ],\n      \"new_asset_settings\": {\n        \"playback_policies\": [\n          \"public\"\n        ]\n      },\n      \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n      \"created_at\": \"1609937654\",\n      \"latency_mode\": \"standard\",\n      \"max_continuous_duration\": 43200\n    },\n    {\n      \"stream_key\": \"d273c65e-1fc8-27dc-e9ef-56144cbceb3a\",\n      \"status\": \"idle\",\n      \"reconnect_window\": 60,\n      \"recent_asset_ids\": [\n        \"SZs02xxHgYdkHp00OSCjJiHUHqzVQZNU332XPXRxe341o\",\n        \"e4J9cwb5tjVxMeeV8201dC00i800ThPKKGT2SEN002dHH2s\"\n      ],\n      \"playback_ids\": [\n        {\n          \"policy\": \"public\",\n          \"id\": \"00zOcribkUmXqXHzBTpflk2771BRTcKATqPjWf7JHpuM\"\n        }\n      ],\n      \"new_asset_settings\": {\n        \"playback_policies\": [\n          \"public\"\n        ]\n      },\n      \"id\": \"B65hEUWW01ErVKDDGImKcBquYhwEAkjW6Ic3lPY0299Cc\",\n      \"created_at\": \"1607587513\",\n      \"latency_mode\": \"standard\",\n      \"max_continuous_duration\": 43200\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a385806-8cb2-40c8-9477-bd8089d11e5e",
+          "name": "Retrieve a Live Stream",
+          "request": {
+            "name": "Retrieve a Live Stream",
+            "description": {
+              "content": "Retrieves the details of a live stream that has previously been created. Supply the unique live stream ID that was returned from your previous request, and Mux will return the corresponding live stream information. The same information is returned when creating a live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "663f9aa4-cd6e-418c-879b-89aa6d9f8660",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"stream_key\": \"831b5bde-cd8a-5bc4-115d-4ba34b19f481\",\n    \"status\": \"idle\",\n    \"reconnect_window\": 60,\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n      }\n    ],\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ]\n    },\n    \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n    \"created_at\": \"1609937654\",\n    \"latency_mode\": \"standard\",\n    \"max_continuous_duration\": 43200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d25950bb-0e7a-4ea7-af08-fe81f91083cb",
+          "name": "Delete a Live Stream",
+          "request": {
+            "name": "Delete a Live Stream",
+            "description": {
+              "content": "Deletes a live stream from the current environment. If the live stream is currently active and being streamed to, ingest will be terminated and the encoder will be disconnected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "12118d94-ac5c-4e6c-a181-766f4346d95c",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24a6433f-5fd3-4b7d-88f2-20a217ceb017",
+          "name": "Update a Live Stream",
+          "request": {
+            "name": "Update a Live Stream",
+            "description": {
+              "content": "Updates the parameters of a previously-created live stream. This currently supports a subset of variables. Supply the live stream ID and the updated parameters and Mux will return the corresponding live stream information. The information returned will be the same after update as for subsequent get live stream requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"passthrough\": \"<string>\",\n  \"latency_mode\": \"<string>\",\n  \"reconnect_window\": 60,\n  \"use_slate_for_standard_latency\": false,\n  \"reconnect_slate_url\": \"<string>\",\n  \"max_continuous_duration\": 43200,\n  \"new_asset_settings\": {\n    \"mp4_support\": \"<string>\",\n    \"master_access\": \"<string>\",\n    \"video_quality\": \"<string>\",\n    \"meta\": {\n      \"title\": \"<string>\",\n      \"creator_id\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  },\n  \"meta\": {\n    \"title\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0decdaa4-43aa-4bf6-83ee-feb3f73b3ec0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"latency_mode\": \"standard\",\n  \"reconnect_window\": 30,\n  \"max_continuous_duration\": 1200\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"stream_key\": \"831b5bde-cd8a-5bc4-115d-4ba34b19f481\",\n    \"status\": \"idle\",\n    \"reconnect_window\": 30,\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n      }\n    ],\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ]\n    },\n    \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n    \"created_at\": \"1609937654\",\n    \"latency_mode\": \"standard\",\n    \"max_continuous_duration\": 1200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df6d09a3-98a7-4239-ba32-2884901c2784",
+          "name": "Create a Live Stream Playback ID",
+          "request": {
+            "name": "Create a Live Stream Playback ID",
+            "description": {
+              "content": "Create a new playback ID for this live stream, through which a viewer can watch the streamed content of the live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "playback-ids"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"policy\": \"<string>\",\n  \"drm_configuration_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af8abce4-1238-4533-a083-6a1f807333e9",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "playback-ids"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policy\": \"signed\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"policy\": \"public\",\n    \"id\": \"4O902oOPU100s7XIQgOeY01U7dHzYlBe26zi3Sq01EJqnxw\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32da94ed-8090-431c-9379-d0163733bacb",
+          "name": "Retrieve a Live Stream Playback ID",
+          "request": {
+            "name": "Retrieve a Live Stream Playback ID",
+            "description": {
+              "content": "Fetches information about a live stream's playback ID, through which a viewer can watch the streamed content from this live stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "playback-ids",
+                ":PLAYBACK_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "982912f5-a4ef-4b23-94ac-e7df40eaa75a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "playback-ids",
+                    ":PLAYBACK_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"policy\": \"public\",\n    \"id\": \"4O902oOPU100s7XIQgOeY01U7dHzYlBe26zi3Sq01EJqnxw\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00fad380-9d20-47f7-9b36-2d49a649b76b",
+          "name": "Delete a Live Stream Playback ID",
+          "request": {
+            "name": "Delete a Live Stream Playback ID",
+            "description": {
+              "content": "Deletes the playback ID for the live stream. This will not disable ingest (as the live stream still exists). New attempts to play back the live stream will fail immediately. However, current viewers will be able to continue watching the stream for some period of time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "playback-ids",
+                ":PLAYBACK_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3666cc41-0b18-4966-9745-e3b726669610",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "playback-ids",
+                    ":PLAYBACK_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39869ceb-35c4-4a1b-8ab3-cdcbc61a7fed",
+          "name": "Reset a Live Stream's Stream Key",
+          "request": {
+            "name": "Reset a Live Stream's Stream Key",
+            "description": {
+              "content": "Reset a live stream key if you want to immediately stop the current stream key from working and create a new stream key that can be used for future broadcasts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "reset-stream-key"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ef71aa1c-96d6-4c45-b60c-dd56cea95006",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "reset-stream-key"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"stream_key\": \"acaf2ca1-ba9c-5ffe-8c9c-a02bbf0009a6\",\n    \"status\": \"idle\",\n    \"reconnect_window\": 60,\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n      },\n      {\n        \"policy\": \"public\",\n        \"id\": \"4O902oOPU100s7XIQgOeY01U7dHzYlBe26zi3Sq01EJqnxw\"\n      }\n    ],\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ]\n    },\n    \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n    \"created_at\": \"1609937654\",\n    \"latency_mode\": \"standard\",\n    \"max_continuous_duration\": 43200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c832fad-72a2-4362-9c62-317ebfc5dbe9",
+          "name": "Signal a Live Stream Is Finished",
+          "request": {
+            "name": "Signal a Live Stream Is Finished",
+            "description": {
+              "content": "(Optional) End the live stream recording immediately instead of waiting for the reconnect_window. `EXT-X-ENDLIST` tag is added to the HLS manifest which notifies the player that this live stream is over.\n\nMux does not close the encoder connection immediately. Encoders are often configured to re-establish connections immediately which would result in a new recorded asset. For this reason, Mux waits for 60s before closing the connection with the encoder. This 60s timeframe is meant to give encoder operators a chance to disconnect from their end.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "complete"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4dc434c6-3d23-4a5d-aadc-9616eb228dc9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "complete"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1463ce16-5667-497d-8046-3b0a5554ec17",
+          "name": "Disable a Live Stream",
+          "request": {
+            "name": "Disable a Live Stream",
+            "description": {
+              "content": "Disables a live stream, making it reject incoming RTMP streams until re-enabled. The API also ends the live stream recording immediately when active. Ending the live stream recording adds the `EXT-X-ENDLIST` tag to the HLS manifest which notifies the player that this live stream is over.\n\nMux also closes the encoder connection immediately. Any attempt from the encoder to re-establish connection will fail till the live stream is re-enabled.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "disable"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5ee123e5-4e26-4270-9d85-0bff4e5bc987",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "disable"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf6cd951-3b55-414e-9902-f2273333f981",
+          "name": "Enable a Live Stream",
+          "request": {
+            "name": "Enable a Live Stream",
+            "description": {
+              "content": "Enables a live stream, allowing it to accept an incoming RTMP stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "enable"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a272e1f9-46c8-41dc-84e4-89dbc7da69dc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "enable"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de712230-23ae-4622-aade-58198f4f46df",
+          "name": "Update a Live Stream's Embedded Subtitles",
+          "request": {
+            "name": "Update a Live Stream's Embedded Subtitles",
+            "description": {
+              "content": "Configures a live stream to receive embedded closed captions.\nThe resulting Asset's subtitle text track will have `closed_captions: true` set.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "embedded-subtitles"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"embedded_subtitles\": [\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"language_channel\": \"cc1\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"language_channel\": \"cc1\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c626c899-52e9-42e8-86fe-4e5d671ea950",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "embedded-subtitles"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"embedded_subtitles\": [\n    {\n      \"passthrough\": \"Example\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"stream_key\": \"acaf2ca1-ba9c-5ffe-8c9c-a02bbf0009a6\",\n    \"status\": \"idle\",\n    \"reconnect_window\": 60,\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n      },\n      {\n        \"policy\": \"public\",\n        \"id\": \"4O902oOPU100s7XIQgOeY01U7dHzYlBe26zi3Sq01EJqnxw\"\n      }\n    ],\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ]\n    },\n    \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n    \"created_at\": \"1609937654\",\n    \"embedded_subtitles\": [\n      {\n        \"name\": \"English CC\",\n        \"language_code\": \"en\",\n        \"language_channel\": \"cc1\",\n        \"passthrough\": \"Example\"\n      }\n    ],\n    \"latency_mode\": \"standard\",\n    \"max_continuous_duration\": 43200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bb16b4c-2c0e-47a4-9e54-954c0999b565",
+          "name": "Update a Live Stream's Generated Subtitles",
+          "request": {
+            "name": "Update a Live Stream's Generated Subtitles",
+            "description": {
+              "content": "Updates a live stream's automatic-speech-recognition-generated subtitle configuration.\nAutomatic speech recognition subtitles can be removed by sending an empty array in the\nrequest payload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "generated-subtitles"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"generated_subtitles\": [\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"transcription_vocabulary_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"passthrough\": \"<string>\",\n      \"language_code\": \"en\",\n      \"transcription_vocabulary_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8da2b1c6-9189-4b03-abd1-c7e4b9991d53",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "generated-subtitles"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"generated_subtitles\": [\n    {\n      \"name\": \"English CC (ASR)\",\n      \"language_code\": \"en\",\n      \"passthrough\": \"Example\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"stream_key\": \"acaf2ca1-ba9c-5ffe-8c9c-a02bbf0009a6\",\n    \"status\": \"idle\",\n    \"reconnect_window\": 60,\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n      },\n      {\n        \"policy\": \"public\",\n        \"id\": \"4O902oOPU100s7XIQgOeY01U7dHzYlBe26zi3Sq01EJqnxw\"\n      }\n    ],\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ]\n    },\n    \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n    \"created_at\": \"1609937654\",\n    \"generated_subtitles\": [\n      {\n        \"name\": \"English CC (ASR)\",\n        \"language_code\": \"en\",\n        \"passthrough\": \"Example\"\n      }\n    ],\n    \"latency_mode\": \"standard\",\n    \"max_continuous_duration\": 43200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1c7a5cd-f5ee-4f97-99c5-cee0cd9fe490",
+          "name": "Create a Live Stream Simulcast Target",
+          "request": {
+            "name": "Create a Live Stream Simulcast Target",
+            "description": {
+              "content": "Create a simulcast target for the parent live stream. Simulcast target can only be created when the parent live stream is in idle state. Only one simulcast target can be created at a time with this API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "simulcast-targets"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"passthrough\": \"<string>\",\n  \"stream_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c6bd960-0a3d-4479-8fc0-64cc6211b16c",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "simulcast-targets"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"rtmp://live.example.com/app\",\n  \"stream_key\": \"abcdefgh\",\n  \"passthrough\": \"Example\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"url\": \"rtmp://live.example.com/app\",\n    \"stream_key\": \"abcdefgh\",\n    \"status\": \"idle\",\n    \"passthrough\": \"Example\",\n    \"id\": \"le1axfGDc9ETqh6trHNTxGQ9XEhj02fOnX0200aAh24fwlmwzqKCYNJgw\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d5e3260-dfcd-41da-a3c8-7cb36efadb40",
+          "name": "Delete a Live Stream Simulcast Target",
+          "request": {
+            "name": "Delete a Live Stream Simulcast Target",
+            "description": {
+              "content": "Delete the simulcast target using the simulcast target ID returned when creating the simulcast target. Simulcast Target can only be deleted when the parent live stream is in idle state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "simulcast-targets",
+                ":SIMULCAST_TARGET_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SIMULCAST_TARGET_ID",
+                  "description": "(Required) The ID of the simulcast target."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "becd2362-cba0-462e-a1c1-d0d4926edaf0",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "simulcast-targets",
+                    ":SIMULCAST_TARGET_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SIMULCAST_TARGET_ID",
+                      "description": "(Required) The ID of the simulcast target."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3043bea2-1744-45f1-b6f0-36922a5c1a47",
+          "name": "Retrieve a Live Stream Simulcast Target",
+          "request": {
+            "name": "Retrieve a Live Stream Simulcast Target",
+            "description": {
+              "content": "Retrieves the details of the simulcast target created for the parent live stream. Supply the unique live stream ID and simulcast target ID that was returned in the response of create simulcast target request, and Mux will return the corresponding information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "simulcast-targets",
+                ":SIMULCAST_TARGET_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "SIMULCAST_TARGET_ID",
+                  "description": "(Required) The ID of the simulcast target."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "29c29b45-a2ec-4205-9730-b07e510fc165",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "simulcast-targets",
+                    ":SIMULCAST_TARGET_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "SIMULCAST_TARGET_ID",
+                      "description": "(Required) The ID of the simulcast target."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"url\": \"rtmp://live.example.com/app\",\n    \"stream_key\": \"abcdefgh\",\n    \"status\": \"idle\",\n    \"passthrough\": \"Example\",\n    \"id\": \"02FU00rPq00fC9S6kygrqlxygGMdpW1lk00BkFpCfc2kGregEIr7brt7CQ\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a5e8a21-837d-4914-bee9-9c0f0c10dabb",
+          "name": "Update Live Stream Static Renditions for New Assets",
+          "request": {
+            "name": "Update Live Stream Static Renditions for New Assets",
+            "description": {
+              "content": "Updates a live stream's static renditions settings for new assets. Further assets made via this live stream will create static renditions per the settings provided. You must provide all static renditions desired.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "new-asset-settings",
+                "static-renditions"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"static_renditions\": [\n    {\n      \"resolution\": \"<string>\",\n      \"passthrough\": \"<string>\"\n    },\n    {\n      \"resolution\": \"<string>\",\n      \"passthrough\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "34538c69-eddc-44a7-a71a-3fc3ddbd3ac9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "new-asset-settings",
+                    "static-renditions"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"static_renditions\": [\n    {\n      \"resolution\": \"audio-only\"\n    },\n    {\n      \"resolution\": \"highest\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"stream_key\": \"abcdefgh\",\n    \"status\": \"idle\",\n    \"reconnect_window\": 60,\n    \"playback_ids\": [\n      {\n        \"policy\": \"public\",\n        \"id\": \"HNRDuwff3K2VjTZZAPuvd2Kx6D01XUQFv02GFBHPUka018\"\n      }\n    ],\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ],\n      \"static_renditions\": [\n        {\n          \"resolution\": \"audio-only\"\n        },\n        {\n          \"resolution\": \"highest\"\n        }\n      ]\n    },\n    \"id\": \"ZEBrNTpHC02iUah025KM3te6ylM7W4S4silsrFtUkn3Ag\",\n    \"created_at\": \"1609937654\",\n    \"latency_mode\": \"standard\",\n    \"max_continuous_duration\": 43200\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ca20687-fbe1-4444-8886-a093705854ee",
+          "name": "Delete a Live Stream's Static Renditions Setting for New Assets",
+          "request": {
+            "name": "Delete a Live Stream's Static Renditions Setting for New Assets",
+            "description": {
+              "content": "Deletes a live stream's static renditions settings for new assets. Further assets made via this live stream will not create static renditions unless re-added.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "live-streams",
+                ":LIVE_STREAM_ID",
+                "new-asset-settings",
+                "static-renditions"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "LIVE_STREAM_ID",
+                  "description": "(Required) The live stream ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f73cb137-1180-43fb-b6ac-7235ecc37c21",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "live-streams",
+                    ":LIVE_STREAM_ID",
+                    "new-asset-settings",
+                    "static-renditions"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "LIVE_STREAM_ID",
+                      "description": "(Required) The live stream ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4251b7cd-0c12-46d1-9186-b11b873ae990",
+    "name": "Mux Animated Images Live Streams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

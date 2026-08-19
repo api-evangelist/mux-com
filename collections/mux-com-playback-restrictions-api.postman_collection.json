@@ -1,0 +1,783 @@
+{
+  "item": [
+    {
+      "id": "6ab20f0f-be7a-4b08-a3cf-e91ab43f6ae0",
+      "name": "Playback Restrictions",
+      "description": {
+        "content": "Playback Restrictions allows you to set additional rules for playing videos. You can set the domains/hostnames allowed to play your videos. For instance, viewers can play videos embedded on the `https://example.com` website when you set the Playback Restrictions with `example.com` as an allowed domain. Any Video requests from other websites are denied. Additionally, you can set rules for what user agents to allow. Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5392f914-5cd0-43d2-8f71-5a38bb49f10f",
+          "name": "Create a Playback Restriction",
+          "request": {
+            "name": "Create a Playback Restriction",
+            "description": {
+              "content": "Create a new Playback Restriction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "playback-restrictions"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"referrer\": {\n    \"allowed_domains\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"allow_no_referrer\": false\n  },\n  \"user_agent\": {\n    \"allow_no_user_agent\": true,\n    \"allow_high_risk_user_agent\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c6291a5b-1195-4913-bf4b-7048088bcc2b",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "playback-restrictions"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referrer\": {\n    \"allowed_domains\": [\n      \"*.example.com\"\n    ],\n    \"allow_no_referrer\": true\n  },\n  \"user_agent\": {\n    \"allow_no_user_agent\": false,\n    \"allow_high_risk_user_agent\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"9dbEg8o00uqQzZbzJT6NXdqNA00SdnSo8O\",\n    \"updated_at\": \"1607945257\",\n    \"created_at\": \"1607945257\",\n    \"referrer\": {\n      \"allowed_domains\": [\n        \"*.example.com\"\n      ],\n      \"allow_no_referrer\": true\n    },\n    \"user_agent\": {\n      \"allow_no_user_agent\": false,\n      \"allow_high_risk_user_agent\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12e07600-9106-45e4-8451-d0a42c4b0e07",
+          "name": "List Playback Restrictions",
+          "request": {
+            "name": "List Playback Restrictions",
+            "description": {
+              "content": "Returns a list of all Playback Restrictions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "playback-restrictions"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d0d03fa-e157-4bd2-a282-89fd64d729f4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "playback-restrictions"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 2,\n  \"page\": 1,\n  \"limit\": 100,\n  \"data\": [\n    {\n      \"id\": \"9dbEg8o00uqQzZbzJT6NXdqNA00SdnSo8O\",\n      \"updated_at\": \"1607945257\",\n      \"created_at\": \"1607939184\",\n      \"referrer\": {\n        \"allowed_domains\": [\n          \"*.example.com\"\n        ],\n        \"allow_no_referrer\": false\n      },\n      \"user_agent\": {\n        \"allow_no_user_agent\": false,\n        \"allow_high_risk_user_agent\": false\n      }\n    },\n    {\n      \"id\": \"012uTQqPygDYWz3jey8cyOX9n01Bd5SDH1\",\n      \"updated_at\": \"1607945980\",\n      \"created_at\": \"1607939188\",\n      \"referrer\": {\n        \"allowed_domains\": [\n          \"a.example.com\",\n          \"b.example.com\"\n        ],\n        \"allow_no_referrer\": true\n      },\n      \"user_agent\": {\n        \"allow_no_user_agent\": false,\n        \"allow_high_risk_user_agent\": false\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f12ee8e1-52d5-4762-8038-8d24313c858b",
+          "name": "Delete a Playback Restriction",
+          "request": {
+            "name": "Delete a Playback Restriction",
+            "description": {
+              "content": "Deletes a single Playback Restriction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "playback-restrictions",
+                ":PLAYBACK_RESTRICTION_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_RESTRICTION_ID",
+                  "description": "(Required) ID of the Playback Restriction."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d9bdf17a-ca7d-4244-a468-1001ba53936f",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "playback-restrictions",
+                    ":PLAYBACK_RESTRICTION_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_RESTRICTION_ID",
+                      "description": "(Required) ID of the Playback Restriction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "194ad009-043a-455c-9493-fb6934ad6b1b",
+          "name": "Retrieve a Playback Restriction",
+          "request": {
+            "name": "Retrieve a Playback Restriction",
+            "description": {
+              "content": "Retrieves a Playback Restriction associated with the unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "playback-restrictions",
+                ":PLAYBACK_RESTRICTION_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_RESTRICTION_ID",
+                  "description": "(Required) ID of the Playback Restriction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b914138-d5ec-4f85-ab07-2a1d8c0abc96",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "playback-restrictions",
+                    ":PLAYBACK_RESTRICTION_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_RESTRICTION_ID",
+                      "description": "(Required) ID of the Playback Restriction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"9dbEg8o00uqQzZbzJT6NXdqNA00SdnSo8O\",\n    \"updated_at\": \"1607945257\",\n    \"created_at\": \"1607939184\",\n    \"referrer\": {\n      \"allowed_domains\": [\n        \"*.example.com\"\n      ],\n      \"allow_no_referrer\": false\n    },\n    \"user_agent\": {\n      \"allow_no_user_agent\": false,\n      \"allow_high_risk_user_agent\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6e91bcb-2883-44b8-80ed-4effc7edf80b",
+          "name": "Update the Referrer Playback Restriction",
+          "request": {
+            "name": "Update the Referrer Playback Restriction",
+            "description": {
+              "content": "Allows you to modify the list of domains or change how Mux validates playback requests without the `Referer` HTTP header. The Referrer restriction fully replaces the old list with this new list of domains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "playback-restrictions",
+                ":PLAYBACK_RESTRICTION_ID",
+                "referrer"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_RESTRICTION_ID",
+                  "description": "(Required) ID of the Playback Restriction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowed_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_no_referrer\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9ccc283-2c01-4c6c-a932-c6b838c3ef77",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "playback-restrictions",
+                    ":PLAYBACK_RESTRICTION_ID",
+                    "referrer"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_RESTRICTION_ID",
+                      "description": "(Required) ID of the Playback Restriction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowed_domains\": [\n    \"*.example.com\"\n  ],\n  \"allow_no_referrer\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"9dbEg8o00uqQzZbzJT6NXdqNA00SdnSo8O\",\n    \"updated_at\": \"1607945257\",\n    \"created_at\": \"1607939184\",\n    \"referrer\": {\n      \"allowed_domains\": [\n        \"*.example.com\"\n      ],\n      \"allow_no_referrer\": true\n    },\n    \"user_agent\": {\n      \"allow_no_user_agent\": false,\n      \"allow_high_risk_user_agent\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f43134d9-0118-4558-8c62-36e6a6d73a91",
+          "name": "Update the User Agent Restriction",
+          "request": {
+            "name": "Update the User Agent Restriction",
+            "description": {
+              "content": "Allows you to modify how Mux validates playback requests with different user agents.  Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "playback-restrictions",
+                ":PLAYBACK_RESTRICTION_ID",
+                "user_agent"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_RESTRICTION_ID",
+                  "description": "(Required) ID of the Playback Restriction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allow_no_user_agent\": true,\n  \"allow_high_risk_user_agent\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ddb9c4d-e0d8-49d2-9a07-a17987f28926",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "playback-restrictions",
+                    ":PLAYBACK_RESTRICTION_ID",
+                    "user_agent"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_RESTRICTION_ID",
+                      "description": "(Required) ID of the Playback Restriction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allow_no_user_agent\": false,\n  \"allow_high_risk_user_agent\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"9dbEg8o00uqQzZbzJT6NXdqNA00SdnSo8O\",\n    \"updated_at\": \"1607945257\",\n    \"created_at\": \"1607939184\",\n    \"referrer\": {\n      \"allowed_domains\": [\n        \"*.example.com\"\n      ],\n      \"allow_no_referrer\": true\n    },\n    \"user_agent\": {\n      \"allow_no_user_agent\": false,\n      \"allow_high_risk_user_agent\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f30ac16d-c187-47f6-ace9-1d661f787b64",
+    "name": "Mux Animated Images Playback Restrictions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

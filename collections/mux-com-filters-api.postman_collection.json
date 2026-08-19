@@ -1,0 +1,312 @@
+{
+  "item": [
+    {
+      "id": "a1a40218-328f-4c39-91e9-92ab07884707",
+      "name": "Filters",
+      "description": {
+        "content": "Deprecated, please refer to the Dimensions APIs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63842c54-6c93-4b0c-a04f-08b5b08e2566",
+          "name": "List Filters",
+          "request": {
+            "name": "List Filters",
+            "description": {
+              "content": "The API has been replaced by the list-dimensions API call.\n\nLists all the filters broken out into basic and advanced.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "filters"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2dbebe17-5e32-4301-83bc-62877d066766",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "filters"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 1,\n  \"timeframe\": [\n    1610027251,\n    1610113651\n  ],\n  \"data\": {\n    \"basic\": [\n      \"browser\",\n      \"operating_system\",\n      \"player_remote_played\",\n      \"player_software\",\n      \"player_software_version\",\n      \"player_mux_plugin_name\",\n      \"player_mux_plugin_version\",\n      \"player_autoplay\",\n      \"player_preload\",\n      \"video_title\",\n      \"video_id\",\n      \"stream_type\",\n      \"source_type\",\n      \"source_hostname\",\n      \"continent_code\",\n      \"country\",\n      \"player_error_code\",\n      \"asset_id\",\n      \"live_stream_id\",\n      \"playback_id\",\n      \"video_content_type\",\n      \"page_type\",\n      \"view_drm_type\",\n      \"view_has_ad\",\n      \"custom_1\",\n      \"custom_2\",\n      \"custom_3\",\n      \"custom_4\",\n      \"custom_5\",\n      \"custom_6\",\n      \"custom_7\",\n      \"custom_8\",\n      \"custom_9\",\n      \"custom_10\",\n      \"view_dropped\"\n    ],\n    \"advanced\": [\n      \"browser_version\",\n      \"operating_system_version\",\n      \"viewer_device_name\",\n      \"viewer_device_model\",\n      \"viewer_device_category\",\n      \"viewer_device_manufacturer\",\n      \"player_name\",\n      \"player_version\",\n      \"video_series\",\n      \"video_encoding_variant\",\n      \"experiment_name\",\n      \"sub_property_id\",\n      \"asn\",\n      \"cdn\",\n      \"viewer_connection_type\",\n      \"view_session_id\",\n      \"region\",\n      \"viewer_user_id\",\n      \"exit_before_video_start\",\n      \"video_startup_failure\",\n      \"playback_failure\",\n      \"preroll_ad_asset_hostname\",\n      \"preroll_ad_tag_hostname\",\n      \"preroll_played\",\n      \"preroll_requested\",\n      \"playback_business_exception\",\n      \"video_startup_business_exception\",\n      \"ad_playback_failure\",\n      \"content_playback_failure\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8aa9abf2-da5a-4d72-857e-6a33210f9f68",
+          "name": "Lists Values for a Specific Filter",
+          "request": {
+            "name": "Lists Values for a Specific Filter",
+            "description": {
+              "content": "The API has been replaced by the list-dimension-values API call.\n\nLists the values for a filter along with a total count of related views.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "filters",
+                ":FILTER_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FILTER_ID",
+                  "description": "(Required) ID of the Filter"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b7f136a1-d880-4286-82a5-b8c8e673d476",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "filters",
+                    ":FILTER_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FILTER_ID",
+                      "description": "(Required) ID of the Filter"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 1,\n  \"timeframe\": [\n    1610028123,\n    1610114523\n  ],\n  \"data\": [\n    {\n      \"value\": \"Chrome\",\n      \"total_count\": 5\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9262c9d0-5c93-4e01-86d2-08b18992e84e",
+    "name": "Mux Animated Images Filters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Real-Time API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Real-Time",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Real-Time Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/dimensions",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available real-time dimensions. This API is now deprecated, please use the `List Monitoring Dimensions` API."
+        },
+        {
+          "info": {
+            "name": "List Real-Time Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists available real-time metrics. This API is now deprecated, please use the `List Monitoring Metrics` API."
+        },
+        {
+          "info": {
+            "name": "Get Real-Time Breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics/:REALTIME_METRIC_ID/breakdown",
+            "params": [
+              {
+                "name": "REALTIME_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Realtime Metric"
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension the specified value belongs to"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp."
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets breakdown information for a specific dimension and metric along with the number of concurrent viewers and negative impact score. This API is now deprecated, please use the `Get Monitoring Breakdown` API."
+        },
+        {
+          "info": {
+            "name": "Get Real-Time Histogram Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics/:REALTIME_HISTOGRAM_METRIC_ID/histogram-timeseries",
+            "params": [
+              {
+                "name": "REALTIME_HISTOGRAM_METRIC_ID",
+                "value": "video-startup-time",
+                "type": "path",
+                "description": "ID of the Realtime Histogram Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets histogram timeseries information for a specific metric. This API is now deprecated, please use the `Get Monitoring Histogram Timeseries` API."
+        },
+        {
+          "info": {
+            "name": "Get Real-Time Timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/realtime/metrics/:REALTIME_METRIC_ID/timeseries",
+            "params": [
+              {
+                "name": "REALTIME_METRIC_ID",
+                "value": "current-concurrent-viewers",
+                "type": "path",
+                "description": "ID of the Realtime Metric"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp to use as the start of the timeseries data. This value must be provided as a unix timestamp. Defaults to 30 minutes ago."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets Time series information for a specific metric along with the number of concurrent viewers. This API is now deprecated, please use the `Get Monitoring Timeseries` API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

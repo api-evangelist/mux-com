@@ -1,0 +1,567 @@
+{
+  "item": [
+    {
+      "id": "0c2e9e42-ae63-44c3-8457-045cd0eeb7bf",
+      "name": "Direct Uploads",
+      "description": {
+        "content": "Direct upload allows you to push assets directly to Mux storage instead of needing to go through your own first. When you create a new direct upload, we'll give you back a signed URL for a Google Cloud Storage bucket. Their storage API is S3 compatible, so whatever tool you use to upload to either GCS or S3 should work, just remember you're probably uploading large video files and should [take advantage of things like resumable or multipart uploads](https://cloud.google.com/storage/docs/json_api/v1/how-tos/resumable-upload).\n\nParticularly for customers that deal with a lot of user-generated content, it's common to expect quite a few abandoned uploads. To keep those abandoned uploads from cluttering up your asset lists, we don't create an asset for you until the upload is complete. Once that asset is created, you can expect all of the normal asset-related webhooks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9bcd8dbb-fcfd-4b6b-8ae0-f2a14ff649ae",
+          "name": "Create a New Direct Upload URL",
+          "request": {
+            "name": "Create a New Direct Upload URL",
+            "description": {
+              "content": "Creates a new direct upload, through which video content can be uploaded for ingest to Mux.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "uploads"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cors_origin\": \"<string>\",\n  \"timeout\": 3600,\n  \"new_asset_settings\": {\n    \"input\": [\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      }\n    ],\n    \"inputs\": [\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      },\n      {\n        \"url\": \"<string>\",\n        \"overlay_settings\": {\n          \"vertical_align\": \"<string>\",\n          \"vertical_margin\": \"<string>\",\n          \"horizontal_align\": \"<string>\",\n          \"horizontal_margin\": \"<string>\",\n          \"width\": \"<string>\",\n          \"height\": \"<string>\",\n          \"opacity\": \"<string>\"\n        },\n        \"generated_subtitles\": [\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          },\n          {\n            \"name\": \"<string>\",\n            \"passthrough\": \"<string>\",\n            \"language_code\": \"en\"\n          }\n        ],\n        \"start_time\": \"<double>\",\n        \"end_time\": \"<double>\",\n        \"type\": \"<string>\",\n        \"text_type\": \"<string>\",\n        \"language_code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"closed_captions\": \"<boolean>\",\n        \"passthrough\": \"<string>\"\n      }\n    ],\n    \"playback_policy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"playback_policies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"advanced_playback_policies\": [\n      {\n        \"policy\": \"<string>\",\n        \"drm_configuration_id\": \"<string>\"\n      },\n      {\n        \"policy\": \"<string>\",\n        \"drm_configuration_id\": \"<string>\"\n      }\n    ],\n    \"per_title_encode\": \"<boolean>\",\n    \"passthrough\": \"<string>\",\n    \"mp4_support\": \"<string>\",\n    \"normalize_audio\": false,\n    \"master_access\": \"<string>\",\n    \"test\": \"<boolean>\",\n    \"max_resolution_tier\": \"<string>\",\n    \"encoding_tier\": \"<string>\",\n    \"video_quality\": \"<string>\",\n    \"static_renditions\": [\n      {\n        \"resolution\": \"<string>\",\n        \"passthrough\": \"<string>\"\n      },\n      {\n        \"resolution\": \"<string>\",\n        \"passthrough\": \"<string>\"\n      }\n    ],\n    \"meta\": {\n      \"title\": \"<string>\",\n      \"creator_id\": \"<string>\",\n      \"external_id\": \"<string>\"\n    },\n    \"copy_overlays\": true\n  },\n  \"test\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86870a59-08c3-4726-b7a8-dcd6b7e40ab5",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "uploads"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cors_origin\": \"https://example.com/\",\n  \"new_asset_settings\": {\n    \"playback_policies\": [\n      \"public\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"url\": \"https://storage.googleapis.com/video-storage-us-east1-uploads/zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc?Expires=1610112458&GoogleAccessId=mux-direct-upload%40mux-cloud.iam.gserviceaccount.com&Signature=LCu4PMoKUo%2BJkWQAUwB9WU4bWVVfW3K5bZxSxEptBz3DrjbFxNyGvs0sriyJupZh9Jdb6FxKWFIRbxEetfnAAiesOvSPH%2F1GlIichmGg3YfebfxiX77%2B6ToFF6FMkJucBo284PD90AVLHhKagOea2VsbdO0fh78MAxGH9sEspyQ2uJEfYWjHFqYQ9smJyIuM3CYOmN5HKPgRWy2yUqzV7OTMe%2FivPO4%2FX6XiiN2J4nTmy83252CJUsHIvbiGctfKxcNI6b23UVN4B1tJTVgyxTOZiBQCkMLkD%2FEe5OhoAkvJgkqENRr0q3swO0IChDDWjrh7OTMwqvWGwAoVXEGiHg%3D%3D&upload_id=ABg5-UznTdib1HhOAMjdHhWIYqBbwmSYM6dVKyPe3v33uTeEE8gkN5QzvR3cei6uSZOSrjPn7bdvvDH3nhsrLBq8AjWY2qE4UQ\",\n    \"timeout\": 3600,\n    \"status\": \"waiting\",\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ],\n      \"video_quality\": \"basic\"\n    },\n    \"id\": \"zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc\",\n    \"cors_origin\": \"https://example.com/\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93bbb8e6-b8db-404d-a44f-1b1abb99d398",
+          "name": "List Direct Uploads",
+          "request": {
+            "name": "List Direct Uploads",
+            "description": {
+              "content": "Lists direct uploads in the current environment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "uploads"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "87f4ff92-ec0b-45f9-aa1e-0f95eeff9fd4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "uploads"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"url\": \"https://storage.googleapis.com/video-storage-us-east1-uploads/zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc?Expires=1610112458&GoogleAccessId=mux-direct-upload%40mux-cloud.iam.gserviceaccount.com&Signature=LCu4PMoKUo%2BJkWQAUwB9WU4bWVVfW3K5bZxSxEptBz3DrjbFxNyGvs0sriyJupZh9Jdb6FxKWFIRbxEetfnAAiesOvSPH%2F1GlIichmGg3YfebfxiX77%2B6ToFF6FMkJucBo284PD90AVLHhKagOea2VsbdO0fh78MAxGH9sEspyQ2uJEfYWjHFqYQ9smJyIuM3CYOmN5HKPgRWy2yUqzV7OTMe%2FivPO4%2FX6XiiN2J4nTmy83252CJUsHIvbiGctfKxcNI6b23UVN4B1tJTVgyxTOZiBQCkMLkD%2FEe5OhoAkvJgkqENRr0q3swO0IChDDWjrh7OTMwqvWGwAoVXEGiHg%3D%3D&upload_id=ABg5-UznTdib1HhOAMjdHhWIYqBbwmSYM6dVKyPe3v33uTeEE8gkN5QzvR3cei6uSZOSrjPn7bdvvDH3nhsrLBq8AjWY2qE4UQ\",\n      \"timeout\": 3600,\n      \"status\": \"waiting\",\n      \"new_asset_settings\": {\n        \"playback_policies\": [\n          \"public\"\n        ],\n        \"video_quality\": \"basic\"\n      },\n      \"id\": \"zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc\",\n      \"cors_origin\": \"https://example.com/\"\n    },\n    {\n      \"timeout\": 3600,\n      \"status\": \"asset_created\",\n      \"new_asset_settings\": {\n        \"playback_policies\": [\n          \"public\"\n        ],\n        \"video_quality\": \"basic\"\n      },\n      \"id\": \"YzoCL01HHOtAVYq4Ds9zekdHJ2XqL9e8ukPWbr01KhtvM\",\n      \"asset_id\": \"AnFVqAVXfb7vVL3ypSQDMnJZunnb8nkwe02O00p2gK8P00\",\n      \"cors_origin\": \"https://example.com/\"\n    },\n    {\n      \"timeout\": 10800,\n      \"status\": \"cancelled\",\n      \"new_asset_settings\": {\n        \"playback_policies\": [\n          \"public\"\n        ],\n        \"video_quality\": \"basic\"\n      },\n      \"id\": \"AZcWu0201SqVW01LMdmVxE00m3gEWUFZPItvni1sTqF800dQ\",\n      \"cors_origin\": \"https://example.com/\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d7b4988-7508-423a-99b9-24adc4706108",
+          "name": "Retrieve a Single Direct Upload's Info",
+          "request": {
+            "name": "Retrieve a Single Direct Upload's Info",
+            "description": {
+              "content": "Fetches information about a single direct upload in the current environment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "uploads",
+                ":UPLOAD_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "UPLOAD_ID",
+                  "description": "(Required) ID of the Upload"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1541dd82-8172-4096-9b68-05c947d51216",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "uploads",
+                    ":UPLOAD_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UPLOAD_ID",
+                      "description": "(Required) ID of the Upload"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"timeout\": 3600,\n    \"status\": \"asset_created\",\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ],\n      \"video_quality\": \"basic\"\n    },\n    \"id\": \"YzoCL01HHOtAVYq4Ds9zekdHJ2XqL9e8ukPWbr01KhtvM\",\n    \"asset_id\": \"AnFVqAVXfb7vVL3ypSQDMnJZunnb8nkwe02O00p2gK8P00\",\n    \"cors_origin\": \"https://example.com/\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7bcd2ee4-e786-4961-a0e3-3c89834e1e9b",
+          "name": "Cancel a Direct Upload",
+          "request": {
+            "name": "Cancel a Direct Upload",
+            "description": {
+              "content": "Cancels a direct upload and marks it as cancelled. If a pending upload finishes after this\nrequest, no asset will be created. This request will only succeed if the upload is still in\nthe `waiting` state.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "video",
+                "v1",
+                "uploads",
+                ":UPLOAD_ID",
+                "cancel"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "UPLOAD_ID",
+                  "description": "(Required) ID of the Upload"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d6321011-a2d4-4d2a-a475-dd631914ed13",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "uploads",
+                    ":UPLOAD_ID",
+                    "cancel"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UPLOAD_ID",
+                      "description": "(Required) ID of the Upload"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"timeout\": 3600,\n    \"status\": \"cancelled\",\n    \"new_asset_settings\": {\n      \"playback_policies\": [\n        \"public\"\n      ],\n      \"video_quality\": \"basic\"\n    },\n    \"id\": \"zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc\",\n    \"cors_origin\": \"https://example.com/\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05e69e31-d4ac-4b54-b816-60ec622ad5cb",
+              "name": "Cancellation no longer possible",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "video",
+                    "v1",
+                    "uploads",
+                    ":UPLOAD_ID",
+                    "cancel"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UPLOAD_ID",
+                      "description": "(Required) ID of the Upload"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "188e39ff-7e1c-4690-b4be-43d9aba557bc",
+    "name": "Mux Animated Images Direct Uploads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

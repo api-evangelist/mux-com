@@ -1,0 +1,554 @@
+{
+  "item": [
+    {
+      "id": "d9d2f4bc-208a-43b4-8855-49bc2c10f46d",
+      "name": "Dimensions",
+      "description": {
+        "content": "Dimensions are the types of metadata that can be collected for a video view. Some dimensions are collected automatically based on the playback or device, such as the viewer's Country or the device information. Other dimensions are specified by the developer when configuring a Mux Data video view such as the video title. The Dimensions APIs allow you to get a list of the supported dimensions and their values.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fd0bf4a8-a57a-4276-ae40-2df2007d54ab",
+          "name": "List Dimensions",
+          "request": {
+            "name": "List Dimensions",
+            "description": {
+              "content": "List all available dimensions.\n\nNote: This API replaces the list-filters API call.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "dimensions"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2b6f35da-835e-4302-9ec2-efa42a45d830",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "dimensions"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"advanced\": [\n      \"asn\",\n      \"audio_codec\",\n      \"audio_codec_initial\",\n      \"browser_version\",\n      \"client_application_name\",\n      \"client_application_version\",\n      \"country\",\n      \"custom_1\",\n      \"custom_2\",\n      \"custom_3\",\n      \"custom_4\",\n      \"custom_5\",\n      \"custom_6\",\n      \"custom_7\",\n      \"custom_8\",\n      \"custom_9\",\n      \"custom_10\",\n      \"custom_11\",\n      \"custom_12\",\n      \"custom_13\",\n      \"custom_14\",\n      \"custom_15\",\n      \"custom_16\",\n      \"custom_17\",\n      \"custom_18\",\n      \"custom_19\",\n      \"custom_20\",\n      \"experiment_name\",\n      \"environment_id\",\n      \"operating_system_version\",\n      \"page_type\",\n      \"page_url\",\n      \"playback_failure\",\n      \"playback_business_exception\",\n      \"player_autoplay\",\n      \"player_error_code\",\n      \"player_language\",\n      \"player_mux_plugin_name\",\n      \"player_mux_plugin_version\",\n      \"player_poster\",\n      \"player_preload\",\n      \"player_remote_played\",\n      \"player_software_version\",\n      \"player_version\",\n      \"region\",\n      \"source_hostname\",\n      \"time_shift_enabled\",\n      \"used_captions\",\n      \"used_pip\",\n      \"video_affiliate\",\n      \"video_brand\",\n      \"video_cdn_trace\",\n      \"video_codec\",\n      \"video_codec_initial\",\n      \"video_creator_id\",\n      \"video_dynamic_range_type\",\n      \"video_dynamic_range_type_initial\",\n      \"video_encoding_variant\",\n      \"video_language\",\n      \"video_producer\",\n      \"video_source_bitrate\",\n      \"video_source_bitrate_initial\",\n      \"video_source_fps\",\n      \"video_source_fps_initial\",\n      \"video_source_height\",\n      \"video_source_height_initial\",\n      \"video_source_width\",\n      \"video_source_width_initial\",\n      \"video_startup_business_exception\",\n      \"video_variant_id\",\n      \"video_variant_name\",\n      \"view_cdn_edge_pop\",\n      \"view_cdn_origin\",\n      \"view_drm_type\",\n      \"view_dropped\",\n      \"view_dropped_frame_count\",\n      \"view_session_id\",\n      \"viewer_connection_type\",\n      \"viewer_device_model\",\n      \"viewer_user_id\",\n      \"viewer_plan\",\n      \"viewer_plan_status\",\n      \"viewer_plan_category\",\n      \"view_drm_level\"\n    ],\n    \"basic\": [\n      \"asset_id\",\n      \"browser\",\n      \"cdn\",\n      \"continent_code\",\n      \"exit_before_video_start\",\n      \"live_stream_id\",\n      \"operating_system\",\n      \"playback_id\",\n      \"player_name\",\n      \"player_software\",\n      \"source_type\",\n      \"stream_type\",\n      \"sub_property_id\",\n      \"video_content_type\",\n      \"video_id\",\n      \"video_series\",\n      \"video_startup_failure\",\n      \"video_title\",\n      \"view_has_ad\",\n      \"viewer_device_category\",\n      \"viewer_device_manufacturer\",\n      \"viewer_device_name\"\n    ]\n  },\n  \"timeframe\": [\n    1610033879,\n    1610120279\n  ],\n  \"total_row_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c3b8a14-e90a-4278-8e9f-d125aba5b71e",
+          "name": "Lists the Values for a Specific Dimension",
+          "request": {
+            "name": "Lists the Values for a Specific Dimension",
+            "description": {
+              "content": "Lists the values for a dimension along with a total count of related views.\n\nNote: This API replaces the list-filter-values API call.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "dimensions",
+                ":DIMENSION_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "DIMENSION_ID",
+                  "description": "(Required) ID of the Dimension"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae4914fe-9072-436e-91db-20b9386b868b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "dimensions",
+                    ":DIMENSION_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "DIMENSION_ID",
+                      "description": "(Required) ID of the Dimension"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"total_count\": 10000,\n      \"value\": \"FR\"\n    },\n    {\n      \"total_count\": 5000,\n      \"value\": \"ES\"\n    },\n    {\n      \"total_count\": 2000,\n      \"value\": \"PT\"\n    },\n    {\n      \"total_count\": 100,\n      \"value\": \"DE\"\n    },\n    {\n      \"total_count\": 1,\n      \"value\": \"BE\"\n    }\n  ],\n  \"timeframe\": [\n    1610033976,\n    1610120376\n  ],\n  \"total_row_count\": 5\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36fef9fd-63f2-48f3-8df8-9f07c68c0149",
+          "name": "Lists Elements for a Trace Dimension",
+          "request": {
+            "name": "Lists Elements for a Trace Dimension",
+            "description": {
+              "content": "Lists the elements (values) for a trace dimension along with their total counts.\nThis endpoint is specifically designed for trace dimensions like video_cdn_trace\nthat contain arrays of values.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "dimensions",
+                ":DIMENSION_ID",
+                "elements"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Value to order the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "DIMENSION_ID",
+                  "description": "(Required) ID of the Dimension"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a12f284d-07fa-4b24-9a2b-36bb366cc858",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "dimensions",
+                    ":DIMENSION_ID",
+                    "elements"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "DIMENSION_ID",
+                      "description": "(Required) ID of the Dimension"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_row_count\": 25,\n  \"timeframe\": [\n    1755069000,\n    1755155999\n  ],\n  \"data\": [\n    {\n      \"value\": \"cdn_a\",\n      \"total_count\": 2640882\n    },\n    {\n      \"value\": \"cdn_b\",\n      \"total_count\": 1368812\n    },\n    {\n      \"value\": \"cdn_c\",\n      \"total_count\": 154541\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "306f4af8-dbc5-440e-9c5a-172959af76b9",
+    "name": "Mux Animated Images Dimensions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

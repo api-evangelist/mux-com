@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Dimensions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dimensions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/dimensions",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all available dimensions.\n\nNote: This API replaces the list-filters API call.\n"
+        },
+        {
+          "info": {
+            "name": "Lists the Values for a Specific Dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/dimensions/:DIMENSION_ID",
+            "params": [
+              {
+                "name": "DIMENSION_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Dimension"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the values for a dimension along with a total count of related views.\n\nNote: This API replaces the list-filter-values API call.\n"
+        },
+        {
+          "info": {
+            "name": "Lists Elements for a Trace Dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/data/v1/dimensions/:DIMENSION_ID/elements",
+            "params": [
+              {
+                "name": "DIMENSION_ID",
+                "value": "abcd1234",
+                "type": "path",
+                "description": "ID of the Dimension"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results using key:value pairs. Must be provided as an array query string parameter.\n\n**Basic filtering:**\n* `filters[]=dimension:value` - Include rows where dimension equals value\n* `filters[]=!dimension:value` - Exclude rows where dimension equals value\n\n**For trace dimensions (like video_cdn_trace):**\n* `filters[]=+dimension:value` - Include rows where trace contains value\n* `filters[]=-dimension:value` - Exclude rows where trace contains value\n* `filters[]=dimension:[value1,value2]` - Exact trace match\n\n**Examples:**\n* `filters[]=country:US` - US views only\n* `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN\n"
+              },
+              {
+                "name": "metric_filters[]",
+                "value": "",
+                "type": "query",
+                "description": "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+              },
+              {
+                "name": "timeframe[]",
+                "value": "",
+                "type": "query",
+                "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Value to order the results by"
+              },
+              {
+                "name": "order_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists the elements (values) for a trace dimension along with their total counts.\nThis endpoint is specifically designed for trace dimensions like video_cdn_trace\nthat contain arrays of values.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Find Key Moments API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Find Key Moments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 'find-Key-Moments' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/robots/v0/jobs/find-key-moments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new job that uses AI to identify key moments in a Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Get a 'find-Key-Moments' Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/robots/v0/jobs/find-key-moments/:JOB_ID",
+            "params": [
+              {
+                "name": "JOB_ID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the current status and results of a 'find-key-moments' job. Jobs are automatically deleted after 30 days."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

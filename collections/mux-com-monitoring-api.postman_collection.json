@@ -1,0 +1,922 @@
+{
+  "item": [
+    {
+      "id": "f11f7e2d-17d5-4274-a4c7-84396c4de287",
+      "name": "Monitoring",
+      "description": {
+        "content": "Monitoring metrics are used for operational monitoring of a video platform.\nThe metrics are aggregated in five second intervals, across the views that\nare currently being watched. The real-time metrics' timeline, breakdown,\nand histogram representations are available via the APIs.\n\nMonitoring metrics are similar but not directly comparable to the historical\nmetrics in the Metrics APIs. These metrics are aggregated to provide the most\noperational detail possible used for resolving operational issues.\nMux Data Monitoring metrics are available to Mux Data customers on a Media plan.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b82a569-3513-40bc-92f6-7ecbcc777a49",
+          "name": "List Monitoring Dimensions",
+          "request": {
+            "name": "List Monitoring Dimensions",
+            "description": {
+              "content": "Lists available monitoring dimensions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "monitoring",
+                "dimensions"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "94fa94cf-20fd-45dd-9221-72fab557232d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "monitoring",
+                    "dimensions"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"display_name\": \"ASN\",\n      \"name\": \"asn\"\n    },\n    {\n      \"display_name\": \"CDN\",\n      \"name\": \"cdn\"\n    },\n    {\n      \"display_name\": \"Country\",\n      \"name\": \"country\"\n    },\n    {\n      \"display_name\": \"Operating system\",\n      \"name\": \"operating_system\"\n    },\n    {\n      \"display_name\": \"Player name\",\n      \"name\": \"player_name\"\n    },\n    {\n      \"display_name\": \"Region / State\",\n      \"name\": \"region\"\n    },\n    {\n      \"display_name\": \"Stream type\",\n      \"name\": \"stream_type\"\n    },\n    {\n      \"display_name\": \"Sub property ID\",\n      \"name\": \"sub_property_id\"\n    },\n    {\n      \"display_name\": \"Video series\",\n      \"name\": \"video_series\"\n    },\n    {\n      \"display_name\": \"Video title\",\n      \"name\": \"video_title\"\n    },\n    {\n      \"display_name\": \"View has ad\",\n      \"name\": \"view_has_ad\"\n    }\n  ],\n  \"timeframe\": [\n    1610034823,\n    1610121223\n  ],\n  \"total_row_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78e972dd-bc5c-4ada-8b25-8e05261275ed",
+          "name": "List Monitoring Metrics",
+          "request": {
+            "name": "List Monitoring Metrics",
+            "description": {
+              "content": "Lists available monitoring metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "monitoring",
+                "metrics"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6c6097a2-1892-44cf-8143-cf050084ba5a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "monitoring",
+                    "metrics"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"display_name\": \"Current Average Bitrate\",\n      \"name\": \"current-average-bitrate\"\n    },\n    {\n      \"display_name\": \"Current Concurrent Viewers (CCV)\",\n      \"name\": \"current-concurrent-viewers\"\n    },\n    {\n      \"display_name\": \"Current Rebuffering Percentage\",\n      \"name\": \"current-rebuffering-percentage\"\n    },\n    {\n      \"display_name\": \"Exits Before Video Start\",\n      \"name\": \"exits-before-video-start\"\n    },\n    {\n      \"display_name\": \"Playback Failure Percentage\",\n      \"name\": \"playback-failure-percentage\"\n    },\n    {\n      \"display_name\": \"Video Startup Failure Percentage\",\n      \"name\": \"video-startup-failure-percentage\"\n    },\n    {\n      \"display_name\": \"Video Startup Time\",\n      \"name\": \"video-startup-time\"\n    }\n  ],\n  \"timeframe\": [\n    1610034858,\n    1610121258\n  ],\n  \"total_row_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "257ada6d-7dbb-4722-a867-41362aa6cdeb",
+          "name": "Get Monitoring Breakdown",
+          "request": {
+            "name": "Get Monitoring Breakdown",
+            "description": {
+              "content": "Gets breakdown information for a specific dimension and metric along with the number of concurrent viewers and negative impact score.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "monitoring",
+                "metrics",
+                ":MONITORING_METRIC_ID",
+                "breakdown"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dimension",
+                  "value": "<string>",
+                  "description": "Dimension the specified value belongs to"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<integer>",
+                  "description": "Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Value to order the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "MONITORING_METRIC_ID",
+                  "description": "(Required) ID of the Monitoring Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "15873059-ed2e-410a-82ec-d5aa003ad185",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "monitoring",
+                    "metrics",
+                    ":MONITORING_METRIC_ID",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "dimension",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "MONITORING_METRIC_ID",
+                      "description": "(Required) ID of the Monitoring Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"concurrent_viewers\": 2680,\n      \"metric_value\": 0.008195679660675846,\n      \"negative_impact\": 1,\n      \"starting_up_viewers\": 10,\n      \"value\": \"FR\"\n    },\n    {\n      \"concurrent_viewers\": 36,\n      \"metric_value\": 0.010317417106767573,\n      \"negative_impact\": 4,\n      \"starting_up_viewers\": 1,\n      \"value\": \"ES\"\n    },\n    {\n      \"concurrent_viewers\": 30,\n      \"metric_value\": 0.06408818534303201,\n      \"negative_impact\": 2,\n      \"starting_up_viewers\": 1,\n      \"value\": \"RE\"\n    },\n    {\n      \"concurrent_viewers\": 26,\n      \"metric_value\": 0.008232510579858339,\n      \"negative_impact\": 7,\n      \"starting_up_viewers\": 1,\n      \"value\": \"GB\"\n    },\n    {\n      \"concurrent_viewers\": 10,\n      \"metric_value\": 0,\n      \"negative_impact\": 26,\n      \"starting_up_viewers\": 0,\n      \"value\": \"BE\"\n    }\n  ],\n  \"timeframe\": [\n    1610121421,\n    1610121421\n  ],\n  \"total_row_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c377313b-5755-42c3-aa6f-1e544a36b1af",
+          "name": "Get Monitoring Breakdown Timeseries",
+          "request": {
+            "name": "Get Monitoring Breakdown Timeseries",
+            "description": {
+              "content": "Gets timeseries of breakdown information for a specific dimension and metric. Each datapoint in the response represents 5 seconds worth of data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "monitoring",
+                "metrics",
+                ":MONITORING_METRIC_ID",
+                "breakdown-timeseries"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dimension",
+                  "value": "<string>",
+                  "description": "Dimension the specified value belongs to"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nThe default for this is the last 60 seconds of available data. Timeframes larger than 10 minutes are not allowed, and must be within the last 24 hours.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe[]",
+                  "value": "<string>",
+                  "description": "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nThe default for this is the last 60 seconds of available data. Timeframes larger than 10 minutes are not allowed, and must be within the last 24 hours.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items to include in each timestamp's `value` list.\n\nThe default is 10, and the maximum is 100.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Value to order the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "MONITORING_METRIC_ID",
+                  "description": "(Required) ID of the Monitoring Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "35bc4359-2383-4e42-9de4-197b48704f18",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "monitoring",
+                    "metrics",
+                    ":MONITORING_METRIC_ID",
+                    "breakdown-timeseries"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "dimension",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeframe[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "MONITORING_METRIC_ID",
+                      "description": "(Required) ID of the Monitoring Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"values\": [\n        {\n          \"value\": \"FR\",\n          \"metric_value\": 0.008195679660675846,\n          \"concurrent_viewers\": 2680,\n          \"starting_up_viewers\": 10\n        },\n        {\n          \"value\": \"ES\",\n          \"metric_value\": 0.010317417106767573,\n          \"concurrent_viewers\": 36,\n          \"starting_up_viewers\": 1\n        },\n        {\n          \"value\": \"GB\",\n          \"metric_value\": 0.008232510579858339,\n          \"concurrent_viewers\": 26,\n          \"starting_up_viewers\": 1\n        }\n      ],\n      \"date\": \"2023-05-18T19:36:30Z\"\n    },\n    {\n      \"values\": [\n        {\n          \"value\": \"FR\",\n          \"metric_value\": 0.00724579660675846,\n          \"concurrent_viewers\": 2690,\n          \"starting_up_viewers\": 1\n        },\n        {\n          \"value\": \"ES\",\n          \"metric_value\": 0.014317417106767573,\n          \"concurrent_viewers\": 35,\n          \"starting_up_viewers\": 15\n        },\n        {\n          \"value\": \"GB\",\n          \"metric_value\": 0.007232510579851874,\n          \"concurrent_viewers\": 24,\n          \"starting_up_viewers\": 1\n        }\n      ],\n      \"date\": \"2023-05-18T19:36:35Z\"\n    }\n  ],\n  \"timeframe\": [\n    1684438590,\n    1684438600\n  ],\n  \"total_row_count\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "125aadcb-5c6c-46fd-8cf5-72a9cbc3a403",
+          "name": "Get Monitoring Histogram Timeseries",
+          "request": {
+            "name": "Get Monitoring Histogram Timeseries",
+            "description": {
+              "content": "Gets histogram timeseries information for a specific metric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "monitoring",
+                "metrics",
+                ":MONITORING_HISTOGRAM_METRIC_ID",
+                "histogram-timeseries"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "MONITORING_HISTOGRAM_METRIC_ID",
+                  "description": "(Required) ID of the Monitoring Histogram Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9007a053-54b1-49fa-a811-65eb0ef91cd1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "monitoring",
+                    "metrics",
+                    ":MONITORING_HISTOGRAM_METRIC_ID",
+                    "histogram-timeseries"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "MONITORING_HISTOGRAM_METRIC_ID",
+                      "description": "(Required) ID of the Monitoring Histogram Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"average\": 5298.1612903225805,\n      \"bucket_values\": [\n        {\n          \"count\": 3,\n          \"percentage\": 0.0967741935483871\n        },\n        {\n          \"count\": 0,\n          \"percentage\": 0\n        },\n        {\n          \"count\": 0,\n          \"percentage\": 0\n        },\n        {\n          \"count\": 1,\n          \"percentage\": 0.03225806451612903\n        },\n        {\n          \"count\": 16,\n          \"percentage\": 0.5161290322580645\n        },\n        {\n          \"count\": 7,\n          \"percentage\": 0.22580645161290322\n        },\n        {\n          \"count\": 4,\n          \"percentage\": 0.12903225806451613\n        }\n      ],\n      \"max_percentage\": 0.5161290322580645,\n      \"median\": 4463,\n      \"p95\": 14834,\n      \"sum\": 31,\n      \"timestamp\": \"2021-01-08T15:30:00Z\"\n    },\n    {\n      \"average\": 3828.4146341463415,\n      \"bucket_values\": [\n        {\n          \"count\": 5,\n          \"percentage\": 0.12195121951219512\n        },\n        {\n          \"count\": 0,\n          \"percentage\": 0\n        },\n        {\n          \"count\": 0,\n          \"percentage\": 0\n        },\n        {\n          \"count\": 4,\n          \"percentage\": 0.0975609756097561\n        },\n        {\n          \"count\": 18,\n          \"percentage\": 0.43902439024390244\n        },\n        {\n          \"count\": 12,\n          \"percentage\": 0.2926829268292683\n        },\n        {\n          \"count\": 2,\n          \"percentage\": 0.04878048780487805\n        }\n      ],\n      \"max_percentage\": 0.43902439024390244,\n      \"median\": 2625,\n      \"p95\": 7378,\n      \"sum\": 41,\n      \"timestamp\": \"2021-01-08T15:31:00Z\"\n    }\n  ],\n  \"meta\": {\n    \"bucket_unit\": \"milliseconds\",\n    \"buckets\": [\n      {\n        \"end\": 100,\n        \"start\": 0\n      },\n      {\n        \"end\": 500,\n        \"start\": 100\n      },\n      {\n        \"end\": 1000,\n        \"start\": 500\n      },\n      {\n        \"end\": 2000,\n        \"start\": 1000\n      },\n      {\n        \"end\": 5000,\n        \"start\": 2000\n      },\n      {\n        \"end\": 10000,\n        \"start\": 5000\n      },\n      {\n        \"end\": 15000,\n        \"start\": 10000\n      }\n    ]\n  },\n  \"timeframe\": [\n    1610119800,\n    1610121540\n  ],\n  \"total_row_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a29911f-6317-4ddb-a5b9-cf251c19b7b8",
+          "name": "Get Monitoring Timeseries",
+          "request": {
+            "name": "Get Monitoring Timeseries",
+            "description": {
+              "content": "Gets Time series information for a specific metric along with the number of concurrent viewers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "monitoring",
+                "metrics",
+                ":MONITORING_METRIC_ID",
+                "timeseries"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[]",
+                  "value": "<string>",
+                  "description": "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "timestamp",
+                  "value": "<integer>",
+                  "description": "Timestamp to use as the start of the timeseries data. This value must be provided as a unix timestamp. Defaults to 30 minutes ago."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "MONITORING_METRIC_ID",
+                  "description": "(Required) ID of the Monitoring Metric"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b325f4c9-8a31-4603-b857-4f26cc4d58e8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "monitoring",
+                    "metrics",
+                    ":MONITORING_METRIC_ID",
+                    "timeseries"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timestamp",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "MONITORING_METRIC_ID",
+                      "description": "(Required) ID of the Monitoring Metric"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"concurrent_viewers\": 2790,\n      \"date\": \"2021-01-08T15:31:20Z\",\n      \"value\": 2790\n    },\n    {\n      \"concurrent_viewers\": 2788,\n      \"date\": \"2021-01-08T15:31:25Z\",\n      \"value\": 2788\n    },\n    {\n      \"concurrent_viewers\": 2791,\n      \"date\": \"2021-01-08T15:31:30Z\",\n      \"value\": 2791\n    },\n    {\n      \"concurrent_viewers\": 2791,\n      \"date\": \"2021-01-08T15:31:35Z\",\n      \"value\": 2791\n    },\n    {\n      \"concurrent_viewers\": 2792,\n      \"date\": \"2021-01-08T15:31:40Z\",\n      \"value\": 2792\n    }\n  ],\n  \"timeframe\": [\n    1610119880,\n    1610121675\n  ],\n  \"total_row_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "50defa9f-aba0-4f40-94e2-056f5077cf01",
+    "name": "Mux Animated Images Monitoring API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

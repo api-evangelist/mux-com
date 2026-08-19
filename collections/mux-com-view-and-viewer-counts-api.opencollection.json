@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images View and Viewer Counts API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "View and Viewer Counts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the View and Viewer Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/counts",
+            "params": [
+              {
+                "name": "TOKEN",
+                "value": "",
+                "type": "query",
+                "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+              }
+            ]
+          },
+          "docs": "[Fetch the real-time view and viewer counts for a video](https://docs.mux.com/guides/see-how-many-people-are-watching)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

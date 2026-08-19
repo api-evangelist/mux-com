@@ -1,0 +1,474 @@
+{
+  "item": [
+    {
+      "id": "05e99d43-6c27-4d6c-9173-4d6563245830",
+      "name": "Incidents",
+      "description": {
+        "content": "Incidents occur when an anomaly alert is triggered in Mux Data. The Incidents API provides operations related to the raising and managing of alerting incidents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "33edcb1a-e0b7-4e84-82a9-98b205b140e4",
+          "name": "List Incidents",
+          "request": {
+            "name": "List Incidents",
+            "description": {
+              "content": "Returns a list of incidents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "incidents"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Value to order the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status to filter incidents by"
+                },
+                {
+                  "disabled": false,
+                  "key": "severity",
+                  "value": "<string>",
+                  "description": "Severity to filter incidents by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f42f883e-5d84-4a0d-948a-e912922b5f9b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "incidents"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "severity",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"affected_views\": 71,\n      \"affected_views_per_hour\": 29,\n      \"affected_views_per_hour_on_open\": 75,\n      \"breakdowns\": [\n        {\n          \"id\": \"abcdef\",\n          \"name\": \"error_type_id\",\n          \"value\": \"697070\"\n        }\n      ],\n      \"description\": \"Something is broken\",\n      \"error_description\": \"No seriously, something is really really broken :(\",\n      \"id\": \"4u13td\",\n      \"impact\": \"*71 views* were affected at a rate of *29 per hour*\",\n      \"incident_key\": \"5312a7c0bbb5d8353bd88602f01fe58eb15e9febac8fd2f0d8ce8f1cb138145c\",\n      \"measured_value\": 5.9,\n      \"measured_value_on_close\": 0.1,\n      \"measurement\": \"error_rate\",\n      \"notification_rules\": [],\n      \"notifications\": [\n        {\n          \"attempted_at\": \"2021-01-05T09:52:15.119040Z\",\n          \"id\": 103014,\n          \"queued_at\": \"2021-01-05T09:52:14.945157Z\"\n        },\n        {\n          \"attempted_at\": \"2021-01-05T11:31:08.244462Z\",\n          \"id\": 102025,\n          \"queued_at\": \"2021-01-05T11:31:08.061924Z\"\n        }\n      ],\n      \"resolved_at\": \"2021-01-05T11:31:04.000000Z\",\n      \"sample_size\": 1000,\n      \"sample_size_unit\": \"views\",\n      \"severity\": \"alert\",\n      \"started_at\": \"2021-01-05T09:04:46.000000Z\",\n      \"status\": \"closed\",\n      \"threshold\": 5\n    },\n    {\n      \"affected_views\": 132,\n      \"affected_views_per_hour\": 11,\n      \"affected_views_per_hour_on_open\": 65,\n      \"breakdowns\": [\n        {\n          \"id\": \"abcdef\",\n          \"name\": \"video_title\",\n          \"value\": \"Layla the dog video 1337\"\n        },\n        {\n          \"id\": \"abcdef\",\n          \"name\": \"error_type_id\",\n          \"value\": \"697065\"\n        }\n      ],\n      \"description\": \"Something else is broken\",\n      \"error_description\": \"Detailed error: On no!\",\n      \"id\": \"rd9579\",\n      \"impact\": \"*132 views* were affected at a rate of *11 per hour*\",\n      \"incident_key\": \"fd9add7a85a013d768f4039f9e726133eddb476c2f16b22ebfe56f18f7c03b27\",\n      \"measured_value\": 97,\n      \"measured_value_on_close\": 1,\n      \"measurement\": \"error_rate\",\n      \"notification_rules\": [],\n      \"notifications\": [\n        {\n          \"attempted_at\": \"2020-12-31T09:26:19.416919Z\",\n          \"id\": 102198,\n          \"queued_at\": \"2020-12-31T09:26:18.987717Z\"\n        },\n        {\n          \"attempted_at\": \"2020-12-31T20:23:57.279325Z\",\n          \"id\": 101269,\n          \"queued_at\": \"2020-12-31T20:23:56.997068Z\"\n        }\n      ],\n      \"resolved_at\": \"2020-12-31T20:22:54.000000Z\",\n      \"sample_size\": 100,\n      \"sample_size_unit\": \"views\",\n      \"severity\": \"alert\",\n      \"started_at\": \"2020-12-31T07:56:22.000000Z\",\n      \"status\": \"closed\",\n      \"threshold\": 96\n    }\n  ],\n  \"timeframe\": [\n    1610035979,\n    1610122379\n  ],\n  \"total_row_count\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71888323-be28-4ebe-94ec-faf2b8383b91",
+          "name": "Get an Incident",
+          "request": {
+            "name": "Get an Incident",
+            "description": {
+              "content": "Returns the details of an incident.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "incidents",
+                ":INCIDENT_ID"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "INCIDENT_ID",
+                  "description": "(Required) ID of the Incident"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e98a2b82-e4d4-4d92-bdf4-ba5a66eec39d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "incidents",
+                    ":INCIDENT_ID"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "INCIDENT_ID",
+                      "description": "(Required) ID of the Incident"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"affected_views\": 2026,\n    \"affected_views_per_hour\": 84,\n    \"affected_views_per_hour_on_open\": 12857,\n    \"breakdowns\": [\n      {\n        \"id\": \"abcdef\",\n        \"name\": \"error_type_id\",\n        \"value\": \"499680\"\n      },\n      {\n        \"id\": \"abcdef\",\n        \"name\": \"video_title\",\n        \"value\": \"Cute dogs\"\n      }\n    ],\n    \"description\": \"This video is erroring a lot\",\n    \"error_description\": \"Error Type ID 499680\",\n    \"id\": \"g7q2df\",\n    \"impact\": \"*2026 views* were affected at a rate of *84 per hour*\",\n    \"incident_key\": \"045dfcbefdb68c6003aaf3bf5ed217493772519f28f14d129f95eaff159ea6d6b\",\n    \"measured_value\": 100,\n    \"measured_value_on_close\": 8,\n    \"measurement\": \"error_rate\",\n    \"notification_rules\": [],\n    \"notifications\": [\n      {\n        \"attempted_at\": \"2020-05-14T17:23:08.034662Z\",\n        \"id\": 63293,\n        \"queued_at\": \"2020-05-14T17:23:07.944457Z\"\n      },\n      {\n        \"attempted_at\": \"2020-05-13T17:22:30.444389Z\",\n        \"id\": 62212,\n        \"queued_at\": \"2020-05-13T17:22:30.354828Z\"\n      }\n    ],\n    \"resolved_at\": \"2020-05-14T17:22:30.000000Z\",\n    \"sample_size\": 100,\n    \"sample_size_unit\": \"views\",\n    \"severity\": \"alert\",\n    \"started_at\": \"2020-05-13T17:21:54.000000Z\",\n    \"status\": \"closed\",\n    \"threshold\": 100\n  },\n  \"timeframe\": [\n    1610036456,\n    1610122856\n  ],\n  \"total_row_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "316bf2ec-28a9-430b-860e-81e17d7fbf96",
+          "name": "List Related Incidents",
+          "request": {
+            "name": "List Related Incidents",
+            "description": {
+              "content": "Returns all the incidents that seem related to a specific incident.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "data",
+                "v1",
+                "incidents",
+                ":INCIDENT_ID",
+                "related"
+              ],
+              "host": [
+                "api",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Number of items to include in the response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Offset by this many pages, of the size of `limit`"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Value to order the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_direction",
+                  "value": "<string>",
+                  "description": "Sort order."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "INCIDENT_ID",
+                  "description": "(Required) ID of the Incident"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "131620fd-ee86-49ea-899f-ed00c105db24",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "data",
+                    "v1",
+                    "incidents",
+                    ":INCIDENT_ID",
+                    "related"
+                  ],
+                  "host": [
+                    "api",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "INCIDENT_ID",
+                      "description": "(Required) ID of the Incident"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"affected_views\": 71,\n      \"affected_views_per_hour\": 29,\n      \"affected_views_per_hour_on_open\": 75,\n      \"breakdowns\": [\n        {\n          \"id\": \"abcdef\",\n          \"name\": \"error_type_id\",\n          \"value\": \"697070\"\n        }\n      ],\n      \"description\": \"Something is broken\",\n      \"error_description\": \"No seriously, something is really really broken :(\",\n      \"id\": \"4u13td\",\n      \"impact\": \"*71 views* were affected at a rate of *29 per hour*\",\n      \"incident_key\": \"5312a7c0bbb5d8353bd88602f01fe58eb15e9febac8fd2f0d8ce8f1cb138145c\",\n      \"measured_value\": 5.9,\n      \"measured_value_on_close\": 0.1,\n      \"measurement\": \"error_rate\",\n      \"notification_rules\": [],\n      \"notifications\": [\n        {\n          \"attempted_at\": \"2021-01-05T09:52:15.119040Z\",\n          \"id\": 103014,\n          \"queued_at\": \"2021-01-05T09:52:14.945157Z\"\n        },\n        {\n          \"attempted_at\": \"2021-01-05T11:31:08.244462Z\",\n          \"id\": 102025,\n          \"queued_at\": \"2021-01-05T11:31:08.061924Z\"\n        }\n      ],\n      \"resolved_at\": \"2021-01-05T11:31:04.000000Z\",\n      \"sample_size\": 1000,\n      \"sample_size_unit\": \"views\",\n      \"severity\": \"alert\",\n      \"started_at\": \"2021-01-05T09:04:46.000000Z\",\n      \"status\": \"closed\",\n      \"threshold\": 5\n    },\n    {\n      \"affected_views\": 132,\n      \"affected_views_per_hour\": 11,\n      \"affected_views_per_hour_on_open\": 65,\n      \"breakdowns\": [\n        {\n          \"id\": \"abcdef\",\n          \"name\": \"video_title\",\n          \"value\": \"Layla the dog video 1337\"\n        },\n        {\n          \"id\": \"abcdef\",\n          \"name\": \"error_type_id\",\n          \"value\": \"697065\"\n        }\n      ],\n      \"description\": \"Something else is broken\",\n      \"error_description\": \"Detailed error: On no!\",\n      \"id\": \"rd9579\",\n      \"impact\": \"*132 views* were affected at a rate of *11 per hour*\",\n      \"incident_key\": \"fd9add7a85a013d768f4039f9e726133eddb476c2f16b22ebfe56f18f7c03b27\",\n      \"measured_value\": 97,\n      \"measured_value_on_close\": 1,\n      \"measurement\": \"error_rate\",\n      \"notification_rules\": [],\n      \"notifications\": [\n        {\n          \"attempted_at\": \"2020-12-31T09:26:19.416919Z\",\n          \"id\": 102198,\n          \"queued_at\": \"2020-12-31T09:26:18.987717Z\"\n        },\n        {\n          \"attempted_at\": \"2020-12-31T20:23:57.279325Z\",\n          \"id\": 101269,\n          \"queued_at\": \"2020-12-31T20:23:56.997068Z\"\n        }\n      ],\n      \"resolved_at\": \"2020-12-31T20:22:54.000000Z\",\n      \"sample_size\": 100,\n      \"sample_size_unit\": \"views\",\n      \"severity\": \"alert\",\n      \"started_at\": \"2020-12-31T07:56:22.000000Z\",\n      \"status\": \"closed\",\n      \"threshold\": 96\n    }\n  ],\n  \"timeframe\": [\n    1610035979,\n    1610122379\n  ],\n  \"total_row_count\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "716c7a76-3d8d-4bb7-b6f5-1a2c83c47da9",
+    "name": "Mux Animated Images Incidents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

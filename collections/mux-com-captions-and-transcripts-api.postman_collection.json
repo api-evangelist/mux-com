@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "83cbb0f9-53e4-422b-84fd-542e40095049",
+      "name": "Captions and Transcripts",
+      "description": {
+        "content": "APIs for retrieving captions and transcripts from videos hosted using Mux that have had captions generated automatically.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ffe4377-27c7-44e4-a1a0-30bf07326c91",
+          "name": "Retrieve a WebVTT File for a Text Track",
+          "request": {
+            "name": "Retrieve a WebVTT File for a Text Track",
+            "description": {
+              "content": "Fetch a standalone WebVTT version of a text track from an asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                ":PLAYBACK_ID",
+                "text",
+                "{{TRACK_ID}}.vtt"
+              ],
+              "host": [
+                "stream",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "TOKEN",
+                  "value": "<string>",
+                  "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/vtt"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82ab7e51-1193-44e5-b1b4-3c8273d46836",
+              "name": "WebVTT retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "text",
+                    "{{TRACK_ID}}.vtt"
+                  ],
+                  "host": [
+                    "stream",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/vtt"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/vtt"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0d8e18ec-4add-48a0-b8d2-a118b8ed9438",
+              "name": "Invalid request due to missing or incorrect parameters.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "text",
+                    "{{TRACK_ID}}.vtt"
+                  ],
+                  "host": [
+                    "stream",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3,\n  \"message\": \"Invalid parameter\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee4120de-3c0b-4595-931c-c76944617d02",
+              "name": "The requested text track was not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "text",
+                    "{{TRACK_ID}}.vtt"
+                  ],
+                  "host": [
+                    "stream",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5,\n  \"message\": \"Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1a14de4-c0f5-4ec3-bfa7-574e84d63eb9",
+          "name": "Retrieve a Transcript",
+          "request": {
+            "name": "Retrieve a Transcript",
+            "description": {
+              "content": "Fetch a [transcript of an asset](https://docs.mux.com/guides/add-autogenerated-captions-and-use-transcripts#retrieve-a-transcript). This is only possible for assets with a text track generated using the [VOD generated captions feature](https://docs.mux.com/guides/add-autogenerated-captions-and-use-transcripts).",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                ":PLAYBACK_ID",
+                "text",
+                "{{TRACK_ID}}.txt"
+              ],
+              "host": [
+                "stream",
+                "mux",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "TOKEN",
+                  "value": "<string>",
+                  "description": "Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "PLAYBACK_ID",
+                  "description": "(Required) The asset or live stream's playback ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7cc46a78-df25-4110-8edc-50e05d373372",
+              "name": "Transcript retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "text",
+                    "{{TRACK_ID}}.txt"
+                  ],
+                  "host": [
+                    "stream",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "52ea8fd7-b3d3-44dd-90ca-f91e550450fc",
+              "name": "Invalid request due to missing or incorrect parameters.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "text",
+                    "{{TRACK_ID}}.txt"
+                  ],
+                  "host": [
+                    "stream",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3,\n  \"message\": \"Invalid parameter\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0daf93e0-7191-4f65-98cf-11f11a80d8ed",
+              "name": "The requested text track was not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    ":PLAYBACK_ID",
+                    "text",
+                    "{{TRACK_ID}}.txt"
+                  ],
+                  "host": [
+                    "stream",
+                    "mux",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "TOKEN",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "PLAYBACK_ID",
+                      "description": "(Required) The asset or live stream's playback ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5,\n  \"message\": \"Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The ID of the track for an asset.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "TRACK_ID"
+    }
+  ],
+  "info": {
+    "_postman_id": "02b2b4d5-da69-4763-b9ab-792eaf846239",
+    "name": "Mux Animated Images Captions and Transcripts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.\n\nContact Support:\n Name: Mux DevEx\n Email: devex@mux.com",
+      "type": "text/plain"
+    }
+  }
+}

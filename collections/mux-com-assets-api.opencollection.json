@@ -1,0 +1,514 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Assets API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is used to request pages beyond the first. You can find the cursor value in the `next_cursor` field of paginated responses."
+              },
+              {
+                "name": "live_stream_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return all the assets for this live stream only"
+              },
+              {
+                "name": "upload_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter response to return an asset created from this direct upload only"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all Mux assets."
+        },
+        {
+          "info": {
+            "name": "Create an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new Mux Video asset."
+        },
+        {
+          "info": {
+            "name": "Retrieve an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of an asset that has previously been created. Supply the unique asset ID that was returned from your previous request, and Mux will return the corresponding asset information. The same information is returned when creating an asset."
+        },
+        {
+          "info": {
+            "name": "Update an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the details of an existing Asset with the provided Asset ID. This API currently only supports the `passthrough` and `meta` fields."
+        },
+        {
+          "info": {
+            "name": "Delete an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a video asset and all its data."
+        },
+        {
+          "info": {
+            "name": "Retrieve Asset Input Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/input-info",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of the input objects that were used to create the asset along with any settings that were applied to each input."
+        },
+        {
+          "info": {
+            "name": "Create a Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/playback-ids",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a playback ID that can be used to stream the asset to a viewer."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves information about the specified playback ID."
+        },
+        {
+          "info": {
+            "name": "Delete a Playback ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/playback-ids/:PLAYBACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "PLAYBACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset or live stream's playback ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a playback ID, rendering it nonfunctional for viewing an asset's video content. Please note that deleting the playback ID removes access to the underlying asset; a viewer who started playback before the playback ID was deleted may be able to watch the entire video for a limited duration."
+        },
+        {
+          "info": {
+            "name": "Update MP4 Support",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/mp4-support",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This method has been deprecated. Please see the [Static Rendition API](https://www.mux.com/docs/guides/enable-static-mp4-renditions#after-asset-creation).\nAllows you to add or remove mp4 support for assets that were created without it. The values supported are `capped-1080p`, `audio-only`, `audio-only,capped-1080p`, `standard`(deprecated),  and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from "
+        },
+        {
+          "info": {
+            "name": "Update Master Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/master-access",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Allows you to add temporary access to the master (highest-quality) version of the asset in MP4 format. A URL will be created that can be used to download the master version for 24 hours. After 24 hours Master Access will revert to \"none\".\nThis master version is not optimized for web and not meant to be streamed, only downloaded for purposes like archiving or editing the video offline."
+        },
+        {
+          "info": {
+            "name": "Create a Static Rendition for an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/static-renditions",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a static rendition (i.e. MP4) for an asset"
+        },
+        {
+          "info": {
+            "name": "Delete a Single Static Rendition for an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/static-renditions/:STATIC_RENDITION_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "STATIC_RENDITION_ID",
+                "value": "",
+                "type": "path",
+                "description": "The static rendition ID."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a single static rendition for an asset"
+        },
+        {
+          "info": {
+            "name": "Create an Asset Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Adds an asset track (for example, subtitles, or an alternate audio track) to an asset. Assets must be in the `ready` state before tracks can be added."
+        },
+        {
+          "info": {
+            "name": "Update an Asset Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks/:TRACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the details of an existing Asset Track with the provided Asset ID and Track ID."
+        },
+        {
+          "info": {
+            "name": "Delete an Asset Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks/:TRACK_ID",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Removes a text or additional audio track from an asset. Neither video nor the primary audio track can be removed."
+        },
+        {
+          "info": {
+            "name": "Generate Track Subtitles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/assets/:ASSET_ID/tracks/:TRACK_ID/generate-subtitles",
+            "params": [
+              {
+                "name": "ASSET_ID",
+                "value": "",
+                "type": "path",
+                "description": "The asset ID."
+              },
+              {
+                "name": "TRACK_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the track for an asset."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Generates subtitles (captions) for a given audio track. [See docs for more information.](https://mux.com/docs/guides/add-autogenerated-captions-and-use-transcripts#retroactively-enable-auto-generated-captions)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

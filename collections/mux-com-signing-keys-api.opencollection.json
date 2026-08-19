@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Signing Keys API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signing Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Signing Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/system/v1/signing-keys",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of signing keys."
+        },
+        {
+          "info": {
+            "name": "Create a Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/system/v1/signing-keys",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/system/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of a signing key that has previously\nbeen created. Supply the unique signing key ID that was returned from your\nprevious request, and Mux will return the corresponding signing key information.\n**The private key is not returned in this response.**\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Signing Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/system/v1/signing-keys/:SIGNING_KEY_ID",
+            "params": [
+              {
+                "name": "SIGNING_KEY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the signing key."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no JWTs can be signed using the key again."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

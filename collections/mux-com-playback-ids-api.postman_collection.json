@@ -1,0 +1,157 @@
+{
+  "item": [
+    {
+      "id": "6b5a1a62-fdc6-4846-8fc5-ce06c5ecb51c",
+      "name": "Playback IDs",
+      "description": {
+        "content": "Manage playback IDs for assets.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "57a16a5b-ff52-457b-8b0d-8c9ed35b0fb6",
+          "name": "Create a playback ID",
+          "request": {
+            "name": "Create a playback ID",
+            "description": {},
+            "url": {
+              "path": [
+                "video",
+                "v1",
+                "assets",
+                ":ASSET_ID",
+                "playback_ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ASSET_ID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27f2f616-1a6a-4d51-bf62-aee51ffd6239",
+              "name": "Playback ID created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video",
+                    "v1",
+                    "assets",
+                    ":ASSET_ID",
+                    "playback_ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ASSET_ID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mux.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "549ced9a-171c-4d5d-a9ca-5af362ef8ab7",
+    "name": "Mux Video Assets Playback IDs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for ingesting, transcoding, storing, and delivering on-demand\nand live video. Provides endpoints for direct uploads, assets, playback\nIDs, live streams, and related resources. Authenticated via HTTP Basic\nauth using a Mux Access Token ID and Secret.\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Playback Restrictions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Playback Restrictions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Playback Restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/playback-restrictions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns a list of all Playback Restrictions."
+        },
+        {
+          "info": {
+            "name": "Create a Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/playback-restrictions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new Playback Restriction."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a Playback Restriction associated with the unique identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a single Playback Restriction."
+        },
+        {
+          "info": {
+            "name": "Update the Referrer Playback Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID/referrer",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Allows you to modify the list of domains or change how Mux validates playback requests without the `Referer` HTTP header. The Referrer restriction fully replaces the old list with this new list of domains."
+        },
+        {
+          "info": {
+            "name": "Update the User Agent Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/playback-restrictions/:PLAYBACK_RESTRICTION_ID/user_agent",
+            "params": [
+              {
+                "name": "PLAYBACK_RESTRICTION_ID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Playback Restriction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Allows you to modify how Mux validates playback requests with different user agents.  Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

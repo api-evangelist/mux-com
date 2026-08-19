@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mux Animated Images Transcription Vocabularies API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transcription Vocabularies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Transcription Vocabularies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Offset by this many pages, of the size of `limit`"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all Transcription Vocabularies."
+        },
+        {
+          "info": {
+            "name": "Create a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a new Transcription Vocabulary."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies/:TRANSCRIPTION_VOCABULARY_ID",
+            "params": [
+              {
+                "name": "TRANSCRIPTION_VOCABULARY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Transcription Vocabulary."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the details of a Transcription Vocabulary that has previously been created. Supply the unique Transcription Vocabulary ID and Mux will return the corresponding Transcription Vocabulary information. The same information is returned when creating a Transcription Vocabulary."
+        },
+        {
+          "info": {
+            "name": "Update a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies/:TRANSCRIPTION_VOCABULARY_ID",
+            "params": [
+              {
+                "name": "TRANSCRIPTION_VOCABULARY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Transcription Vocabulary."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates the details of a previously-created Transcription Vocabulary. Updates to Transcription Vocabularies are allowed while associated live streams are active. However, updates will not be applied to those streams while they are active."
+        },
+        {
+          "info": {
+            "name": "Delete a Transcription Vocabulary",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mux.com/video/v1/transcription-vocabularies/:TRANSCRIPTION_VOCABULARY_ID",
+            "params": [
+              {
+                "name": "TRANSCRIPTION_VOCABULARY_ID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Transcription Vocabulary."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a Transcription Vocabulary. The Transcription Vocabulary's ID will be disassociated from any live streams using it. Transcription Vocabularies can be deleted while associated live streams are active. However, the words and phrases in the deleted Transcription Vocabulary will remain attached to those streams while they are active."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

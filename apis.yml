@@ -35,6 +35,10 @@ apis:
 - aid: mux-com:webhooks
   name: Mux Webhooks
   tags:
+  - Webhook
+  - Event
+  - Notification
+  tags_raw:
   - Webhooks
   - Events
   - Notifications
@@ -506,6 +510,8 @@ apis:
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
+  - Export
+  tags_raw:
   - Exports
   properties:
   - type: OpenAPI
@@ -697,6 +703,8 @@ apis:
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI

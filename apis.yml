@@ -50,8 +50,9 @@ apis:
     type: Documentation
   - url: https://www.mux.com/docs/webhook-reference
     type: APIReference
-  description: Mux Webhooks deliver signed HTTP callbacks for asset, upload, live stream, and robots job
-    lifecycle events (video.asset.created, video.asset.ready, video.live_stream.active, video.upload.asset_created,
+  description: >-
+    Mux Webhooks deliver signed HTTP callbacks for asset, upload, live stream, and robots job lifecycle
+    events (video.asset.created, video.asset.ready, video.live_stream.active, video.upload.asset_created,
     robots.job.completed, and many more). Each delivery carries a Mux-Signature header (HMAC-SHA256 over
     the raw body and a per-endpoint secret) and includes attempt history visible in the dashboard.
 - aid: mux-com:mux-com-animated-images-api
@@ -94,7 +95,8 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-annotations-api
   name: Mux Annotations API
-  description: Annotations allow you to add notes at a specific datetime to view in the Mux Data dashboard.
+  description: >-
+    Annotations allow you to add notes at a specific datetime to view in the Mux Data dashboard.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -170,12 +172,13 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-assets-api
   name: Mux Assets API
-  description: 'An asset refers to a piece of media content that is stored or is being live streamed through
-    the Mux system. An asset always has a duration and one or more tracks (audio, video, and text data).
+  description: >-
+    An asset refers to a piece of media content that is stored or is being live streamed through the Mux
+    system. An asset always has a duration and one or more tracks (audio, video, and text data).
 
 
     The media content of an asset cannot be updated once created, however an asset can be used to create
-    another asset, and can be modified within that process.'
+    another asset, and can be modified within that process.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -213,8 +216,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-captions-and-transcripts-api
   name: Mux Captions and Transcripts API
-  description: APIs for retrieving captions and transcripts from videos hosted using Mux that have had
-    captions generated automatically.
+  description: >-
+    APIs for retrieving captions and transcripts from videos hosted using Mux that have had captions generated
+    automatically.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -252,14 +256,15 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-delivery-usage-api
   name: Mux Delivery Usage API
-  description: 'The Delivery Usage API allows you to get delivery/streaming usage details for each asset
-    and across all assets. Delivery usage details are aggregated every hour at the top of the hour and
-    can be requested for a specified time window within the last 90 days starting at 12 hours prior to
-    when the request is made.
+  description: >-
+    The Delivery Usage API allows you to get delivery/streaming usage details for each asset and across
+    all assets. Delivery usage details are aggregated every hour at the top of the hour and can be requested
+    for a specified time window within the last 90 days starting at 12 hours prior to when the request
+    is made.
 
 
     Assets are ordered by delivery usage starting with the one with the highest usage. Only assets with
-    delivery usage greater than 0 seconds are returned in the response.'
+    delivery usage greater than 0 seconds are returned in the response.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -297,11 +302,11 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-dimensions-api
   name: Mux Dimensions API
-  description: Dimensions are the types of metadata that can be collected for a video view. Some dimensions
-    are collected automatically based on the playback or device, such as the viewer's Country or the device
-    information. Other dimensions are specified by the developer when configuring a Mux Data video view
-    such as the video title. The Dimensions APIs allow you to get a list of the supported dimensions and
-    their values.
+  description: >-
+    Dimensions are the types of metadata that can be collected for a video view. Some dimensions are collected
+    automatically based on the playback or device, such as the viewer's Country or the device information.
+    Other dimensions are specified by the developer when configuring a Mux Data video view such as the
+    video title. The Dimensions APIs allow you to get a list of the supported dimensions and their values.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -339,17 +344,18 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-direct-uploads-api
   name: Mux Direct Uploads API
-  description: 'Direct upload allows you to push assets directly to Mux storage instead of needing to
-    go through your own first. When you create a new direct upload, we''ll give you back a signed URL
-    for a Google Cloud Storage bucket. Their storage API is S3 compatible, so whatever tool you use to
-    upload to either GCS or S3 should work, just remember you''re probably uploading large video files
-    and should [take advantage of things like resumable or multipart uploads](https://cloud.google.com/storage/docs/json_api/v1/how-tos/resumable-upload).
+  description: >-
+    Direct upload allows you to push assets directly to Mux storage instead of needing to go through your
+    own first. When you create a new direct upload, we'll give you back a signed URL for a Google Cloud
+    Storage bucket. Their storage API is S3 compatible, so whatever tool you use to upload to either GCS
+    or S3 should work, just remember you're probably uploading large video files and should [take advantage
+    of things like resumable or multipart uploads](https://cloud.google.com/storage/docs/json_api/v1/how-tos/resumable-upload).
 
 
-    Particularly for customers that deal with a lot of user-generated content, it''s common to expect
-    quite a few abandoned uploads. To keep those abandoned uploads from cluttering up your asset lists,
-    we don''t create an asset for you until the upload is complete. Once that asset is created, you can
-    expect all of the normal asset-related webhooks.'
+    Particularly for customers that deal with a lot of user-generated content, it's common to expect quite
+    a few abandoned uploads. To keep those abandoned uploads from cluttering up your asset lists, we don't
+    create an asset for you until the upload is complete. Once that asset is created, you can expect all
+    of the normal asset-related webhooks.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -387,8 +393,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-drm-configurations-api
   name: Mux DRM Configurations API
-  description: DRM Configurations allow you to adjust the security level of content delivered through
-    Mux Video's Digital Rights Management (DRM) feature.
+  description: >-
+    DRM Configurations allow you to adjust the security level of content delivered through Mux Video's
+    Digital Rights Management (DRM) feature.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -426,8 +433,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-edit-captions-api
   name: Mux Edit Captions API
-  description: Edit an existing caption track with find-and-replace edits and optional profanity censoring.
-    This workflow is currently in beta.
+  description: >-
+    Edit an existing caption track with find-and-replace edits and optional profanity censoring. This
+    workflow is currently in beta.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -465,8 +473,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-errors-api
   name: Mux Errors API
-  description: Playback errors are tracked and aggregated by Mux Data. Errors can be listed by the API,
-    which contains data about the error code, message, and how often the error occurred.
+  description: >-
+    Playback errors are tracked and aggregated by Mux Data. Errors can be listed by the API, which contains
+    data about the error code, message, and how often the error occurred.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -504,9 +513,10 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-exports-api
   name: Mux Exports API
-  description: Exports allow you to download the daily CSV files that are generated from the video views
-    that occurred in the previous day. Please contact [support](mailto:support@mux.com) for information
-    about enabling exports for your organization.
+  description: >-
+    Exports allow you to download the daily CSV files that are generated from the video views that occurred
+    in the previous day. Please contact [support](mailto:support@mux.com) for information about enabling
+    exports for your organization.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -660,8 +670,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-incidents-api
   name: Mux Incidents API
-  description: Incidents occur when an anomaly alert is triggered in Mux Data. The Incidents API provides
-    operations related to the raising and managing of alerting incidents.
+  description: >-
+    Incidents occur when an anomaly alert is triggered in Mux Data. The Incidents API provides operations
+    related to the raising and managing of alerting incidents.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -739,14 +750,15 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-live-streams-api
   name: Mux Live Streams API
-  description: 'A Live Stream represents a unique live stream of video being pushed to Mux. It includes
-    configuration details (a Stream Key) for live broadcasting software/hardware and a Playback ID for
-    playing the stream anywhere. Currently, RTMP is the only supported method of ingesting video. Use
-    rtmp://global-live.mux.com:5222/app with the Live Stream''s Stream Key for getting the video into
-    Mux, and use https://stream.mux.com with the Live Stream''s Playback ID for playback.
+  description: >-
+    A Live Stream represents a unique live stream of video being pushed to Mux. It includes configuration
+    details (a Stream Key) for live broadcasting software/hardware and a Playback ID for playing the stream
+    anywhere. Currently, RTMP is the only supported method of ingesting video. Use rtmp://global-live.mux.com:5222/app
+    with the Live Stream's Stream Key for getting the video into Mux, and use https://stream.mux.com with
+    the Live Stream's Playback ID for playback.
 
 
-    A Live Stream can be used once for a specific event, or re-used forever. If you''re building an application
+    A Live Stream can be used once for a specific event, or re-used forever. If you're building an application
     like Facebook Live or Twitch, you could create one Live Stream per user. This allows them to configure
     their broadcasting software once, and the Live Stream Playback ID will always show their latest stream.
 
@@ -757,7 +769,7 @@ apis:
     same behavior as other Assets you create.
 
 
-    Learn more about [how to go live in our guides](https://docs.mux.com/guides/start-live-streaming).'
+    Learn more about [how to go live in our guides](https://docs.mux.com/guides/start-live-streaming).
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -795,9 +807,10 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-metrics-api
   name: Mux Metrics API
-  description: 'Historical metrics are used for tracking KPIs, diagnosing issues, and
+  description: >-
+    Historical metrics are used for tracking KPIs, diagnosing issues, and
 
-    measuring viewers'' quality of experience. Metrics are calculated using the
+    measuring viewers' quality of experience. Metrics are calculated using the
 
     video views that have been completed and are bucketed on the view end time
 
@@ -818,7 +831,7 @@ apis:
 
     storage historical reporting and are generated using different viewer
 
-    populations.'
+    populations.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -894,11 +907,12 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-monitoring-api
   name: Mux Monitoring API
-  description: 'Monitoring metrics are used for operational monitoring of a video platform.
+  description: >-
+    Monitoring metrics are used for operational monitoring of a video platform.
 
     The metrics are aggregated in five second intervals, across the views that
 
-    are currently being watched. The real-time metrics'' timeline, breakdown,
+    are currently being watched. The real-time metrics' timeline, breakdown,
 
     and histogram representations are available via the APIs.
 
@@ -909,7 +923,7 @@ apis:
 
     operational detail possible used for resolving operational issues.
 
-    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.'
+    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -947,8 +961,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-playback-id-api
   name: Mux Playback ID API
-  description: Operations related to the manipulation of playback IDs, through which users are able to
-    stream videos and live streams from Mux.
+  description: >-
+    Operations related to the manipulation of playback IDs, through which users are able to stream videos
+    and live streams from Mux.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -986,11 +1001,12 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-playback-restrictions-api
   name: Mux Playback Restrictions API
-  description: Playback Restrictions allows you to set additional rules for playing videos. You can set
-    the domains/hostnames allowed to play your videos. For instance, viewers can play videos embedded
-    on the `https://example.com` website when you set the Playback Restrictions with `example.com` as
-    an allowed domain. Any Video requests from other websites are denied. Additionally, you can set rules
-    for what user agents to allow. Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation)
+  description: >-
+    Playback Restrictions allows you to set additional rules for playing videos. You can set the domains/hostnames
+    allowed to play your videos. For instance, viewers can play videos embedded on the `https://example.com`
+    website when you set the Playback Restrictions with `example.com` as an allowed domain. Any Video
+    requests from other websites are denied. Additionally, you can set rules for what user agents to allow.
+    Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation)
     for more details on this feature.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
@@ -1029,11 +1045,12 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-real-time-api
   name: Mux Real-Time API
-  description: 'The Mux Data Real-time API has been deprecated, please refer to the
+  description: >-
+    The Mux Data Real-time API has been deprecated, please refer to the
 
     Mux Data `Monitoring` APIs which provide the same functionality.
 
-    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.'
+    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1071,11 +1088,12 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-signing-keys-api
   name: Mux Signing Keys API
-  description: Signing keys are used to sign JSON Web Tokens (JWTs) for securing certain requests, such
-    as secure playback URLs and access to real-time viewer counts in Mux Data. **One signing key can be
-    used to sign multiple requests - you probably only need one active at a time.** However, you can create
-    multiple signing keys to enable key rotation, creating a new key and deleting the old only after any
-    existing signed requests have expired.
+  description: >-
+    Signing keys are used to sign JSON Web Tokens (JWTs) for securing certain requests, such as secure
+    playback URLs and access to real-time viewer counts in Mux Data. **One signing key can be used to
+    sign multiple requests - you probably only need one active at a time.** However, you can create multiple
+    signing keys to enable key rotation, creating a new key and deleting the old only after any existing
+    signed requests have expired.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1113,8 +1131,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-storyboards-api
   name: Mux Storyboards API
-  description: APIs for retrieving storyboards, sprites, and metadata about the storyboards from videos
-    hosted using Mux.
+  description: >-
+    APIs for retrieving storyboards, sprites, and metadata about the storyboards from videos hosted using
+    Mux.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1266,10 +1285,10 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-transcription-vocabularies-api
   name: Mux Transcription Vocabularies API
-  description: Transcription Vocabularies allows you to provide collections of phrases like proper nouns,
-    technical jargon, and uncommon words as part of captioning workflows. When using Auto-Generated Captions,
-    Transcription Vocabularies increase the likelihood of correct speech recognition for these words and
-    phrases.
+  description: >-
+    Transcription Vocabularies allows you to provide collections of phrases like proper nouns, technical
+    jargon, and uncommon words as part of captioning workflows. When using Auto-Generated Captions, Transcription
+    Vocabularies increase the likelihood of correct speech recognition for these words and phrases.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1345,9 +1364,10 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-url-signing-keys-api
   name: Mux URL Signing Keys API
-  description: A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON
-    Web Token](https://jwt.io/) as the value of the token query parameter. The token query parameter must
-    be set for URLs that reference a playback ID with a signed playback policy.
+  description: >-
+    A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON Web Token](https://jwt.io/)
+    as the value of the token query parameter. The token query parameter must be set for URLs that reference
+    a playback ID with a signed playback policy.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1385,8 +1405,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-utilities-api
   name: Mux Utilities API
-  description: Collection of utility methods for using Mux APIs. There's only one thing in here right
-    now, maybe there will be more later.
+  description: >-
+    Collection of utility methods for using Mux APIs. There's only one thing in here right now, maybe
+    there will be more later.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1424,8 +1445,9 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-video-views-api
   name: Mux Video Views API
-  description: An individual video view tracked by Mux Data. For the full list of properties for each
-    view please refer to the table of data fields in the [Export raw video view data guide](https://docs.mux.com/guides/export-raw-video-view-data).
+  description: >-
+    An individual video view tracked by Mux Data. For the full list of properties for each view please
+    refer to the table of data fields in the [Export raw video view data guide](https://docs.mux.com/guides/export-raw-video-view-data).
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1463,8 +1485,8 @@ apis:
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
 - aid: mux-com:mux-com-view-and-viewer-counts-api
   name: Mux View and Viewer Counts API
-  description: API for retrieving the real-time count of views and viewers based on ID as collected by
-    Mux Data.
+  description: >-
+    API for retrieving the real-time count of views and viewers based on ID as collected by Mux Data.
   humanURL: https://www.mux.com/docs/api-reference
   baseURL: https://api.mux.com
   tags:
@@ -1500,6 +1522,16 @@ apis:
     url: https://www.mux.com/docs/guides/signing-jwts
   - type: APIReference
     url: https://www.mux.com/docs/api-reference#tag/Signing-Keys
+- aid: mux-com:mux-com-playback-ids-api
+  name: Mux Playback IDs API
+  description: Manage playback IDs for assets.
+  humanURL: https://www.mux.com/docs/webhook-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Playback IDs
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-playback-ids-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/mux-com-agentic-access.yml

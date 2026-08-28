@@ -11,8 +11,8 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: muxApi
-  url: ../openapi/mux-openapi.yml
+- name: videoViewsApi
+  url: ../openapi/mux-com-video-views-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: video-view-drilldown

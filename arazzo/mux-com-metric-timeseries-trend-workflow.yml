@@ -11,8 +11,8 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: muxApi
-  url: ../openapi/mux-openapi.yml
+- name: metricsApi
+  url: ../openapi/mux-com-metrics-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: metric-timeseries-trend

@@ -11,8 +11,8 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: muxApi
-  url: ../openapi/mux-openapi.yml
+- name: liveStreamsApi
+  url: ../openapi/mux-com-live-streams-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: reset-stream-key

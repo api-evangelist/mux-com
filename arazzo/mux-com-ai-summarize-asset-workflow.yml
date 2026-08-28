@@ -12,8 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: muxApi
-  url: ../openapi/mux-openapi.yml
+- name: assetsApi
+  url: ../openapi/mux-com-assets-api-openapi.yml
+  type: openapi
+- name: summarizeApi
+  url: ../openapi/mux-com-summarize-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: ai-summarize-asset

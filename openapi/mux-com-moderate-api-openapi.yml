@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Moderate API
+  title: Mux Moderate API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -161,77 +161,74 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    ModerateJobParameters:
+    JobError:
       type: object
       properties:
-        asset_id:
+        type:
           type: string
-          minLength: 1
-          description: The Mux asset ID of the video to moderate.
-        language_code:
+          description: Stable public error category identifier.
+        message:
           type: string
-          minLength: 1
-          default: en
-          description: BCP 47 language code for transcript analysis. Used only for audio-only assets; ignored for video assets with visual content. If omitted for audio-only assets, the first ready text track is used. Defaults to "en".
-        thresholds:
-          type: object
-          properties:
-            sexual:
-              type: number
-              minimum: 0
-              maximum: 1
-              description: Score threshold for sexual content. Content scoring above this value triggers exceeds_threshold.
-            violence:
-              type: number
-              minimum: 0
-              maximum: 1
-              description: Score threshold for violent content. Content scoring above this value triggers exceeds_threshold.
-          default:
-            sexual: 0.7
-            violence: 0.8
-          description: 'Score thresholds that determine whether content is flagged. When combined with sampling_interval or max_samples, the exceeds_threshold flag reflects whether any category''s highest observed score exceeds its configured threshold. Defaults to {sexual: 0.7, violence: 0.8}.'
-        sampling_interval:
-          type: integer
-          minimum: 5
-          description: Interval, in seconds, between sampled thumbnails. Minimum 5 seconds. When max_samples is also set, the actual sampling density is the more restrictive of the two constraints.
-        max_samples:
-          type: integer
-          minimum: 1
-          description: Maximum number of thumbnails to sample. Acts as a cap — if sampling_interval produces fewer samples than this limit, the interval is respected; otherwise samples are evenly distributed with first and last frames pinned.
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
       required:
-      - asset_id
-      example:
-        asset_id: mux_asset_123abc
-        thresholds:
-          sexual: 0.7
-          violence: 0.8
-    ErrorResponse:
+      - type
+      - message
+    ModerateJob:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
-    CreateModerateJobRequest:
-      type: object
-      properties:
+        id:
+          type: string
+          description: Unique job identifier.
         passthrough:
           type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - moderate
         parameters:
           $ref: '#/components/schemas/ModerateJobParameters'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        outputs:
+          $ref: '#/components/schemas/ModerateJobOutputs'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobError'
+          description: Error details. Present when status is 'errored'.
+        resources:
+          $ref: '#/components/schemas/Resources'
       required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
       - parameters
+      - status
+    ModerateJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ModerateJob'
+      required:
+      - data
     ModerateJobOutputs:
       type: object
       properties:
@@ -296,21 +293,107 @@ components:
           violence: 0.15
         exceeds_threshold: false
       description: Workflow results. Present when status is 'completed'.
-    JobError:
+    ModerateJobParameters:
       type: object
       properties:
-        type:
+        asset_id:
           type: string
-          description: Stable public error category identifier.
-        message:
+          minLength: 1
+          description: The Mux asset ID of the video to moderate.
+        language_code:
           type: string
-          description: Human-readable public error message.
-        retryable:
-          type: boolean
-          description: Whether retrying this job may resolve the error.
+          minLength: 1
+          default: en
+          description: BCP 47 language code for transcript analysis. Used only for audio-only assets; ignored for video assets with visual content. If omitted for audio-only assets, the first ready text track is used. Defaults to "en".
+        thresholds:
+          type: object
+          properties:
+            sexual:
+              type: number
+              minimum: 0
+              maximum: 1
+              description: Score threshold for sexual content. Content scoring above this value triggers exceeds_threshold.
+            violence:
+              type: number
+              minimum: 0
+              maximum: 1
+              description: Score threshold for violent content. Content scoring above this value triggers exceeds_threshold.
+          default:
+            sexual: 0.7
+            violence: 0.8
+          description: 'Score thresholds that determine whether content is flagged. When combined with sampling_interval or max_samples, the exceeds_threshold flag reflects whether any category''s highest observed score exceeds its configured threshold. Defaults to {sexual: 0.7, violence: 0.8}.'
+        sampling_interval:
+          type: integer
+          minimum: 5
+          description: Interval, in seconds, between sampled thumbnails. Minimum 5 seconds. When max_samples is also set, the actual sampling density is the more restrictive of the two constraints.
+        max_samples:
+          type: integer
+          minimum: 1
+          description: Maximum number of thumbnails to sample. Acts as a cap — if sampling_interval produces fewer samples than this limit, the interval is respected; otherwise samples are evenly distributed with first and last frames pinned.
       required:
-      - type
-      - message
+      - asset_id
+      example:
+        asset_id: mux_asset_123abc
+        thresholds:
+          sexual: 0.7
+          violence: 0.8
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+    CreateModerateJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/ModerateJobParameters'
+      required:
+      - parameters
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
     SlimlineAsset:
       type: object
       properties:
@@ -350,89 +433,6 @@ components:
       required:
       - id
       - _links
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
-    ModerateJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/ModerateJob'
-      required:
-      - data
-    Resources:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlimlineAsset'
-          description: Mux assets associated with this job.
-      required:
-      - assets
-      example:
-        assets:
-        - id: abc123asset
-          meta:
-            title: My Video
-            creator_id: user123
-            external_id: ext456
-          _links:
-            self:
-              href: https://api.mux.com/video/v1/assets/abc123asset
-      description: Related Mux resources linked to this job.
-    ModerateJob:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique job identifier.
-        passthrough:
-          type: string
-          description: Arbitrary string supplied at creation, returned as-is.
-        units_consumed:
-          type: integer
-          minimum: 0
-          description: Number of Mux AI units consumed by this job.
-        created_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was created.
-        updated_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was last updated.
-        workflow:
-          type: string
-          enum:
-          - moderate
-        parameters:
-          $ref: '#/components/schemas/ModerateJobParameters'
-        status:
-          $ref: '#/components/schemas/JobStatus'
-        outputs:
-          $ref: '#/components/schemas/ModerateJobOutputs'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobError'
-          description: Error details. Present when status is 'errored'.
-        resources:
-          $ref: '#/components/schemas/Resources'
-      required:
-      - id
-      - units_consumed
-      - created_at
-      - updated_at
-      - workflow
-      - parameters
-      - status
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

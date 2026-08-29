@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Video Views API
+  title: Mux Video Views API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -340,127 +340,117 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
+  parameters:
+    timeframe:
+      name: timeframe[]
+      in: query
+      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    error_id:
+      name: error_id
+      in: query
+      description: Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error.
+      required: false
+      schema:
+        type: integer
+        format: int32
+    video_view_id:
+      name: VIDEO_VIEW_ID
+      in: path
+      description: ID of the Video View
+      required: true
+      example: abcd1234
+      schema:
+        type: string
+    metric_filters:
+      name: metric_filters[]
+      in: query
+      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    viewer_id:
+      name: viewer_id
+      in: query
+      description: Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux.
+      required: false
+      schema:
+        type: string
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    filters:
+      name: filters[]
+      in: query
+      description: 'Filter results using key:value pairs. Must be provided as an array query string parameter.
+
+
+        **Basic filtering:**
+
+        * `filters[]=dimension:value` - Include rows where dimension equals value
+
+        * `filters[]=!dimension:value` - Exclude rows where dimension equals value
+
+
+        **For trace dimensions (like video_cdn_trace):**
+
+        * `filters[]=+dimension:value` - Include rows where trace contains value
+
+        * `filters[]=-dimension:value` - Exclude rows where trace contains value
+
+        * `filters[]=dimension:[value1,value2]` - Exact trace match
+
+
+        **Examples:**
+
+        * `filters[]=country:US` - US views only
+
+        * `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN
+
+        '
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
   schemas:
-    VideoViewResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/VideoView'
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-      required:
-      - data
-      - timeframe
-      - total_row_count
-    ListVideoViewsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AbridgedVideoView'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - total_row_count
-      - timeframe
-    VideoViewEvent:
-      type: object
-      properties:
-        viewer_time:
-          type: integer
-          format: int64
-        playback_time:
-          type: integer
-          format: int64
-        name:
-          type: string
-        event_time:
-          type: integer
-          format: int64
-        details:
-          type: object
-          additionalProperties: true
-      required:
-      - viewer_time
-      - playback_time
-      - name
-      - event_time
-      - details
-    AbridgedVideoView:
-      type: object
-      properties:
-        id:
-          type: string
-        viewer_os_family:
-          type: string
-          nullable: true
-        viewer_application_name:
-          type: string
-          nullable: true
-        video_title:
-          type: string
-          nullable: true
-        total_row_count:
-          type: integer
-          format: int64
-        player_error_message:
-          type: string
-          nullable: true
-        player_error_code:
-          type: string
-          nullable: true
-        error_type_id:
-          type: integer
-          format: int32
-          nullable: true
-        country_code:
-          type: string
-          nullable: true
-        view_start:
-          type: string
-        view_end:
-          type: string
-        viewer_experience_score:
-          type: number
-          format: float
-          nullable: true
-        watch_time:
-          type: integer
-          format: int32
-          nullable: true
-        playback_failure:
-          type: boolean
-      required:
-      - id
-      - viewer_os_family
-      - viewer_application_name
-      - video_title
-      - total_row_count
-      - player_error_message
-      - player_error_code
-      - error_type_id
-      - country_code
-      - view_start
-      - view_end
-      - viewer_experience_score
-      - watch_time
-      - playback_failure
     VideoView:
       type: object
       properties:
@@ -1270,116 +1260,126 @@ components:
       - ad_playback_failure_error_type_id
       - view_content_startup_time
       - ad_preroll_startup_time
-  parameters:
-    filters:
-      name: filters[]
-      in: query
-      description: 'Filter results using key:value pairs. Must be provided as an array query string parameter.
-
-
-        **Basic filtering:**
-
-        * `filters[]=dimension:value` - Include rows where dimension equals value
-
-        * `filters[]=!dimension:value` - Exclude rows where dimension equals value
-
-
-        **For trace dimensions (like video_cdn_trace):**
-
-        * `filters[]=+dimension:value` - Include rows where trace contains value
-
-        * `filters[]=-dimension:value` - Exclude rows where trace contains value
-
-        * `filters[]=dimension:[value1,value2]` - Exact trace match
-
-
-        **Examples:**
-
-        * `filters[]=country:US` - US views only
-
-        * `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN
-
-        '
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
+    VideoViewEvent:
+      type: object
+      properties:
+        viewer_time:
+          type: integer
+          format: int64
+        playback_time:
+          type: integer
+          format: int64
+        name:
           type: string
-    order_direction:
-      name: order_direction
-      in: query
-      description: Sort order.
-      required: false
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-    video_view_id:
-      name: VIDEO_VIEW_ID
-      in: path
-      description: ID of the Video View
-      required: true
-      example: abcd1234
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    timeframe:
-      name: timeframe[]
-      in: query
-      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
+        event_time:
+          type: integer
+          format: int64
+        details:
+          type: object
+          additionalProperties: true
+      required:
+      - viewer_time
+      - playback_time
+      - name
+      - event_time
+      - details
+    VideoViewResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/VideoView'
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    ListVideoViewsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbridgedVideoView'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - total_row_count
+      - timeframe
+    AbridgedVideoView:
+      type: object
+      properties:
+        id:
           type: string
-    viewer_id:
-      name: viewer_id
-      in: query
-      description: Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux.
-      required: false
-      schema:
-        type: string
-    error_id:
-      name: error_id
-      in: query
-      description: Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error.
-      required: false
-      schema:
-        type: integer
-        format: int32
-    metric_filters:
-      name: metric_filters[]
-      in: query
-      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
+        viewer_os_family:
           type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
+          nullable: true
+        viewer_application_name:
+          type: string
+          nullable: true
+        video_title:
+          type: string
+          nullable: true
+        total_row_count:
+          type: integer
+          format: int64
+        player_error_message:
+          type: string
+          nullable: true
+        player_error_code:
+          type: string
+          nullable: true
+        error_type_id:
+          type: integer
+          format: int32
+          nullable: true
+        country_code:
+          type: string
+          nullable: true
+        view_start:
+          type: string
+        view_end:
+          type: string
+        viewer_experience_score:
+          type: number
+          format: float
+          nullable: true
+        watch_time:
+          type: integer
+          format: int32
+          nullable: true
+        playback_failure:
+          type: boolean
+      required:
+      - id
+      - viewer_os_family
+      - viewer_application_name
+      - video_title
+      - total_row_count
+      - player_error_message
+      - player_error_code
+      - error_type_id
+      - country_code
+      - view_start
+      - view_end
+      - viewer_experience_score
+      - watch_time
+      - playback_failure
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Edit Captions API
+  title: Mux Edit Captions API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -174,91 +174,6 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    EditCaptionsJobOutputs:
-      type: object
-      properties:
-        total_replacement_count:
-          type: integer
-          minimum: 0
-          description: Total count of cue text replacements applied across all edit operations.
-        uploaded_track_id:
-          type: string
-          minLength: 1
-          description: Mux text track ID for the uploaded edited captions. Present when upload_to_mux is true and the upload succeeds.
-        temporary_vtt_url:
-          type: string
-          minLength: 1
-          description: Temporary pre-signed URL for downloading the edited VTT file.
-      required:
-      - total_replacement_count
-      example:
-        total_replacement_count: 5
-        uploaded_track_id: text_track_789ghi
-        temporary_vtt_url: https://s3.example.com/edited.vtt?sig=abc
-      description: Workflow results. Present when status is 'completed'.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
-    EditCaptionsJob:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique job identifier.
-        passthrough:
-          type: string
-          description: Arbitrary string supplied at creation, returned as-is.
-        units_consumed:
-          type: integer
-          minimum: 0
-          description: Number of Mux AI units consumed by this job.
-        created_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was created.
-        updated_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was last updated.
-        workflow:
-          type: string
-          enum:
-          - edit-captions
-        parameters:
-          $ref: '#/components/schemas/EditCaptionsJobParameters'
-        status:
-          $ref: '#/components/schemas/JobStatus'
-        outputs:
-          $ref: '#/components/schemas/EditCaptionsJobOutputs'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobError'
-          description: Error details. Present when status is 'errored'.
-        resources:
-          $ref: '#/components/schemas/Resources'
-      required:
-      - id
-      - units_consumed
-      - created_at
-      - updated_at
-      - workflow
-      - parameters
-      - status
     JobError:
       type: object
       properties:
@@ -274,92 +189,6 @@ components:
       required:
       - type
       - message
-    SlimlineAsset:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Mux asset ID.
-        meta:
-          type: object
-          properties:
-            title:
-              type: string
-              description: Asset title from Mux metadata.
-            creator_id:
-              type: string
-              description: Creator identifier from Mux metadata.
-            external_id:
-              type: string
-              description: External identifier from Mux metadata.
-          description: Mux asset metadata, if available.
-        passthrough:
-          type: string
-          description: Passthrough string from the Mux asset.
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: URL to the Mux asset resource.
-              required:
-              - href
-          required:
-          - self
-          description: Hypermedia links for the asset.
-      required:
-      - id
-      - _links
-    CreateEditCaptionsJobRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
-        parameters:
-          $ref: '#/components/schemas/EditCaptionsJobParameters'
-      required:
-      - parameters
-    EditCaptionsJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/EditCaptionsJob'
-      required:
-      - data
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
-    Resources:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlimlineAsset'
-          description: Mux assets associated with this job.
-      required:
-      - assets
-      example:
-        assets:
-        - id: abc123asset
-          meta:
-            title: My Video
-            creator_id: user123
-            external_id: ext456
-          _links:
-            self:
-              href: https://api.mux.com/video/v1/assets/abc123asset
-      description: Related Mux resources linked to this job.
     EditCaptionsJobParameters:
       type: object
       properties:
@@ -447,6 +276,177 @@ components:
           replace: going to
         upload_to_mux: true
         delete_original_track: true
+    CreateEditCaptionsJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/EditCaptionsJobParameters'
+      required:
+      - parameters
+    EditCaptionsJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - edit-captions
+        parameters:
+          $ref: '#/components/schemas/EditCaptionsJobParameters'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        outputs:
+          $ref: '#/components/schemas/EditCaptionsJobOutputs'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobError'
+          description: Error details. Present when status is 'errored'.
+        resources:
+          $ref: '#/components/schemas/Resources'
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+    EditCaptionsJobOutputs:
+      type: object
+      properties:
+        total_replacement_count:
+          type: integer
+          minimum: 0
+          description: Total count of cue text replacements applied across all edit operations.
+        uploaded_track_id:
+          type: string
+          minLength: 1
+          description: Mux text track ID for the uploaded edited captions. Present when upload_to_mux is true and the upload succeeds.
+        temporary_vtt_url:
+          type: string
+          minLength: 1
+          description: Temporary pre-signed URL for downloading the edited VTT file.
+      required:
+      - total_replacement_count
+      example:
+        total_replacement_count: 5
+        uploaded_track_id: text_track_789ghi
+        temporary_vtt_url: https://s3.example.com/edited.vtt?sig=abc
+      description: Workflow results. Present when status is 'completed'.
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
+    EditCaptionsJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/EditCaptionsJob'
+      required:
+      - data
+    SlimlineAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Mux asset ID.
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Asset title from Mux metadata.
+            creator_id:
+              type: string
+              description: Creator identifier from Mux metadata.
+            external_id:
+              type: string
+              description: External identifier from Mux metadata.
+          description: Mux asset metadata, if available.
+        passthrough:
+          type: string
+          description: Passthrough string from the Mux asset.
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to the Mux asset resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for the asset.
+      required:
+      - id
+      - _links
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

@@ -1,148 +1,68 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Direct Uploads API
-  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  title: Mux Com Direct Uploads API
   version: v1
-  contact:
-    name: Mux DevEx
-    url: https://docs.mux.com
-    email: devex@mux.com
+  description: 'Operations tagged Direct Uploads across 2 of this provider''s published API definitions: mux-com-openapi.yml, mux-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.mux.com
-  description: Mux Production API
+  description: Mux production API
 - url: https://image.mux.com
 - url: https://stream.mux.com
 - url: https://stats.mux.com
 tags:
 - name: Direct Uploads
-  description: 'Direct upload allows you to push assets directly to Mux storage instead of needing to go through your own first. When you create a new direct upload, we''ll give you back a signed URL for a Google Cloud Storage bucket. Their storage API is S3 compatible, so whatever tool you use to upload to either GCS or S3 should work, just remember you''re probably uploading large video files and should [take advantage of things like resumable or multipart uploads](https://cloud.google.com/storage/docs/json_api/v1/how-tos/resumable-upload).
-
-
-    Particularly for customers that deal with a lot of user-generated content, it''s common to expect quite a few abandoned uploads. To keep those abandoned uploads from cluttering up your asset lists, we don''t create an asset for you until the upload is complete. Once that asset is created, you can expect all of the normal asset-related webhooks.'
-  x-displayName: Direct Uploads
+  description: Create direct upload URLs and inspect upload status.
 paths:
   /video/v1/uploads:
+    get:
+      tags:
+      - Direct Uploads
+      summary: List direct uploads
+      operationId: listUploads
+      responses:
+        '200':
+          description: List of direct uploads.
+      security:
+      - basicAuth: []
     post:
-      operationId: create-direct-upload
-      servers:
-      - url: https://api.mux.com
-      description: Creates a new direct upload, through which video content can be uploaded for ingest to Mux.
-      summary: Create a New Direct Upload URL
+      tags:
+      - Direct Uploads
+      summary: Create a direct upload URL
+      operationId: createUpload
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUploadRequest'
-            example:
-              cors_origin: https://example.com/
-              new_asset_settings:
-                playback_policies:
-                - public
-      tags:
-      - Direct Uploads
+              type: object
       responses:
         '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UploadResponse'
-              example:
-                data:
-                  url: https://storage.googleapis.com/video-storage-us-east1-uploads/zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc?Expires=1610112458&GoogleAccessId=mux-direct-upload%40mux-cloud.iam.gserviceaccount.com&Signature=LCu4PMoKUo%2BJkWQAUwB9WU4bWVVfW3K5bZxSxEptBz3DrjbFxNyGvs0sriyJupZh9Jdb6FxKWFIRbxEetfnAAiesOvSPH%2F1GlIichmGg3YfebfxiX77%2B6ToFF6FMkJucBo284PD90AVLHhKagOea2VsbdO0fh78MAxGH9sEspyQ2uJEfYWjHFqYQ9smJyIuM3CYOmN5HKPgRWy2yUqzV7OTMe%2FivPO4%2FX6XiiN2J4nTmy83252CJUsHIvbiGctfKxcNI6b23UVN4B1tJTVgyxTOZiBQCkMLkD%2FEe5OhoAkvJgkqENRr0q3swO0IChDDWjrh7OTMwqvWGwAoVXEGiHg%3D%3D&upload_id=ABg5-UznTdib1HhOAMjdHhWIYqBbwmSYM6dVKyPe3v33uTeEE8gkN5QzvR3cei6uSZOSrjPn7bdvvDH3nhsrLBq8AjWY2qE4UQ
-                  timeout: 3600
-                  status: waiting
-                  new_asset_settings:
-                    playback_policies:
-                    - public
-                    video_quality: basic
-                  id: zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc
-                  cors_origin: https://example.com/
+          description: Direct upload created.
       security:
-      - accessToken: []
-      - authorizationToken: []
-    get:
-      operationId: list-direct-uploads
-      servers:
-      - url: https://api.mux.com
-      description: Lists direct uploads in the current environment.
-      summary: List Direct Uploads
-      tags:
-      - Direct Uploads
-      parameters:
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/page'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListUploadsResponse'
-              example:
-                data:
-                - url: https://storage.googleapis.com/video-storage-us-east1-uploads/zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc?Expires=1610112458&GoogleAccessId=mux-direct-upload%40mux-cloud.iam.gserviceaccount.com&Signature=LCu4PMoKUo%2BJkWQAUwB9WU4bWVVfW3K5bZxSxEptBz3DrjbFxNyGvs0sriyJupZh9Jdb6FxKWFIRbxEetfnAAiesOvSPH%2F1GlIichmGg3YfebfxiX77%2B6ToFF6FMkJucBo284PD90AVLHhKagOea2VsbdO0fh78MAxGH9sEspyQ2uJEfYWjHFqYQ9smJyIuM3CYOmN5HKPgRWy2yUqzV7OTMe%2FivPO4%2FX6XiiN2J4nTmy83252CJUsHIvbiGctfKxcNI6b23UVN4B1tJTVgyxTOZiBQCkMLkD%2FEe5OhoAkvJgkqENRr0q3swO0IChDDWjrh7OTMwqvWGwAoVXEGiHg%3D%3D&upload_id=ABg5-UznTdib1HhOAMjdHhWIYqBbwmSYM6dVKyPe3v33uTeEE8gkN5QzvR3cei6uSZOSrjPn7bdvvDH3nhsrLBq8AjWY2qE4UQ
-                  timeout: 3600
-                  status: waiting
-                  new_asset_settings:
-                    playback_policies:
-                    - public
-                    video_quality: basic
-                  id: zd01Pe2bNpYhxbrwYABgFE01twZdtv4M00kts2i02GhbGjc
-                  cors_origin: https://example.com/
-                - timeout: 3600
-                  status: asset_created
-                  new_asset_settings:
-                    playback_policies:
-                    - public
-                    video_quality: basic
-                  id: YzoCL01HHOtAVYq4Ds9zekdHJ2XqL9e8ukPWbr01KhtvM
-                  asset_id: AnFVqAVXfb7vVL3ypSQDMnJZunnb8nkwe02O00p2gK8P00
-                  cors_origin: https://example.com/
-                - timeout: 10800
-                  status: cancelled
-                  new_asset_settings:
-                    playback_policies:
-                    - public
-                    video_quality: basic
-                  id: AZcWu0201SqVW01LMdmVxE00m3gEWUFZPItvni1sTqF800dQ
-                  cors_origin: https://example.com/
-      security:
-      - accessToken: []
-      - authorizationToken: []
+      - basicAuth: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux production API
   /video/v1/uploads/{UPLOAD_ID}:
+    parameters:
+    - in: path
+      name: UPLOAD_ID
+      required: true
+      schema:
+        type: string
     get:
-      operationId: get-direct-upload
-      servers:
-      - url: https://api.mux.com
-      description: Fetches information about a single direct upload in the current environment.
-      summary: Retrieve a Single Direct Upload's Info
       tags:
       - Direct Uploads
-      parameters:
-      - $ref: '#/components/parameters/upload_id'
+      summary: Retrieve a direct upload
+      operationId: getUpload
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UploadResponse'
-              example:
-                data:
-                  timeout: 3600
-                  status: asset_created
-                  new_asset_settings:
-                    playback_policies:
-                    - public
-                    video_quality: basic
-                  id: YzoCL01HHOtAVYq4Ds9zekdHJ2XqL9e8ukPWbr01KhtvM
-                  asset_id: AnFVqAVXfb7vVL3ypSQDMnJZunnb8nkwe02O00p2gK8P00
-                  cors_origin: https://example.com/
+          description: Direct upload details.
       security:
-      - accessToken: []
-      - authorizationToken: []
+      - basicAuth: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux production API
   /video/v1/uploads/{UPLOAD_ID}/cancel:
     put:
       operationId: cancel-direct-upload
@@ -182,8 +102,179 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
 components:
   schemas:
+    CreateStaticRenditionRequest:
+      type: object
+      required:
+      - resolution
+      properties:
+        resolution:
+          type: string
+          enum:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+    InputSettings:
+      type: object
+      description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
+      properties:
+        url:
+          type: string
+          description: 'The URL of the file that Mux should download and use.
+
+            * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
+
+            * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
+
+            * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
+
+            The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
+
+            '
+        overlay_settings:
+          type: object
+          description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
+          properties:
+            vertical_align:
+              type: string
+              enum:
+              - top
+              - middle
+              - bottom
+              description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
+            vertical_margin:
+              type: string
+              description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
+            horizontal_align:
+              type: string
+              enum:
+              - left
+              - center
+              - right
+              description: Where the horizontal positioning of the overlay/watermark should begin from.
+            horizontal_margin:
+              type: string
+              description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
+            width:
+              type: string
+              description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
+            height:
+              type: string
+              description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
+            opacity:
+              type: string
+              description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
+        generated_subtitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
+          description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
+        start_time:
+          type: number
+          format: double
+          description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+        end_time:
+          type: number
+          format: double
+          description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+        type:
+          type: string
+          enum:
+          - video
+          - audio
+          - text
+          description: This parameter is required for `text` type tracks.
+        text_type:
+          type: string
+          enum:
+          - subtitles
+          description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
+        language_code:
+          type: string
+          description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
+        name:
+          type: string
+          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
+        closed_captions:
+          type: boolean
+          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+        passthrough:
+          type: string
+          description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+    UploadResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Upload'
+    AssetGeneratedSubtitleSettings:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A name for this subtitle track.
+        passthrough:
+          type: string
+          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
+        language_code:
+          type: string
+          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
+          default: en
+          enum:
+          - en
+          - es
+          - it
+          - pt
+          - de
+          - fr
+          - pl
+          - ru
+          - nl
+          - ca
+          - tr
+          - sv
+          - uk
+          - 'no'
+          - fi
+          - sk
+          - el
+          - cs
+          - hr
+          - da
+          - ro
+          - bg
+          - auto
+    ListUploadsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Upload'
     CreatePlaybackIDRequest:
       type: object
       properties:
@@ -341,36 +432,6 @@ components:
         * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
 
         '
-    ListUploadsResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Upload'
-    CreateStaticRenditionRequest:
-      type: object
-      required:
-      - resolution
-      properties:
-        resolution:
-          type: string
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
     CreateUploadRequest:
       type: object
       required:
@@ -395,13 +456,6 @@ components:
           type: boolean
           format: boolean
           description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
-    UploadResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/Upload'
     AssetMetadata:
       type: object
       description: 'Customer provided metadata about this asset.
@@ -423,43 +477,6 @@ components:
           type: string
           maxLength: 128
           description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
-    AssetGeneratedSubtitleSettings:
-      type: object
-      properties:
-        name:
-          type: string
-          description: A name for this subtitle track.
-        passthrough:
-          type: string
-          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
-        language_code:
-          type: string
-          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
-          default: en
-          enum:
-          - en
-          - es
-          - it
-          - pt
-          - de
-          - fr
-          - pl
-          - ru
-          - nl
-          - ca
-          - tr
-          - sv
-          - uk
-          - 'no'
-          - fi
-          - sk
-          - el
-          - cs
-          - hr
-          - da
-          - ro
-          - bg
-          - auto
     Upload:
       type: object
       required:
@@ -511,98 +528,16 @@ components:
           type: boolean
           format: boolean
           description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
-    InputSettings:
-      type: object
-      description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
-      properties:
-        url:
-          type: string
-          description: 'The URL of the file that Mux should download and use.
-
-            * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
-
-            * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
-
-            * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
-
-            The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
-
-            '
-        overlay_settings:
-          type: object
-          description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
-          properties:
-            vertical_align:
-              type: string
-              enum:
-              - top
-              - middle
-              - bottom
-              description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
-            vertical_margin:
-              type: string
-              description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
-            horizontal_align:
-              type: string
-              enum:
-              - left
-              - center
-              - right
-              description: Where the horizontal positioning of the overlay/watermark should begin from.
-            horizontal_margin:
-              type: string
-              description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
-            width:
-              type: string
-              description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
-            height:
-              type: string
-              description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
-            opacity:
-              type: string
-              description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
-        generated_subtitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
-          description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
-        start_time:
-          type: number
-          format: double
-          description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-        end_time:
-          type: number
-          format: double
-          description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-        type:
-          type: string
-          enum:
-          - video
-          - audio
-          - text
-          description: This parameter is required for `text` type tracks.
-        text_type:
-          type: string
-          enum:
-          - subtitles
-          description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
-        language_code:
-          type: string
-          description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
-        name:
-          type: string
-          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
-        closed_captions:
-          type: boolean
-          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-        passthrough:
-          type: string
-          description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
   parameters:
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
     page:
       name: page
       in: query
@@ -620,16 +555,11 @@ components:
       example: abcd1234
       schema:
         type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
   securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using a Mux Access Token ID (username) and Secret (password).
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
 
@@ -645,49 +575,6 @@ components:
         '
       scheme: bearer
       type: http
-x-tagGroups:
-- name: Video
-  tags:
-  - Assets
-  - Live Streams
-  - Playback ID
-  - URL Signing Keys
-  - Direct Uploads
-  - Delivery Usage
-  - Playback Restrictions
-  - DRM Configurations
-  - Transcription Vocabularies
-- name: Data
-  tags:
-  - Video Views
-  - Errors
-  - Filters
-  - Exports
-  - Metrics
-  - Monitoring
-  - Real-Time
-  - Dimensions
-  - Incidents
-  - Annotations
-  - View and Viewer Counts
-- name: System
-  tags:
-  - Signing Keys
-  - Utilities
-- name: Robots
-  tags:
-  - Jobs
-  - Ask Questions
-  - Edit Captions
-  - Find Key Moments
-  - Generate Chapters
-  - Moderate
-  - Summarize
-  - Translate Captions
-- name: Playback
-  tags:
-  - Thumbnails
-  - Animated Images
-  - Storyboards
-  - Streaming
-  - Captions and Transcripts
+x-refined-from:
+- mux-com-openapi.yml
+- mux-openapi.yml

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Summarize API
+  title: Mux Summarize API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -157,33 +157,6 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
-    CreateSummarizeJobRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
-        parameters:
-          $ref: '#/components/schemas/SummarizeJobParameters'
-      required:
-      - parameters
     JobError:
       type: object
       properties:
@@ -199,45 +172,6 @@ components:
       required:
       - type
       - message
-    SlimlineAsset:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Mux asset ID.
-        meta:
-          type: object
-          properties:
-            title:
-              type: string
-              description: Asset title from Mux metadata.
-            creator_id:
-              type: string
-              description: Creator identifier from Mux metadata.
-            external_id:
-              type: string
-              description: External identifier from Mux metadata.
-          description: Mux asset metadata, if available.
-        passthrough:
-          type: string
-          description: Passthrough string from the Mux asset.
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: URL to the Mux asset resource.
-              required:
-              - href
-          required:
-          - self
-          description: Hypermedia links for the asset.
-      required:
-      - id
-      - _links
     SummarizeJobParameters:
       type: object
       properties:
@@ -302,6 +236,105 @@ components:
         asset_id: mux_asset_123abc
         tone: neutral
         tag_count: 10
+    CreateSummarizeJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/SummarizeJobParameters'
+      required:
+      - parameters
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    SummarizeJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SummarizeJob'
+      required:
+      - data
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+    SummarizeJobOutputs:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: Generated title capturing the essence of the video.
+        description:
+          type: string
+          minLength: 1
+          description: Generated description of the video content (typically 2-4 sentences).
+        tags:
+          type: array
+          items:
+            type: string
+          description: Generated keyword tags for the video.
+      required:
+      - title
+      - description
+      - tags
+      example:
+        title: How to Build a Sustainable Garden in Your Backyard
+        description: This video walks through the step-by-step process of creating a sustainable backyard garden, covering soil preparation, plant selection, and organic pest control methods.
+        tags:
+        - gardening
+        - sustainability
+        - backyard
+        - organic
+        - soil preparation
+        - composting
+        - pest control
+        - beginner
+        - how-to
+        - plants
+      description: Workflow results. Present when status is 'completed'.
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
     SummarizeJob:
       type: object
       properties:
@@ -348,78 +381,45 @@ components:
       - workflow
       - parameters
       - status
-    SummarizeJobOutputs:
+    SlimlineAsset:
       type: object
       properties:
-        title:
+        id:
           type: string
-          minLength: 1
-          description: Generated title capturing the essence of the video.
-        description:
+          description: Mux asset ID.
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Asset title from Mux metadata.
+            creator_id:
+              type: string
+              description: Creator identifier from Mux metadata.
+            external_id:
+              type: string
+              description: External identifier from Mux metadata.
+          description: Mux asset metadata, if available.
+        passthrough:
           type: string
-          minLength: 1
-          description: Generated description of the video content (typically 2-4 sentences).
-        tags:
-          type: array
-          items:
-            type: string
-          description: Generated keyword tags for the video.
-      required:
-      - title
-      - description
-      - tags
-      example:
-        title: How to Build a Sustainable Garden in Your Backyard
-        description: This video walks through the step-by-step process of creating a sustainable backyard garden, covering soil preparation, plant selection, and organic pest control methods.
-        tags:
-        - gardening
-        - sustainability
-        - backyard
-        - organic
-        - soil preparation
-        - composting
-        - pest control
-        - beginner
-        - how-to
-        - plants
-      description: Workflow results. Present when status is 'completed'.
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
-    Resources:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlimlineAsset'
-          description: Mux assets associated with this job.
-      required:
-      - assets
-      example:
-        assets:
-        - id: abc123asset
-          meta:
-            title: My Video
-            creator_id: user123
-            external_id: ext456
-          _links:
+          description: Passthrough string from the Mux asset.
+        _links:
+          type: object
+          properties:
             self:
-              href: https://api.mux.com/video/v1/assets/abc123asset
-      description: Related Mux resources linked to this job.
-    SummarizeJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/SummarizeJob'
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to the Mux asset resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for the asset.
       required:
-      - data
+      - id
+      - _links
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

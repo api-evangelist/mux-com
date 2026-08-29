@@ -1544,6 +1544,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mux-com-playback-ids-api-openapi.yml
+- aid: mux-com:mux-com-mux-api-api
+  name: Mux Mux API
+  description: The Mux API API from Mux — 0 operation(s) for mux api.
+  humanURL: https://www.mux.com/docs/webhook-reference
+  baseURL: https://api.mux.com
+  tags:
+  - Mux API
+  properties:
+  - type: OpenAPI
+    url: openapi/mux-com-mux-api-api-openapi.yml
 common:
 - type: CapabilityMap
   url: capabilities/mux-com-capability-edges.yml

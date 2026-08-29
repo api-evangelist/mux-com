@@ -1,288 +1,103 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Assets API
-  description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
+  title: Mux Com Assets API
   version: v1
-  contact:
-    name: Mux DevEx
-    url: https://docs.mux.com
-    email: devex@mux.com
+  description: 'Operations tagged Assets across 2 of this provider''s published API definitions: mux-com-openapi.yml, mux-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.mux.com
-  description: Mux Production API
+  description: Mux production API
 - url: https://image.mux.com
 - url: https://stream.mux.com
 - url: https://stats.mux.com
 tags:
 - name: Assets
-  description: 'An asset refers to a piece of media content that is stored or is being live streamed through the Mux system. An asset always has a duration and one or more tracks (audio, video, and text data).
-
-
-    The media content of an asset cannot be updated once created, however an asset can be used to create another asset, and can be modified within that process.'
-  x-displayName: Assets
+  description: Manage video on-demand assets.
 paths:
   /video/v1/assets:
+    get:
+      tags:
+      - Assets
+      summary: List assets
+      operationId: listAssets
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of assets.
+      security:
+      - basicAuth: []
     post:
       tags:
       - Assets
-      summary: Create an Asset
-      description: Create a new Mux Video asset.
-      operationId: create-asset
-      servers:
-      - url: https://api.mux.com
-      parameters: []
+      summary: Create an asset
+      operationId: createAsset
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateAssetRequest'
-            example:
-              inputs:
-              - url: https://muxed.s3.amazonaws.com/leds.mp4
-              playback_policies:
-              - public
-              video_quality: basic
+              type: object
       responses:
         '201':
-          description: Asset Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AssetResponse'
-              example:
-                data:
-                  status: preparing
-                  playback_ids:
-                  - policy: public
-                    id: uNbxnGLKJ00yfbijDO8COxTOyVKT01xpxW
-                  master_access: none
-                  id: SqQnqz6s5MBuXGvJaUWdXuXM93J9Q2yv
-                  encoding_tier: baseline
-                  video_quality: basic
-                  created_at: '1607452572'
-                  max_resolution_tier: 1080p
-                  progress:
-                    state: ingesting
-                    progress: 0
+          description: Asset created.
       security:
-      - accessToken: []
-      - authorizationToken: []
-    get:
-      tags:
-      - Assets
-      summary: List Assets
-      description: List all Mux assets.
-      operationId: list-assets
-      servers:
-      - url: https://api.mux.com
-      parameters:
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/page'
-      - $ref: '#/components/parameters/cursor'
-      - $ref: '#/components/parameters/list_asset_live_stream_id'
-      - $ref: '#/components/parameters/list_asset_upload_id'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListAssetsResponse'
-              example:
-                next_cursor: tF601CUtCLmnYuHW01Vwl6BWcWTNv001uoaiK4C01jqk1acX802plAjZhTQ
-                data:
-                - tracks:
-                  - type: video
-                    max_width: 1920
-                    max_height: 800
-                    max_frame_rate: 24
-                    id: HK01Bq7FrEQmIu3QpRiZZ98HQOOZjm6BYyg17eEunlyo
-                    duration: 734.166667
-                  - type: audio
-                    max_channels: 2
-                    id: nNKHJqw2G9cE019AoK16CJr3O27gGnbtW4w525hJWqWw
-                    duration: 734.143991
-                  status: ready
-                  playback_ids:
-                  - policy: public
-                    id: 85g23gYz7NmQu02YsY81ihuod6cZMxCp017ZrfglyLCKc
-                  max_stored_resolution: HD
-                  resolution_tier: 1080p
-                  max_stored_frame_rate: 24
-                  master_access: none
-                  id: 8jd7M77xQgf2NzuocJRPYdSdEfY5dLlcRwFARtgQqU4
-                  encoding_tier: baseline
-                  video_quality: basic
-                  duration: 734.25
-                  created_at: '1609869152'
-                  aspect_ratio: '12:5'
-                  max_resolution_tier: 1080p
-                  progress:
-                    state: completed
-                    progress: 100
-                - tracks:
-                  - type: video
-                    max_width: 1920
-                    max_height: 1080
-                    max_frame_rate: 29.97
-                    id: RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4
-                    duration: 23.8238
-                  - type: audio
-                    max_channels: 2
-                    id: LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg
-                    duration: 23.823792
-                  status: ready
-                  playback_ids:
-                  - policy: public
-                    id: vAFLI2eKFFicXX00iHBS2vqt5JjJGg5HV6fQ4Xijgt1I
-                  max_stored_resolution: HD
-                  resolution_tier: 1080p
-                  max_stored_frame_rate: 29.97
-                  master_access: none
-                  id: lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68
-                  encoding_tier: smart
-                  video_quality: plus
-                  duration: 23.857167
-                  created_at: '1609868768'
-                  aspect_ratio: '16:9'
-                  max_resolution_tier: 1080p
-                  progress:
-                    state: completed
-                    progress: 100
-      security:
-      - accessToken: []
-      - authorizationToken: []
+      - basicAuth: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux production API
   /video/v1/assets/{ASSET_ID}:
+    parameters:
+    - in: path
+      name: ASSET_ID
+      required: true
+      schema:
+        type: string
     get:
       tags:
       - Assets
-      summary: Retrieve an Asset
-      description: Retrieves the details of an asset that has previously been created. Supply the unique asset ID that was returned from your previous request, and Mux will return the corresponding asset information. The same information is returned when creating an asset.
-      operationId: get-asset
-      servers:
-      - url: https://api.mux.com
-      parameters:
-      - $ref: '#/components/parameters/asset_id'
+      summary: Retrieve an asset
+      operationId: getAsset
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AssetResponse'
-              example:
-                data:
-                  tracks:
-                  - type: video
-                    max_width: 1920
-                    max_height: 1080
-                    max_frame_rate: 29.97
-                    id: RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4
-                    duration: 23.8238
-                  - type: audio
-                    max_channels: 2
-                    id: LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg
-                    duration: 23.823792
-                  status: ready
-                  resolution_tier: 1080p
-                  playback_ids:
-                  - policy: public
-                    id: vAFLI2eKFFicXX00iHBS2vqt5JjJGg5HV6fQ4Xijgt1I
-                  passthrough: example
-                  max_stored_resolution: HD
-                  max_stored_frame_rate: 29.97
-                  max_resolution_tier: 1080p
-                  progress:
-                    state: completed
-                    progress: 100
-                  master_access: none
-                  id: lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68
-                  encoding_tier: baseline
-                  video_quality: basic
-                  duration: 23.857167
-                  created_at: '1609868768'
-                  aspect_ratio: '16:9'
+          description: Asset details.
       security:
-      - accessToken: []
-      - authorizationToken: []
-    delete:
-      tags:
-      - Assets
-      summary: Delete an Asset
-      description: Deletes a video asset and all its data.
-      operationId: delete-asset
-      servers:
-      - url: https://api.mux.com
-      parameters:
-      - $ref: '#/components/parameters/asset_id'
-      responses:
-        '204':
-          description: No Content
-      security:
-      - accessToken: []
-      - authorizationToken: []
+      - basicAuth: []
     patch:
       tags:
       - Assets
-      summary: Update an Asset
-      description: Updates the details of an existing Asset with the provided Asset ID. This API currently only supports the `passthrough` and `meta` fields.
-      operationId: update-asset
-      servers:
-      - url: https://api.mux.com
-      parameters:
-      - $ref: '#/components/parameters/asset_id'
+      summary: Update an asset
+      operationId: updateAsset
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateAssetRequest'
-            example:
-              passthrough: Example
+              type: object
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AssetResponse'
-              example:
-                data:
-                  tracks:
-                  - type: video
-                    max_width: 1920
-                    max_height: 1080
-                    max_frame_rate: 29.97
-                    id: RiyQPM31a1SPtfI802bEP2zD02F5FQVNL801FRHeE5t01G4
-                    duration: 23.8238
-                  - type: audio
-                    max_channels: 2
-                    id: LvINTciHVoC017knMCH01y9pSi5OrDLCRaBPNDAoNJcmg
-                    duration: 23.823792
-                  status: ready
-                  playback_ids:
-                  - policy: public
-                    id: vAFLI2eKFFicXX00iHBS2vqt5JjJGg5HV6fQ4Xijgt1I
-                  max_stored_resolution: HD
-                  resolution_tier: 1080p
-                  max_stored_frame_rate: 29.97
-                  master_access: none
-                  id: lJ4bGGsp7ZlPf02nMg015W02iHQLN9XnuuLRBsPS00xqd68
-                  encoding_tier: baseline
-                  video_quality: basic
-                  duration: 23.857167
-                  created_at: '1609868768'
-                  updated_at: '1609869000'
-                  aspect_ratio: '16:9'
-                  passthrough: Example
-                  max_resolution_tier: 1080p
-                  progress:
-                    state: completed
-                    progress: 100
+          description: Asset updated.
       security:
-      - accessToken: []
-      - authorizationToken: []
+      - basicAuth: []
+    delete:
+      tags:
+      - Assets
+      summary: Delete an asset
+      operationId: deleteAsset
+      responses:
+        '204':
+          description: Asset deleted.
+      security:
+      - basicAuth: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux production API
   /video/v1/assets/{ASSET_ID}/input-info:
     get:
       tags:
@@ -326,6 +141,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/playback-ids:
     post:
       tags:
@@ -359,6 +180,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}:
     get:
       tags:
@@ -402,6 +229,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/mp4-support:
     put:
       tags:
@@ -470,6 +303,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/master-access:
     put:
       tags:
@@ -534,6 +373,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/static-renditions:
     post:
       tags:
@@ -571,6 +416,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/static-renditions/{STATIC_RENDITION_ID}:
     delete:
       tags:
@@ -589,6 +440,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/tracks:
     post:
       tags:
@@ -634,6 +491,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/tracks/{TRACK_ID}:
     delete:
       tags:
@@ -692,6 +555,12 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
   /video/v1/assets/{ASSET_ID}/tracks/{TRACK_ID}/generate-subtitles:
     post:
       tags:
@@ -734,22 +603,28 @@ paths:
       security:
       - accessToken: []
       - authorizationToken: []
+    servers:
+    - url: https://api.mux.com
+      description: Mux Production API
+    - url: https://image.mux.com
+    - url: https://stream.mux.com
+    - url: https://stats.mux.com
 components:
   schemas:
-    InputFile:
+    PlaybackID:
       type: object
+      required:
+      - id
+      - policy
       properties:
-        container_format:
+        id:
           type: string
-        tracks:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputTrack'
-    CreateAssetRequest:
-      allOf:
-      - $ref: '#/components/schemas/AssetOptions'
-      - required:
-        - inputs
+          description: Unique identifier for the PlaybackID
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+        drm_configuration_id:
+          type: string
+          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
     ListAssetsResponse:
       type: object
       required:
@@ -764,50 +639,351 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Asset'
-    CreateTrackRequest:
-      type: object
-      required:
-      - url
-      - type
-      - language_code
-      properties:
-        url:
-          type: string
-          description: 'The URL of the file that Mux should download and use.
-
-            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
-
-            '
-        type:
-          type: string
-          enum:
-          - text
-          - audio
-        text_type:
-          type: string
-          enum:
-          - subtitles
-        language_code:
-          type: string
-          description: The language code of this track. The value must be a valid BCP 47 specification compliant value. For example, en for English or en-US for the US version of English.
-        name:
-          type: string
-          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate the `text` or `audio` track with this value. For example, set the value to "English" for subtitles text track with `language_code` as en-US. If this parameter is not included, Mux will auto-populate a value based on the `language_code` value.
-        closed_captions:
-          type: boolean
-          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH).
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the track either when creating the asset or track.
-    GetAssetPlaybackIDResponse:
+    UpdateAssetTrackResponse:
       type: object
       required:
       - data
       properties:
         data:
-          $ref: '#/components/schemas/PlaybackID'
+          $ref: '#/components/schemas/Track'
+    GetAssetInputInfoResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputInfo'
+    AssetMetadata:
+      type: object
+      description: 'Customer provided metadata about this asset.
+
+
+        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
+
+        '
+      properties:
+        title:
+          type: string
+          maxLength: 512
+          description: The asset title. Max 512 code points.
+        creator_id:
+          type: string
+          maxLength: 128
+          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
+        external_id:
+          type: string
+          maxLength: 128
+          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
+    CreateAssetRequest:
+      allOf:
+      - $ref: '#/components/schemas/AssetOptions'
+      - required:
+        - inputs
+    AssetResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Asset'
+    CreateStaticRenditionRequest:
+      type: object
+      required:
+      - resolution
+      properties:
+        resolution:
+          type: string
+          enum:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+    AssetGeneratedSubtitleSettings:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A name for this subtitle track.
+        passthrough:
+          type: string
+          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
+        language_code:
+          type: string
+          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
+          default: en
+          enum:
+          - en
+          - es
+          - it
+          - pt
+          - de
+          - fr
+          - pl
+          - ru
+          - nl
+          - ca
+          - tr
+          - sv
+          - uk
+          - 'no'
+          - fi
+          - sk
+          - el
+          - cs
+          - hr
+          - da
+          - ro
+          - bg
+          - auto
+    StaticRendition:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+          - low.mp4
+          - medium.mp4
+          - high.mp4
+          - highest.mp4
+          - audio.m4a
+          - capped-1080p.mp4
+          - 2160p.mp4
+          - 1440p.mp4
+          - 1080p.mp4
+          - 720p.mp4
+          - 540p.mp4
+          - 480p.mp4
+          - 360p.mp4
+          - 270p.mp4
+          description: Name of the static rendition file
+        ext:
+          type: string
+          description: Extension of the static rendition file
+          enum:
+          - mp4
+          - m4a
+        height:
+          type: integer
+          format: int32
+          description: The height of the static rendition's file in pixels
+        width:
+          type: integer
+          format: int32
+          description: The width of the static rendition's file in pixels
+        bitrate:
+          type: integer
+          format: int64
+          description: The bitrate in bits per second
+        filesize:
+          type: string
+          format: int64
+          description: The file size in bytes
+        type:
+          type: string
+          description: Indicates the static rendition type of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - standard
+          - advanced
+        status:
+          type: string
+          description: 'Indicates the status of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+
+            * `ready` indicates the MP4 has been generated and is ready for download
+
+            * `preparing` indicates the asset has not been ingested or the static rendition is still being generated after an asset is ready
+
+            * `skipped` indicates the static rendition will not be generated because the requested resolution conflicts with the asset attributes after the asset has been ingested
+
+            * `errored` indicates the static rendition cannot be generated. For example, an asset could not be ingested
+
+            '
+          enum:
+          - ready
+          - preparing
+          - skipped
+          - errored
+        resolution_tier:
+          type: string
+          description: Indicates the resolution tier of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - audio-only
+        resolution:
+          type: string
+          description: Indicates the resolution of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+          x-mux-doc-decorators-hidden-enum-values:
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        id:
+          type: string
+          description: The ID of this static rendition, used in managing this static rendition. This field is only valid for `static_renditions`, not for `mp4_support`.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+    CreatePlaybackIDRequest:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+        drm_configuration_id:
+          type: string
+          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+    Track:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Track
+        type:
+          type: string
+          description: The type of track
+          enum:
+          - video
+          - audio
+          - text
+        duration:
+          type: number
+          format: double
+          description: The duration in seconds of the track media. This parameter is not set for `text` type tracks. This field is optional and may not be set. The top level `duration` field of an asset will always be set.
+        max_width:
+          type: integer
+          format: int64
+          description: The maximum width in pixels available for the track. Only set for the `video` type track.
+        max_height:
+          type: integer
+          format: int64
+          description: The maximum height in pixels available for the track. Only set for the `video` type track.
+        max_frame_rate:
+          type: number
+          format: double
+          description: The maximum frame rate available for the track. Only set for the `video` type track. This field may return `-1` if the frame rate of the input cannot be reliably determined.
+        max_channels:
+          type: integer
+          format: int64
+          description: The maximum number of audio channels the track supports. Only set for the `audio` type track.
+        max_channel_layout:
+          type: string
+          description: Only set for the `audio` type track.
+          deprecated: true
+        text_type:
+          type: string
+          enum:
+          - subtitles
+          description: This parameter is only set for `text` type tracks.
+        text_source:
+          type: string
+          description: 'The source of the text contained in a Track of type `text`. Valid `text_source`
+
+            values are listed below.
+
+            * `uploaded`: Tracks uploaded to Mux as caption or subtitle files using the Create Asset Track API.
+
+            * `embedded`: Tracks extracted from an embedded stream of CEA-608 closed captions.
+
+            * `generated_vod`: Tracks generated by automatic speech recognition on an on-demand asset.
+
+            * `generated_live`: Tracks generated by automatic speech recognition on a live stream configured with `generated_subtitles`. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
+
+            * `generated_live_final`: Tracks generated by automatic speech recognition on a live stream using `generated_subtitles`. The accuracy, timing, and formatting of these subtitles is improved compared to the corresponding `generated_live` tracks. However, `generated_live_final` tracks will not be available in `ready` status until the live stream ends. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
+
+            '
+          enum:
+          - uploaded
+          - embedded
+          - generated_live
+          - generated_live_final
+          - generated_vod
+        language_code:
+          type: string
+          description: The language code value represents [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value, or 'auto'. For example, `en` for English or `en-US` for the US version of English. This parameter is only set for `text` and `audio` track types. During automatic language detection for generated subtitles, this value will be set to `auto` until the language is determined.
+        name:
+          type: string
+          description: The name of the track containing a human-readable description. The HLS manifest will associate a subtitle `text` or `audio` track with this value. For example, the value should be "English" for a subtitle text track for the `language_code` value of `en-US`. This parameter is only set for `text` and `audio` track types.
+        closed_captions:
+          type: boolean
+          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This parameter is only set tracks where `type` is `text` and `text_type` is `subtitles`.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the track either when creating the asset or track. This parameter is only set for `text` type tracks. Max 255 characters.
+        status:
+          type: string
+          enum:
+          - preparing
+          - ready
+          - errored
+          - deleted
+          description: The status of the track. This parameter is only set for `text` type tracks.
+        primary:
+          type: boolean
+          description: For an audio track, indicates that this is the primary audio track, ingested from the main input for this asset. The primary audio track cannot be deleted.
+        auto_language_confidence:
+          type: number
+          format: double
+          description: The confidence value (0-1) of the determined language. This value only is available when automatic language detection is utilized in generated subtitles.
+    CreateTrackResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Track'
+    PlaybackPolicy:
+      type: string
+      enum:
+      - public
+      - signed
+      - drm
+      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+        '
+    UpdateAssetMasterAccessRequest:
+      type: object
+      required:
+      - master_access
+      properties:
+        master_access:
+          type: string
+          description: Add or remove access to the master version of the video.
+          enum:
+          - temporary
+          - none
     Asset:
       type: object
       required:
@@ -1066,6 +1242,256 @@ components:
           $ref: '#/components/schemas/AssetMetadata'
         progress:
           $ref: '#/components/schemas/AssetProgress'
+    InputInfo:
+      type: object
+      properties:
+        settings:
+          $ref: '#/components/schemas/InputSettings'
+        file:
+          $ref: '#/components/schemas/InputFile'
+    CreatePlaybackIDResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PlaybackID'
+    UpdateAssetRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**. In order to clear this value, the field should be included with an empty string value.'
+        meta:
+          $ref: '#/components/schemas/AssetMetadata'
+    UpdateAssetTrackRequest:
+      type: object
+      properties:
+        language_code:
+          type: string
+          description: The language code of this track. The value must be a valid BCP 47 specification compliant value. For example, en for English or en-US for the US version of English.
+        name:
+          type: string
+          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate the `text` or `audio` track with this value. For example, set the value to "English" for subtitles text track with `language_code` as en-US. If this parameter is not included, Mux will auto-populate a value based on the `language_code` value.
+        closed_captions:
+          type: boolean
+          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH).
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the track either when creating the asset or track.
+    UpdateAssetMP4SupportRequest:
+      type: object
+      deprecated: true
+      required:
+      - mp4_support
+      properties:
+        mp4_support:
+          type: string
+          description: 'Specify what level of support for mp4 playback.
+
+
+            * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
+
+            * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
+
+            * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
+
+
+            The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
+
+
+            `none` will delete the MP4s from the asset in question.
+
+            '
+          enum:
+          - standard
+          - none
+          - capped-1080p
+          - audio-only
+          - audio-only,capped-1080p
+          x-mux-doc-decorators-deprecated-enum-values:
+          - standard
+    GenerateTrackSubtitlesResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Track'
+    InputFile:
+      type: object
+      properties:
+        container_format:
+          type: string
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputTrack'
+    CreateStaticRenditionResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/StaticRendition'
+    InputSettings:
+      type: object
+      description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
+      properties:
+        url:
+          type: string
+          description: 'The URL of the file that Mux should download and use.
+
+            * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
+
+            * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
+
+            * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
+
+            The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
+
+            '
+        overlay_settings:
+          type: object
+          description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
+          properties:
+            vertical_align:
+              type: string
+              enum:
+              - top
+              - middle
+              - bottom
+              description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
+            vertical_margin:
+              type: string
+              description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
+            horizontal_align:
+              type: string
+              enum:
+              - left
+              - center
+              - right
+              description: Where the horizontal positioning of the overlay/watermark should begin from.
+            horizontal_margin:
+              type: string
+              description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
+            width:
+              type: string
+              description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
+            height:
+              type: string
+              description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
+            opacity:
+              type: string
+              description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
+        generated_subtitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
+          description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
+        start_time:
+          type: number
+          format: double
+          description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+        end_time:
+          type: number
+          format: double
+          description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+        type:
+          type: string
+          enum:
+          - video
+          - audio
+          - text
+          description: This parameter is required for `text` type tracks.
+        text_type:
+          type: string
+          enum:
+          - subtitles
+          description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
+        language_code:
+          type: string
+          description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
+        name:
+          type: string
+          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
+        closed_captions:
+          type: boolean
+          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+        passthrough:
+          type: string
+          description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+    AssetProgress:
+      type: object
+      description: Detailed state information about the asset ingest process.
+      properties:
+        state:
+          type: string
+          enum:
+          - ingesting
+          - transcoding
+          - completed
+          - live
+          - errored
+          description: 'The detailed state of the asset ingest process. This field is useful for relaying more granular processing information to end users when a [non-standard input is encountered](https://www.mux.com/docs/guides/minimize-processing-time#non-standard-input).
+
+
+            - `ingesting`: Asset is being ingested (initial processing before or after transcoding). While in this state, the `progress` percentage will be 0.
+
+            - `transcoding`: Asset is undergoing non-standard transcoding.
+
+            - `completed`: Asset processing is complete (`status` is `ready`). While in this state, the `progress` percentage will be 100.
+
+            - `live`: Asset is a live stream currently in progress. While in this state, the `progress` percentage will be -1.
+
+            - `errored`: Asset has encountered an error (`status` is `errored`). While in this state, the `progress` percentage will be -1.
+
+            '
+        progress:
+          type: number
+          format: double
+          minimum: -1
+          maximum: 100
+          description: Represents the estimated completion percentage. Returns `0 - 100` when in `ingesting`, `transcoding`, or `completed` state, and `-1` when in `live` or `errored` state.
+      required:
+      - state
+      - progress
+    InputTrack:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        duration:
+          type: number
+          format: double
+        encoding:
+          type: string
+        width:
+          type: integer
+          format: int64
+        height:
+          type: integer
+          format: int64
+        frame_rate:
+          type: number
+          format: double
+        sample_rate:
+          type: integer
+          format: int64
+        sample_size:
+          type: integer
+          format: int64
+        channels:
+          type: integer
+          format: int64
     AssetOptions:
       type: object
       properties:
@@ -1200,23 +1626,31 @@ components:
           type: boolean
           default: true
           description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
-    PlaybackID:
+    CreateTrackRequest:
       type: object
       required:
-      - id
-      - policy
+      - url
+      - type
+      - language_code
       properties:
-        id:
+        url:
           type: string
-          description: Unique identifier for the PlaybackID
-        policy:
-          $ref: '#/components/schemas/PlaybackPolicy'
-        drm_configuration_id:
+          description: 'The URL of the file that Mux should download and use.
+
+            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
+
+            '
+        type:
           type: string
-          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
-    UpdateAssetTrackRequest:
-      type: object
-      properties:
+          enum:
+          - text
+          - audio
+        text_type:
+          type: string
+          enum:
+          - subtitles
         language_code:
           type: string
           description: The language code of this track. The value must be a valid BCP 47 specification compliant value. For example, en for English or en-US for the US version of English.
@@ -1229,126 +1663,13 @@ components:
         passthrough:
           type: string
           description: Arbitrary user-supplied metadata set for the track either when creating the asset or track.
-    CreateTrackResponse:
+    GetAssetPlaybackIDResponse:
       type: object
       required:
       - data
       properties:
         data:
-          $ref: '#/components/schemas/Track'
-    StaticRendition:
-      type: object
-      properties:
-        name:
-          type: string
-          enum:
-          - low.mp4
-          - medium.mp4
-          - high.mp4
-          - highest.mp4
-          - audio.m4a
-          - capped-1080p.mp4
-          - 2160p.mp4
-          - 1440p.mp4
-          - 1080p.mp4
-          - 720p.mp4
-          - 540p.mp4
-          - 480p.mp4
-          - 360p.mp4
-          - 270p.mp4
-          description: Name of the static rendition file
-        ext:
-          type: string
-          description: Extension of the static rendition file
-          enum:
-          - mp4
-          - m4a
-        height:
-          type: integer
-          format: int32
-          description: The height of the static rendition's file in pixels
-        width:
-          type: integer
-          format: int32
-          description: The width of the static rendition's file in pixels
-        bitrate:
-          type: integer
-          format: int64
-          description: The bitrate in bits per second
-        filesize:
-          type: string
-          format: int64
-          description: The file size in bytes
-        type:
-          type: string
-          description: Indicates the static rendition type of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - standard
-          - advanced
-        status:
-          type: string
-          description: 'Indicates the status of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-
-            * `ready` indicates the MP4 has been generated and is ready for download
-
-            * `preparing` indicates the asset has not been ingested or the static rendition is still being generated after an asset is ready
-
-            * `skipped` indicates the static rendition will not be generated because the requested resolution conflicts with the asset attributes after the asset has been ingested
-
-            * `errored` indicates the static rendition cannot be generated. For example, an asset could not be ingested
-
-            '
-          enum:
-          - ready
-          - preparing
-          - skipped
-          - errored
-        resolution_tier:
-          type: string
-          description: Indicates the resolution tier of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - audio-only
-        resolution:
-          type: string
-          description: Indicates the resolution of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-          x-mux-doc-decorators-hidden-enum-values:
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        id:
-          type: string
-          description: The ID of this static rendition, used in managing this static rendition. This field is only valid for `static_renditions`, not for `mp4_support`.
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
-    UpdateAssetRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**. In order to clear this value, the field should be included with an empty string value.'
-        meta:
-          $ref: '#/components/schemas/AssetMetadata'
+          $ref: '#/components/schemas/PlaybackID'
     GenerateTrackSubtitlesRequest:
       type: object
       required:
@@ -1359,458 +1680,35 @@ components:
           items:
             $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
           description: Generate subtitle tracks using automatic speech recognition with this configuration.
-    PlaybackPolicy:
-      type: string
-      enum:
-      - public
-      - signed
-      - drm
-      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-        '
-    InputInfo:
-      type: object
-      properties:
-        settings:
-          $ref: '#/components/schemas/InputSettings'
-        file:
-          $ref: '#/components/schemas/InputFile'
-    CreateStaticRenditionRequest:
-      type: object
-      required:
-      - resolution
-      properties:
-        resolution:
-          type: string
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
-    AssetMetadata:
-      type: object
-      description: 'Customer provided metadata about this asset.
-
-
-        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
-
-        '
-      properties:
-        title:
-          type: string
-          maxLength: 512
-          description: The asset title. Max 512 code points.
-        creator_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
-        external_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
-    UpdateAssetMP4SupportRequest:
-      type: object
-      deprecated: true
-      required:
-      - mp4_support
-      properties:
-        mp4_support:
-          type: string
-          description: 'Specify what level of support for mp4 playback.
-
-
-            * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
-
-            * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
-
-            * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
-
-
-            The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
-
-
-            `none` will delete the MP4s from the asset in question.
-
-            '
-          enum:
-          - standard
-          - none
-          - capped-1080p
-          - audio-only
-          - audio-only,capped-1080p
-          x-mux-doc-decorators-deprecated-enum-values:
-          - standard
-    CreatePlaybackIDResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/PlaybackID'
-    InputSettings:
-      type: object
-      description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
-      properties:
-        url:
-          type: string
-          description: 'The URL of the file that Mux should download and use.
-
-            * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
-
-            * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
-
-            * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
-
-            The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
-
-            '
-        overlay_settings:
-          type: object
-          description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
-          properties:
-            vertical_align:
-              type: string
-              enum:
-              - top
-              - middle
-              - bottom
-              description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
-            vertical_margin:
-              type: string
-              description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
-            horizontal_align:
-              type: string
-              enum:
-              - left
-              - center
-              - right
-              description: Where the horizontal positioning of the overlay/watermark should begin from.
-            horizontal_margin:
-              type: string
-              description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
-            width:
-              type: string
-              description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
-            height:
-              type: string
-              description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
-            opacity:
-              type: string
-              description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
-        generated_subtitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
-          description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
-        start_time:
-          type: number
-          format: double
-          description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-        end_time:
-          type: number
-          format: double
-          description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-        type:
-          type: string
-          enum:
-          - video
-          - audio
-          - text
-          description: This parameter is required for `text` type tracks.
-        text_type:
-          type: string
-          enum:
-          - subtitles
-          description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
-        language_code:
-          type: string
-          description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
-        name:
-          type: string
-          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
-        closed_captions:
-          type: boolean
-          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-        passthrough:
-          type: string
-          description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-    CreatePlaybackIDRequest:
-      type: object
-      properties:
-        policy:
-          $ref: '#/components/schemas/PlaybackPolicy'
-        drm_configuration_id:
-          type: string
-          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
-    AssetProgress:
-      type: object
-      description: Detailed state information about the asset ingest process.
-      properties:
-        state:
-          type: string
-          enum:
-          - ingesting
-          - transcoding
-          - completed
-          - live
-          - errored
-          description: 'The detailed state of the asset ingest process. This field is useful for relaying more granular processing information to end users when a [non-standard input is encountered](https://www.mux.com/docs/guides/minimize-processing-time#non-standard-input).
-
-
-            - `ingesting`: Asset is being ingested (initial processing before or after transcoding). While in this state, the `progress` percentage will be 0.
-
-            - `transcoding`: Asset is undergoing non-standard transcoding.
-
-            - `completed`: Asset processing is complete (`status` is `ready`). While in this state, the `progress` percentage will be 100.
-
-            - `live`: Asset is a live stream currently in progress. While in this state, the `progress` percentage will be -1.
-
-            - `errored`: Asset has encountered an error (`status` is `errored`). While in this state, the `progress` percentage will be -1.
-
-            '
-        progress:
-          type: number
-          format: double
-          minimum: -1
-          maximum: 100
-          description: Represents the estimated completion percentage. Returns `0 - 100` when in `ingesting`, `transcoding`, or `completed` state, and `-1` when in `live` or `errored` state.
-      required:
-      - state
-      - progress
-    GenerateTrackSubtitlesResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Track'
-    UpdateAssetTrackResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/Track'
-    InputTrack:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-        duration:
-          type: number
-          format: double
-        encoding:
-          type: string
-        width:
-          type: integer
-          format: int64
-        height:
-          type: integer
-          format: int64
-        frame_rate:
-          type: number
-          format: double
-        sample_rate:
-          type: integer
-          format: int64
-        sample_size:
-          type: integer
-          format: int64
-        channels:
-          type: integer
-          format: int64
-    AssetGeneratedSubtitleSettings:
-      type: object
-      properties:
-        name:
-          type: string
-          description: A name for this subtitle track.
-        passthrough:
-          type: string
-          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
-        language_code:
-          type: string
-          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
-          default: en
-          enum:
-          - en
-          - es
-          - it
-          - pt
-          - de
-          - fr
-          - pl
-          - ru
-          - nl
-          - ca
-          - tr
-          - sv
-          - uk
-          - 'no'
-          - fi
-          - sk
-          - el
-          - cs
-          - hr
-          - da
-          - ro
-          - bg
-          - auto
-    Track:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Track
-        type:
-          type: string
-          description: The type of track
-          enum:
-          - video
-          - audio
-          - text
-        duration:
-          type: number
-          format: double
-          description: The duration in seconds of the track media. This parameter is not set for `text` type tracks. This field is optional and may not be set. The top level `duration` field of an asset will always be set.
-        max_width:
-          type: integer
-          format: int64
-          description: The maximum width in pixels available for the track. Only set for the `video` type track.
-        max_height:
-          type: integer
-          format: int64
-          description: The maximum height in pixels available for the track. Only set for the `video` type track.
-        max_frame_rate:
-          type: number
-          format: double
-          description: The maximum frame rate available for the track. Only set for the `video` type track. This field may return `-1` if the frame rate of the input cannot be reliably determined.
-        max_channels:
-          type: integer
-          format: int64
-          description: The maximum number of audio channels the track supports. Only set for the `audio` type track.
-        max_channel_layout:
-          type: string
-          description: Only set for the `audio` type track.
-          deprecated: true
-        text_type:
-          type: string
-          enum:
-          - subtitles
-          description: This parameter is only set for `text` type tracks.
-        text_source:
-          type: string
-          description: 'The source of the text contained in a Track of type `text`. Valid `text_source`
-
-            values are listed below.
-
-            * `uploaded`: Tracks uploaded to Mux as caption or subtitle files using the Create Asset Track API.
-
-            * `embedded`: Tracks extracted from an embedded stream of CEA-608 closed captions.
-
-            * `generated_vod`: Tracks generated by automatic speech recognition on an on-demand asset.
-
-            * `generated_live`: Tracks generated by automatic speech recognition on a live stream configured with `generated_subtitles`. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
-
-            * `generated_live_final`: Tracks generated by automatic speech recognition on a live stream using `generated_subtitles`. The accuracy, timing, and formatting of these subtitles is improved compared to the corresponding `generated_live` tracks. However, `generated_live_final` tracks will not be available in `ready` status until the live stream ends. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
-
-            '
-          enum:
-          - uploaded
-          - embedded
-          - generated_live
-          - generated_live_final
-          - generated_vod
-        language_code:
-          type: string
-          description: The language code value represents [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value, or 'auto'. For example, `en` for English or `en-US` for the US version of English. This parameter is only set for `text` and `audio` track types. During automatic language detection for generated subtitles, this value will be set to `auto` until the language is determined.
-        name:
-          type: string
-          description: The name of the track containing a human-readable description. The HLS manifest will associate a subtitle `text` or `audio` track with this value. For example, the value should be "English" for a subtitle text track for the `language_code` value of `en-US`. This parameter is only set for `text` and `audio` track types.
-        closed_captions:
-          type: boolean
-          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This parameter is only set tracks where `type` is `text` and `text_type` is `subtitles`.
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the track either when creating the asset or track. This parameter is only set for `text` type tracks. Max 255 characters.
-        status:
-          type: string
-          enum:
-          - preparing
-          - ready
-          - errored
-          - deleted
-          description: The status of the track. This parameter is only set for `text` type tracks.
-        primary:
-          type: boolean
-          description: For an audio track, indicates that this is the primary audio track, ingested from the main input for this asset. The primary audio track cannot be deleted.
-        auto_language_confidence:
-          type: number
-          format: double
-          description: The confidence value (0-1) of the determined language. This value only is available when automatic language detection is utilized in generated subtitles.
-    AssetResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/Asset'
-    UpdateAssetMasterAccessRequest:
-      type: object
-      required:
-      - master_access
-      properties:
-        master_access:
-          type: string
-          description: Add or remove access to the master version of the video.
-          enum:
-          - temporary
-          - none
-    GetAssetInputInfoResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputInfo'
-    CreateStaticRenditionResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/StaticRendition'
   parameters:
-    list_asset_live_stream_id:
-      name: live_stream_id
+    cursor:
+      name: cursor
       in: query
-      description: Filter response to return all the assets for this live stream only
+      description: This parameter is used to request pages beyond the first. You can find the cursor value in the `next_cursor` field of paginated responses.
       required: false
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    playback_id:
+      name: PLAYBACK_ID
+      in: path
+      description: The asset or live stream's playback ID.
+      required: true
+      schema:
+        type: string
+    static_rendition_id:
+      name: STATIC_RENDITION_ID
+      in: path
+      description: The static rendition ID.
+      required: true
       schema:
         type: string
     asset_id:
@@ -1820,6 +1718,22 @@ components:
       required: true
       schema:
         type: string
+    list_asset_live_stream_id:
+      name: live_stream_id
+      in: query
+      description: Filter response to return all the assets for this live stream only
+      required: false
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
     list_asset_upload_id:
       name: upload_id
       in: query
@@ -1834,46 +1748,11 @@ components:
       required: true
       schema:
         type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    static_rendition_id:
-      name: STATIC_RENDITION_ID
-      in: path
-      description: The static rendition ID.
-      required: true
-      schema:
-        type: string
-    playback_id:
-      name: PLAYBACK_ID
-      in: path
-      description: The asset or live stream's playback ID.
-      required: true
-      schema:
-        type: string
-    cursor:
-      name: cursor
-      in: query
-      description: This parameter is used to request pages beyond the first. You can find the cursor value in the `next_cursor` field of paginated responses.
-      required: false
-      schema:
-        type: string
   securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using a Mux Access Token ID (username) and Secret (password).
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
 
@@ -1889,49 +1768,6 @@ components:
         '
       scheme: bearer
       type: http
-x-tagGroups:
-- name: Video
-  tags:
-  - Assets
-  - Live Streams
-  - Playback ID
-  - URL Signing Keys
-  - Direct Uploads
-  - Delivery Usage
-  - Playback Restrictions
-  - DRM Configurations
-  - Transcription Vocabularies
-- name: Data
-  tags:
-  - Video Views
-  - Errors
-  - Filters
-  - Exports
-  - Metrics
-  - Monitoring
-  - Real-Time
-  - Dimensions
-  - Incidents
-  - Annotations
-  - View and Viewer Counts
-- name: System
-  tags:
-  - Signing Keys
-  - Utilities
-- name: Robots
-  tags:
-  - Jobs
-  - Ask Questions
-  - Edit Captions
-  - Find Key Moments
-  - Generate Chapters
-  - Moderate
-  - Summarize
-  - Translate Captions
-- name: Playback
-  tags:
-  - Thumbnails
-  - Animated Images
-  - Storyboards
-  - Streaming
-  - Captions and Transcripts
+x-refined-from:
+- mux-com-openapi.yml
+- mux-openapi.yml

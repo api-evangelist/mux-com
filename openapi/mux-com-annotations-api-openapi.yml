@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Annotations API
+  title: Mux Annotations API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -182,7 +182,93 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
+  parameters:
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    timeframe:
+      name: timeframe[]
+      in: query
+      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    annotation_id:
+      name: ANNOTATION_ID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: The annotation ID
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
   schemas:
+    Annotation:
+      type: object
+      required:
+      - id
+      - note
+      - date
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the annotation
+        note:
+          type: string
+          description: The annotation note content
+        date:
+          type: string
+          format: date-time
+          description: Datetime when the annotation applies
+        sub_property_id:
+          type: string
+          nullable: true
+          description: Customer-defined sub-property identifier
+    AnnotationInput:
+      type: object
+      required:
+      - note
+      - date
+      properties:
+        note:
+          type: string
+          description: The annotation note content
+        date:
+          type: integer
+          format: int64
+          description: Datetime when the annotation applies (Unix timestamp)
+        sub_property_id:
+          type: string
+          description: Customer-defined sub-property identifier
     ListAnnotationsResponse:
       type: object
       required:
@@ -210,92 +296,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/Annotation'
-    AnnotationInput:
-      type: object
-      required:
-      - note
-      - date
-      properties:
-        note:
-          type: string
-          description: The annotation note content
-        date:
-          type: integer
-          format: int64
-          description: Datetime when the annotation applies (Unix timestamp)
-        sub_property_id:
-          type: string
-          description: Customer-defined sub-property identifier
-    Annotation:
-      type: object
-      required:
-      - id
-      - note
-      - date
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier for the annotation
-        note:
-          type: string
-          description: The annotation note content
-        date:
-          type: string
-          format: date-time
-          description: Datetime when the annotation applies
-        sub_property_id:
-          type: string
-          nullable: true
-          description: Customer-defined sub-property identifier
-  parameters:
-    order_direction:
-      name: order_direction
-      in: query
-      description: Sort order.
-      required: false
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-    annotation_id:
-      name: ANNOTATION_ID
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-      description: The annotation ID
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    timeframe:
-      name: timeframe[]
-      in: query
-      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

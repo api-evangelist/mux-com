@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Transcription Vocabularies API
+  title: Mux Transcription Vocabularies API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -204,6 +204,13 @@ paths:
       - authorizationToken: []
 components:
   schemas:
+    ListTranscriptionVocabulariesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionVocabulary'
     TranscriptionVocabularyResponse:
       type: object
       required:
@@ -211,28 +218,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TranscriptionVocabulary'
-    TranscriptionVocabularyPhrase:
-      type: string
-      description: A phrase or word belonging to a Transcription Vocabulary.
-      minLength: 1
-      maxLength: 32
-    UpdateTranscriptionVocabularyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The user-supplied name of the Transcription Vocabulary.
-        phrases:
-          type: array
-          items:
-            $ref: '#/components/schemas/TranscriptionVocabularyPhrase'
-          maxItems: 1000
-          description: Phrases, individual words, or proper names to include in the Transcription Vocabulary. When the Transcription Vocabulary is attached to a live stream's `generated_subtitles`, the probability of successful speech recognition for these words or phrases is boosted.
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the Transcription Vocabulary. Max 255 characters.
-      required:
-      - phrases
     CreateTranscriptionVocabularyRequest:
       type: object
       properties:
@@ -250,13 +235,28 @@ components:
           description: Arbitrary user-supplied metadata set for the Transcription Vocabulary. Max 255 characters.
       required:
       - phrases
-    ListTranscriptionVocabulariesResponse:
+    UpdateTranscriptionVocabularyRequest:
       type: object
       properties:
-        data:
+        name:
+          type: string
+          description: The user-supplied name of the Transcription Vocabulary.
+        phrases:
           type: array
           items:
-            $ref: '#/components/schemas/TranscriptionVocabulary'
+            $ref: '#/components/schemas/TranscriptionVocabularyPhrase'
+          maxItems: 1000
+          description: Phrases, individual words, or proper names to include in the Transcription Vocabulary. When the Transcription Vocabulary is attached to a live stream's `generated_subtitles`, the probability of successful speech recognition for these words or phrases is boosted.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the Transcription Vocabulary. Max 255 characters.
+      required:
+      - phrases
+    TranscriptionVocabularyPhrase:
+      type: string
+      description: A phrase or word belonging to a Transcription Vocabulary.
+      minLength: 1
+      maxLength: 32
     TranscriptionVocabulary:
       type: object
       required:
@@ -288,6 +288,13 @@ components:
           format: int64
           description: Time the Transcription Vocabulary was updated, defined as a Unix timestamp (seconds since epoch).
   parameters:
+    transcription_vocabulary_id:
+      name: TRANSCRIPTION_VOCABULARY_ID
+      in: path
+      description: The ID of the Transcription Vocabulary.
+      required: true
+      schema:
+        type: string
     page:
       name: page
       in: query
@@ -297,13 +304,6 @@ components:
         type: integer
         format: int32
         default: 1
-    transcription_vocabulary_id:
-      name: TRANSCRIPTION_VOCABULARY_ID
-      in: path
-      description: The ID of the Transcription Vocabulary.
-      required: true
-      schema:
-        type: string
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Delivery Usage API
+  title: Mux Delivery Usage API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -94,13 +94,15 @@ components:
         type: array
         items:
           type: string
-    delivery_usage_live_stream_id:
-      name: live_stream_id
+    delivery_usage_limit:
+      name: limit
       in: query
-      description: Filter response to return delivery usage for assets for this live stream. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
+      description: Number of items to include in the response
       required: false
       schema:
-        type: string
+        type: integer
+        format: int32
+        default: 100
     page:
       name: page
       in: query
@@ -117,41 +119,14 @@ components:
       required: false
       schema:
         type: string
-    delivery_usage_limit:
-      name: limit
+    delivery_usage_live_stream_id:
+      name: live_stream_id
       in: query
-      description: Number of items to include in the response
+      description: Filter response to return delivery usage for assets for this live stream. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
       required: false
       schema:
-        type: integer
-        format: int32
-        default: 100
+        type: string
   schemas:
-    ListDeliveryUsageResponse:
-      type: object
-      required:
-      - data
-      - timeframe
-      - page
-      - limit
-      - total_row_count
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryReport'
-        total_row_count:
-          type: integer
-          format: int64
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-        limit:
-          type: integer
-          format: int64
-          description: Number of assets returned in this response. Default value is 100.
     DeliveryReport:
       type: object
       required:
@@ -242,6 +217,31 @@ components:
               type: number
               format: double
               description: Total number of delivered seconds during this time window that had a resolution of audio only.
+    ListDeliveryUsageResponse:
+      type: object
+      required:
+      - data
+      - timeframe
+      - page
+      - limit
+      - total_row_count
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryReport'
+        total_row_count:
+          type: integer
+          format: int64
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        limit:
+          type: integer
+          format: int64
+          description: Number of assets returned in this response. Default value is 100.
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

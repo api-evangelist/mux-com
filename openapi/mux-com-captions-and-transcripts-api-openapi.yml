@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Captions and Transcripts API
+  title: Mux Captions and Transcripts API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -96,13 +96,6 @@ paths:
                 message: Not Found
 components:
   parameters:
-    track_id:
-      name: TRACK_ID
-      in: path
-      description: The ID of the track for an asset.
-      required: true
-      schema:
-        type: string
     playback_id:
       name: PLAYBACK_ID
       in: path
@@ -114,6 +107,13 @@ components:
       name: TOKEN
       in: query
       description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
+    track_id:
+      name: TRACK_ID
+      in: path
+      description: The ID of the track for an asset.
+      required: true
       schema:
         type: string
   securitySchemes:

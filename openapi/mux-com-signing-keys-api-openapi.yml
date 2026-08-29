@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Signing Keys API
+  title: Mux Signing Keys API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -119,7 +119,40 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
+  parameters:
+    signing_key_id:
+      name: SIGNING_KEY_ID
+      in: path
+      description: The ID of the signing key.
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
   schemas:
+    SigningKeyResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/SigningKey'
     SigningKey:
       type: object
       required:
@@ -137,13 +170,6 @@ components:
           type: string
           format: byte
           description: A Base64 encoded private key that can be used with the RS256 algorithm when creating a [JWT](https://jwt.io/). **Note that this value is only returned once when creating a URL signing key.**
-    SigningKeyResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/SigningKey'
     ListSigningKeysResponse:
       type: object
       required:
@@ -153,32 +179,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SigningKey'
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    signing_key_id:
-      name: SIGNING_KEY_ID
-      in: path
-      description: The ID of the signing key.
-      required: true
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

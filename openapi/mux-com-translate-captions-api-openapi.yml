@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mux Animated Images Translate Captions API
+  title: Mux Translate Captions API
   description: Mux is how developers build online video. This API encompasses both Mux Video and Mux Data functionality to help you build your video-related projects better and faster than ever before.
   version: v1
   contact:
@@ -150,81 +150,6 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    TranslateCaptionsJobOutputs:
-      type: object
-      properties:
-        track_id:
-          type: string
-          minLength: 1
-          description: The Mux text track ID of the source caption track that was translated.
-        uploaded_track_id:
-          type: string
-          minLength: 1
-          description: Mux text track ID of the uploaded translated captions. Present when upload_to_mux is true.
-        temporary_vtt_url:
-          type: string
-          minLength: 1
-          description: Temporary pre-signed URL to download the translated VTT file. Present when upload_to_mux is true.
-      example:
-        track_id: track_en_abc123
-        uploaded_track_id: track_es_abc123
-        temporary_vtt_url: https://storage.example.com/translations/es/captions.vtt?token=abc123
-      description: Workflow results. Present when status is 'completed'.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
-    CreateTranslateCaptionsJobRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
-        parameters:
-          $ref: '#/components/schemas/TranslateCaptionsJobParameters'
-      required:
-      - parameters
-    TranslateCaptionsJobParameters:
-      type: object
-      properties:
-        asset_id:
-          type: string
-          minLength: 1
-          description: The Mux asset ID of the video whose captions will be translated.
-        track_id:
-          type: string
-          minLength: 1
-          description: The Mux text track ID of the source caption track to translate. The asset must have a ready text track matching this ID or the request will be rejected.
-        to_language_code:
-          type: string
-          minLength: 1
-          description: BCP 47 language code for the translated output (e.g. "es", "ja"). The asset must not already have a text track for this language.
-        upload_to_mux:
-          type: boolean
-          default: true
-          description: Whether to upload the translated VTT and attach it as a text track on the Mux asset. Defaults to true.
-      required:
-      - asset_id
-      - track_id
-      - to_language_code
-      example:
-        asset_id: mux_asset_123abc
-        track_id: track_en_abc123
-        to_language_code: es
-        upload_to_mux: true
     JobError:
       type: object
       properties:
@@ -286,6 +211,118 @@ components:
       - workflow
       - parameters
       - status
+    TranslateCaptionsJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TranslateCaptionsJob'
+      required:
+      - data
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    TranslateCaptionsJobParameters:
+      type: object
+      properties:
+        asset_id:
+          type: string
+          minLength: 1
+          description: The Mux asset ID of the video whose captions will be translated.
+        track_id:
+          type: string
+          minLength: 1
+          description: The Mux text track ID of the source caption track to translate. The asset must have a ready text track matching this ID or the request will be rejected.
+        to_language_code:
+          type: string
+          minLength: 1
+          description: BCP 47 language code for the translated output (e.g. "es", "ja"). The asset must not already have a text track for this language.
+        upload_to_mux:
+          type: boolean
+          default: true
+          description: Whether to upload the translated VTT and attach it as a text track on the Mux asset. Defaults to true.
+      required:
+      - asset_id
+      - track_id
+      - to_language_code
+      example:
+        asset_id: mux_asset_123abc
+        track_id: track_en_abc123
+        to_language_code: es
+        upload_to_mux: true
+    TranslateCaptionsJobOutputs:
+      type: object
+      properties:
+        track_id:
+          type: string
+          minLength: 1
+          description: The Mux text track ID of the source caption track that was translated.
+        uploaded_track_id:
+          type: string
+          minLength: 1
+          description: Mux text track ID of the uploaded translated captions. Present when upload_to_mux is true.
+        temporary_vtt_url:
+          type: string
+          minLength: 1
+          description: Temporary pre-signed URL to download the translated VTT file. Present when upload_to_mux is true.
+      example:
+        track_id: track_en_abc123
+        uploaded_track_id: track_es_abc123
+        temporary_vtt_url: https://storage.example.com/translations/es/captions.vtt?token=abc123
+      description: Workflow results. Present when status is 'completed'.
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+    CreateTranslateCaptionsJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/TranslateCaptionsJobParameters'
+      required:
+      - parameters
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
     SlimlineAsset:
       type: object
       properties:
@@ -325,43 +362,6 @@ components:
       required:
       - id
       - _links
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
-    Resources:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlimlineAsset'
-          description: Mux assets associated with this job.
-      required:
-      - assets
-      example:
-        assets:
-        - id: abc123asset
-          meta:
-            title: My Video
-            creator_id: user123
-            external_id: ext456
-          _links:
-            self:
-              href: https://api.mux.com/video/v1/assets/abc123asset
-      description: Related Mux resources linked to this job.
-    TranslateCaptionsJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/TranslateCaptionsJob'
-      required:
-      - data
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

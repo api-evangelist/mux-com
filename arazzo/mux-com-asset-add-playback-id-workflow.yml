@@ -48,7 +48,7 @@ workflows:
     description: >-
       Create a new asset from the source URL so a playback ID can be attached
       once it is ready.
-    operationId: create-asset
+    operationId: createAsset
     requestBody:
       contentType: application/json
       payload:
@@ -63,7 +63,7 @@ workflows:
   - stepId: waitForReady
     description: >-
       Poll the asset until its status reaches ready.
-    operationId: get-asset
+    operationId: getAsset
     parameters:
     - name: ASSET_ID
       in: path

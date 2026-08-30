@@ -46,7 +46,7 @@ workflows:
   - stepId: listAssets
     description: >-
       List assets in the current environment, ordered by most recent.
-    operationId: list-assets
+    operationId: listAssets
     parameters:
     - name: limit
       in: query
@@ -62,7 +62,7 @@ workflows:
   - stepId: getAsset
     description: >-
       Read the first asset's full detail, including its playback IDs and tracks.
-    operationId: get-asset
+    operationId: getAsset
     parameters:
     - name: ASSET_ID
       in: path

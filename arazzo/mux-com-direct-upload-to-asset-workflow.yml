@@ -57,7 +57,7 @@ workflows:
     description: >-
       Create a new direct upload, returning a signed URL the client uses to PUT
       the source file plus the upload id used to track ingest progress.
-    operationId: create-direct-upload
+    operationId: createUpload
     requestBody:
       contentType: application/json
       payload:
@@ -75,7 +75,7 @@ workflows:
     description: >-
       Poll the upload until Mux has finished ingesting the PUT file and created
       an asset, exposing the new asset id.
-    operationId: get-direct-upload
+    operationId: getUpload
     parameters:
     - name: UPLOAD_ID
       in: path
@@ -94,7 +94,7 @@ workflows:
     description: >-
       Poll the asset created by the upload until its status reaches ready,
       meaning playback IDs can be streamed.
-    operationId: get-asset
+    operationId: getAsset
     parameters:
     - name: ASSET_ID
       in: path

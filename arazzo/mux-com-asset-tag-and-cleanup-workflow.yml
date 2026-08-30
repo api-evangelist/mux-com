@@ -56,7 +56,7 @@ workflows:
   - stepId: createAsset
     description: >-
       Create a new asset from the source URL to tag and then clean up.
-    operationId: create-asset
+    operationId: createAsset
     requestBody:
       contentType: application/json
       payload:
@@ -71,7 +71,7 @@ workflows:
   - stepId: waitForReady
     description: >-
       Poll the asset until its status reaches ready before tagging it.
-    operationId: get-asset
+    operationId: getAsset
     parameters:
     - name: ASSET_ID
       in: path
@@ -89,7 +89,7 @@ workflows:
     description: >-
       Update the asset with title, creator, and external-id metadata so it can be
       correlated with your own systems.
-    operationId: update-asset
+    operationId: updateAsset
     parameters:
     - name: ASSET_ID
       in: path
@@ -108,7 +108,7 @@ workflows:
   - stepId: deleteAsset
     description: >-
       Delete the asset to release storage now that the lifecycle is complete.
-    operationId: delete-asset
+    operationId: deleteAsset
     parameters:
     - name: ASSET_ID
       in: path

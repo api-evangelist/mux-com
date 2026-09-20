@@ -1,0 +1,102 @@
+slug: mux-com
+provider: Mux
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 9
+edges:
+- tag: Assets
+  spec_file: mux-com-assets-api-openapi.yml
+  capability_id: BC-3710
+  capability_id_l1: BC-3710
+  capability_name: Media Asset Management
+  confidence: 0.9
+  evidence: 'POST /video/v1/assets  createAsset  Create an asset ... PUT /video/v1/assets/{ASSET_ID}/master-access  update-asset-master-access  Update
+    Master Access ... schemas: Asset, StaticRendition, Track, AssetMetadata'
+  reason: Core CRUD over media assets with masters, tracks, renditions and playback IDs — plainly media
+    asset management. Spans ingest, metadata, renditions and identifiers, so the L1 is the honest level
+    rather than one sub-capability.
+- tag: DRM Configurations
+  spec_file: mux-com-drm-configurations-api-openapi.yml
+  capability_id: BC-3740.50
+  capability_id_l1: BC-3740
+  capability_name: Content Protection & DRM Management
+  confidence: 0.9
+  evidence: GET /video/v1/drm-configurations  list-drm-configurations  List DRM Configurations
+  reason: Explicitly DRM configuration retrieval for video delivery, matching content protection and DRM
+    management; schema names DRMConfiguration confirm the reading.
+- tag: Streaming
+  spec_file: mux-com-streaming-api-openapi.yml
+  capability_id: BC-3740.20
+  capability_id_l1: BC-3740
+  capability_name: OTT & Streaming Delivery
+  confidence: 0.85
+  evidence: GET /{PLAYBACK_ID}.m3u8  get-hls-manifest  Retrieve HLS Manifest
+  reason: Serving HLS manifests and static renditions to players is streaming origin/packaging delivery,
+    i.e. OTT & Streaming Delivery.
+- tag: Translate Captions
+  spec_file: mux-com-translate-captions-api-openapi.yml
+  capability_id: BC-3700.60
+  capability_id_l1: BC-3700
+  capability_name: Localisation & Versioning Management
+  confidence: 0.85
+  evidence: POST /robots/v0/jobs/translate-captions  create-translate-captions-job  Create a 'translate-Captions'
+    Job
+  reason: Translating caption tracks into other languages is squarely subtitling/localisation and versioning
+    of content.
+- tag: Live Streams
+  spec_file: mux-com-live-streams-api-openapi.yml
+  capability_id: BC-3740.20
+  capability_id_l1: BC-3740
+  capability_name: OTT & Streaming Delivery
+  confidence: 0.8
+  evidence: POST /video/v1/live-streams "Create a Live Stream"; "Reset a Live Stream's Stream Key"; schemas
+    SimulcastTarget, CreateLiveStreamRequest, PlaybackID
+  reason: Operations provision and operate live streaming ingest, playback IDs and simulcast targets —
+    direct operation of streaming origin and live streaming delivery.
+- tag: Direct Uploads
+  spec_file: mux-com-direct-uploads-api-openapi.yml
+  capability_id: BC-3710.10
+  capability_id_l1: BC-3710
+  capability_name: Asset Ingest & Quality Control
+  confidence: 0.78
+  evidence: POST /video/v1/uploads  createUpload  Create a direct upload URL
+  reason: Creates signed upload URLs that onboard source material into the asset platform (InputSettings,
+    AssetOptions), i.e. asset ingest. Slight risk it reads as generic file-upload plumbing, but the payload
+    is explicitly media ingest into assets.
+- tag: Moderate
+  spec_file: mux-com-moderate-api-openapi.yml
+  capability_id: BC-3780.40
+  capability_id_l1: BC-3780
+  capability_name: User-Generated Content Moderation
+  confidence: 0.7
+  evidence: POST /robots/v0/jobs/moderate — "Create a 'moderate' Job"; schemas ModerateJobOutputs, ModerateJobParameters
+  reason: An automated moderation job run over uploaded video assets — automated triage of user-supplied
+    content, matching content moderation. Sub-capability choice (UGC moderation) is the closest available
+    for automated screening.
+- tag: URL Signing Keys
+  spec_file: mux-com-url-signing-keys-api-openapi.yml
+  capability_id: BC-3740.50
+  capability_id_l1: BC-3740
+  capability_name: Content Protection & DRM Management
+  confidence: 0.7
+  evidence: POST /video/v1/signing-keys  create-url-signing-key  Create a URL Signing Key
+  reason: Video-scoped signing keys mint signed playback tokens that gate access to streams — content
+    protection key management. Some chance this is judged generic credential plumbing.
+- tag: Video Views
+  spec_file: mux-com-video-views-api-openapi.yml
+  capability_id: BC-3770.10
+  capability_id_l1: BC-3770
+  capability_name: Viewership Data Capture
+  confidence: 0.7
+  evidence: GET /data/v1/video-views  list-video-views  List Video Views; VideoView, VideoViewEvent
+  reason: Per-view playback session records and their event streams are OTT playback telemetry captured
+    into the analytics platform.

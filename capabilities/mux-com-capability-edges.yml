@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 9
+edge_count: 10
 edges:
 - tag: Assets
   spec_file: mux-com-assets-api-openapi.yml
@@ -82,6 +82,17 @@ edges:
   reason: An automated moderation job run over uploaded video assets — automated triage of user-supplied
     content, matching content moderation. Sub-capability choice (UGC moderation) is the closest available
     for automated screening.
+- tag: Monitoring
+  spec_file: mux-com-monitoring-api-openapi.yml
+  capability_id: BC-4220.20
+  capability_id_l1: BC-4220
+  capability_name: Observability Management
+  confidence: 0.7
+  evidence: GET /data/v1/monitoring/metrics  list-monitoring-metrics  List Monitoring Metrics; GetMonitoringTimeseriesResponse,
+    MonitoringHistogramTimeseriesBucket
+  reason: Operations expose monitoring dimensions, metrics, timeseries and histograms for the live service
+    — squarely observability of a running production service rather than any business monitoring.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: URL Signing Keys
   spec_file: mux-com-url-signing-keys-api-openapi.yml
   capability_id: BC-3740.50

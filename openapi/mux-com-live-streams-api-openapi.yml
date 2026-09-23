@@ -418,9 +418,7 @@ paths:
       description: '(Optional) End the live stream recording immediately instead of waiting for the reconnect_window. `EXT-X-ENDLIST` tag is added to the HLS manifest which notifies the player that this live stream is over.
 
 
-        Mux does not close the encoder connection immediately. Encoders are often configured to re-establish connections immediately which would result in a new recorded asset. For this reason, Mux waits for 60s before closing the connection with the encoder. This 60s timeframe is meant to give encoder operators a chance to disconnect from their end.
-
-        '
+        Mux does not close the encoder connection immediately. Encoders are often configured to re-establish connections immediately which would result in a new recorded asset. For this reason, Mux waits for 60s before closing the connection with the encoder. This 60s timeframe is meant to give encoder operators a chance to disconnect from their end.'
       operationId: signal-live-stream-complete
       servers:
       - url: https://api.mux.com
@@ -446,9 +444,7 @@ paths:
       description: 'Disables a live stream, making it reject incoming RTMP streams until re-enabled. The API also ends the live stream recording immediately when active. Ending the live stream recording adds the `EXT-X-ENDLIST` tag to the HLS manifest which notifies the player that this live stream is over.
 
 
-        Mux also closes the encoder connection immediately. Any attempt from the encoder to re-establish connection will fail till the live stream is re-enabled.
-
-        '
+        Mux also closes the encoder connection immediately. Any attempt from the encoder to re-establish connection will fail till the live stream is re-enabled.'
       operationId: disable-live-stream
       servers:
       - url: https://api.mux.com
@@ -496,9 +492,7 @@ paths:
       summary: Update a Live Stream's Embedded Subtitles
       description: 'Configures a live stream to receive embedded closed captions.
 
-        The resulting Asset''s subtitle text track will have `closed_captions: true` set.
-
-        '
+        The resulting Asset''s subtitle text track will have `closed_captions: true` set.'
       operationId: update-live-stream-embedded-subtitles
       servers:
       - url: https://api.mux.com
@@ -560,9 +554,7 @@ paths:
 
         Automatic speech recognition subtitles can be removed by sending an empty array in the
 
-        request payload.
-
-        '
+        request payload.'
       operationId: update-live-stream-generated-subtitles
       servers:
       - url: https://api.mux.com
@@ -784,141 +776,77 @@ paths:
     - url: https://stream.mux.com
     - url: https://stats.mux.com
 components:
+  parameters:
+    playback_id:
+      name: PLAYBACK_ID
+      in: path
+      description: The asset or live stream's playback ID.
+      required: true
+      schema:
+        type: string
+    stream_key:
+      name: stream_key
+      in: query
+      description: Filter response to return live stream for this stream key only
+      required: false
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    simulcast_target_id:
+      name: SIMULCAST_TARGET_ID
+      in: path
+      description: The ID of the simulcast target.
+      required: true
+      schema:
+        type: string
+    livestream_id:
+      name: LIVE_STREAM_ID
+      in: path
+      description: The live stream ID
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
   schemas:
-    PlaybackID:
+    CreateSimulcastTargetRequest:
       type: object
       required:
-      - id
-      - policy
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the PlaybackID
-        policy:
-          $ref: '#/components/schemas/PlaybackPolicy'
-        drm_configuration_id:
-          type: string
-          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
-    LiveStreamEmbeddedSubtitleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: A name for this live stream closed caption track.
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the live stream closed caption track. Max 255 characters.
-        language_code:
-          type: string
-          description: The language of the closed caption stream. Value must be BCP 47 compliant.
-          default: en
-        language_channel:
-          type: string
-          description: CEA-608 caption channel to read data from.
-          default: cc1
-          enum:
-          - cc1
-          - cc2
-          - cc3
-          - cc4
-    LiveStreamStatus:
-      type: string
-      enum:
-      - active
-      - idle
-      - disabled
-      description: '`idle` indicates that there is no active broadcast. `active` indicates that there is an active broadcast and `disabled` status indicates that no future RTMP streams can be published.'
-    UpdateLiveStreamRequest:
-      type: object
+      - url
       properties:
         passthrough:
           type: string
-          description: Arbitrary user-supplied metadata set for the live stream. Max 255 characters. In order to clear this value, the field should be included with an empty-string value.
-        latency_mode:
+          description: Arbitrary user-supplied metadata set by you when creating a simulcast target.
+        stream_key:
           type: string
-          enum:
-          - low
-          - reduced
-          - standard
-          description: Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags.
-        reconnect_window:
-          type: number
-          format: float
-          default: 60
-          minimum: 0
-          maximum: 1800
-          description: 'When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset.
+          description: Stream Key represents a stream identifier on the third party live streaming service to send the parent live stream to. Only used for RTMP(s) simulcast destinations.
+        url:
+          type: string
+          description: 'The RTMP(s) or SRT endpoint for a simulcast destination.
+
+            * For RTMP(s) destinations, this should include the application name for the third party live streaming service, for example: `rtmp://live.example.com/app`.
+
+            * For SRT destinations, this should be a fully formed SRT connection string, for example: `srt://srt-live.example.com:1234?streamid={stream_key}&passphrase={srt_passphrase}`.
 
 
-            If not specified directly, Standard Latency streams have a Reconnect Window of 60 seconds; Reduced and Low Latency streams have a default of 0 seconds, or no Reconnect Window. For that reason, we suggest specifying a value other than zero for Reduced and Low Latency streams.
-
-
-            Reduced and Low Latency streams with a Reconnect Window greater than zero will insert slate media into the recorded asset while waiting for the streaming software to reconnect or when there are brief interruptions in the live stream media. When using a Reconnect Window setting higher than 60 seconds with a Standard Latency stream, we highly recommend enabling slate with the `use_slate_for_standard_latency` option.
+            Note: SRT simulcast targets can only be used when an source is connected over SRT.
 
             '
-        use_slate_for_standard_latency:
-          type: boolean
-          format: boolean
-          default: false
-          description: By default, Standard Latency live streams do not have slate media inserted while waiting for live streaming software to reconnect to Mux. Setting this to true enables slate insertion on a Standard Latency stream.
-        reconnect_slate_url:
-          type: string
-          description: The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. Set this to a blank string to clear the value so that the default slate media will be used.
-        max_continuous_duration:
-          $ref: '#/components/schemas/MaxContinuousDuration'
-        new_asset_settings:
-          $ref: '#/components/schemas/UpdateLiveStreamNewAssetSettings'
-        meta:
-          $ref: '#/components/schemas/LiveStreamMetadata'
-    AssetMetadata:
-      type: object
-      description: 'Customer provided metadata about this asset.
-
-
-        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
-
-        '
-      properties:
-        title:
-          type: string
-          maxLength: 512
-          description: The asset title. Max 512 code points.
-        creator_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
-        external_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
-    SimulcastTargetResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/SimulcastTarget'
-    CreateStaticRenditionRequest:
-      type: object
-      required:
-      - resolution
-      properties:
-        resolution:
-          type: string
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
     AssetGeneratedSubtitleSettings:
       type: object
       properties:
@@ -956,184 +884,118 @@ components:
           - ro
           - bg
           - auto
-    SimulcastTarget:
+    InputSettings:
       type: object
-      required:
-      - id
-      - url
-      - status
+      description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
       properties:
-        id:
-          type: string
-          description: ID of the Simulcast Target
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set when creating a simulcast target.
-        status:
-          type: string
-          enum:
-          - idle
-          - starting
-          - broadcasting
-          - errored
-          description: "The current status of the simulcast target. See Statuses below for detailed description.\n  * `idle`: Default status. When the parent live stream is in disconnected status, simulcast targets will be idle state.\n  * `starting`: The simulcast target transitions into this state when the parent live stream transition into connected state.\n  * `broadcasting`: The simulcast target has successfully connected to the third party live streaming service and is pushing video to that service.\n  * `errored`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. When a simulcast target has this status it will have an `error_severity` field with more details about the error.\n"
-        stream_key:
-          type: string
-          description: Stream Key represents a stream identifier on the third party live streaming service to send the parent live stream to. Only used for RTMP(s) simulcast destinations.
         url:
           type: string
-          description: 'The RTMP(s) or SRT endpoint for a simulcast destination.
+          description: 'The URL of the file that Mux should download and use.
 
-            * For RTMP(s) destinations, this should include the application name for the third party live streaming service, for example: `rtmp://live.example.com/app`.
+            * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
 
-            * For SRT destinations, this should be a fully formed SRT connection string, for example: `srt://srt-live.example.com:1234?streamid={stream_key}&passphrase={srt_passphrase}`.
+            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
 
+            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
 
-            Note: SRT simulcast targets can only be used when an source is connected over SRT.
+            * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
+
+            * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
+
+            The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
 
             '
-        error_severity:
-          type: string
-          enum:
-          - normal
-          - fatal
-          description: "The severity of the error encountered by the simulcast target.\nThis field is only set when the simulcast target is in the `errored` status.\nSee the values of severities below and their descriptions.\n  * `normal`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. A simulcast may transition back into the broadcasting state if a connection with the service can be re-established.\n  * `fatal`: The simulcast target is incompatible with the current input to the parent live stream. No further attempts to this simulcast target will be made for the current live stream asset.\n"
-    UpdateLiveStreamGeneratedSubtitlesRequest:
-      type: object
-      properties:
+        overlay_settings:
+          type: object
+          description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
+          properties:
+            vertical_align:
+              type: string
+              enum:
+              - top
+              - middle
+              - bottom
+              description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
+            vertical_margin:
+              type: string
+              description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
+            horizontal_align:
+              type: string
+              enum:
+              - left
+              - center
+              - right
+              description: Where the horizontal positioning of the overlay/watermark should begin from.
+            horizontal_margin:
+              type: string
+              description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
+            width:
+              type: string
+              description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
+            height:
+              type: string
+              description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
+            opacity:
+              type: string
+              description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
         generated_subtitles:
           type: array
           items:
-            $ref: '#/components/schemas/LiveStreamGeneratedSubtitleRequest'
-          description: Update automated speech recognition subtitle configuration for a live stream. At most one subtitle track is allowed.
-      x-mux-no-required-properties: true
-    CreatePlaybackIDRequest:
+            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
+          description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
+        start_time:
+          type: number
+          format: double
+          description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+        end_time:
+          type: number
+          format: double
+          description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+        type:
+          type: string
+          enum:
+          - video
+          - audio
+          - text
+          description: This parameter is required for `text` type tracks.
+        text_type:
+          type: string
+          enum:
+          - subtitles
+          description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
+        language_code:
+          type: string
+          description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
+        name:
+          type: string
+          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
+        closed_captions:
+          type: boolean
+          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+        passthrough:
+          type: string
+          description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+    GetLiveStreamPlaybackIDResponse:
       type: object
+      required:
+      - data
       properties:
+        data:
+          $ref: '#/components/schemas/PlaybackID'
+    PlaybackID:
+      type: object
+      required:
+      - id
+      - policy
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the PlaybackID
         policy:
           $ref: '#/components/schemas/PlaybackPolicy'
         drm_configuration_id:
           type: string
           description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
-    LiveStream:
-      type: object
-      required:
-      - id
-      - created_at
-      - latency_mode
-      - max_continuous_duration
-      - status
-      - stream_key
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Live Stream. Max 255 characters.
-        created_at:
-          type: string
-          format: int64
-          description: Time the Live Stream was created, defined as a Unix timestamp (seconds since epoch).
-        stream_key:
-          type: string
-          description: Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters.
-        active_asset_id:
-          type: string
-          description: The Asset that is currently being created if there is an active broadcast.
-        recent_asset_ids:
-          type: array
-          description: An array of strings with the most recent Asset IDs that were created from this Live Stream. The most recently generated Asset ID is the last entry in the list.
-          items:
-            type: string
-        status:
-          $ref: '#/components/schemas/LiveStreamStatus'
-        playback_ids:
-          type: array
-          description: An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/play-your-videos) for more details.
-          items:
-            $ref: '#/components/schemas/PlaybackID'
-        new_asset_settings:
-          $ref: '#/components/schemas/AssetOptions'
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the asset. Max 255 characters.
-        audio_only:
-          type: boolean
-          description: The live stream only processes the audio track if the value is set to true. Mux drops the video track if broadcasted.
-        embedded_subtitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/LiveStreamEmbeddedSubtitleSettings'
-          description: Describes the embedded closed caption configuration of the incoming live stream.
-        generated_subtitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/LiveStreamGeneratedSubtitleSettings'
-          description: Configure the incoming live stream to include subtitles created with automatic speech recognition. Each Asset created from a live stream with `generated_subtitles` configured will automatically receive two text tracks. The first of these will have a `text_source` value of `generated_live`, and will be available with `ready` status as soon as the stream is live. The second text track will have a `text_source` value of `generated_live_final` and will contain subtitles with improved accuracy, timing, and formatting. However, `generated_live_final` tracks will not be available in `ready` status until the live stream ends. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
-        reconnect_window:
-          type: number
-          format: float
-          default: 60
-          minimum: 0
-          maximum: 1800
-          description: 'When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset. **Max**: 1800s (30 minutes).
-
-
-            If not specified directly, Standard Latency streams have a Reconnect Window of 60 seconds; Reduced and Low Latency streams have a default of 0 seconds, or no Reconnect Window. For that reason, we suggest specifying a value other than zero for Reduced and Low Latency streams.
-
-
-            Reduced and Low Latency streams with a Reconnect Window greater than zero will insert slate media into the recorded asset while waiting for the streaming software to reconnect or when there are brief interruptions in the live stream media. When using a Reconnect Window setting higher than 60 seconds with a Standard Latency stream, we highly recommend enabling slate with the `use_slate_for_standard_latency` option.
-
-            '
-        use_slate_for_standard_latency:
-          type: boolean
-          format: boolean
-          default: false
-          description: By default, Standard Latency live streams do not have slate media inserted while waiting for live streaming software to reconnect to Mux. Setting this to true enables slate insertion on a Standard Latency stream.
-        reconnect_slate_url:
-          type: string
-          description: The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. If this is not set, the default slate media will be used.
-        reduced_latency:
-          type: boolean
-          format: boolean
-          deprecated: true
-          x-mux-doc-decorators:
-          - hidden
-          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this if you want lower latency for your live stream. See the [Reduce live stream latency guide](https://docs.mux.com/guides/reduce-live-stream-latency) to understand the tradeoffs.
-        low_latency:
-          type: boolean
-          format: boolean
-          deprecated: true
-          x-mux-doc-decorators:
-          - hidden
-          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Setting this option will enable compatibility with the LL-HLS specification for low-latency streaming. This typically has lower latency than Reduced Latency streams, and cannot be combined with Reduced Latency.
-        simulcast_targets:
-          type: array
-          description: Each Simulcast Target contains configuration details to broadcast (or "restream") a live stream to a third-party streaming service. [See the Stream live to 3rd party platforms guide](https://docs.mux.com/guides/stream-live-to-3rd-party-platforms).
-          items:
-            $ref: '#/components/schemas/SimulcastTarget'
-        latency_mode:
-          type: string
-          enum:
-          - low
-          - reduced
-          - standard
-          description: Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags.
-        test:
-          type: boolean
-          format: boolean
-          description: True means this live stream is a test live stream. Test live streams can be used to help evaluate the Mux Video APIs for free. There is no limit on the number of test live streams, but they are watermarked with the Mux logo, and limited to 5 minutes. The test live stream is disabled after the stream is active for 5 mins and the recorded asset also deleted after 24 hours.
-        max_continuous_duration:
-          $ref: '#/components/schemas/MaxContinuousDuration'
-        srt_passphrase:
-          type: string
-          description: Unique key used for encrypting a stream to a Mux SRT endpoint. Max 64 characters.
-        active_ingest_protocol:
-          type: string
-          enum:
-          - rtmp
-          - srt
-          description: The protocol used for the active ingest stream. This is only set when the live stream is active.
-        meta:
-          $ref: '#/components/schemas/LiveStreamMetadata'
     UpdateLiveStreamNewAssetSettings:
       type: object
       description: 'Updates the new asset settings to use to generate a new asset for this live stream. Only the `mp4_support`, `master_access`, and `video_quality` settings may be updated.
@@ -1180,6 +1042,20 @@ components:
           description: The video quality controls the cost, quality, and available platform features for the asset. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
         meta:
           $ref: '#/components/schemas/AssetMetadata'
+    LiveStreamResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStream'
+    MaxContinuousDuration:
+      type: integer
+      format: int32
+      default: 43200
+      minimum: 60
+      maximum: 43200
+      description: The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
     PlaybackPolicy:
       type: string
       enum:
@@ -1195,6 +1071,99 @@ components:
         * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
 
         '
+    ListLiveStreamsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveStream'
+    SimulcastTargetResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/SimulcastTarget'
+    UpdateLiveStreamEmbeddedSubtitlesRequest:
+      type: object
+      properties:
+        embedded_subtitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveStreamEmbeddedSubtitleRequest'
+          description: Describe the embedded closed caption contents of the incoming live stream.
+    AssetMetadata:
+      type: object
+      description: 'Customer provided metadata about this asset.
+
+
+        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
+
+        '
+      properties:
+        title:
+          type: string
+          maxLength: 512
+          description: The asset title. Max 512 code points.
+        creator_id:
+          type: string
+          maxLength: 128
+          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
+        external_id:
+          type: string
+          maxLength: 128
+          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
+    LiveStreamGeneratedSubtitleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A name for this live stream subtitle track.
+        passthrough:
+          type: string
+          description: Arbitrary metadata set for the live stream subtitle track. Max 255 characters.
+        language_code:
+          type: string
+          description: The language of the audio from which subtitles are generated.
+          default: en
+          enum:
+          - en
+          - en-US
+          - es
+          - fr
+          - de
+          - pt
+          - it
+        transcription_vocabulary_ids:
+          type: array
+          items:
+            type: string
+          description: Unique identifiers for existing Transcription Vocabularies to use while generating subtitles for the live stream. If the Transcription Vocabularies provided collectively have more than 1000 phrases, only the first 1000 phrases will be included.
+    LiveStreamEmbeddedSubtitleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A name for this live stream closed caption track.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the live stream closed caption track. Max 255 characters.
+        language_code:
+          type: string
+          description: The language of the closed caption stream. Value must be BCP 47 compliant.
+          default: en
+        language_channel:
+          type: string
+          description: CEA-608 caption channel to read data from.
+          default: cc1
+          enum:
+          - cc1
+          - cc2
+          - cc3
+          - cc4
     LiveStreamEmbeddedSubtitleSettings:
       type: object
       required:
@@ -1221,6 +1190,90 @@ components:
           - cc2
           - cc3
           - cc4
+    CreateStaticRenditionRequest:
+      type: object
+      required:
+      - resolution
+      properties:
+        resolution:
+          type: string
+          enum:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+    CreatePlaybackIDRequest:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+        drm_configuration_id:
+          type: string
+          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+    LiveStreamMetadata:
+      type: object
+      description: 'Customer provided metadata about this live stream.
+
+
+        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
+
+        '
+      properties:
+        title:
+          type: string
+          maxLength: 512
+          description: The live stream title. Max 512 code points.
+    UpdateLiveStreamRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the live stream. Max 255 characters. In order to clear this value, the field should be included with an empty-string value.
+        latency_mode:
+          type: string
+          enum:
+          - low
+          - reduced
+          - standard
+          description: Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags.
+        reconnect_window:
+          type: number
+          format: float
+          default: 60
+          minimum: 0
+          maximum: 1800
+          description: 'When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset.
+
+
+            If not specified directly, Standard Latency streams have a Reconnect Window of 60 seconds; Reduced and Low Latency streams have a default of 0 seconds, or no Reconnect Window. For that reason, we suggest specifying a value other than zero for Reduced and Low Latency streams.
+
+
+            Reduced and Low Latency streams with a Reconnect Window greater than zero will insert slate media into the recorded asset while waiting for the streaming software to reconnect or when there are brief interruptions in the live stream media. When using a Reconnect Window setting higher than 60 seconds with a Standard Latency stream, we highly recommend enabling slate with the `use_slate_for_standard_latency` option.
+
+            '
+        use_slate_for_standard_latency:
+          type: boolean
+          format: boolean
+          default: false
+          description: By default, Standard Latency live streams do not have slate media inserted while waiting for live streaming software to reconnect to Mux. Setting this to true enables slate insertion on a Standard Latency stream.
+        reconnect_slate_url:
+          type: string
+          description: The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. Set this to a blank string to clear the value so that the default slate media will be used.
+        max_continuous_duration:
+          $ref: '#/components/schemas/MaxContinuousDuration'
+        new_asset_settings:
+          $ref: '#/components/schemas/UpdateLiveStreamNewAssetSettings'
+        meta:
+          $ref: '#/components/schemas/LiveStreamMetadata'
     CreateLiveStreamRequest:
       type: object
       properties:
@@ -1326,235 +1379,6 @@ components:
           $ref: '#/components/schemas/MaxContinuousDuration'
         meta:
           $ref: '#/components/schemas/LiveStreamMetadata'
-    ListLiveStreamsResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LiveStream'
-    CreatePlaybackIDResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/PlaybackID'
-    UpdateLiveStreamEmbeddedSubtitlesRequest:
-      type: object
-      properties:
-        embedded_subtitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/LiveStreamEmbeddedSubtitleRequest'
-          description: Describe the embedded closed caption contents of the incoming live stream.
-    CreateSimulcastTargetRequest:
-      type: object
-      required:
-      - url
-      properties:
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set by you when creating a simulcast target.
-        stream_key:
-          type: string
-          description: Stream Key represents a stream identifier on the third party live streaming service to send the parent live stream to. Only used for RTMP(s) simulcast destinations.
-        url:
-          type: string
-          description: 'The RTMP(s) or SRT endpoint for a simulcast destination.
-
-            * For RTMP(s) destinations, this should include the application name for the third party live streaming service, for example: `rtmp://live.example.com/app`.
-
-            * For SRT destinations, this should be a fully formed SRT connection string, for example: `srt://srt-live.example.com:1234?streamid={stream_key}&passphrase={srt_passphrase}`.
-
-
-            Note: SRT simulcast targets can only be used when an source is connected over SRT.
-
-            '
-    InputSettings:
-      type: object
-      description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
-      properties:
-        url:
-          type: string
-          description: 'The URL of the file that Mux should download and use.
-
-            * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
-
-            * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
-
-            * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
-
-            The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
-
-            '
-        overlay_settings:
-          type: object
-          description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
-          properties:
-            vertical_align:
-              type: string
-              enum:
-              - top
-              - middle
-              - bottom
-              description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
-            vertical_margin:
-              type: string
-              description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
-            horizontal_align:
-              type: string
-              enum:
-              - left
-              - center
-              - right
-              description: Where the horizontal positioning of the overlay/watermark should begin from.
-            horizontal_margin:
-              type: string
-              description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
-            width:
-              type: string
-              description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
-            height:
-              type: string
-              description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
-            opacity:
-              type: string
-              description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
-        generated_subtitles:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
-          description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
-        start_time:
-          type: number
-          format: double
-          description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-        end_time:
-          type: number
-          format: double
-          description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-        type:
-          type: string
-          enum:
-          - video
-          - audio
-          - text
-          description: This parameter is required for `text` type tracks.
-        text_type:
-          type: string
-          enum:
-          - subtitles
-          description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
-        language_code:
-          type: string
-          description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
-        name:
-          type: string
-          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
-        closed_captions:
-          type: boolean
-          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-        passthrough:
-          type: string
-          description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-    UpdateLiveStreamNewAssetSettingsStaticRenditionsRequest:
-      type: object
-      required:
-      - static_renditions
-      properties:
-        static_renditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateStaticRenditionRequest'
-    GetLiveStreamPlaybackIDResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/PlaybackID'
-    LiveStreamGeneratedSubtitleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: A name for this live stream subtitle track.
-        passthrough:
-          type: string
-          description: Arbitrary metadata set for the live stream subtitle track. Max 255 characters.
-        language_code:
-          type: string
-          description: The language of the audio from which subtitles are generated.
-          default: en
-          enum:
-          - en
-          - en-US
-          - es
-          - fr
-          - de
-          - pt
-          - it
-        transcription_vocabulary_ids:
-          type: array
-          items:
-            type: string
-          description: Unique identifiers for existing Transcription Vocabularies to use while generating subtitles for the live stream. If the Transcription Vocabularies provided collectively have more than 1000 phrases, only the first 1000 phrases will be included.
-    LiveStreamMetadata:
-      type: object
-      description: 'Customer provided metadata about this live stream.
-
-
-        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
-
-        '
-      properties:
-        title:
-          type: string
-          maxLength: 512
-          description: The live stream title. Max 512 code points.
-    MaxContinuousDuration:
-      type: integer
-      format: int32
-      default: 43200
-      minimum: 60
-      maximum: 43200
-      description: The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
-    LiveStreamGeneratedSubtitleSettings:
-      type: object
-      required:
-      - name
-      - language_code
-      properties:
-        name:
-          type: string
-          description: A name for this live stream subtitle track.
-        passthrough:
-          type: string
-          description: Arbitrary metadata set for the live stream subtitle track. Max 255 characters.
-        language_code:
-          type: string
-          description: The language of the audio from which subtitles are generated.
-          default: en
-          enum:
-          - en
-          - en-US
-          - es
-          - fr
-          - de
-          - pt
-          - it
-        transcription_vocabulary_ids:
-          type: array
-          items:
-            type: string
-          description: Unique identifiers for existing Transcription Vocabularies to use while generating subtitles for the live stream. If the Transcription Vocabularies provided collectively have more than 1000 phrases, only the first 1000 phrases will be included.
     AssetOptions:
       type: object
       properties:
@@ -1689,60 +1513,228 @@ components:
           type: boolean
           default: true
           description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
-    LiveStreamResponse:
+    UpdateLiveStreamNewAssetSettingsStaticRenditionsRequest:
+      type: object
+      required:
+      - static_renditions
+      properties:
+        static_renditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateStaticRenditionRequest'
+    SimulcastTarget:
+      type: object
+      required:
+      - id
+      - url
+      - status
+      properties:
+        id:
+          type: string
+          description: ID of the Simulcast Target
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set when creating a simulcast target.
+        status:
+          type: string
+          enum:
+          - idle
+          - starting
+          - broadcasting
+          - errored
+          description: "The current status of the simulcast target. See Statuses below for detailed description.\n  * `idle`: Default status. When the parent live stream is in disconnected status, simulcast targets will be idle state.\n  * `starting`: The simulcast target transitions into this state when the parent live stream transition into connected state.\n  * `broadcasting`: The simulcast target has successfully connected to the third party live streaming service and is pushing video to that service.\n  * `errored`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. When a simulcast target has this status it will have an `error_severity` field with more details about the error.\n"
+        stream_key:
+          type: string
+          description: Stream Key represents a stream identifier on the third party live streaming service to send the parent live stream to. Only used for RTMP(s) simulcast destinations.
+        url:
+          type: string
+          description: 'The RTMP(s) or SRT endpoint for a simulcast destination.
+
+            * For RTMP(s) destinations, this should include the application name for the third party live streaming service, for example: `rtmp://live.example.com/app`.
+
+            * For SRT destinations, this should be a fully formed SRT connection string, for example: `srt://srt-live.example.com:1234?streamid={stream_key}&passphrase={srt_passphrase}`.
+
+
+            Note: SRT simulcast targets can only be used when an source is connected over SRT.
+
+            '
+        error_severity:
+          type: string
+          enum:
+          - normal
+          - fatal
+          description: "The severity of the error encountered by the simulcast target.\nThis field is only set when the simulcast target is in the `errored` status.\nSee the values of severities below and their descriptions.\n  * `normal`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. A simulcast may transition back into the broadcasting state if a connection with the service can be re-established.\n  * `fatal`: The simulcast target is incompatible with the current input to the parent live stream. No further attempts to this simulcast target will be made for the current live stream asset.\n"
+    LiveStreamGeneratedSubtitleSettings:
+      type: object
+      required:
+      - name
+      - language_code
+      properties:
+        name:
+          type: string
+          description: A name for this live stream subtitle track.
+        passthrough:
+          type: string
+          description: Arbitrary metadata set for the live stream subtitle track. Max 255 characters.
+        language_code:
+          type: string
+          description: The language of the audio from which subtitles are generated.
+          default: en
+          enum:
+          - en
+          - en-US
+          - es
+          - fr
+          - de
+          - pt
+          - it
+        transcription_vocabulary_ids:
+          type: array
+          items:
+            type: string
+          description: Unique identifiers for existing Transcription Vocabularies to use while generating subtitles for the live stream. If the Transcription Vocabularies provided collectively have more than 1000 phrases, only the first 1000 phrases will be included.
+    UpdateLiveStreamGeneratedSubtitlesRequest:
+      type: object
+      properties:
+        generated_subtitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveStreamGeneratedSubtitleRequest'
+          description: Update automated speech recognition subtitle configuration for a live stream. At most one subtitle track is allowed.
+      x-mux-no-required-properties: true
+    CreatePlaybackIDResponse:
       type: object
       required:
       - data
       properties:
         data:
-          $ref: '#/components/schemas/LiveStream'
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    playback_id:
-      name: PLAYBACK_ID
-      in: path
-      description: The asset or live stream's playback ID.
-      required: true
-      schema:
-        type: string
-    simulcast_target_id:
-      name: SIMULCAST_TARGET_ID
-      in: path
-      description: The ID of the simulcast target.
-      required: true
-      schema:
-        type: string
-    stream_key:
-      name: stream_key
-      in: query
-      description: Filter response to return live stream for this stream key only
-      required: false
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
-    livestream_id:
-      name: LIVE_STREAM_ID
-      in: path
-      description: The live stream ID
-      required: true
-      schema:
-        type: string
+          $ref: '#/components/schemas/PlaybackID'
+    LiveStreamStatus:
+      type: string
+      enum:
+      - active
+      - idle
+      - disabled
+      description: '`idle` indicates that there is no active broadcast. `active` indicates that there is an active broadcast and `disabled` status indicates that no future RTMP streams can be published.'
+    LiveStream:
+      type: object
+      required:
+      - id
+      - created_at
+      - latency_mode
+      - max_continuous_duration
+      - status
+      - stream_key
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Live Stream. Max 255 characters.
+        created_at:
+          type: string
+          format: int64
+          description: Time the Live Stream was created, defined as a Unix timestamp (seconds since epoch).
+        stream_key:
+          type: string
+          description: Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters.
+        active_asset_id:
+          type: string
+          description: The Asset that is currently being created if there is an active broadcast.
+        recent_asset_ids:
+          type: array
+          description: An array of strings with the most recent Asset IDs that were created from this Live Stream. The most recently generated Asset ID is the last entry in the list.
+          items:
+            type: string
+        status:
+          $ref: '#/components/schemas/LiveStreamStatus'
+        playback_ids:
+          type: array
+          description: An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/play-your-videos) for more details.
+          items:
+            $ref: '#/components/schemas/PlaybackID'
+        new_asset_settings:
+          $ref: '#/components/schemas/AssetOptions'
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the asset. Max 255 characters.
+        audio_only:
+          type: boolean
+          description: The live stream only processes the audio track if the value is set to true. Mux drops the video track if broadcasted.
+        embedded_subtitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveStreamEmbeddedSubtitleSettings'
+          description: Describes the embedded closed caption configuration of the incoming live stream.
+        generated_subtitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveStreamGeneratedSubtitleSettings'
+          description: Configure the incoming live stream to include subtitles created with automatic speech recognition. Each Asset created from a live stream with `generated_subtitles` configured will automatically receive two text tracks. The first of these will have a `text_source` value of `generated_live`, and will be available with `ready` status as soon as the stream is live. The second text track will have a `text_source` value of `generated_live_final` and will contain subtitles with improved accuracy, timing, and formatting. However, `generated_live_final` tracks will not be available in `ready` status until the live stream ends. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
+        reconnect_window:
+          type: number
+          format: float
+          default: 60
+          minimum: 0
+          maximum: 1800
+          description: 'When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset. **Max**: 1800s (30 minutes).
+
+
+            If not specified directly, Standard Latency streams have a Reconnect Window of 60 seconds; Reduced and Low Latency streams have a default of 0 seconds, or no Reconnect Window. For that reason, we suggest specifying a value other than zero for Reduced and Low Latency streams.
+
+
+            Reduced and Low Latency streams with a Reconnect Window greater than zero will insert slate media into the recorded asset while waiting for the streaming software to reconnect or when there are brief interruptions in the live stream media. When using a Reconnect Window setting higher than 60 seconds with a Standard Latency stream, we highly recommend enabling slate with the `use_slate_for_standard_latency` option.
+
+            '
+        use_slate_for_standard_latency:
+          type: boolean
+          format: boolean
+          default: false
+          description: By default, Standard Latency live streams do not have slate media inserted while waiting for live streaming software to reconnect to Mux. Setting this to true enables slate insertion on a Standard Latency stream.
+        reconnect_slate_url:
+          type: string
+          description: The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. If this is not set, the default slate media will be used.
+        reduced_latency:
+          type: boolean
+          format: boolean
+          deprecated: true
+          x-mux-doc-decorators:
+          - hidden
+          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this if you want lower latency for your live stream. See the [Reduce live stream latency guide](https://docs.mux.com/guides/reduce-live-stream-latency) to understand the tradeoffs.
+        low_latency:
+          type: boolean
+          format: boolean
+          deprecated: true
+          x-mux-doc-decorators:
+          - hidden
+          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Setting this option will enable compatibility with the LL-HLS specification for low-latency streaming. This typically has lower latency than Reduced Latency streams, and cannot be combined with Reduced Latency.
+        simulcast_targets:
+          type: array
+          description: Each Simulcast Target contains configuration details to broadcast (or "restream") a live stream to a third-party streaming service. [See the Stream live to 3rd party platforms guide](https://docs.mux.com/guides/stream-live-to-3rd-party-platforms).
+          items:
+            $ref: '#/components/schemas/SimulcastTarget'
+        latency_mode:
+          type: string
+          enum:
+          - low
+          - reduced
+          - standard
+          description: Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags.
+        test:
+          type: boolean
+          format: boolean
+          description: True means this live stream is a test live stream. Test live streams can be used to help evaluate the Mux Video APIs for free. There is no limit on the number of test live streams, but they are watermarked with the Mux logo, and limited to 5 minutes. The test live stream is disabled after the stream is active for 5 mins and the recorded asset also deleted after 24 hours.
+        max_continuous_duration:
+          $ref: '#/components/schemas/MaxContinuousDuration'
+        srt_passphrase:
+          type: string
+          description: Unique key used for encrypting a stream to a Mux SRT endpoint. Max 64 characters.
+        active_ingest_protocol:
+          type: string
+          enum:
+          - rtmp
+          - srt
+          description: The protocol used for the active ingest stream. This is only set when the live stream is active.
+        meta:
+          $ref: '#/components/schemas/LiveStreamMetadata'
   securitySchemes:
     basicAuth:
       type: http

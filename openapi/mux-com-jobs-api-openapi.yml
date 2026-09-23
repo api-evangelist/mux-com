@@ -153,27 +153,6 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    CancelJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/JobSummary'
-      required:
-      - data
-    ListJobsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobSummary'
-        total_row_count:
-          type: integer
-          description: Total number of jobs matching the query filters
-          example: 42
-      required:
-      - data
-      - total_row_count
     ErrorResponse:
       type: object
       properties:
@@ -239,6 +218,27 @@ components:
       - created_at
       - updated_at
       - _links
+    CancelJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/JobSummary'
+      required:
+      - data
+    ListJobsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobSummary'
+        total_row_count:
+          type: integer
+          description: Total number of jobs matching the query filters
+          example: 42
+      required:
+      - data
+      - total_row_count
     JobStatus:
       type: string
       enum:

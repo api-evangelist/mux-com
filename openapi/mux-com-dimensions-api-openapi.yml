@@ -26,9 +26,7 @@ paths:
       description: 'List all available dimensions.
 
 
-        Note: This API replaces the list-filters API call.
-
-        '
+        Note: This API replaces the list-filters API call.'
       operationId: list-dimensions
       servers:
       - url: https://api.mux.com
@@ -164,9 +162,7 @@ paths:
       description: 'Lists the values for a dimension along with a total count of related views.
 
 
-        Note: This API replaces the list-filter-values API call.
-
-        '
+        Note: This API replaces the list-filter-values API call.'
       operationId: list-dimension-values
       servers:
       - url: https://api.mux.com
@@ -212,9 +208,7 @@ paths:
 
         This endpoint is specifically designed for trace dimensions like video_cdn_trace
 
-        that contain arrays of values.
-
-        '
+        that contain arrays of values.'
       operationId: list-dimension-elements
       servers:
       - url: https://api.mux.com
@@ -262,17 +256,6 @@ components:
         type: array
         items:
           type: string
-    metric_filters:
-      name: metric_filters[]
-      in: query
-      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
     limit:
       name: limit
       in: query
@@ -291,18 +274,6 @@ components:
         type: integer
         format: int32
         default: 1
-    order_by:
-      name: order_by
-      in: query
-      description: Value to order the results by
-      required: false
-      schema:
-        type: string
-        enum:
-        - negative_impact
-        - value
-        - views
-        - field
     order_direction:
       name: order_direction
       in: query
@@ -313,14 +284,6 @@ components:
         enum:
         - asc
         - desc
-    dimension_id:
-      name: DIMENSION_ID
-      in: path
-      description: ID of the Dimension
-      required: true
-      example: abcd1234
-      schema:
-        type: string
     filters:
       name: filters[]
       in: query
@@ -357,6 +320,37 @@ components:
         type: array
         items:
           type: string
+    metric_filters:
+      name: metric_filters[]
+      in: query
+      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    dimension_id:
+      name: DIMENSION_ID
+      in: path
+      description: ID of the Dimension
+      required: true
+      example: abcd1234
+      schema:
+        type: string
+    order_by:
+      name: order_by
+      in: query
+      description: Value to order the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
   schemas:
     ListDimensionsResponse:
       type: object
@@ -388,18 +382,6 @@ components:
       - data
       - total_row_count
       - timeframe
-    DimensionValue:
-      type: object
-      properties:
-        value:
-          type: string
-          nullable: true
-        total_count:
-          type: integer
-          format: int64
-      required:
-      - value
-      - total_count
     ListDimensionValuesResponse:
       type: object
       properties:
@@ -419,6 +401,18 @@ components:
       - data
       - total_row_count
       - timeframe
+    DimensionValue:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+          format: int64
+      required:
+      - value
+      - total_count
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

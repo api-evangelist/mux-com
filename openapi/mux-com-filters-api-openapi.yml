@@ -27,9 +27,7 @@ paths:
       description: 'The API has been replaced by the list-dimensions API call.
 
 
-        Lists all the filters broken out into basic and advanced.
-
-        '
+        Lists all the filters broken out into basic and advanced.'
       operationId: list-filters
       servers:
       - url: https://api.mux.com
@@ -124,9 +122,7 @@ paths:
       description: 'The API has been replaced by the list-dimension-values API call.
 
 
-        Lists the values for a filter along with a total count of related views.
-
-        '
+        Lists the values for a filter along with a total count of related views.'
       operationId: list-filter-values
       servers:
       - url: https://api.mux.com
@@ -156,6 +152,14 @@ paths:
       - authorizationToken: []
 components:
   parameters:
+    filter_id:
+      name: FILTER_ID
+      in: path
+      description: ID of the Filter
+      required: true
+      example: abcd1234
+      schema:
+        type: string
     timeframe:
       name: timeframe[]
       in: query
@@ -185,14 +189,6 @@ components:
         type: integer
         format: int32
         default: 1
-    filter_id:
-      name: FILTER_ID
-      in: path
-      description: ID of the Filter
-      required: true
-      example: abcd1234
-      schema:
-        type: string
     filters:
       name: filters[]
       in: query
@@ -230,36 +226,6 @@ components:
         items:
           type: string
   schemas:
-    ListFiltersResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            basic:
-              type: array
-              items:
-                type: string
-            advanced:
-              type: array
-              items:
-                type: string
-          required:
-          - basic
-          - advanced
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - total_row_count
-      - timeframe
     ListFilterValuesResponse:
       type: object
       properties:
@@ -291,6 +257,36 @@ components:
       required:
       - value
       - total_count
+    ListFiltersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            basic:
+              type: array
+              items:
+                type: string
+            advanced:
+              type: array
+              items:
+                type: string
+          required:
+          - basic
+          - advanced
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - total_row_count
+      - timeframe
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

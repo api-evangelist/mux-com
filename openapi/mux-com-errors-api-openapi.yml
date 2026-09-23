@@ -69,17 +69,6 @@ components:
         type: array
         items:
           type: string
-    metric_filters:
-      name: metric_filters[]
-      in: query
-      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
     filters:
       name: filters[]
       in: query
@@ -116,27 +105,18 @@ components:
         type: array
         items:
           type: string
+    metric_filters:
+      name: metric_filters[]
+      in: query
+      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
   schemas:
-    ListErrorsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - total_row_count
-      - timeframe
     Error:
       type: object
       properties:
@@ -186,6 +166,26 @@ components:
       - count
       - code
       - player_error_code
+    ListErrorsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - total_row_count
+      - timeframe
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

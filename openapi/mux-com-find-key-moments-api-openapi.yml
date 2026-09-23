@@ -174,108 +174,13 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    JobError:
+    FindKeyMomentsJobResponse:
       type: object
       properties:
-        type:
-          type: string
-          description: Stable public error category identifier.
-        message:
-          type: string
-          description: Human-readable public error message.
-        retryable:
-          type: boolean
-          description: Whether retrying this job may resolve the error.
+        data:
+          $ref: '#/components/schemas/FindKeyMomentsJob'
       required:
-      - type
-      - message
-    SlimlineAsset:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Mux asset ID.
-        meta:
-          type: object
-          properties:
-            title:
-              type: string
-              description: Asset title from Mux metadata.
-            creator_id:
-              type: string
-              description: Creator identifier from Mux metadata.
-            external_id:
-              type: string
-              description: External identifier from Mux metadata.
-          description: Mux asset metadata, if available.
-        passthrough:
-          type: string
-          description: Passthrough string from the Mux asset.
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: URL to the Mux asset resource.
-              required:
-              - href
-          required:
-          - self
-          description: Hypermedia links for the asset.
-      required:
-      - id
-      - _links
-    CreateFindKeyMomentsJobRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
-        parameters:
-          $ref: '#/components/schemas/FindKeyMomentsJobParameters'
-      required:
-      - parameters
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
-    Resources:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlimlineAsset'
-          description: Mux assets associated with this job.
-      required:
-      - assets
-      example:
-        assets:
-        - id: abc123asset
-          meta:
-            title: My Video
-            creator_id: user123
-            external_id: ext456
-          _links:
-            self:
-              href: https://api.mux.com/video/v1/assets/abc123asset
-      description: Related Mux resources linked to this job.
+      - data
     FindKeyMomentsJob:
       type: object
       properties:
@@ -322,15 +227,143 @@ components:
       - workflow
       - parameters
       - status
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
+    CreateFindKeyMomentsJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/FindKeyMomentsJobParameters'
+      required:
+      - parameters
+    FindKeyMomentsJobParameters:
+      type: object
+      properties:
+        asset_id:
+          type: string
+          minLength: 1
+          description: The Mux asset ID of the video to analyze.
+        max_moments:
+          type: integer
+          minimum: 1
+          maximum: 10
+          description: Maximum number of key moments to extract. Defaults to 5.
+        target_duration_ms:
+          type: object
+          properties:
+            min:
+              type: integer
+              exclusiveMinimum: 0
+              description: Preferred minimum highlight duration in milliseconds.
+            max:
+              type: integer
+              exclusiveMinimum: 0
+              description: Preferred maximum highlight duration in milliseconds.
+          required:
+          - min
+          - max
+          description: Preferred highlight duration range in milliseconds. When provided, the model will aim to select moments within this range.
+      required:
+      - asset_id
+      example:
+        asset_id: mux_asset_123abc
+        max_moments: 5
+        target_duration_ms:
+          min: 15000
+          max: 45000
+    SlimlineAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Mux asset ID.
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Asset title from Mux metadata.
+            creator_id:
+              type: string
+              description: Creator identifier from Mux metadata.
+            external_id:
+              type: string
+              description: External identifier from Mux metadata.
+          description: Mux asset metadata, if available.
+        passthrough:
+          type: string
+          description: Passthrough string from the Mux asset.
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to the Mux asset resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for the asset.
+      required:
+      - id
+      - _links
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
+    Resources:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
+      required:
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
     FindKeyMomentsJobOutputs:
       type: object
       properties:
@@ -455,48 +488,15 @@ components:
             score: 0.75
             rationale: Body language reinforces the emotional weight of the turning point.
       description: Workflow results. Present when status is 'completed'.
-    FindKeyMomentsJobParameters:
-      type: object
-      properties:
-        asset_id:
-          type: string
-          minLength: 1
-          description: The Mux asset ID of the video to analyze.
-        max_moments:
-          type: integer
-          minimum: 1
-          maximum: 10
-          description: Maximum number of key moments to extract. Defaults to 5.
-        target_duration_ms:
-          type: object
-          properties:
-            min:
-              type: integer
-              exclusiveMinimum: 0
-              description: Preferred minimum highlight duration in milliseconds.
-            max:
-              type: integer
-              exclusiveMinimum: 0
-              description: Preferred maximum highlight duration in milliseconds.
-          required:
-          - min
-          - max
-          description: Preferred highlight duration range in milliseconds. When provided, the model will aim to select moments within this range.
-      required:
-      - asset_id
-      example:
-        asset_id: mux_asset_123abc
-        max_moments: 5
-        target_duration_ms:
-          min: 15000
-          max: 45000
-    FindKeyMomentsJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/FindKeyMomentsJob'
-      required:
-      - data
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

@@ -43,7 +43,9 @@
     "mux-com-video-views-api-openapi.yml",
     "mux-com-view-and-viewer-counts-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [
     "mux-openapi.yml: dangling $ref: #/paths/~1%7BPLAYBACK_ID%7D.m3u8/get/responses/400/content/application~1json/schema",
     "mux-openapi.yml: dangling $ref: #/paths/~1%7BPLAYBACK_ID%7D~1storyboard.vtt/get/responses/400/content/application~1json/schema"
@@ -139,7 +141,9 @@
     "mux-openapi.yml: declared missing tag: Mux API",
     "tag 'Assets' spans 2 source specs (mux-com-openapi.yml, mux-openapi.yml): per-path servers applied",
     "tag 'Direct Uploads' spans 2 source specs (mux-com-openapi.yml, mux-openapi.yml): per-path servers applied",
-    "tag 'Live Streams' spans 2 source specs (mux-com-openapi.yml, mux-openapi.yml): per-path servers applied"
+    "tag 'Live Streams' spans 2 source specs (mux-com-openapi.yml, mux-openapi.yml): per-path servers applied",
+    "superseded outputs removed: mux-com-realtime-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 38 total)"
   ],
   "skipped": [
     "mux-com-animated-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -163,10 +167,11 @@
     "mux-com-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-moderate-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-monitoring-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mux-com-mux-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-playback-id-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-playback-ids-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-playback-restrictions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "mux-com-real-time-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mux-com-realtime-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-signing-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-storyboards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "mux-com-streaming-api-openapi.yml: previously refined output, superseded by openapi/_original/",

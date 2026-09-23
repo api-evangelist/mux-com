@@ -20,7 +20,7 @@ tags:
 paths:
   /system/v1/whoami:
     get:
-      summary: Retrieve Information About Your Current Access Token.
+      summary: Retrieve Information About Your Current Access Token
       description: Retrieve information about your current access token, including organization, environment, and permissions. Note that this can only be access with an access token, and _all_ access tokens can access this route, regardless of what permissions they have assigned.
       operationId: get-whoami
       servers:
@@ -80,6 +80,25 @@ components:
           items:
             type: string
           description: Description of the error
+    UnauthorizedResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - type
+          - messages
+          properties:
+            type:
+              type: string
+              description: The type of the error
+            messages:
+              type: array
+              items:
+                type: string
+              description: Friendly messages of errors encountered
     WhoAmIResponse:
       type: object
       required:
@@ -112,25 +131,6 @@ components:
               type: string
             access_token_name:
               type: string
-    UnauthorizedResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - type
-          - messages
-          properties:
-            type:
-              type: string
-              description: The type of the error
-            messages:
-              type: array
-              items:
-                type: string
-              description: Friendly messages of errors encountered
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

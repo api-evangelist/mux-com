@@ -15,7 +15,7 @@ servers:
 - url: https://stats.mux.com
 tags:
 - name: Playback Restrictions
-  description: Playback Restrictions allows you to set additional rules for playing videos. You can set the domains/hostnames allowed to play your videos. For instance, viewers can play videos embedded on the `https://example.com` website when you set the Playback Restrictions with `example.com` as an allowed domain. Any Video requests from other websites are denied. Additionally, you can set rules for what user agents to allow. Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature.
+  description: Playback Restrictions allows you to set additional rules for playing videos.
   x-displayName: Playback Restrictions
 paths:
   /video/v1/playback-restrictions:
@@ -207,7 +207,7 @@ paths:
       tags:
       - Playback Restrictions
       summary: Update the User Agent Restriction
-      description: Allows you to modify how Mux validates playback requests with different user agents.  Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature.
+      description: Allows you to modify how Mux validates playback requests with different user agents. Please see Using User-Agent HTTP header for validation for more details on this feature.
       operationId: update-user-agent-restriction
       servers:
       - url: https://api.mux.com
@@ -245,82 +245,7 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
-  parameters:
-    playback_restriction_id:
-      name: PLAYBACK_RESTRICTION_ID
-      in: path
-      description: ID of the Playback Restriction.
-      required: true
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
   schemas:
-    CreatePlaybackRestrictionRequest:
-      type: object
-      required:
-      - referrer
-      - user_agent
-      properties:
-        referrer:
-          $ref: '#/components/schemas/ReferrerDomainRestrictionRequest'
-        user_agent:
-          $ref: '#/components/schemas/UserAgentRestrictionRequest'
-    UpdateReferrerDomainRestrictionRequest:
-      type: object
-      description: A list of domains allowed to play your videos.
-      required:
-      - allowed_domains
-      properties:
-        allowed_domains:
-          type: array
-          items:
-            type: string
-          description: "List of domains allowed to play videos. Possible values are\n  * `[]` Empty Array indicates deny video playback requests for all domains\n  * `[\"*\"]` A Single Wildcard `*` entry means allow video playback requests from any domain\n  * `[\"*.example.com\", \"foo.com\"]` A list of up to 10 domains or valid dns-style wildcards\n"
-        allow_no_referrer:
-          type: boolean
-          default: false
-          description: A boolean to determine whether to allow or deny HTTP requests without `Referer` HTTP request header. Playback requests coming from non-web/native applications like iOS, Android or smart TVs will not have a `Referer` HTTP header. Set this value to `true` to allow these playback requests.
-    PlaybackRestriction:
-      type: object
-      required:
-      - id
-      - referrer
-      - user_agent
-      - created_at
-      - updated_at
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Playback Restriction. Max 255 characters.
-        created_at:
-          type: string
-          format: int64
-          description: Time the Playback Restriction was created, defined as a Unix timestamp (seconds since epoch).
-        updated_at:
-          type: string
-          format: int64
-          description: Time the Playback Restriction was last updated, defined as a Unix timestamp (seconds since epoch).
-        referrer:
-          $ref: '#/components/schemas/ReferrerDomainRestrictionSettings'
-        user_agent:
-          $ref: '#/components/schemas/UserAgentRestrictionSettings'
     ReferrerDomainRestrictionSettings:
       type: object
       description: A list of domains allowed to play your videos.
@@ -334,22 +259,6 @@ components:
           type: boolean
           default: false
           description: A boolean to determine whether to allow or deny HTTP requests without `Referer` HTTP request header. Playback requests coming from non-web/native applications like iOS, Android or smart TVs will not have a `Referer` HTTP header. Set this value to `true` to allow these playback requests.
-    ListPlaybackRestrictionsResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlaybackRestriction'
-    PlaybackRestrictionResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/PlaybackRestriction'
     ReferrerDomainRestrictionRequest:
       type: object
       description: A list of domains allowed to play your videos.
@@ -377,18 +286,6 @@ components:
           type: boolean
           default: true
           description: Whether or not to allow high risk user agents. The high risk user agents are defined by Mux.
-    UserAgentRestrictionRequest:
-      type: object
-      description: Rules that control what user agents are allowed to play your videos. Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature.
-      properties:
-        allow_no_user_agent:
-          type: boolean
-          default: true
-          description: Whether or not to allow views without a `User-Agent` HTTP request header.
-        allow_high_risk_user_agent:
-          type: boolean
-          default: true
-          description: Whether or not to allow high risk user agents. The high risk user agents are defined by Mux.
     UpdateUserAgentRestrictionRequest:
       type: object
       required:
@@ -403,6 +300,109 @@ components:
           type: boolean
           default: true
           description: Whether or not to allow high risk user agents. The high risk user agents are defined by Mux.
+    PlaybackRestriction:
+      type: object
+      required:
+      - id
+      - referrer
+      - user_agent
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Playback Restriction. Max 255 characters.
+        created_at:
+          type: string
+          format: int64
+          description: Time the Playback Restriction was created, defined as a Unix timestamp (seconds since epoch).
+        updated_at:
+          type: string
+          format: int64
+          description: Time the Playback Restriction was last updated, defined as a Unix timestamp (seconds since epoch).
+        referrer:
+          $ref: '#/components/schemas/ReferrerDomainRestrictionSettings'
+        user_agent:
+          $ref: '#/components/schemas/UserAgentRestrictionSettings'
+    ListPlaybackRestrictionsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaybackRestriction'
+    UserAgentRestrictionRequest:
+      type: object
+      description: Rules that control what user agents are allowed to play your videos. Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature.
+      properties:
+        allow_no_user_agent:
+          type: boolean
+          default: true
+          description: Whether or not to allow views without a `User-Agent` HTTP request header.
+        allow_high_risk_user_agent:
+          type: boolean
+          default: true
+          description: Whether or not to allow high risk user agents. The high risk user agents are defined by Mux.
+    UpdateReferrerDomainRestrictionRequest:
+      type: object
+      description: A list of domains allowed to play your videos.
+      required:
+      - allowed_domains
+      properties:
+        allowed_domains:
+          type: array
+          items:
+            type: string
+          description: "List of domains allowed to play videos. Possible values are\n  * `[]` Empty Array indicates deny video playback requests for all domains\n  * `[\"*\"]` A Single Wildcard `*` entry means allow video playback requests from any domain\n  * `[\"*.example.com\", \"foo.com\"]` A list of up to 10 domains or valid dns-style wildcards\n"
+        allow_no_referrer:
+          type: boolean
+          default: false
+          description: A boolean to determine whether to allow or deny HTTP requests without `Referer` HTTP request header. Playback requests coming from non-web/native applications like iOS, Android or smart TVs will not have a `Referer` HTTP header. Set this value to `true` to allow these playback requests.
+    PlaybackRestrictionResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PlaybackRestriction'
+    CreatePlaybackRestrictionRequest:
+      type: object
+      required:
+      - referrer
+      - user_agent
+      properties:
+        referrer:
+          $ref: '#/components/schemas/ReferrerDomainRestrictionRequest'
+        user_agent:
+          $ref: '#/components/schemas/UserAgentRestrictionRequest'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    playback_restriction_id:
+      name: PLAYBACK_RESTRICTION_ID
+      in: path
+      description: ID of the Playback Restriction.
+      required: true
+      schema:
+        type: string
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

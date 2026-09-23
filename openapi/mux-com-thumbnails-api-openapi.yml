@@ -21,7 +21,7 @@ paths:
   /{PLAYBACK_ID}/thumbnail.{EXTENSION}:
     get:
       summary: Retrieve a Video Thumbnail
-      description: '[Fetch a thumbnail image from a video](https://docs.mux.com/guides/get-images-from-a-video) at a specified time with optional transformations.'
+      description: Fetch a thumbnail image from a video at a specified time with optional transformations.
       operationId: get-thumbnail
       servers:
       - url: https://image.mux.com

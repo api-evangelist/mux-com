@@ -45,6 +45,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset created
+      x-summary-source: derived
   video.asset.ready:
     post:
       requestBody:
@@ -73,6 +75,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset ready
+      x-summary-source: derived
   video.asset.errored:
     post:
       requestBody:
@@ -101,6 +105,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset errored
+      x-summary-source: derived
   video.asset.updated:
     post:
       requestBody:
@@ -129,6 +135,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset updated
+      x-summary-source: derived
   video.asset.deleted:
     post:
       requestBody:
@@ -157,6 +165,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset deleted
+      x-summary-source: derived
   video.asset.live_stream_completed:
     post:
       requestBody:
@@ -185,6 +195,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset live stream completed
+      x-summary-source: derived
   video.asset.static_renditions.ready:
     post:
       requestBody:
@@ -213,6 +225,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static renditions ready
+      x-summary-source: derived
   video.asset.static_renditions.preparing:
     post:
       requestBody:
@@ -241,6 +255,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static renditions preparing
+      x-summary-source: derived
   video.asset.static_renditions.deleted:
     post:
       requestBody:
@@ -269,6 +285,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static renditions deleted
+      x-summary-source: derived
   video.asset.static_renditions.errored:
     post:
       requestBody:
@@ -297,6 +315,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static renditions errored
+      x-summary-source: derived
   video.asset.master.ready:
     post:
       requestBody:
@@ -325,6 +345,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset master ready
+      x-summary-source: derived
   video.asset.master.preparing:
     post:
       requestBody:
@@ -353,6 +375,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset master preparing
+      x-summary-source: derived
   video.asset.master.deleted:
     post:
       requestBody:
@@ -381,6 +405,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset master deleted
+      x-summary-source: derived
   video.asset.master.errored:
     post:
       requestBody:
@@ -409,6 +435,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset master errored
+      x-summary-source: derived
   video.asset.track.created:
     post:
       requestBody:
@@ -437,6 +465,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset track created
+      x-summary-source: derived
   video.asset.track.ready:
     post:
       requestBody:
@@ -465,6 +495,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset track ready
+      x-summary-source: derived
   video.asset.track.errored:
     post:
       requestBody:
@@ -493,6 +525,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset track errored
+      x-summary-source: derived
   video.asset.track.deleted:
     post:
       requestBody:
@@ -521,6 +555,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset track deleted
+      x-summary-source: derived
   video.asset.static_rendition.created:
     post:
       requestBody:
@@ -549,6 +585,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static rendition created
+      x-summary-source: derived
   video.asset.static_rendition.ready:
     post:
       requestBody:
@@ -577,6 +615,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static rendition ready
+      x-summary-source: derived
   video.asset.static_rendition.errored:
     post:
       requestBody:
@@ -605,6 +645,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static rendition errored
+      x-summary-source: derived
   video.asset.static_rendition.deleted:
     post:
       requestBody:
@@ -633,6 +675,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static rendition deleted
+      x-summary-source: derived
   video.asset.static_rendition.skipped:
     post:
       requestBody:
@@ -661,6 +705,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset static rendition skipped
+      x-summary-source: derived
   video.asset.warning:
     post:
       requestBody:
@@ -689,6 +735,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset warning
+      x-summary-source: derived
   video.asset.non_standard_input_detected:
     post:
       requestBody:
@@ -717,6 +765,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video asset non standard input detected
+      x-summary-source: derived
   video.upload.asset_created:
     post:
       requestBody:
@@ -745,6 +795,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video upload asset created
+      x-summary-source: derived
   video.upload.cancelled:
     post:
       requestBody:
@@ -773,6 +825,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video upload cancelled
+      x-summary-source: derived
   video.upload.created:
     post:
       requestBody:
@@ -801,6 +855,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video upload created
+      x-summary-source: derived
   video.upload.errored:
     post:
       requestBody:
@@ -829,6 +885,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video upload errored
+      x-summary-source: derived
   video.live_stream.created:
     post:
       requestBody:
@@ -857,6 +915,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream created
+      x-summary-source: derived
   video.live_stream.connected:
     post:
       requestBody:
@@ -885,6 +945,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream connected
+      x-summary-source: derived
   video.live_stream.recording:
     post:
       requestBody:
@@ -913,6 +975,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream recording
+      x-summary-source: derived
   video.live_stream.active:
     post:
       requestBody:
@@ -941,6 +1005,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream active
+      x-summary-source: derived
   video.live_stream.disconnected:
     post:
       requestBody:
@@ -969,6 +1035,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream disconnected
+      x-summary-source: derived
   video.live_stream.idle:
     post:
       requestBody:
@@ -997,6 +1065,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream idle
+      x-summary-source: derived
   video.live_stream.updated:
     post:
       requestBody:
@@ -1025,6 +1095,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream updated
+      x-summary-source: derived
   video.live_stream.enabled:
     post:
       requestBody:
@@ -1053,6 +1125,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream enabled
+      x-summary-source: derived
   video.live_stream.disabled:
     post:
       requestBody:
@@ -1081,6 +1155,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream disabled
+      x-summary-source: derived
   video.live_stream.deleted:
     post:
       requestBody:
@@ -1109,6 +1185,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream deleted
+      x-summary-source: derived
   video.live_stream.warning:
     post:
       requestBody:
@@ -1137,6 +1215,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream warning
+      x-summary-source: derived
   video.live_stream.simulcast_target.created:
     post:
       requestBody:
@@ -1165,6 +1245,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream simulcast target created
+      x-summary-source: derived
   video.live_stream.simulcast_target.idle:
     post:
       requestBody:
@@ -1193,6 +1275,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream simulcast target idle
+      x-summary-source: derived
   video.live_stream.simulcast_target.starting:
     post:
       requestBody:
@@ -1221,6 +1305,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream simulcast target starting
+      x-summary-source: derived
   video.live_stream.simulcast_target.broadcasting:
     post:
       requestBody:
@@ -1249,6 +1335,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream simulcast target broadcasting
+      x-summary-source: derived
   video.live_stream.simulcast_target.errored:
     post:
       requestBody:
@@ -1277,6 +1365,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream simulcast target errored
+      x-summary-source: derived
   video.live_stream.simulcast_target.deleted:
     post:
       requestBody:
@@ -1305,6 +1395,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream simulcast target deleted
+      x-summary-source: derived
   video.live_stream.simulcast_target.updated:
     post:
       requestBody:
@@ -1333,6 +1425,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video live stream simulcast target updated
+      x-summary-source: derived
   video.delivery.high_traffic:
     post:
       requestBody:
@@ -1361,6 +1455,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create video delivery high traffic
+      x-summary-source: derived
   robots.job.ask_questions.cancelled:
     post:
       requestBody:
@@ -1389,6 +1485,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job ask questions cancelled
+      x-summary-source: derived
   robots.job.ask_questions.completed:
     post:
       requestBody:
@@ -1417,6 +1515,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job ask questions completed
+      x-summary-source: derived
   robots.job.ask_questions.errored:
     post:
       requestBody:
@@ -1445,6 +1545,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job ask questions errored
+      x-summary-source: derived
   robots.job.ask_questions.pending:
     post:
       requestBody:
@@ -1473,6 +1575,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job ask questions pending
+      x-summary-source: derived
   robots.job.ask_questions.processing:
     post:
       requestBody:
@@ -1501,6 +1605,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job ask questions processing
+      x-summary-source: derived
   robots.job.edit_captions.cancelled:
     post:
       requestBody:
@@ -1754,6 +1860,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job edit captions cancelled
+      x-summary-source: derived
   robots.job.edit_captions.completed:
     post:
       requestBody:
@@ -2007,6 +2115,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job edit captions completed
+      x-summary-source: derived
   robots.job.edit_captions.errored:
     post:
       requestBody:
@@ -2260,6 +2370,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job edit captions errored
+      x-summary-source: derived
   robots.job.edit_captions.pending:
     post:
       requestBody:
@@ -2513,6 +2625,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job edit captions pending
+      x-summary-source: derived
   robots.job.edit_captions.processing:
     post:
       requestBody:
@@ -2766,6 +2880,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job edit captions processing
+      x-summary-source: derived
   robots.job.find_key_moments.cancelled:
     post:
       requestBody:
@@ -2794,6 +2910,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job find key moments cancelled
+      x-summary-source: derived
   robots.job.find_key_moments.completed:
     post:
       requestBody:
@@ -2822,6 +2940,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job find key moments completed
+      x-summary-source: derived
   robots.job.find_key_moments.errored:
     post:
       requestBody:
@@ -2850,6 +2970,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job find key moments errored
+      x-summary-source: derived
   robots.job.find_key_moments.pending:
     post:
       requestBody:
@@ -2878,6 +3000,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job find key moments pending
+      x-summary-source: derived
   robots.job.find_key_moments.processing:
     post:
       requestBody:
@@ -2906,6 +3030,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job find key moments processing
+      x-summary-source: derived
   robots.job.generate_chapters.cancelled:
     post:
       requestBody:
@@ -2934,6 +3060,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job generate chapters cancelled
+      x-summary-source: derived
   robots.job.generate_chapters.completed:
     post:
       requestBody:
@@ -2962,6 +3090,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job generate chapters completed
+      x-summary-source: derived
   robots.job.generate_chapters.errored:
     post:
       requestBody:
@@ -2990,6 +3120,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job generate chapters errored
+      x-summary-source: derived
   robots.job.generate_chapters.pending:
     post:
       requestBody:
@@ -3018,6 +3150,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job generate chapters pending
+      x-summary-source: derived
   robots.job.generate_chapters.processing:
     post:
       requestBody:
@@ -3046,6 +3180,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job generate chapters processing
+      x-summary-source: derived
   robots.job.moderate.cancelled:
     post:
       requestBody:
@@ -3074,6 +3210,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job moderate cancelled
+      x-summary-source: derived
   robots.job.moderate.completed:
     post:
       requestBody:
@@ -3102,6 +3240,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job moderate completed
+      x-summary-source: derived
   robots.job.moderate.errored:
     post:
       requestBody:
@@ -3130,6 +3270,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job moderate errored
+      x-summary-source: derived
   robots.job.moderate.pending:
     post:
       requestBody:
@@ -3158,6 +3300,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job moderate pending
+      x-summary-source: derived
   robots.job.moderate.processing:
     post:
       requestBody:
@@ -3186,6 +3330,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job moderate processing
+      x-summary-source: derived
   robots.job.summarize.cancelled:
     post:
       requestBody:
@@ -3214,6 +3360,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job summarize cancelled
+      x-summary-source: derived
   robots.job.summarize.completed:
     post:
       requestBody:
@@ -3242,6 +3390,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job summarize completed
+      x-summary-source: derived
   robots.job.summarize.errored:
     post:
       requestBody:
@@ -3270,6 +3420,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job summarize errored
+      x-summary-source: derived
   robots.job.summarize.pending:
     post:
       requestBody:
@@ -3298,6 +3450,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job summarize pending
+      x-summary-source: derived
   robots.job.summarize.processing:
     post:
       requestBody:
@@ -3326,6 +3480,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job summarize processing
+      x-summary-source: derived
   robots.job.translate_captions.cancelled:
     post:
       requestBody:
@@ -3354,6 +3510,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job translate captions cancelled
+      x-summary-source: derived
   robots.job.translate_captions.completed:
     post:
       requestBody:
@@ -3382,6 +3540,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job translate captions completed
+      x-summary-source: derived
   robots.job.translate_captions.errored:
     post:
       requestBody:
@@ -3410,6 +3570,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job translate captions errored
+      x-summary-source: derived
   robots.job.translate_captions.pending:
     post:
       requestBody:
@@ -3438,6 +3600,8 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job translate captions pending
+      x-summary-source: derived
   robots.job.translate_captions.processing:
     post:
       requestBody:
@@ -3466,8 +3630,228 @@ webhooks:
           description: Return a 200 to indicate that the data was received successfully
       tags:
       - Mux API
+      summary: Create robots job translate captions processing
+      x-summary-source: derived
 components:
   schemas:
+    WebhookSummarizeJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - summarize
+        parameters:
+          type: object
+          properties:
+            asset_id:
+              type: string
+              minLength: 1
+              description: The Mux asset ID of the video to summarize.
+            tone:
+              type: string
+              enum:
+              - neutral
+              - playful
+              - professional
+              description: Tone for the generated summary. "neutral" for straightforward analysis, "playful" for witty and conversational, "professional" for executive-level reporting.
+            prompt_overrides:
+              type: object
+              properties:
+                task:
+                  type: string
+                  minLength: 1
+                  description: Override the core task instruction for summarization.
+                title:
+                  type: string
+                  minLength: 1
+                  description: Override the title generation requirements.
+                description:
+                  type: string
+                  minLength: 1
+                  description: Override the description generation requirements.
+                keywords:
+                  type: string
+                  minLength: 1
+                  description: Override the keyword/tag extraction requirements.
+                quality_guidelines:
+                  type: string
+                  minLength: 1
+                  description: Override the quality standards for analysis.
+              description: Override specific sections of the summarization prompt.
+            title_length:
+              type: integer
+              minimum: 1
+              description: Maximum title length in words.
+            description_length:
+              type: integer
+              minimum: 1
+              description: Maximum description length in words.
+            tag_count:
+              type: integer
+              minimum: 1
+              description: Maximum number of tags to include in the generated output. Defaults to 10.
+            language_code:
+              type: string
+              minLength: 1
+              description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK uses the default track.
+            output_language_code:
+              type: string
+              minLength: 1
+              description: BCP 47 language code for the generated summary output (e.g. "en", "fr", "ja"). Auto-detected from the transcript if omitted.
+          required:
+          - asset_id
+          example:
+            asset_id: mux_asset_123abc
+            tone: neutral
+            tag_count: 10
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - errored
+          - cancelled
+          description: Current job status.
+        outputs:
+          type: object
+          properties:
+            title:
+              type: string
+              minLength: 1
+              description: Generated title capturing the essence of the video.
+            description:
+              type: string
+              minLength: 1
+              description: Generated description of the video content (typically 2-4 sentences).
+            tags:
+              type: array
+              items:
+                type: string
+              description: Generated keyword tags for the video.
+          required:
+          - title
+          - description
+          - tags
+          example:
+            title: How to Build a Sustainable Garden in Your Backyard
+            description: This video walks through the step-by-step process of creating a sustainable backyard garden, covering soil preparation, plant selection, and organic pest control methods.
+            tags:
+            - gardening
+            - sustainability
+            - backyard
+            - organic
+            - soil preparation
+            - composting
+            - pest control
+            - beginner
+            - how-to
+            - plants
+          description: Workflow results. Present when status is 'completed'.
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Stable public error category identifier.
+              message:
+                type: string
+                description: Human-readable public error message.
+              retryable:
+                type: boolean
+                description: Whether retrying this job may resolve the error.
+            required:
+            - type
+            - message
+          description: Error details. Present when status is 'errored'.
+        resources:
+          type: object
+          properties:
+            assets:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Mux asset ID.
+                  meta:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        description: Asset title from Mux metadata.
+                      creator_id:
+                        type: string
+                        description: Creator identifier from Mux metadata.
+                      external_id:
+                        type: string
+                        description: External identifier from Mux metadata.
+                    description: Mux asset metadata, if available.
+                  passthrough:
+                    type: string
+                    description: Passthrough string from the Mux asset.
+                  _links:
+                    type: object
+                    properties:
+                      self:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+                            description: URL to the Mux asset resource.
+                        required:
+                        - href
+                    required:
+                    - self
+                    description: Hypermedia links for the asset.
+                required:
+                - id
+                - _links
+              description: Mux assets associated with this job.
+          required:
+          - assets
+          example:
+            assets:
+            - id: abc123asset
+              meta:
+                title: My Video
+                creator_id: user123
+                external_id: ext456
+              _links:
+                self:
+                  href: https://api.mux.com/video/v1/assets/abc123asset
+          description: Related Mux resources linked to this job.
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
+      description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
     WebhookAskQuestionsJob:
       type: object
       properties:
@@ -3700,6 +4084,200 @@ components:
       - parameters
       - status
       description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
+    WebhookGenerateChaptersJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - generate-chapters
+        parameters:
+          type: object
+          properties:
+            asset_id:
+              type: string
+              minLength: 1
+              description: The Mux asset ID of the video to generate chapters for.
+            language_code:
+              type: string
+              minLength: 1
+              description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK prefers English if available.
+            output_language_code:
+              type: string
+              minLength: 1
+              description: BCP 47 language code for the output chapter titles. Auto-detected from the transcript if omitted.
+            prompt_overrides:
+              type: object
+              properties:
+                task:
+                  type: string
+                  minLength: 1
+                  description: Override the core task instruction for chapter generation.
+                output_format:
+                  type: string
+                  minLength: 1
+                  description: Override the JSON output format instructions.
+                chapter_guidelines:
+                  type: string
+                  minLength: 1
+                  description: Override the chapter density and timing constraints.
+                title_guidelines:
+                  type: string
+                  minLength: 1
+                  description: Override the chapter title style requirements.
+              description: Override specific sections of the chapter generation prompt.
+          required:
+          - asset_id
+          example:
+            asset_id: mux_asset_123abc
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - errored
+          - cancelled
+          description: Current job status.
+        outputs:
+          type: object
+          properties:
+            chapters:
+              type: array
+              items:
+                type: object
+                properties:
+                  start_time:
+                    type: number
+                    minimum: 0
+                    description: Chapter start time in seconds. The first chapter always starts at 0.
+                  title:
+                    type: string
+                    minLength: 1
+                    description: Concise chapter title.
+                required:
+                - start_time
+                - title
+              minItems: 1
+              description: Generated chapters, ordered by start time.
+          required:
+          - chapters
+          example:
+            chapters:
+            - start_time: 0
+              title: Introduction
+            - start_time: 45
+              title: Setting Up the Workspace
+            - start_time: 180
+              title: Core Implementation
+            - start_time: 420
+              title: Testing and Debugging
+            - start_time: 600
+              title: Wrap-Up and Next Steps
+          description: Workflow results. Present when status is 'completed'.
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Stable public error category identifier.
+              message:
+                type: string
+                description: Human-readable public error message.
+              retryable:
+                type: boolean
+                description: Whether retrying this job may resolve the error.
+            required:
+            - type
+            - message
+          description: Error details. Present when status is 'errored'.
+        resources:
+          type: object
+          properties:
+            assets:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Mux asset ID.
+                  meta:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        description: Asset title from Mux metadata.
+                      creator_id:
+                        type: string
+                        description: Creator identifier from Mux metadata.
+                      external_id:
+                        type: string
+                        description: External identifier from Mux metadata.
+                    description: Mux asset metadata, if available.
+                  passthrough:
+                    type: string
+                    description: Passthrough string from the Mux asset.
+                  _links:
+                    type: object
+                    properties:
+                      self:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+                            description: URL to the Mux asset resource.
+                        required:
+                        - href
+                    required:
+                    - self
+                    description: Hypermedia links for the asset.
+                required:
+                - id
+                - _links
+              description: Mux assets associated with this job.
+          required:
+          - assets
+          example:
+            assets:
+            - id: abc123asset
+              meta:
+                title: My Video
+                creator_id: user123
+                external_id: ext456
+              _links:
+                self:
+                  href: https://api.mux.com/video/v1/assets/abc123asset
+          description: Related Mux resources linked to this job.
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
+      description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
     WebhookVideoDeliveryHighTraffic:
       type: object
       properties:
@@ -3808,6 +4386,606 @@ components:
           description: Current threshold set for alerting
         id:
           type: string
+    WebhookLiveStreamWarning:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Live Stream. Max 255 characters.
+        stream_key:
+          type: string
+          description: Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters.
+        active_asset_id:
+          type: string
+          description: The Asset that is currently being created if there is an active broadcast.
+        status:
+          type: string
+          enum:
+          - active
+          - idle
+          - disabled
+          description: '`idle` indicates that there is no active broadcast. `active` indicates that there is an active broadcast and `disabled` status indicates that no future RTMP streams can be published.'
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the asset. Max 255 characters.
+        warning:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+    WebhookLiveStream:
+      type: object
+      required:
+      - id
+      - created_at
+      - latency_mode
+      - max_continuous_duration
+      - status
+      - stream_key
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Live Stream. Max 255 characters.
+        created_at:
+          type: integer
+          format: int32
+        stream_key:
+          type: string
+          description: Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters.
+        active_asset_id:
+          type: string
+          description: The Asset that is currently being created if there is an active broadcast.
+        recent_asset_ids:
+          type: array
+          description: An array of strings with the most recent Asset IDs that were created from this Live Stream. The most recently generated Asset ID is the last entry in the list.
+          items:
+            type: string
+        status:
+          type: string
+          enum:
+          - active
+          - idle
+          - disabled
+          description: '`idle` indicates that there is no active broadcast. `active` indicates that there is an active broadcast and `disabled` status indicates that no future RTMP streams can be published.'
+        playback_ids:
+          type: array
+          description: An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/play-your-videos) for more details.
+          items:
+            type: object
+            required:
+            - id
+            - policy
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the PlaybackID
+              policy:
+                type: string
+                enum:
+                - public
+                - signed
+                - drm
+                description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+                  * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+                  * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+                  '
+              drm_configuration_id:
+                type: string
+                description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+        new_asset_settings:
+          type: object
+          properties:
+            inputs:
+              type: array
+              description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, input can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
+              items:
+                type: object
+                description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
+                properties:
+                  url:
+                    type: string
+                    description: 'The URL of the file that Mux should download and use.
+
+                      * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+                      * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+                      * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
+
+                      * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
+
+                      * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
+
+                      The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
+
+                      '
+                  overlay_settings:
+                    type: object
+                    description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
+                    properties:
+                      vertical_align:
+                        type: string
+                        enum:
+                        - top
+                        - middle
+                        - bottom
+                        description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
+                      vertical_margin:
+                        type: string
+                        description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
+                      horizontal_align:
+                        type: string
+                        enum:
+                        - left
+                        - center
+                        - right
+                        description: Where the horizontal positioning of the overlay/watermark should begin from.
+                      horizontal_margin:
+                        type: string
+                        description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
+                      width:
+                        type: string
+                        description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
+                      height:
+                        type: string
+                        description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
+                      opacity:
+                        type: string
+                        description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
+                  generated_subtitles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: A name for this subtitle track.
+                        passthrough:
+                          type: string
+                          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
+                        language_code:
+                          type: string
+                          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
+                          default: en
+                          enum:
+                          - en
+                          - es
+                          - it
+                          - pt
+                          - de
+                          - fr
+                          - pl
+                          - ru
+                          - nl
+                          - ca
+                          - tr
+                          - sv
+                          - uk
+                          - 'no'
+                          - fi
+                          - sk
+                          - el
+                          - cs
+                          - hr
+                          - da
+                          - ro
+                          - bg
+                          - auto
+                    description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
+                  start_time:
+                    type: number
+                    format: double
+                    description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+                  end_time:
+                    type: number
+                    format: double
+                    description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
+                  type:
+                    type: string
+                    enum:
+                    - video
+                    - audio
+                    - text
+                    description: This parameter is required for `text` type tracks.
+                  text_type:
+                    type: string
+                    enum:
+                    - subtitles
+                    description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
+                  language_code:
+                    type: string
+                    description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
+                  name:
+                    type: string
+                    description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
+                  closed_captions:
+                    type: boolean
+                    description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+                  passthrough:
+                    type: string
+                    description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+            playback_policies:
+              type: array
+              items:
+                type: string
+                enum:
+                - public
+                - signed
+                - drm
+                description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+                  * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+                  * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+                  '
+              description: 'An array of playback policy names that you want applied to this asset and available through `playback_ids`. Options include:
+
+
+                * `"public"` (anyone with the playback URL can stream the asset).
+
+                * `"signed"` (an additional access token is required to play the asset).
+
+
+                If no `playback_policies` are set, the asset will have no playback IDs and will therefore not be playable. For simplicity, a single string name can be used in place of the array in the case of only one playback policy.
+
+                '
+            advanced_playback_policies:
+              type: array
+              items:
+                type: object
+                properties:
+                  policy:
+                    type: string
+                    enum:
+                    - public
+                    - signed
+                    - drm
+                    description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+                      * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+                      * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+                      '
+                  drm_configuration_id:
+                    type: string
+                    description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+              description: 'An array of playback policy objects that you want applied to this asset and available through `playback_ids`. `advanced_playback_policies` must be used instead of `playback_policies` when creating a DRM playback ID.
+
+                '
+            per_title_encode:
+              type: boolean
+              format: boolean
+              x-mux-doc-decorators:
+              - hidden
+              deprecated: true
+            passthrough:
+              type: string
+              description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id`, you can use the `meta` object instead. **Max: 255 characters**.'
+            mp4_support:
+              type: string
+              deprecated: true
+              enum:
+              - none
+              - standard
+              - capped-1080p
+              - audio-only
+              - audio-only,capped-1080p
+              description: 'Deprecated. See the [Static Renditions API](https://www.mux.com/docs/guides/enable-static-mp4-renditions) for the updated API.
+
+
+                Specify what level of support for mp4 playback. You may not enable both `mp4_support` and  `static_renditions`.
+
+
+                * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
+
+                * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
+
+                * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
+
+
+                The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
+
+
+                MP4 files are not produced for `none` (default).
+
+
+                In most cases you should use our default HLS-based streaming playback (`{playback_id}.m3u8`) which can automatically adjust to viewers'' connection speeds, but an mp4 can be useful for some legacy devices or downloading for offline playback. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
+
+                '
+              x-mux-doc-decorators-deprecated-enum-values:
+              - standard
+            normalize_audio:
+              type: boolean
+              format: boolean
+              description: Normalize the audio track loudness level. This parameter is only applicable to on-demand (not live) assets.
+              default: false
+            master_access:
+              type: string
+              enum:
+              - none
+              - temporary
+              description: Specify what level (if any) of support for master access. Master access can be enabled temporarily for your asset to be downloaded. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
+            test:
+              type: boolean
+              format: boolean
+              description: Marks the asset as a test asset when the value is set to true. A Test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test asset are watermarked with the Mux logo, limited to 10 seconds, deleted after 24 hrs.
+            max_resolution_tier:
+              type: string
+              enum:
+              - 1080p
+              - 1440p
+              - 2160p
+              description: Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
+            encoding_tier:
+              type: string
+              deprecated: true
+              enum:
+              - smart
+              - baseline
+              - premium
+              description: This field is deprecated. Please use `video_quality` instead. The encoding tier informs the cost, quality, and available platform features for the asset. The default encoding tier for an account can be set in the Mux Dashboard. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
+            video_quality:
+              type: string
+              enum:
+              - basic
+              - plus
+              - premium
+              description: The video quality controls the cost, quality, and available platform features for the asset. The default video quality for an account can be set in the Mux Dashboard. This field replaces the deprecated `encoding_tier` value. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
+            static_renditions:
+              type: array
+              items:
+                type: object
+                required:
+                - resolution
+                properties:
+                  resolution:
+                    type: string
+                    enum:
+                    - highest
+                    - audio-only
+                    - 2160p
+                    - 1440p
+                    - 1080p
+                    - 720p
+                    - 540p
+                    - 480p
+                    - 360p
+                    - 270p
+                  passthrough:
+                    type: string
+                    description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+              description: An array of static renditions to create for this asset. You may not enable both `static_renditions` and `mp4_support (the latter being deprecated)`
+            meta:
+              type: object
+              description: 'Customer provided metadata about this asset.
+
+
+                Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
+
+                '
+              properties:
+                title:
+                  type: string
+                  maxLength: 512
+                  description: The asset title. Max 512 code points.
+                creator_id:
+                  type: string
+                  maxLength: 128
+                  description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
+                external_id:
+                  type: string
+                  maxLength: 128
+                  description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
+            copy_overlays:
+              type: boolean
+              default: true
+              description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the asset. Max 255 characters.
+        audio_only:
+          type: boolean
+          description: The live stream only processes the audio track if the value is set to true. Mux drops the video track if broadcasted.
+        embedded_subtitles:
+          type: array
+          items:
+            type: object
+            required:
+            - name
+            - language_code
+            - language_channel
+            properties:
+              name:
+                type: string
+                description: A name for this live stream closed caption track.
+              passthrough:
+                type: string
+                description: Arbitrary user-supplied metadata set for the live stream closed caption track. Max 255 characters.
+              language_code:
+                type: string
+                description: The language of the closed caption stream. Value must be BCP 47 compliant.
+                default: en
+              language_channel:
+                type: string
+                description: CEA-608 caption channel to read data from.
+                default: cc1
+                enum:
+                - cc1
+                - cc2
+                - cc3
+                - cc4
+          description: Describes the embedded closed caption configuration of the incoming live stream.
+        generated_subtitles:
+          type: array
+          items:
+            type: object
+            required:
+            - name
+            - language_code
+            properties:
+              name:
+                type: string
+                description: A name for this live stream subtitle track.
+              passthrough:
+                type: string
+                description: Arbitrary metadata set for the live stream subtitle track. Max 255 characters.
+              language_code:
+                type: string
+                description: The language of the audio from which subtitles are generated.
+                default: en
+                enum:
+                - en
+                - en-US
+                - es
+                - fr
+                - de
+                - pt
+                - it
+              transcription_vocabulary_ids:
+                type: array
+                items:
+                  type: string
+                description: Unique identifiers for existing Transcription Vocabularies to use while generating subtitles for the live stream. If the Transcription Vocabularies provided collectively have more than 1000 phrases, only the first 1000 phrases will be included.
+          description: Configure the incoming live stream to include subtitles created with automatic speech recognition. Each Asset created from a live stream with `generated_subtitles` configured will automatically receive two text tracks. The first of these will have a `text_source` value of `generated_live`, and will be available with `ready` status as soon as the stream is live. The second text track will have a `text_source` value of `generated_live_final` and will contain subtitles with improved accuracy, timing, and formatting. However, `generated_live_final` tracks will not be available in `ready` status until the live stream ends. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
+        reconnect_window:
+          type: number
+          format: float
+          default: 60
+          minimum: 0
+          maximum: 1800
+          description: 'When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset. **Max**: 1800s (30 minutes).
+
+
+            If not specified directly, Standard Latency streams have a Reconnect Window of 60 seconds; Reduced and Low Latency streams have a default of 0 seconds, or no Reconnect Window. For that reason, we suggest specifying a value other than zero for Reduced and Low Latency streams.
+
+
+            Reduced and Low Latency streams with a Reconnect Window greater than zero will insert slate media into the recorded asset while waiting for the streaming software to reconnect or when there are brief interruptions in the live stream media. When using a Reconnect Window setting higher than 60 seconds with a Standard Latency stream, we highly recommend enabling slate with the `use_slate_for_standard_latency` option.
+
+            '
+        use_slate_for_standard_latency:
+          type: boolean
+          format: boolean
+          default: false
+          description: By default, Standard Latency live streams do not have slate media inserted while waiting for live streaming software to reconnect to Mux. Setting this to true enables slate insertion on a Standard Latency stream.
+        reconnect_slate_url:
+          type: string
+          description: The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. If this is not set, the default slate media will be used.
+        reduced_latency:
+          type: boolean
+          format: boolean
+          deprecated: true
+          x-mux-doc-decorators:
+          - hidden
+          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this if you want lower latency for your live stream. See the [Reduce live stream latency guide](https://docs.mux.com/guides/reduce-live-stream-latency) to understand the tradeoffs.
+        low_latency:
+          type: boolean
+          format: boolean
+          deprecated: true
+          x-mux-doc-decorators:
+          - hidden
+          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Setting this option will enable compatibility with the LL-HLS specification for low-latency streaming. This typically has lower latency than Reduced Latency streams, and cannot be combined with Reduced Latency.
+        simulcast_targets:
+          type: array
+          description: Each Simulcast Target contains configuration details to broadcast (or "restream") a live stream to a third-party streaming service. [See the Stream live to 3rd party platforms guide](https://docs.mux.com/guides/stream-live-to-3rd-party-platforms).
+          items:
+            type: object
+            required:
+            - id
+            - url
+            - status
+            properties:
+              id:
+                type: string
+                description: ID of the Simulcast Target
+              passthrough:
+                type: string
+                description: Arbitrary user-supplied metadata set when creating a simulcast target.
+              status:
+                type: string
+                enum:
+                - idle
+                - starting
+                - broadcasting
+                - errored
+                description: "The current status of the simulcast target. See Statuses below for detailed description.\n  * `idle`: Default status. When the parent live stream is in disconnected status, simulcast targets will be idle state.\n  * `starting`: The simulcast target transitions into this state when the parent live stream transition into connected state.\n  * `broadcasting`: The simulcast target has successfully connected to the third party live streaming service and is pushing video to that service.\n  * `errored`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. When a simulcast target has this status it will have an `error_severity` field with more details about the error.\n"
+              stream_key:
+                type: string
+                description: Stream Key represents a stream identifier on the third party live streaming service to send the parent live stream to. Only used for RTMP(s) simulcast destinations.
+              url:
+                type: string
+                description: 'The RTMP(s) or SRT endpoint for a simulcast destination.
+
+                  * For RTMP(s) destinations, this should include the application name for the third party live streaming service, for example: `rtmp://live.example.com/app`.
+
+                  * For SRT destinations, this should be a fully formed SRT connection string, for example: `srt://srt-live.example.com:1234?streamid={stream_key}&passphrase={srt_passphrase}`.
+
+
+                  Note: SRT simulcast targets can only be used when an source is connected over SRT.
+
+                  '
+              error_severity:
+                type: string
+                enum:
+                - normal
+                - fatal
+                description: "The severity of the error encountered by the simulcast target.\nThis field is only set when the simulcast target is in the `errored` status.\nSee the values of severities below and their descriptions.\n  * `normal`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. A simulcast may transition back into the broadcasting state if a connection with the service can be re-established.\n  * `fatal`: The simulcast target is incompatible with the current input to the parent live stream. No further attempts to this simulcast target will be made for the current live stream asset.\n"
+        latency_mode:
+          type: string
+          enum:
+          - low
+          - reduced
+          - standard
+          description: Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags.
+        test:
+          type: boolean
+          format: boolean
+          description: True means this live stream is a test live stream. Test live streams can be used to help evaluate the Mux Video APIs for free. There is no limit on the number of test live streams, but they are watermarked with the Mux logo, and limited to 5 minutes. The test live stream is disabled after the stream is active for 5 mins and the recorded asset also deleted after 24 hours.
+        max_continuous_duration:
+          type: integer
+          format: int32
+          default: 43200
+          minimum: 60
+          maximum: 43200
+          description: The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
+        srt_passphrase:
+          type: string
+          description: Unique key used for encrypting a stream to a Mux SRT endpoint. Max 64 characters.
+        active_ingest_protocol:
+          type: string
+          enum:
+          - rtmp
+          - srt
+          description: The protocol used for the active ingest stream. This is only set when the live stream is active.
+        meta:
+          type: object
+          description: 'Customer provided metadata about this live stream.
+
+
+            Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
+
+            '
+          properties:
+            title:
+              type: string
+              maxLength: 512
+              description: The live stream title. Max 512 code points.
+        connected:
+          type: boolean
+        recording:
+          type: boolean
     WebhookSimulcastTarget:
       type: object
       required:
@@ -3853,6 +5031,158 @@ components:
         live_stream_id:
           type: string
           description: Unique identifier for the Live Stream. Max 255 characters.
+    WebhookAssetStaticRendition:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+          - low.mp4
+          - medium.mp4
+          - high.mp4
+          - highest.mp4
+          - audio.m4a
+          - capped-1080p.mp4
+          - 2160p.mp4
+          - 1440p.mp4
+          - 1080p.mp4
+          - 720p.mp4
+          - 540p.mp4
+          - 480p.mp4
+          - 360p.mp4
+          - 270p.mp4
+          description: Name of the static rendition file
+        ext:
+          type: string
+          description: Extension of the static rendition file
+          enum:
+          - mp4
+          - m4a
+        height:
+          type: integer
+          format: int32
+          description: The height of the static rendition's file in pixels
+        width:
+          type: integer
+          format: int32
+          description: The width of the static rendition's file in pixels
+        bitrate:
+          type: integer
+          format: int64
+          description: The bitrate in bits per second
+        filesize:
+          type: string
+          format: int64
+          description: The file size in bytes
+        type:
+          type: string
+          description: Indicates the static rendition type of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - standard
+          - advanced
+        status:
+          type: string
+          description: 'Indicates the status of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+
+            * `ready` indicates the MP4 has been generated and is ready for download
+
+            * `preparing` indicates the asset has not been ingested or the static rendition is still being generated after an asset is ready
+
+            * `skipped` indicates the static rendition will not be generated because the requested resolution conflicts with the asset attributes after the asset has been ingested
+
+            * `errored` indicates the static rendition cannot be generated. For example, an asset could not be ingested
+
+            '
+          enum:
+          - ready
+          - preparing
+          - skipped
+          - errored
+        resolution_tier:
+          type: string
+          description: Indicates the resolution tier of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - audio-only
+        resolution:
+          type: string
+          description: Indicates the resolution of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+          x-mux-doc-decorators-hidden-enum-values:
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        id:
+          type: string
+          description: The ID of this static rendition, used in managing this static rendition. This field is only valid for `static_renditions`, not for `mp4_support`.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+        asset_id:
+          type: string
+          description: Unique identifier for the Asset. Max 255 characters.
+        error:
+          type: object
+          description: Object that describes any errors that happened when processing this asset.
+          properties:
+            type:
+              type: string
+              description: The type of error that occurred for this asset.
+            messages:
+              type: array
+              description: Error messages with more details.
+              items:
+                type: string
+    WebhookAssetWarning:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Asset. Max 255 characters.
+        live_stream_id:
+          type: string
+          description: Unique identifier for the live stream. This is an optional parameter added when the asset is created from a live stream.
+        source_asset_id:
+          type: string
+          description: Asset Identifier of the video used as the source for creating the clip.
+        upload_id:
+          type: string
+          description: Unique identifier for the Direct Upload. This is an optional parameter added when the asset is created from a direct upload.
+        status:
+          type: string
+          enum:
+          - preparing
+          - ready
+          - errored
+          description: The status of the asset.
+        passthrough:
+          type: string
+          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**.'
+        warning:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
     WebhookAsset:
       type: object
       required:
@@ -4628,293 +5958,6 @@ components:
       - parameters
       - status
       description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
-    WebhookAssetStaticRendition:
-      type: object
-      properties:
-        name:
-          type: string
-          enum:
-          - low.mp4
-          - medium.mp4
-          - high.mp4
-          - highest.mp4
-          - audio.m4a
-          - capped-1080p.mp4
-          - 2160p.mp4
-          - 1440p.mp4
-          - 1080p.mp4
-          - 720p.mp4
-          - 540p.mp4
-          - 480p.mp4
-          - 360p.mp4
-          - 270p.mp4
-          description: Name of the static rendition file
-        ext:
-          type: string
-          description: Extension of the static rendition file
-          enum:
-          - mp4
-          - m4a
-        height:
-          type: integer
-          format: int32
-          description: The height of the static rendition's file in pixels
-        width:
-          type: integer
-          format: int32
-          description: The width of the static rendition's file in pixels
-        bitrate:
-          type: integer
-          format: int64
-          description: The bitrate in bits per second
-        filesize:
-          type: string
-          format: int64
-          description: The file size in bytes
-        type:
-          type: string
-          description: Indicates the static rendition type of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - standard
-          - advanced
-        status:
-          type: string
-          description: 'Indicates the status of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-
-            * `ready` indicates the MP4 has been generated and is ready for download
-
-            * `preparing` indicates the asset has not been ingested or the static rendition is still being generated after an asset is ready
-
-            * `skipped` indicates the static rendition will not be generated because the requested resolution conflicts with the asset attributes after the asset has been ingested
-
-            * `errored` indicates the static rendition cannot be generated. For example, an asset could not be ingested
-
-            '
-          enum:
-          - ready
-          - preparing
-          - skipped
-          - errored
-        resolution_tier:
-          type: string
-          description: Indicates the resolution tier of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - audio-only
-        resolution:
-          type: string
-          description: Indicates the resolution of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-          x-mux-doc-decorators-hidden-enum-values:
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        id:
-          type: string
-          description: The ID of this static rendition, used in managing this static rendition. This field is only valid for `static_renditions`, not for `mp4_support`.
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
-        asset_id:
-          type: string
-          description: Unique identifier for the Asset. Max 255 characters.
-        error:
-          type: object
-          description: Object that describes any errors that happened when processing this asset.
-          properties:
-            type:
-              type: string
-              description: The type of error that occurred for this asset.
-            messages:
-              type: array
-              description: Error messages with more details.
-              items:
-                type: string
-    WebhookTranslateCaptionsJob:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique job identifier.
-        passthrough:
-          type: string
-          description: Arbitrary string supplied at creation, returned as-is.
-        units_consumed:
-          type: integer
-          minimum: 0
-          description: Number of Mux AI units consumed by this job.
-        created_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was created.
-        updated_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was last updated.
-        workflow:
-          type: string
-          enum:
-          - translate-captions
-        parameters:
-          type: object
-          properties:
-            asset_id:
-              type: string
-              minLength: 1
-              description: The Mux asset ID of the video whose captions will be translated.
-            track_id:
-              type: string
-              minLength: 1
-              description: The Mux text track ID of the source caption track to translate. The asset must have a ready text track matching this ID or the request will be rejected.
-            to_language_code:
-              type: string
-              minLength: 1
-              description: BCP 47 language code for the translated output (e.g. "es", "ja"). The asset must not already have a text track for this language.
-            upload_to_mux:
-              type: boolean
-              default: true
-              description: Whether to upload the translated VTT and attach it as a text track on the Mux asset. Defaults to true.
-          required:
-          - asset_id
-          - track_id
-          - to_language_code
-          example:
-            asset_id: mux_asset_123abc
-            track_id: track_en_abc123
-            to_language_code: es
-            upload_to_mux: true
-        status:
-          type: string
-          enum:
-          - pending
-          - processing
-          - completed
-          - errored
-          - cancelled
-          description: Current job status.
-        outputs:
-          type: object
-          properties:
-            track_id:
-              type: string
-              minLength: 1
-              description: The Mux text track ID of the source caption track that was translated.
-            uploaded_track_id:
-              type: string
-              minLength: 1
-              description: Mux text track ID of the uploaded translated captions. Present when upload_to_mux is true.
-            temporary_vtt_url:
-              type: string
-              minLength: 1
-              description: Temporary pre-signed URL to download the translated VTT file. Present when upload_to_mux is true.
-          example:
-            track_id: track_en_abc123
-            uploaded_track_id: track_es_abc123
-            temporary_vtt_url: https://storage.example.com/translations/es/captions.vtt?token=abc123
-          description: Workflow results. Present when status is 'completed'.
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                description: Stable public error category identifier.
-              message:
-                type: string
-                description: Human-readable public error message.
-              retryable:
-                type: boolean
-                description: Whether retrying this job may resolve the error.
-            required:
-            - type
-            - message
-          description: Error details. Present when status is 'errored'.
-        resources:
-          type: object
-          properties:
-            assets:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Mux asset ID.
-                  meta:
-                    type: object
-                    properties:
-                      title:
-                        type: string
-                        description: Asset title from Mux metadata.
-                      creator_id:
-                        type: string
-                        description: Creator identifier from Mux metadata.
-                      external_id:
-                        type: string
-                        description: External identifier from Mux metadata.
-                    description: Mux asset metadata, if available.
-                  passthrough:
-                    type: string
-                    description: Passthrough string from the Mux asset.
-                  _links:
-                    type: object
-                    properties:
-                      self:
-                        type: object
-                        properties:
-                          href:
-                            type: string
-                            description: URL to the Mux asset resource.
-                        required:
-                        - href
-                    required:
-                    - self
-                    description: Hypermedia links for the asset.
-                required:
-                - id
-                - _links
-              description: Mux assets associated with this job.
-          required:
-          - assets
-          example:
-            assets:
-            - id: abc123asset
-              meta:
-                title: My Video
-                creator_id: user123
-                external_id: ext456
-              _links:
-                self:
-                  href: https://api.mux.com/video/v1/assets/abc123asset
-          description: Related Mux resources linked to this job.
-      required:
-      - id
-      - units_consumed
-      - created_at
-      - updated_at
-      - workflow
-      - parameters
-      - status
-      description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
     WebhookFindKeyMomentsJob:
       type: object
       properties:
@@ -5193,1150 +6236,6 @@ components:
       - parameters
       - status
       description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
-    WebhookGenerateChaptersJob:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique job identifier.
-        passthrough:
-          type: string
-          description: Arbitrary string supplied at creation, returned as-is.
-        units_consumed:
-          type: integer
-          minimum: 0
-          description: Number of Mux AI units consumed by this job.
-        created_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was created.
-        updated_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was last updated.
-        workflow:
-          type: string
-          enum:
-          - generate-chapters
-        parameters:
-          type: object
-          properties:
-            asset_id:
-              type: string
-              minLength: 1
-              description: The Mux asset ID of the video to generate chapters for.
-            language_code:
-              type: string
-              minLength: 1
-              description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK prefers English if available.
-            output_language_code:
-              type: string
-              minLength: 1
-              description: BCP 47 language code for the output chapter titles. Auto-detected from the transcript if omitted.
-            prompt_overrides:
-              type: object
-              properties:
-                task:
-                  type: string
-                  minLength: 1
-                  description: Override the core task instruction for chapter generation.
-                output_format:
-                  type: string
-                  minLength: 1
-                  description: Override the JSON output format instructions.
-                chapter_guidelines:
-                  type: string
-                  minLength: 1
-                  description: Override the chapter density and timing constraints.
-                title_guidelines:
-                  type: string
-                  minLength: 1
-                  description: Override the chapter title style requirements.
-              description: Override specific sections of the chapter generation prompt.
-          required:
-          - asset_id
-          example:
-            asset_id: mux_asset_123abc
-        status:
-          type: string
-          enum:
-          - pending
-          - processing
-          - completed
-          - errored
-          - cancelled
-          description: Current job status.
-        outputs:
-          type: object
-          properties:
-            chapters:
-              type: array
-              items:
-                type: object
-                properties:
-                  start_time:
-                    type: number
-                    minimum: 0
-                    description: Chapter start time in seconds. The first chapter always starts at 0.
-                  title:
-                    type: string
-                    minLength: 1
-                    description: Concise chapter title.
-                required:
-                - start_time
-                - title
-              minItems: 1
-              description: Generated chapters, ordered by start time.
-          required:
-          - chapters
-          example:
-            chapters:
-            - start_time: 0
-              title: Introduction
-            - start_time: 45
-              title: Setting Up the Workspace
-            - start_time: 180
-              title: Core Implementation
-            - start_time: 420
-              title: Testing and Debugging
-            - start_time: 600
-              title: Wrap-Up and Next Steps
-          description: Workflow results. Present when status is 'completed'.
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                description: Stable public error category identifier.
-              message:
-                type: string
-                description: Human-readable public error message.
-              retryable:
-                type: boolean
-                description: Whether retrying this job may resolve the error.
-            required:
-            - type
-            - message
-          description: Error details. Present when status is 'errored'.
-        resources:
-          type: object
-          properties:
-            assets:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Mux asset ID.
-                  meta:
-                    type: object
-                    properties:
-                      title:
-                        type: string
-                        description: Asset title from Mux metadata.
-                      creator_id:
-                        type: string
-                        description: Creator identifier from Mux metadata.
-                      external_id:
-                        type: string
-                        description: External identifier from Mux metadata.
-                    description: Mux asset metadata, if available.
-                  passthrough:
-                    type: string
-                    description: Passthrough string from the Mux asset.
-                  _links:
-                    type: object
-                    properties:
-                      self:
-                        type: object
-                        properties:
-                          href:
-                            type: string
-                            description: URL to the Mux asset resource.
-                        required:
-                        - href
-                    required:
-                    - self
-                    description: Hypermedia links for the asset.
-                required:
-                - id
-                - _links
-              description: Mux assets associated with this job.
-          required:
-          - assets
-          example:
-            assets:
-            - id: abc123asset
-              meta:
-                title: My Video
-                creator_id: user123
-                external_id: ext456
-              _links:
-                self:
-                  href: https://api.mux.com/video/v1/assets/abc123asset
-          description: Related Mux resources linked to this job.
-      required:
-      - id
-      - units_consumed
-      - created_at
-      - updated_at
-      - workflow
-      - parameters
-      - status
-      description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
-    WebhookLiveStream:
-      type: object
-      required:
-      - id
-      - created_at
-      - latency_mode
-      - max_continuous_duration
-      - status
-      - stream_key
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Live Stream. Max 255 characters.
-        created_at:
-          type: integer
-          format: int32
-        stream_key:
-          type: string
-          description: Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters.
-        active_asset_id:
-          type: string
-          description: The Asset that is currently being created if there is an active broadcast.
-        recent_asset_ids:
-          type: array
-          description: An array of strings with the most recent Asset IDs that were created from this Live Stream. The most recently generated Asset ID is the last entry in the list.
-          items:
-            type: string
-        status:
-          type: string
-          enum:
-          - active
-          - idle
-          - disabled
-          description: '`idle` indicates that there is no active broadcast. `active` indicates that there is an active broadcast and `disabled` status indicates that no future RTMP streams can be published.'
-        playback_ids:
-          type: array
-          description: An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/play-your-videos) for more details.
-          items:
-            type: object
-            required:
-            - id
-            - policy
-            properties:
-              id:
-                type: string
-                description: Unique identifier for the PlaybackID
-              policy:
-                type: string
-                enum:
-                - public
-                - signed
-                - drm
-                description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-                  * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-                  * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-                  '
-              drm_configuration_id:
-                type: string
-                description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
-        new_asset_settings:
-          type: object
-          properties:
-            inputs:
-              type: array
-              description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, input can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
-              items:
-                type: object
-                description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
-                properties:
-                  url:
-                    type: string
-                    description: 'The URL of the file that Mux should download and use.
-
-                      * For the main input file, this should be the URL to the muxed file for Mux to download, for example an MP4, MOV, MKV, or TS file. Mux supports most audio/video file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-                      * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-                      * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
-
-                      * For Watermarking or Overlay, the URL is the location of the watermark image. The maximum size is 4096x4096.
-
-                      * When creating clips from existing Mux assets, the URL is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
-
-                      The url property may be omitted on the first input object when providing asset settings for LiveStream and Upload objects, in order to configure settings related to the primary (live stream or direct upload) input.
-
-                      '
-                  overlay_settings:
-                    type: object
-                    description: An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
-                    properties:
-                      vertical_align:
-                        type: string
-                        enum:
-                        - top
-                        - middle
-                        - bottom
-                        description: Where the vertical positioning of the overlay/watermark should begin from. Defaults to `"top"`
-                      vertical_margin:
-                        type: string
-                        description: The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
-                      horizontal_align:
-                        type: string
-                        enum:
-                        - left
-                        - center
-                        - right
-                        description: Where the horizontal positioning of the overlay/watermark should begin from.
-                      horizontal_margin:
-                        type: string
-                        description: The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent ("10%") or as a pixel value ("100px"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
-                      width:
-                        type: string
-                        description: How wide the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
-                      height:
-                        type: string
-                        description: How tall the overlay should appear. Can be expressed as a percent ("10%") or as a pixel value ("100px"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
-                      opacity:
-                        type: string
-                        description: How opaque the overlay should appear, expressed as a percent. (Default 100%)
-                  generated_subtitles:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                          description: A name for this subtitle track.
-                        passthrough:
-                          type: string
-                          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
-                        language_code:
-                          type: string
-                          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
-                          default: en
-                          enum:
-                          - en
-                          - es
-                          - it
-                          - pt
-                          - de
-                          - fr
-                          - pl
-                          - ru
-                          - nl
-                          - ca
-                          - tr
-                          - sv
-                          - uk
-                          - 'no'
-                          - fi
-                          - sk
-                          - el
-                          - cs
-                          - hr
-                          - da
-                          - ro
-                          - bg
-                          - auto
-                    description: Generate subtitle tracks using automatic speech recognition with this configuration. Subtitles are generated using the audio of the input they are nested within. For direct uploads, this first input should omit the url parameter, as the main input file is provided via the direct upload. Note that subtitle generation happens after initial ingest, so the generated tracks will be in the `preparing` state when the asset transitions to `ready`.
-                  start_time:
-                    type: number
-                    format: double
-                    description: The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-                  end_time:
-                    type: number
-                    format: double
-                    description: The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included. This parameter is only applicable for creating clips when `input.url` has `mux://assets/{asset_id}` format.
-                  type:
-                    type: string
-                    enum:
-                    - video
-                    - audio
-                    - text
-                    description: This parameter is required for `text` type tracks.
-                  text_type:
-                    type: string
-                    enum:
-                    - subtitles
-                    description: Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` type tracks.
-                  language_code:
-                    type: string
-                    description: The language code value must be a valid [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is required for `text` and `audio` track types.
-                  name:
-                    type: string
-                    description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate a subtitle text track with this value. For example, the value should be "English" for a subtitle text track with `language_code` set to `en`. This optional parameter should be used only for `text` and `audio` type tracks. This parameter can be optionally provided for the first video input to denote the name of the muxed audio track if present. If this parameter is not included, Mux will auto-populate based on the `input[].language_code` value.
-                  closed_captions:
-                    type: boolean
-                    description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-                  passthrough:
-                    type: string
-                    description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-            playback_policies:
-              type: array
-              items:
-                type: string
-                enum:
-                - public
-                - signed
-                - drm
-                description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-                  * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-                  * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-                  '
-              description: 'An array of playback policy names that you want applied to this asset and available through `playback_ids`. Options include:
-
-
-                * `"public"` (anyone with the playback URL can stream the asset).
-
-                * `"signed"` (an additional access token is required to play the asset).
-
-
-                If no `playback_policies` are set, the asset will have no playback IDs and will therefore not be playable. For simplicity, a single string name can be used in place of the array in the case of only one playback policy.
-
-                '
-            advanced_playback_policies:
-              type: array
-              items:
-                type: object
-                properties:
-                  policy:
-                    type: string
-                    enum:
-                    - public
-                    - signed
-                    - drm
-                    description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-                      * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-                      * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-                      '
-                  drm_configuration_id:
-                    type: string
-                    description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
-              description: 'An array of playback policy objects that you want applied to this asset and available through `playback_ids`. `advanced_playback_policies` must be used instead of `playback_policies` when creating a DRM playback ID.
-
-                '
-            per_title_encode:
-              type: boolean
-              format: boolean
-              x-mux-doc-decorators:
-              - hidden
-              deprecated: true
-            passthrough:
-              type: string
-              description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id`, you can use the `meta` object instead. **Max: 255 characters**.'
-            mp4_support:
-              type: string
-              deprecated: true
-              enum:
-              - none
-              - standard
-              - capped-1080p
-              - audio-only
-              - audio-only,capped-1080p
-              description: 'Deprecated. See the [Static Renditions API](https://www.mux.com/docs/guides/enable-static-mp4-renditions) for the updated API.
-
-
-                Specify what level of support for mp4 playback. You may not enable both `mp4_support` and  `static_renditions`.
-
-
-                * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
-
-                * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
-
-                * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
-
-
-                The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
-
-
-                MP4 files are not produced for `none` (default).
-
-
-                In most cases you should use our default HLS-based streaming playback (`{playback_id}.m3u8`) which can automatically adjust to viewers'' connection speeds, but an mp4 can be useful for some legacy devices or downloading for offline playback. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
-
-                '
-              x-mux-doc-decorators-deprecated-enum-values:
-              - standard
-            normalize_audio:
-              type: boolean
-              format: boolean
-              description: Normalize the audio track loudness level. This parameter is only applicable to on-demand (not live) assets.
-              default: false
-            master_access:
-              type: string
-              enum:
-              - none
-              - temporary
-              description: Specify what level (if any) of support for master access. Master access can be enabled temporarily for your asset to be downloaded. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
-            test:
-              type: boolean
-              format: boolean
-              description: Marks the asset as a test asset when the value is set to true. A Test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test asset are watermarked with the Mux logo, limited to 10 seconds, deleted after 24 hrs.
-            max_resolution_tier:
-              type: string
-              enum:
-              - 1080p
-              - 1440p
-              - 2160p
-              description: Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
-            encoding_tier:
-              type: string
-              deprecated: true
-              enum:
-              - smart
-              - baseline
-              - premium
-              description: This field is deprecated. Please use `video_quality` instead. The encoding tier informs the cost, quality, and available platform features for the asset. The default encoding tier for an account can be set in the Mux Dashboard. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
-            video_quality:
-              type: string
-              enum:
-              - basic
-              - plus
-              - premium
-              description: The video quality controls the cost, quality, and available platform features for the asset. The default video quality for an account can be set in the Mux Dashboard. This field replaces the deprecated `encoding_tier` value. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
-            static_renditions:
-              type: array
-              items:
-                type: object
-                required:
-                - resolution
-                properties:
-                  resolution:
-                    type: string
-                    enum:
-                    - highest
-                    - audio-only
-                    - 2160p
-                    - 1440p
-                    - 1080p
-                    - 720p
-                    - 540p
-                    - 480p
-                    - 360p
-                    - 270p
-                  passthrough:
-                    type: string
-                    description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
-              description: An array of static renditions to create for this asset. You may not enable both `static_renditions` and `mp4_support (the latter being deprecated)`
-            meta:
-              type: object
-              description: 'Customer provided metadata about this asset.
-
-
-                Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
-
-                '
-              properties:
-                title:
-                  type: string
-                  maxLength: 512
-                  description: The asset title. Max 512 code points.
-                creator_id:
-                  type: string
-                  maxLength: 128
-                  description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
-                external_id:
-                  type: string
-                  maxLength: 128
-                  description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
-            copy_overlays:
-              type: boolean
-              default: true
-              description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the asset. Max 255 characters.
-        audio_only:
-          type: boolean
-          description: The live stream only processes the audio track if the value is set to true. Mux drops the video track if broadcasted.
-        embedded_subtitles:
-          type: array
-          items:
-            type: object
-            required:
-            - name
-            - language_code
-            - language_channel
-            properties:
-              name:
-                type: string
-                description: A name for this live stream closed caption track.
-              passthrough:
-                type: string
-                description: Arbitrary user-supplied metadata set for the live stream closed caption track. Max 255 characters.
-              language_code:
-                type: string
-                description: The language of the closed caption stream. Value must be BCP 47 compliant.
-                default: en
-              language_channel:
-                type: string
-                description: CEA-608 caption channel to read data from.
-                default: cc1
-                enum:
-                - cc1
-                - cc2
-                - cc3
-                - cc4
-          description: Describes the embedded closed caption configuration of the incoming live stream.
-        generated_subtitles:
-          type: array
-          items:
-            type: object
-            required:
-            - name
-            - language_code
-            properties:
-              name:
-                type: string
-                description: A name for this live stream subtitle track.
-              passthrough:
-                type: string
-                description: Arbitrary metadata set for the live stream subtitle track. Max 255 characters.
-              language_code:
-                type: string
-                description: The language of the audio from which subtitles are generated.
-                default: en
-                enum:
-                - en
-                - en-US
-                - es
-                - fr
-                - de
-                - pt
-                - it
-              transcription_vocabulary_ids:
-                type: array
-                items:
-                  type: string
-                description: Unique identifiers for existing Transcription Vocabularies to use while generating subtitles for the live stream. If the Transcription Vocabularies provided collectively have more than 1000 phrases, only the first 1000 phrases will be included.
-          description: Configure the incoming live stream to include subtitles created with automatic speech recognition. Each Asset created from a live stream with `generated_subtitles` configured will automatically receive two text tracks. The first of these will have a `text_source` value of `generated_live`, and will be available with `ready` status as soon as the stream is live. The second text track will have a `text_source` value of `generated_live_final` and will contain subtitles with improved accuracy, timing, and formatting. However, `generated_live_final` tracks will not be available in `ready` status until the live stream ends. If an Asset has both `generated_live` and `generated_live_final` tracks that are `ready`, then only the `generated_live_final` track will be included during playback.
-        reconnect_window:
-          type: number
-          format: float
-          default: 60
-          minimum: 0
-          maximum: 1800
-          description: 'When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset. **Max**: 1800s (30 minutes).
-
-
-            If not specified directly, Standard Latency streams have a Reconnect Window of 60 seconds; Reduced and Low Latency streams have a default of 0 seconds, or no Reconnect Window. For that reason, we suggest specifying a value other than zero for Reduced and Low Latency streams.
-
-
-            Reduced and Low Latency streams with a Reconnect Window greater than zero will insert slate media into the recorded asset while waiting for the streaming software to reconnect or when there are brief interruptions in the live stream media. When using a Reconnect Window setting higher than 60 seconds with a Standard Latency stream, we highly recommend enabling slate with the `use_slate_for_standard_latency` option.
-
-            '
-        use_slate_for_standard_latency:
-          type: boolean
-          format: boolean
-          default: false
-          description: By default, Standard Latency live streams do not have slate media inserted while waiting for live streaming software to reconnect to Mux. Setting this to true enables slate insertion on a Standard Latency stream.
-        reconnect_slate_url:
-          type: string
-          description: The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. If this is not set, the default slate media will be used.
-        reduced_latency:
-          type: boolean
-          format: boolean
-          deprecated: true
-          x-mux-doc-decorators:
-          - hidden
-          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this if you want lower latency for your live stream. See the [Reduce live stream latency guide](https://docs.mux.com/guides/reduce-live-stream-latency) to understand the tradeoffs.
-        low_latency:
-          type: boolean
-          format: boolean
-          deprecated: true
-          x-mux-doc-decorators:
-          - hidden
-          description: This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Setting this option will enable compatibility with the LL-HLS specification for low-latency streaming. This typically has lower latency than Reduced Latency streams, and cannot be combined with Reduced Latency.
-        simulcast_targets:
-          type: array
-          description: Each Simulcast Target contains configuration details to broadcast (or "restream") a live stream to a third-party streaming service. [See the Stream live to 3rd party platforms guide](https://docs.mux.com/guides/stream-live-to-3rd-party-platforms).
-          items:
-            type: object
-            required:
-            - id
-            - url
-            - status
-            properties:
-              id:
-                type: string
-                description: ID of the Simulcast Target
-              passthrough:
-                type: string
-                description: Arbitrary user-supplied metadata set when creating a simulcast target.
-              status:
-                type: string
-                enum:
-                - idle
-                - starting
-                - broadcasting
-                - errored
-                description: "The current status of the simulcast target. See Statuses below for detailed description.\n  * `idle`: Default status. When the parent live stream is in disconnected status, simulcast targets will be idle state.\n  * `starting`: The simulcast target transitions into this state when the parent live stream transition into connected state.\n  * `broadcasting`: The simulcast target has successfully connected to the third party live streaming service and is pushing video to that service.\n  * `errored`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. When a simulcast target has this status it will have an `error_severity` field with more details about the error.\n"
-              stream_key:
-                type: string
-                description: Stream Key represents a stream identifier on the third party live streaming service to send the parent live stream to. Only used for RTMP(s) simulcast destinations.
-              url:
-                type: string
-                description: 'The RTMP(s) or SRT endpoint for a simulcast destination.
-
-                  * For RTMP(s) destinations, this should include the application name for the third party live streaming service, for example: `rtmp://live.example.com/app`.
-
-                  * For SRT destinations, this should be a fully formed SRT connection string, for example: `srt://srt-live.example.com:1234?streamid={stream_key}&passphrase={srt_passphrase}`.
-
-
-                  Note: SRT simulcast targets can only be used when an source is connected over SRT.
-
-                  '
-              error_severity:
-                type: string
-                enum:
-                - normal
-                - fatal
-                description: "The severity of the error encountered by the simulcast target.\nThis field is only set when the simulcast target is in the `errored` status.\nSee the values of severities below and their descriptions.\n  * `normal`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. A simulcast may transition back into the broadcasting state if a connection with the service can be re-established.\n  * `fatal`: The simulcast target is incompatible with the current input to the parent live stream. No further attempts to this simulcast target will be made for the current live stream asset.\n"
-        latency_mode:
-          type: string
-          enum:
-          - low
-          - reduced
-          - standard
-          description: Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags.
-        test:
-          type: boolean
-          format: boolean
-          description: True means this live stream is a test live stream. Test live streams can be used to help evaluate the Mux Video APIs for free. There is no limit on the number of test live streams, but they are watermarked with the Mux logo, and limited to 5 minutes. The test live stream is disabled after the stream is active for 5 mins and the recorded asset also deleted after 24 hours.
-        max_continuous_duration:
-          type: integer
-          format: int32
-          default: 43200
-          minimum: 60
-          maximum: 43200
-          description: The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
-        srt_passphrase:
-          type: string
-          description: Unique key used for encrypting a stream to a Mux SRT endpoint. Max 64 characters.
-        active_ingest_protocol:
-          type: string
-          enum:
-          - rtmp
-          - srt
-          description: The protocol used for the active ingest stream. This is only set when the live stream is active.
-        meta:
-          type: object
-          description: 'Customer provided metadata about this live stream.
-
-
-            Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
-
-            '
-          properties:
-            title:
-              type: string
-              maxLength: 512
-              description: The live stream title. Max 512 code points.
-        connected:
-          type: boolean
-        recording:
-          type: boolean
-    WebhookAssetWarning:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Asset. Max 255 characters.
-        live_stream_id:
-          type: string
-          description: Unique identifier for the live stream. This is an optional parameter added when the asset is created from a live stream.
-        source_asset_id:
-          type: string
-          description: Asset Identifier of the video used as the source for creating the clip.
-        upload_id:
-          type: string
-          description: Unique identifier for the Direct Upload. This is an optional parameter added when the asset is created from a direct upload.
-        status:
-          type: string
-          enum:
-          - preparing
-          - ready
-          - errored
-          description: The status of the asset.
-        passthrough:
-          type: string
-          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**.'
-        warning:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-    BaseWebhookEvent:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type for the webhook event
-          x-stainless-skip:
-          - python
-        id:
-          type: string
-          description: Unique identifier for the event
-        created_at:
-          type: string
-          description: Time the event was created
-          format: date-time
-          example: '2022-01-01T00:00:00.000000Z'
-        object:
-          type: object
-          properties:
-            type:
-              type: string
-            id:
-              type: string
-          required:
-          - type
-          - id
-        environment:
-          type: object
-          properties:
-            name:
-              type: string
-              description: Name for the environment
-            id:
-              type: string
-              description: Unique identifier for the environment
-          required:
-          - name
-          - id
-        attempts:
-          type: array
-          description: Attempts for sending out the webhook event
-          items:
-            type: object
-            properties:
-              webhook_id:
-                type: integer
-                description: Unique identifier for the webhook
-              response_status_code:
-                type: integer
-                description: HTTP response status code for the webhook attempt
-              response_headers:
-                type: object
-                description: HTTP response headers for the webhook attempt
-              response_body:
-                type:
-                - string
-                - 'null'
-                description: HTTP response body for the webhook attempt
-              max_attempts:
-                description: Max attempts number for the webhook attempt
-                type: integer
-              id:
-                description: Unique identifier for the webhook attempt
-                type: string
-              created_at:
-                description: Time the webhook request was attempted
-                type: string
-                format: date-time
-                example: '2022-01-01T00:00:00.000000Z'
-              address:
-                description: URL address for the webhook attempt
-                type: string
-        request_id:
-          type:
-          - string
-          - 'null'
-          deprecated: true
-        accessor:
-          type:
-          - string
-          - 'null'
-          deprecated: true
-        accessor_source:
-          type:
-          - string
-          - 'null'
-          deprecated: true
-        data:
-          type: object
-          x-stainless-skip:
-          - python
-      required:
-      - data
-      - type
-      - id
-      - created_at
-      - object
-      - environment
-      - data
-      - attempts
-    WebhookSummarizeJob:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique job identifier.
-        passthrough:
-          type: string
-          description: Arbitrary string supplied at creation, returned as-is.
-        units_consumed:
-          type: integer
-          minimum: 0
-          description: Number of Mux AI units consumed by this job.
-        created_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was created.
-        updated_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was last updated.
-        workflow:
-          type: string
-          enum:
-          - summarize
-        parameters:
-          type: object
-          properties:
-            asset_id:
-              type: string
-              minLength: 1
-              description: The Mux asset ID of the video to summarize.
-            tone:
-              type: string
-              enum:
-              - neutral
-              - playful
-              - professional
-              description: Tone for the generated summary. "neutral" for straightforward analysis, "playful" for witty and conversational, "professional" for executive-level reporting.
-            prompt_overrides:
-              type: object
-              properties:
-                task:
-                  type: string
-                  minLength: 1
-                  description: Override the core task instruction for summarization.
-                title:
-                  type: string
-                  minLength: 1
-                  description: Override the title generation requirements.
-                description:
-                  type: string
-                  minLength: 1
-                  description: Override the description generation requirements.
-                keywords:
-                  type: string
-                  minLength: 1
-                  description: Override the keyword/tag extraction requirements.
-                quality_guidelines:
-                  type: string
-                  minLength: 1
-                  description: Override the quality standards for analysis.
-              description: Override specific sections of the summarization prompt.
-            title_length:
-              type: integer
-              minimum: 1
-              description: Maximum title length in words.
-            description_length:
-              type: integer
-              minimum: 1
-              description: Maximum description length in words.
-            tag_count:
-              type: integer
-              minimum: 1
-              description: Maximum number of tags to include in the generated output. Defaults to 10.
-            language_code:
-              type: string
-              minLength: 1
-              description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK uses the default track.
-            output_language_code:
-              type: string
-              minLength: 1
-              description: BCP 47 language code for the generated summary output (e.g. "en", "fr", "ja"). Auto-detected from the transcript if omitted.
-          required:
-          - asset_id
-          example:
-            asset_id: mux_asset_123abc
-            tone: neutral
-            tag_count: 10
-        status:
-          type: string
-          enum:
-          - pending
-          - processing
-          - completed
-          - errored
-          - cancelled
-          description: Current job status.
-        outputs:
-          type: object
-          properties:
-            title:
-              type: string
-              minLength: 1
-              description: Generated title capturing the essence of the video.
-            description:
-              type: string
-              minLength: 1
-              description: Generated description of the video content (typically 2-4 sentences).
-            tags:
-              type: array
-              items:
-                type: string
-              description: Generated keyword tags for the video.
-          required:
-          - title
-          - description
-          - tags
-          example:
-            title: How to Build a Sustainable Garden in Your Backyard
-            description: This video walks through the step-by-step process of creating a sustainable backyard garden, covering soil preparation, plant selection, and organic pest control methods.
-            tags:
-            - gardening
-            - sustainability
-            - backyard
-            - organic
-            - soil preparation
-            - composting
-            - pest control
-            - beginner
-            - how-to
-            - plants
-          description: Workflow results. Present when status is 'completed'.
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                description: Stable public error category identifier.
-              message:
-                type: string
-                description: Human-readable public error message.
-              retryable:
-                type: boolean
-                description: Whether retrying this job may resolve the error.
-            required:
-            - type
-            - message
-          description: Error details. Present when status is 'errored'.
-        resources:
-          type: object
-          properties:
-            assets:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Mux asset ID.
-                  meta:
-                    type: object
-                    properties:
-                      title:
-                        type: string
-                        description: Asset title from Mux metadata.
-                      creator_id:
-                        type: string
-                        description: Creator identifier from Mux metadata.
-                      external_id:
-                        type: string
-                        description: External identifier from Mux metadata.
-                    description: Mux asset metadata, if available.
-                  passthrough:
-                    type: string
-                    description: Passthrough string from the Mux asset.
-                  _links:
-                    type: object
-                    properties:
-                      self:
-                        type: object
-                        properties:
-                          href:
-                            type: string
-                            description: URL to the Mux asset resource.
-                        required:
-                        - href
-                    required:
-                    - self
-                    description: Hypermedia links for the asset.
-                required:
-                - id
-                - _links
-              description: Mux assets associated with this job.
-          required:
-          - assets
-          example:
-            assets:
-            - id: abc123asset
-              meta:
-                title: My Video
-                creator_id: user123
-                external_id: ext456
-              _links:
-                self:
-                  href: https://api.mux.com/video/v1/assets/abc123asset
-          description: Related Mux resources linked to this job.
-      required:
-      - id
-      - units_consumed
-      - created_at
-      - updated_at
-      - workflow
-      - parameters
-      - status
-      description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
-    WebhookLiveStreamWarning:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Live Stream. Max 255 characters.
-        stream_key:
-          type: string
-          description: Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters.
-        active_asset_id:
-          type: string
-          description: The Asset that is currently being created if there is an active broadcast.
-        status:
-          type: string
-          enum:
-          - active
-          - idle
-          - disabled
-          description: '`idle` indicates that there is no active broadcast. `active` indicates that there is an active broadcast and `disabled` status indicates that no future RTMP streams can be published.'
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the asset. Max 255 characters.
-        warning:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
     WebhookDirectUpload:
       type: object
       required:
@@ -6690,6 +6589,106 @@ components:
           type: boolean
           format: boolean
           description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
+    BaseWebhookEvent:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type for the webhook event
+          x-stainless-skip:
+          - python
+        id:
+          type: string
+          description: Unique identifier for the event
+        created_at:
+          type: string
+          description: Time the event was created
+          format: date-time
+          example: '2022-01-01T00:00:00.000000Z'
+        object:
+          type: object
+          properties:
+            type:
+              type: string
+            id:
+              type: string
+          required:
+          - type
+          - id
+        environment:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name for the environment
+            id:
+              type: string
+              description: Unique identifier for the environment
+          required:
+          - name
+          - id
+        attempts:
+          type: array
+          description: Attempts for sending out the webhook event
+          items:
+            type: object
+            properties:
+              webhook_id:
+                type: integer
+                description: Unique identifier for the webhook
+              response_status_code:
+                type: integer
+                description: HTTP response status code for the webhook attempt
+              response_headers:
+                type: object
+                description: HTTP response headers for the webhook attempt
+              response_body:
+                type:
+                - string
+                - 'null'
+                description: HTTP response body for the webhook attempt
+              max_attempts:
+                description: Max attempts number for the webhook attempt
+                type: integer
+              id:
+                description: Unique identifier for the webhook attempt
+                type: string
+              created_at:
+                description: Time the webhook request was attempted
+                type: string
+                format: date-time
+                example: '2022-01-01T00:00:00.000000Z'
+              address:
+                description: URL address for the webhook attempt
+                type: string
+        request_id:
+          type:
+          - string
+          - 'null'
+          deprecated: true
+        accessor:
+          type:
+          - string
+          - 'null'
+          deprecated: true
+        accessor_source:
+          type:
+          - string
+          - 'null'
+          deprecated: true
+        data:
+          type: object
+          x-stainless-skip:
+          - python
+      required:
+      - data
+      - type
+      - id
+      - created_at
+      - object
+      - environment
+      - data
+      - attempts
     WebhookAssetTrack:
       type: object
       properties:
@@ -6797,6 +6796,173 @@ components:
               description: Error messages with more details.
               items:
                 type: string
+    WebhookTranslateCaptionsJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - translate-captions
+        parameters:
+          type: object
+          properties:
+            asset_id:
+              type: string
+              minLength: 1
+              description: The Mux asset ID of the video whose captions will be translated.
+            track_id:
+              type: string
+              minLength: 1
+              description: The Mux text track ID of the source caption track to translate. The asset must have a ready text track matching this ID or the request will be rejected.
+            to_language_code:
+              type: string
+              minLength: 1
+              description: BCP 47 language code for the translated output (e.g. "es", "ja"). The asset must not already have a text track for this language.
+            upload_to_mux:
+              type: boolean
+              default: true
+              description: Whether to upload the translated VTT and attach it as a text track on the Mux asset. Defaults to true.
+          required:
+          - asset_id
+          - track_id
+          - to_language_code
+          example:
+            asset_id: mux_asset_123abc
+            track_id: track_en_abc123
+            to_language_code: es
+            upload_to_mux: true
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - errored
+          - cancelled
+          description: Current job status.
+        outputs:
+          type: object
+          properties:
+            track_id:
+              type: string
+              minLength: 1
+              description: The Mux text track ID of the source caption track that was translated.
+            uploaded_track_id:
+              type: string
+              minLength: 1
+              description: Mux text track ID of the uploaded translated captions. Present when upload_to_mux is true.
+            temporary_vtt_url:
+              type: string
+              minLength: 1
+              description: Temporary pre-signed URL to download the translated VTT file. Present when upload_to_mux is true.
+          example:
+            track_id: track_en_abc123
+            uploaded_track_id: track_es_abc123
+            temporary_vtt_url: https://storage.example.com/translations/es/captions.vtt?token=abc123
+          description: Workflow results. Present when status is 'completed'.
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Stable public error category identifier.
+              message:
+                type: string
+                description: Human-readable public error message.
+              retryable:
+                type: boolean
+                description: Whether retrying this job may resolve the error.
+            required:
+            - type
+            - message
+          description: Error details. Present when status is 'errored'.
+        resources:
+          type: object
+          properties:
+            assets:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Mux asset ID.
+                  meta:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        description: Asset title from Mux metadata.
+                      creator_id:
+                        type: string
+                        description: Creator identifier from Mux metadata.
+                      external_id:
+                        type: string
+                        description: External identifier from Mux metadata.
+                    description: Mux asset metadata, if available.
+                  passthrough:
+                    type: string
+                    description: Passthrough string from the Mux asset.
+                  _links:
+                    type: object
+                    properties:
+                      self:
+                        type: object
+                        properties:
+                          href:
+                            type: string
+                            description: URL to the Mux asset resource.
+                        required:
+                        - href
+                    required:
+                    - self
+                    description: Hypermedia links for the asset.
+                required:
+                - id
+                - _links
+              description: Mux assets associated with this job.
+          required:
+          - assets
+          example:
+            assets:
+            - id: abc123asset
+              meta:
+                title: My Video
+                creator_id: user123
+                external_id: ext456
+              _links:
+                self:
+                  href: https://api.mux.com/video/v1/assets/abc123asset
+          description: Related Mux resources linked to this job.
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
+      description: The job that triggered the webhook event. In the actual payload this is nested under a dynamic event name key (e.g. `robots.job.summarize.completed`), not at the top level.
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

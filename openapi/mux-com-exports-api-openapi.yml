@@ -15,7 +15,7 @@ servers:
 - url: https://stats.mux.com
 tags:
 - name: Exports
-  description: Exports allow you to download the daily CSV files that are generated from the video views that occurred in the previous day. Please contact [support](mailto:support@mux.com) for information about enabling exports for your organization.
+  description: Exports allow you to download the daily CSV files that are generated from the video views that occurred in the previous day. Please contact support for information about enabling exports for your organization.
   x-displayName: Exports
 paths:
   /data/v1/exports:
@@ -27,9 +27,7 @@ paths:
       description: 'The API has been replaced by the list-exports-views API call.
 
 
-        Lists the available video view exports along with URLs to retrieve them.
-
-        '
+        Lists the available video view exports along with URLs to retrieve them.'
       operationId: list-exports
       servers:
       - url: https://api.mux.com
@@ -94,6 +92,19 @@ paths:
       - authorizationToken: []
 components:
   schemas:
+    ExportDate:
+      type: object
+      properties:
+        export_date:
+          type: string
+          format: date
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportFile'
+      required:
+      - export_date
+      - files
     ListExportsResponse:
       type: object
       properties:
@@ -134,19 +145,6 @@ components:
       - data
       - total_row_count
       - timeframe
-    ExportDate:
-      type: object
-      properties:
-        export_date:
-          type: string
-          format: date
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportFile'
-      required:
-      - export_date
-      - files
     ExportFile:
       type: object
       properties:

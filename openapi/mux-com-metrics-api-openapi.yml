@@ -17,30 +17,7 @@ tags:
 - name: Metrics
   description: 'Historical metrics are used for tracking KPIs, diagnosing issues, and
 
-    measuring viewers'' quality of experience. Metrics are calculated using the
-
-    video views that have been completed and are bucketed on the view end time
-
-    for quality of experience metrics and view start time for engagement
-
-    metrics. Historical metrics provide a large collection of dimensions that
-
-    can be used to aggregate quality of experience based on view metadata. You
-
-    can also easily compare experiences across viewer populations to, for
-
-    example, find issues with specific devices or geographies.
-
-
-    Historical metrics are similar but not directly comparable to the real-time
-
-    metrics in the Real-time APIs. These metrics are aggregated for long-term
-
-    storage historical reporting and are generated using different viewer
-
-    populations.
-
-    '
+    measuring viewers'' quality of experience.'
   x-displayName: Metrics
 paths:
   /data/v1/metrics/{METRIC_ID}/breakdown:
@@ -178,7 +155,16 @@ paths:
       tags:
       - Metrics
       summary: Get Metric Timeseries Data
-      description: "Returns timeseries data for a specific metric.\n\nEach interval represented in the data array contains an array with the following values:\n  * the first element is the interval time\n  * the second element is the calculated metric value\n  * the third element is the number of views in the interval that have a valid metric value\n"
+      description: 'Returns timeseries data for a specific metric.
+
+
+        Each interval represented in the data array contains an array with the following values:
+
+        * the first element is the interval time
+
+        * the second element is the calculated metric value
+
+        * the third element is the number of views in the interval that have a valid metric value'
       operationId: get-metric-timeseries-data
       servers:
       - url: https://api.mux.com
@@ -549,36 +535,68 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    BreakdownValue:
+    GetOverallValuesResponse:
       type: object
       properties:
-        views:
-          type: integer
-          format: int64
-        value:
-          type: number
-          format: double
-        total_watch_time:
+        data:
+          $ref: '#/components/schemas/OverallValues'
+        total_row_count:
           type: integer
           format: int64
           nullable: true
-        total_playing_time:
-          type: integer
-          format: int64
-          nullable: true
-        negative_impact:
-          type: integer
-          format: int32
-        field:
-          type: string
-          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        meta:
+          type: object
+          properties:
+            granularity:
+              type: string
+            aggregation:
+              type: string
       required:
-      - field
-      - value
-      - views
-      - negative_impact
-      - total_watch_time
-      - total_playing_time
+      - data
+      - timeframe
+      - total_row_count
+      - meta
+    GetMetricTimeseriesDataResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+              - type: string
+              - type: integer
+                format: int64
+                nullable: true
+              - type: number
+                format: double
+                nullable: true
+        total_row_count:
+          type: integer
+          format: int64
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        meta:
+          type: object
+          properties:
+            granularity:
+              type: string
+            aggregation:
+              type: string
+      required:
+      - data
+      - timeframe
+      - total_row_count
+      - meta
     Score:
       type: object
       properties:
@@ -617,42 +635,13 @@ components:
             $ref: '#/components/schemas/Metric'
       required:
       - name
-    Metric:
-      type: object
-      properties:
-        value:
-          type: number
-          format: double
-          nullable: true
-        type:
-          type: string
-        name:
-          type: string
-        metric:
-          type: string
-        measurement:
-          type: string
-      required:
-      - name
-      - value
-      - type
-      - metric
-    GetMetricTimeseriesDataResponse:
+    ListInsightsResponse:
       type: object
       properties:
         data:
           type: array
           items:
-            type: array
-            items:
-              oneOf:
-              - type: string
-              - type: integer
-                format: int64
-                nullable: true
-              - type: number
-                format: double
-                nullable: true
+            $ref: '#/components/schemas/Insight'
         total_row_count:
           type: integer
           format: int64
@@ -673,15 +662,63 @@ components:
       - timeframe
       - total_row_count
       - meta
-    GetOverallValuesResponse:
+    ListAllMetricValuesResponse:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/OverallValues'
+          type: array
+          items:
+            $ref: '#/components/schemas/Score'
         total_row_count:
           type: integer
           format: int64
           nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    OverallValues:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+        total_watch_time:
+          type: integer
+          format: int64
+          nullable: true
+        total_views:
+          type: integer
+          format: int64
+        total_playing_time:
+          type: integer
+          format: int64
+          nullable: true
+        global_value:
+          type: number
+          format: double
+          nullable: true
+      required:
+      - value
+      - total_watch_time
+      - total_views
+      - total_playing_time
+      - global_value
+    ListBreakdownValuesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BreakdownValue'
+        total_row_count:
+          type: integer
+          format: int64
         timeframe:
           type: array
           items:
@@ -696,8 +733,8 @@ components:
               type: string
       required:
       - data
-      - timeframe
       - total_row_count
+      - timeframe
       - meta
     Insight:
       type: object
@@ -732,9 +769,32 @@ components:
       - metric
       - filter_value
       - filter_column
-    OverallValues:
+    Metric:
       type: object
       properties:
+        value:
+          type: number
+          format: double
+          nullable: true
+        type:
+          type: string
+        name:
+          type: string
+        metric:
+          type: string
+        measurement:
+          type: string
+      required:
+      - name
+      - value
+      - type
+      - metric
+    BreakdownValue:
+      type: object
+      properties:
+        views:
+          type: integer
+          format: int64
         value:
           type: number
           format: double
@@ -742,98 +802,93 @@ components:
           type: integer
           format: int64
           nullable: true
-        total_views:
-          type: integer
-          format: int64
         total_playing_time:
           type: integer
           format: int64
           nullable: true
-        global_value:
-          type: number
-          format: double
+        negative_impact:
+          type: integer
+          format: int32
+        field:
+          type: string
           nullable: true
       required:
+      - field
       - value
+      - views
+      - negative_impact
       - total_watch_time
-      - total_views
       - total_playing_time
-      - global_value
-    ListInsightsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Insight'
-        total_row_count:
-          type: integer
-          format: int64
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-        meta:
-          type: object
-          properties:
-            granularity:
-              type: string
-            aggregation:
-              type: string
-      required:
-      - data
-      - timeframe
-      - total_row_count
-      - meta
-    ListBreakdownValuesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BreakdownValue'
-        total_row_count:
-          type: integer
-          format: int64
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-        meta:
-          type: object
-          properties:
-            granularity:
-              type: string
-            aggregation:
-              type: string
-      required:
-      - data
-      - total_row_count
-      - timeframe
-      - meta
-    ListAllMetricValuesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Score'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - timeframe
-      - total_row_count
   parameters:
+    metric_id:
+      name: METRIC_ID
+      in: path
+      description: ID of the Metric
+      required: true
+      example: video_startup_time
+      schema:
+        type: string
+        enum:
+        - aggregate_startup_time
+        - downscale_percentage
+        - exits_before_video_start
+        - live_stream_latency
+        - max_downscale_percentage
+        - max_request_latency
+        - max_upscale_percentage
+        - page_load_time
+        - playback_failure_percentage
+        - playback_success_score
+        - player_startup_time
+        - playing_time
+        - rebuffer_count
+        - rebuffer_duration
+        - rebuffer_frequency
+        - rebuffer_percentage
+        - request_latency
+        - request_throughput
+        - rebuffer_score
+        - requests_for_first_preroll
+        - seek_latency
+        - startup_time_score
+        - unique_viewers
+        - upscale_percentage
+        - video_quality_score
+        - video_startup_preroll_load_time
+        - video_startup_preroll_request_time
+        - video_startup_time
+        - viewer_experience_score
+        - views
+        - weighted_average_bitrate
+        - video_startup_failure_percentage
+        - ad_attempt_count
+        - ad_break_count
+        - ad_break_error_count
+        - ad_break_error_percentage
+        - ad_error_count
+        - ad_error_percentage
+        - ad_exit_before_start_count
+        - ad_exit_before_start_percentage
+        - ad_impression_count
+        - ad_startup_error_count
+        - ad_startup_error_percentage
+        - playback_business_exception_percentage
+        - video_startup_business_exception_percentage
+        - view_content_startup_time
+        - ad_preroll_startup_time
+        - view_dropped_percentage
+        - rendition_change_count
+        - rendition_upshift_count
+        - rendition_downshift_count
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
     order_direction_deprecated:
       name: order_direction
       in: query
@@ -845,26 +900,23 @@ components:
         enum:
         - asc
         - desc
-    page:
-      name: page
+    timeseries_group_by:
+      name: group_by
       in: query
-      description: Offset by this many pages, of the size of `limit`
+      description: 'Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the timeframe.
+
+
+        For timeframes of less than 90 minutes, the default granularity is `minute`. Between 90 minutes and 6 hours, the default granularity is `ten_minutes`. Between 6 hours and 15 days inclusive, the default granularity is `hour`. The granularity of timeframes that exceed 15 days is `day`. This default behavior is subject to change; it is strongly suggested that you explicitly specify the granularity.
+
+        '
       required: false
       schema:
-        type: integer
-        format: int32
-        default: 1
-    timeframe:
-      name: timeframe[]
-      in: query
-      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
+        type: string
+        enum:
+        - minute
+        - ten_minutes
+        - hour
+        - day
     group_by:
       name: group_by
       in: query
@@ -967,146 +1019,6 @@ components:
         - video_source_bitrate
         - video_source_height
         - video_source_width
-    measurement:
-      name: measurement
-      in: query
-      description: 'Measurement for the provided metric. If omitted, the default for the metric will be used.
-
-        The default measurement for each metric is:
-
-        "sum" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`
-
-        "median" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`
-
-        "avg" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`
-
-        "count" : `started_views`, `unique_viewers`
-
-        '
-      required: false
-      schema:
-        type: string
-        enum:
-        - 95th
-        - median
-        - avg
-        - count
-        - sum
-    metric_id:
-      name: METRIC_ID
-      in: path
-      description: ID of the Metric
-      required: true
-      example: video_startup_time
-      schema:
-        type: string
-        enum:
-        - aggregate_startup_time
-        - downscale_percentage
-        - exits_before_video_start
-        - live_stream_latency
-        - max_downscale_percentage
-        - max_request_latency
-        - max_upscale_percentage
-        - page_load_time
-        - playback_failure_percentage
-        - playback_success_score
-        - player_startup_time
-        - playing_time
-        - rebuffer_count
-        - rebuffer_duration
-        - rebuffer_frequency
-        - rebuffer_percentage
-        - request_latency
-        - request_throughput
-        - rebuffer_score
-        - requests_for_first_preroll
-        - seek_latency
-        - startup_time_score
-        - unique_viewers
-        - upscale_percentage
-        - video_quality_score
-        - video_startup_preroll_load_time
-        - video_startup_preroll_request_time
-        - video_startup_time
-        - viewer_experience_score
-        - views
-        - weighted_average_bitrate
-        - video_startup_failure_percentage
-        - ad_attempt_count
-        - ad_break_count
-        - ad_break_error_count
-        - ad_break_error_percentage
-        - ad_error_count
-        - ad_error_percentage
-        - ad_exit_before_start_count
-        - ad_exit_before_start_percentage
-        - ad_impression_count
-        - ad_startup_error_count
-        - ad_startup_error_percentage
-        - playback_business_exception_percentage
-        - video_startup_business_exception_percentage
-        - view_content_startup_time
-        - ad_preroll_startup_time
-        - view_dropped_percentage
-        - rendition_change_count
-        - rendition_upshift_count
-        - rendition_downshift_count
-    value:
-      name: value
-      in: query
-      description: Value to show all available metrics for
-      required: false
-      schema:
-        type: string
-    order_by:
-      name: order_by
-      in: query
-      description: Value to order the results by
-      required: false
-      schema:
-        type: string
-        enum:
-        - negative_impact
-        - value
-        - views
-        - field
-    filters:
-      name: filters[]
-      in: query
-      description: 'Filter results using key:value pairs. Must be provided as an array query string parameter.
-
-
-        **Basic filtering:**
-
-        * `filters[]=dimension:value` - Include rows where dimension equals value
-
-        * `filters[]=!dimension:value` - Exclude rows where dimension equals value
-
-
-        **For trace dimensions (like video_cdn_trace):**
-
-        * `filters[]=+dimension:value` - Include rows where trace contains value
-
-        * `filters[]=-dimension:value` - Exclude rows where trace contains value
-
-        * `filters[]=dimension:[value1,value2]` - Exact trace match
-
-
-        **Examples:**
-
-        * `filters[]=country:US` - US views only
-
-        * `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN
-
-        '
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
     dimension:
       name: dimension
       in: query
@@ -1198,10 +1110,35 @@ components:
         - view_cdn_origin
         - video_creator_id
         - video_cdn_trace
-    metric_filters:
-      name: metric_filters[]
+    measurement:
+      name: measurement
       in: query
-      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      description: 'Measurement for the provided metric. If omitted, the default for the metric will be used.
+
+        The default measurement for each metric is:
+
+        "sum" : `ad_attempt_count`, `ad_break_count`, `ad_break_error_count`, `ad_error_count`, `ad_impression_count`, `playing_time`
+
+        "median" : `ad_preroll_startup_time`, `aggregate_startup_time`, `content_startup_time`, `max_downscale_percentage`, `max_upscale_percentage`, `page_load_time`, `player_average_live_latency`, `player_startup_time`, `rebuffer_count`, `rebuffer_duration`, `requests_for_first_preroll`, `video_startup_preroll_load_time`, `video_startup_preroll_request_time`, `video_startup_time`, `view_average_request_latency`, `view_average_request_throughput`, `view_max_request_latency`, `weighted_average_bitrate`
+
+        "avg" : `ad_break_error_percentage`, `ad_error_percentage`, `ad_exit_before_start_count`, `ad_exit_before_start_percentage`, `ad_playback_failure_percentage`, `ad_startup_error_count`, `ad_startup_error_percentage`, `content_playback_failure_percentage`, `downscale_percentage`, `exits_before_video_start`, `playback_business_exception_percentage`, `playback_failure_percentage`, `playback_success_score`, `rebuffer_frequency`, `rebuffer_percentage`, `seek_latency`, `smoothness_score`, `startup_time_score`, `upscale_percentage`, `video_quality_score`, `video_startup_business_exception_percentage`, `video_startup_failure_percentage`, `view_dropped_percentage`, `viewer_experience_score`
+
+        "count" : `started_views`, `unique_viewers`
+
+        '
+      required: false
+      schema:
+        type: string
+        enum:
+        - 95th
+        - median
+        - avg
+        - count
+        - sum
+    timeframe:
+      name: timeframe[]
+      in: query
+      description: "Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).\n\nAccepted formats are...\n\n  * array of epoch timestamps e.g. `timeframe[]=1498867200&timeframe[]=1498953600`\n  * duration string e.g. `timeframe[]=24:hours or timeframe[]=7:days`\n"
       required: false
       style: form
       explode: true
@@ -1218,23 +1155,60 @@ components:
         type: integer
         format: int32
         default: 25
-    timeseries_group_by:
-      name: group_by
+    filters:
+      name: filters[]
       in: query
-      description: 'Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the timeframe.
+      description: 'Filter results using key:value pairs. Must be provided as an array query string parameter.
 
 
-        For timeframes of less than 90 minutes, the default granularity is `minute`. Between 90 minutes and 6 hours, the default granularity is `ten_minutes`. Between 6 hours and 15 days inclusive, the default granularity is `hour`. The granularity of timeframes that exceed 15 days is `day`. This default behavior is subject to change; it is strongly suggested that you explicitly specify the granularity.
+        **Basic filtering:**
+
+        * `filters[]=dimension:value` - Include rows where dimension equals value
+
+        * `filters[]=!dimension:value` - Exclude rows where dimension equals value
+
+
+        **For trace dimensions (like video_cdn_trace):**
+
+        * `filters[]=+dimension:value` - Include rows where trace contains value
+
+        * `filters[]=-dimension:value` - Exclude rows where trace contains value
+
+        * `filters[]=dimension:[value1,value2]` - Exact trace match
+
+
+        **Examples:**
+
+        * `filters[]=country:US` - US views only
+
+        * `filters[]=+video_cdn_trace:fastly` - Views using Fastly CDN
 
         '
       required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    metric_filters:
+      name: metric_filters[]
+      in: query
+      description: "Limit the results to rows that match inequality conditions from provided metric comparison clauses. Must be provided as an array query string parameter.\n\nPossible filterable metrics are the same as the set of metric ids, with the exceptions of `exits_before_video_start`, `unique_viewers`, `video_startup_failure_percentage`, `view_dropped_percentage`, and `views`.\n\nExample:\n\n  * `metric_filters[]=aggregate_startup_time>=1000`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    value:
+      name: value
+      in: query
+      description: Value to show all available metrics for
+      required: false
       schema:
         type: string
-        enum:
-        - minute
-        - ten_minutes
-        - hour
-        - day
     order_direction:
       name: order_direction
       in: query
@@ -1245,6 +1219,18 @@ components:
         enum:
         - asc
         - desc
+    order_by:
+      name: order_by
+      in: query
+      description: Value to order the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

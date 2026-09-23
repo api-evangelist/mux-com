@@ -14,21 +14,19 @@ servers:
 - url: https://stream.mux.com
 - url: https://stats.mux.com
 tags:
-- name: Real-Time
+- name: Realtime
   description: 'The Mux Data Real-time API has been deprecated, please refer to the
 
     Mux Data `Monitoring` APIs which provide the same functionality.
 
-    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.
-
-    '
+    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.'
   x-displayName: Real-Time
 paths:
   /data/v1/realtime/dimensions:
     get:
       deprecated: true
       tags:
-      - Real-Time
+      - Realtime
       summary: List Real-Time Dimensions
       description: Lists available real-time dimensions. This API is now deprecated, please use the `List Monitoring Dimensions` API.
       operationId: list-realtime-dimensions
@@ -74,7 +72,7 @@ paths:
     get:
       deprecated: true
       tags:
-      - Real-Time
+      - Realtime
       summary: List Real-Time Metrics
       description: Lists available real-time metrics. This API is now deprecated, please use the `List Monitoring Metrics` API.
       operationId: list-realtime-metrics
@@ -112,7 +110,7 @@ paths:
     get:
       deprecated: true
       tags:
-      - Real-Time
+      - Realtime
       summary: Get Real-Time Breakdown
       description: Gets breakdown information for a specific dimension and metric along with the number of concurrent viewers and negative impact score. This API is now deprecated, please use the `Get Monitoring Breakdown` API.
       operationId: get-realtime-breakdown
@@ -170,7 +168,7 @@ paths:
     get:
       deprecated: true
       tags:
-      - Real-Time
+      - Realtime
       summary: Get Real-Time Histogram Timeseries
       description: Gets histogram timeseries information for a specific metric. This API is now deprecated, please use the `Get Monitoring Histogram Timeseries` API.
       operationId: get-realtime-histogram-timeseries
@@ -258,7 +256,7 @@ paths:
     get:
       deprecated: true
       tags:
-      - Real-Time
+      - Realtime
       summary: Get Real-Time Timeseries
       description: Gets Time series information for a specific metric along with the number of concurrent viewers. This API is now deprecated, please use the `Get Monitoring Timeseries` API.
       operationId: get-realtime-timeseries
@@ -300,106 +298,14 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
-  parameters:
-    order_direction:
-      name: order_direction
-      in: query
-      description: Sort order.
-      required: false
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-    realtime_dimension:
-      name: dimension
-      in: query
-      description: Dimension the specified value belongs to
-      required: false
-      schema:
-        type: string
-        enum:
-        - asn
-        - cdn
-        - country
-        - operating_system
-        - player_name
-        - region
-        - stream_type
-        - sub_property_id
-        - video_series
-        - video_title
-    realtime_metric_id:
-      name: REALTIME_METRIC_ID
-      in: path
-      description: ID of the Realtime Metric
-      required: true
-      example: current-concurrent-viewers
-      schema:
-        type: string
-        enum:
-        - current-concurrent-viewers
-        - current-rebuffering-percentage
-        - exits-before-video-start
-        - playback-failure-percentage
-        - current-average-bitrate
-    timestamp:
-      name: timestamp
-      in: query
-      description: Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp.
-      required: false
-      schema:
-        type: integer
-        format: int32
-    realtime_histogram_metric_id:
-      name: REALTIME_HISTOGRAM_METRIC_ID
-      in: path
-      description: ID of the Realtime Histogram Metric
-      required: true
-      example: video-startup-time
-      schema:
-        type: string
-        enum:
-        - video-startup-time
-    order_by:
-      name: order_by
-      in: query
-      description: Value to order the results by
-      required: false
-      schema:
-        type: string
-        enum:
-        - negative_impact
-        - value
-        - views
-        - field
-    monitoring_filters:
-      name: filters[]
-      in: query
-      description: "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    monitoring_timeseries_timestamp:
-      name: timestamp
-      in: query
-      description: Timestamp to use as the start of the timeseries data. This value must be provided as a unix timestamp. Defaults to 30 minutes ago.
-      required: false
-      schema:
-        type: integer
-        format: int32
   schemas:
-    GetRealTimeTimeseriesResponse:
+    GetRealTimeBreakdownResponse:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/RealTimeTimeseriesDatapoint'
+            $ref: '#/components/schemas/RealTimeBreakdownValue'
         total_row_count:
           type: integer
           format: int64
@@ -413,66 +319,31 @@ components:
       - data
       - timeframe
       - total_row_count
-    GetRealTimeHistogramTimeseriesResponse:
+    RealTimeHistogramTimeseriesBucket:
       type: object
       properties:
-        meta:
-          type: object
-          properties:
-            bucket_unit:
-              type: string
-            buckets:
-              type: array
-              items:
-                $ref: '#/components/schemas/RealTimeHistogramTimeseriesBucket'
-          required:
-          - bucket_unit
-          - buckets
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/RealTimeHistogramTimeseriesDatapoint'
-        total_row_count:
+        start:
+          type: integer
+          format: int64
+        end:
           type: integer
           format: int64
           nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
       required:
-      - meta
-      - data
-      - timeframe
-      - total_row_count
-    RealTimeBreakdownValue:
+      - start
+      - end
+    RealTimeHistogramTimeseriesBucketValues:
       type: object
       properties:
-        value:
-          type: string
-          nullable: true
-        negative_impact:
-          type: integer
-          format: int64
-        metric_value:
+        percentage:
           type: number
           format: double
-          nullable: true
-        display_value:
-          type: string
-        concurrent_viewers:
-          type: integer
-          format: int64
-        starting_up_viewers:
+        count:
           type: integer
           format: int64
       required:
-      - value
-      - negative_impact
-      - metric_value
-      - concurrent_viewers
-      - starting_up_viewers
+      - percentage
+      - count
     RealTimeHistogramTimeseriesDatapoint:
       type: object
       properties:
@@ -508,34 +379,6 @@ components:
       - max_percentage
       - bucket_values
       - average
-    RealTimeHistogramTimeseriesBucketValues:
-      type: object
-      properties:
-        percentage:
-          type: number
-          format: double
-        count:
-          type: integer
-          format: int64
-      required:
-      - percentage
-      - count
-    RealTimeTimeseriesDatapoint:
-      type: object
-      properties:
-        value:
-          type: number
-          format: double
-          nullable: true
-        date:
-          type: string
-        concurrent_viewers:
-          type: integer
-          format: int64
-      required:
-      - value
-      - date
-      - concurrent_viewers
     ListRealTimeMetricsResponse:
       type: object
       properties:
@@ -564,26 +407,13 @@ components:
       - data
       - timeframe
       - total_row_count
-    RealTimeHistogramTimeseriesBucket:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int64
-        end:
-          type: integer
-          format: int64
-          nullable: true
-      required:
-      - start
-      - end
-    GetRealTimeBreakdownResponse:
+    GetRealTimeTimeseriesResponse:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/RealTimeBreakdownValue'
+            $ref: '#/components/schemas/RealTimeTimeseriesDatapoint'
         total_row_count:
           type: integer
           format: int64
@@ -597,6 +427,82 @@ components:
       - data
       - timeframe
       - total_row_count
+    RealTimeBreakdownValue:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+        negative_impact:
+          type: integer
+          format: int64
+        metric_value:
+          type: number
+          format: double
+          nullable: true
+        display_value:
+          type: string
+        concurrent_viewers:
+          type: integer
+          format: int64
+        starting_up_viewers:
+          type: integer
+          format: int64
+      required:
+      - value
+      - negative_impact
+      - metric_value
+      - concurrent_viewers
+      - starting_up_viewers
+    GetRealTimeHistogramTimeseriesResponse:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            bucket_unit:
+              type: string
+            buckets:
+              type: array
+              items:
+                $ref: '#/components/schemas/RealTimeHistogramTimeseriesBucket'
+          required:
+          - bucket_unit
+          - buckets
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RealTimeHistogramTimeseriesDatapoint'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - meta
+      - data
+      - timeframe
+      - total_row_count
+    RealTimeTimeseriesDatapoint:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+          nullable: true
+        date:
+          type: string
+        concurrent_viewers:
+          type: integer
+          format: int64
+      required:
+      - value
+      - date
+      - concurrent_viewers
     ListRealTimeDimensionsResponse:
       type: object
       properties:
@@ -625,6 +531,98 @@ components:
       - data
       - timeframe
       - total_row_count
+  parameters:
+    realtime_dimension:
+      name: dimension
+      in: query
+      description: Dimension the specified value belongs to
+      required: false
+      schema:
+        type: string
+        enum:
+        - asn
+        - cdn
+        - country
+        - operating_system
+        - player_name
+        - region
+        - stream_type
+        - sub_property_id
+        - video_series
+        - video_title
+    timestamp:
+      name: timestamp
+      in: query
+      description: Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp.
+      required: false
+      schema:
+        type: integer
+        format: int32
+    realtime_histogram_metric_id:
+      name: REALTIME_HISTOGRAM_METRIC_ID
+      in: path
+      description: ID of the Realtime Histogram Metric
+      required: true
+      example: video-startup-time
+      schema:
+        type: string
+        enum:
+        - video-startup-time
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    realtime_metric_id:
+      name: REALTIME_METRIC_ID
+      in: path
+      description: ID of the Realtime Metric
+      required: true
+      example: current-concurrent-viewers
+      schema:
+        type: string
+        enum:
+        - current-concurrent-viewers
+        - current-rebuffering-percentage
+        - exits-before-video-start
+        - playback-failure-percentage
+        - current-average-bitrate
+    monitoring_timeseries_timestamp:
+      name: timestamp
+      in: query
+      description: Timestamp to use as the start of the timeseries data. This value must be provided as a unix timestamp. Defaults to 30 minutes ago.
+      required: false
+      schema:
+        type: integer
+        format: int32
+    order_by:
+      name: order_by
+      in: query
+      description: Value to order the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
+    monitoring_filters:
+      name: filters[]
+      in: query
+      description: "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

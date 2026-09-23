@@ -15,24 +15,7 @@ servers:
 - url: https://stats.mux.com
 tags:
 - name: Monitoring
-  description: 'Monitoring metrics are used for operational monitoring of a video platform.
-
-    The metrics are aggregated in five second intervals, across the views that
-
-    are currently being watched. The real-time metrics'' timeline, breakdown,
-
-    and histogram representations are available via the APIs.
-
-
-    Monitoring metrics are similar but not directly comparable to the historical
-
-    metrics in the Metrics APIs. These metrics are aggregated to provide the most
-
-    operational detail possible used for resolving operational issues.
-
-    Mux Data Monitoring metrics are available to Mux Data customers on a Media plan.
-
-    '
+  description: Monitoring metrics are used for operational monitoring of a video platform.
   x-displayName: Monitoring
 paths:
   /data/v1/monitoring/dimensions:
@@ -372,52 +355,37 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    MonitoringBreakdownValue:
+    MonitoringTimeseriesDatapoint:
       type: object
       properties:
         value:
-          type: string
-          nullable: true
-        negative_impact:
-          type: integer
-          format: int64
-        metric_value:
           type: number
           format: double
           nullable: true
-        display_value:
+        date:
           type: string
         concurrent_viewers:
           type: integer
           format: int64
-        starting_up_viewers:
-          type: integer
-          format: int64
       required:
       - value
-      - negative_impact
-      - metric_value
+      - date
       - concurrent_viewers
-      - starting_up_viewers
-    GetMonitoringHistogramTimeseriesResponse:
+    ListMonitoringDimensionsResponse:
       type: object
       properties:
-        meta:
-          type: object
-          properties:
-            bucket_unit:
-              type: string
-            buckets:
-              type: array
-              items:
-                $ref: '#/components/schemas/MonitoringHistogramTimeseriesBucket'
-          required:
-          - bucket_unit
-          - buckets
         data:
           type: array
           items:
-            $ref: '#/components/schemas/MonitoringHistogramTimeseriesDatapoint'
+            type: object
+            properties:
+              name:
+                type: string
+              display_name:
+                type: string
+            required:
+            - name
+            - display_name
         total_row_count:
           type: integer
           format: int64
@@ -428,22 +396,41 @@ components:
             type: integer
             format: int64
       required:
-      - meta
       - data
       - timeframe
       - total_row_count
-    MonitoringBreakdownTimeseriesValues:
+    MonitoringHistogramTimeseriesBucketValues:
       type: object
       properties:
-        values:
+        percentage:
+          type: number
+          format: double
+        count:
+          type: integer
+          format: int64
+      required:
+      - percentage
+      - count
+    GetMonitoringBreakdownResponse:
+      type: object
+      properties:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/MonitoringBreakdownTimeseriesDatapoint'
-        date:
-          type: string
+            $ref: '#/components/schemas/MonitoringBreakdownValue'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
       required:
-      - values
-      - date
+      - data
+      - timeframe
+      - total_row_count
     GetMonitoringBreakdownTimeseriesResponse:
       type: object
       properties:
@@ -485,18 +472,33 @@ components:
       - metric_value
       - concurrent_viewers
       - starting_up_viewers
-    MonitoringHistogramTimeseriesBucketValues:
+    MonitoringBreakdownValue:
       type: object
       properties:
-        percentage:
+        value:
+          type: string
+          nullable: true
+        negative_impact:
+          type: integer
+          format: int64
+        metric_value:
           type: number
           format: double
-        count:
+          nullable: true
+        display_value:
+          type: string
+        concurrent_viewers:
+          type: integer
+          format: int64
+        starting_up_viewers:
           type: integer
           format: int64
       required:
-      - percentage
-      - count
+      - value
+      - negative_impact
+      - metric_value
+      - concurrent_viewers
+      - starting_up_viewers
     MonitoringHistogramTimeseriesBucket:
       type: object
       properties:
@@ -510,6 +512,18 @@ components:
       required:
       - start
       - end
+    MonitoringBreakdownTimeseriesValues:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitoringBreakdownTimeseriesDatapoint'
+        date:
+          type: string
+      required:
+      - values
+      - date
     GetMonitoringTimeseriesResponse:
       type: object
       properties:
@@ -530,21 +544,25 @@ components:
       - data
       - timeframe
       - total_row_count
-    ListMonitoringDimensionsResponse:
+    GetMonitoringHistogramTimeseriesResponse:
       type: object
       properties:
+        meta:
+          type: object
+          properties:
+            bucket_unit:
+              type: string
+            buckets:
+              type: array
+              items:
+                $ref: '#/components/schemas/MonitoringHistogramTimeseriesBucket'
+          required:
+          - bucket_unit
+          - buckets
         data:
           type: array
           items:
-            type: object
-            properties:
-              name:
-                type: string
-              display_name:
-                type: string
-            required:
-            - name
-            - display_name
+            $ref: '#/components/schemas/MonitoringHistogramTimeseriesDatapoint'
         total_row_count:
           type: integer
           format: int64
@@ -555,6 +573,7 @@ components:
             type: integer
             format: int64
       required:
+      - meta
       - data
       - timeframe
       - total_row_count
@@ -593,22 +612,6 @@ components:
       - max_percentage
       - bucket_values
       - average
-    MonitoringTimeseriesDatapoint:
-      type: object
-      properties:
-        value:
-          type: number
-          format: double
-          nullable: true
-        date:
-          type: string
-        concurrent_viewers:
-          type: integer
-          format: int64
-      required:
-      - value
-      - date
-      - concurrent_viewers
     ListMonitoringMetricsResponse:
       type: object
       properties:
@@ -637,27 +640,17 @@ components:
       - data
       - timeframe
       - total_row_count
-    GetMonitoringBreakdownResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitoringBreakdownValue'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - timeframe
-      - total_row_count
   parameters:
+    monitoring_histogram_metric_id:
+      name: MONITORING_HISTOGRAM_METRIC_ID
+      in: path
+      description: ID of the Monitoring Histogram Metric
+      required: true
+      example: video-startup-time
+      schema:
+        type: string
+        enum:
+        - video-startup-time
     timestamp:
       name: timestamp
       in: query
@@ -666,74 +659,6 @@ components:
       schema:
         type: integer
         format: int32
-    monitoring_metric_id:
-      name: MONITORING_METRIC_ID
-      in: path
-      description: ID of the Monitoring Metric
-      required: true
-      example: current-concurrent-viewers
-      schema:
-        type: string
-        enum:
-        - current-concurrent-viewers
-        - current-rebuffering-percentage
-        - exits-before-video-start
-        - playback-failure-percentage
-        - current-average-bitrate
-        - video-startup-failure-percentage
-    monitoring_timeseries_limit:
-      name: limit
-      in: query
-      description: 'Number of items to include in each timestamp''s `value` list.
-
-
-        The default is 10, and the maximum is 100.
-
-        '
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 10
-    monitoring_filters:
-      name: filters[]
-      in: query
-      description: "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    monitoring_timeseries_timeframe:
-      name: timeframe[]
-      in: query
-      description: 'Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).
-
-
-        The default for this is the last 60 seconds of available data. Timeframes larger than 10 minutes are not allowed, and must be within the last 24 hours.
-
-        '
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    order_by:
-      name: order_by
-      in: query
-      description: Value to order the results by
-      required: false
-      schema:
-        type: string
-        enum:
-        - negative_impact
-        - value
-        - views
-        - field
     monitoring_dimension:
       name: dimension
       in: query
@@ -761,16 +686,62 @@ components:
       schema:
         type: integer
         format: int32
-    monitoring_histogram_metric_id:
-      name: MONITORING_HISTOGRAM_METRIC_ID
+    monitoring_filters:
+      name: filters[]
+      in: query
+      description: "Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.\n\nTo exclude rows that match a certain condition, prepend a `!` character to the dimension.\n\nPossible filter names are the same as returned by the List Monitoring Dimensions endpoint.\n\nExample:\n\n  * `filters[]=operating_system:windows&filters[]=!country:US`\n"
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    monitoring_timeseries_limit:
+      name: limit
+      in: query
+      description: 'Number of items to include in each timestamp''s `value` list.
+
+
+        The default is 10, and the maximum is 100.
+
+        '
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 10
+    monitoring_timeseries_timeframe:
+      name: timeframe[]
+      in: query
+      description: 'Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=).
+
+
+        The default for this is the last 60 seconds of available data. Timeframes larger than 10 minutes are not allowed, and must be within the last 24 hours.
+
+        '
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    monitoring_metric_id:
+      name: MONITORING_METRIC_ID
       in: path
-      description: ID of the Monitoring Histogram Metric
+      description: ID of the Monitoring Metric
       required: true
-      example: video-startup-time
+      example: current-concurrent-viewers
       schema:
         type: string
         enum:
-        - video-startup-time
+        - current-concurrent-viewers
+        - current-rebuffering-percentage
+        - exits-before-video-start
+        - playback-failure-percentage
+        - current-average-bitrate
+        - video-startup-failure-percentage
     order_direction:
       name: order_direction
       in: query
@@ -781,6 +752,18 @@ components:
         enum:
         - asc
         - desc
+    order_by:
+      name: order_by
+      in: query
+      description: Value to order the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

@@ -21,7 +21,7 @@ paths:
   /{PLAYBACK_ID}/animated.{EXTENSION}:
     get:
       summary: Retrieve an Animated Image from a Video
-      description: '[Fetch an animated GIF or WebP image](https://docs.mux.com/guides/get-images-from-a-video#get-an-animated-gif-from-a-video) from a video segment with optional transformations.'
+      description: Fetch an animated GIF or WebP image from a video segment with optional transformations.
       operationId: get-animated
       servers:
       - url: https://image.mux.com

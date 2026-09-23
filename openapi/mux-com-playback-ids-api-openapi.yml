@@ -7,9 +7,7 @@ info:
 
     IDs, live streams, and related resources. Authenticated via HTTP Basic
 
-    auth using a Mux Access Token ID and Secret.
-
-    '
+    auth using a Mux Access Token ID and Secret.'
   version: v1
 servers:
 - url: https://api.mux.com

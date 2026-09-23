@@ -47,7 +47,30 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
+  parameters:
+    playback_id:
+      name: PLAYBACK_ID
+      in: path
+      description: The asset or live stream's playback ID.
+      required: true
+      schema:
+        type: string
   schemas:
+    PlaybackPolicy:
+      type: string
+      enum:
+      - public
+      - signed
+      - drm
+      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+        '
     GetAssetOrLiveStreamIdResponse:
       type: object
       required:
@@ -81,29 +104,6 @@ components:
                   - asset
                   - live_stream
                   description: Identifies the object type associated with the playback ID.
-    PlaybackPolicy:
-      type: string
-      enum:
-      - public
-      - signed
-      - drm
-      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-        '
-  parameters:
-    playback_id:
-      name: PLAYBACK_ID
-      in: path
-      description: The asset or live stream's playback ID.
-      required: true
-      schema:
-        type: string
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

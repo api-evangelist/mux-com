@@ -82,51 +82,32 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
-  parameters:
-    delivery_usage_timeframe:
-      name: timeframe[]
-      in: query
-      description: Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made.
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    delivery_usage_limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 100
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    delivery_usage_asset_id:
-      name: asset_id
-      in: query
-      description: Filter response to return delivery usage for this asset only. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
-      required: false
-      schema:
-        type: string
-    delivery_usage_live_stream_id:
-      name: live_stream_id
-      in: query
-      description: Filter response to return delivery usage for assets for this live stream. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
-      required: false
-      schema:
-        type: string
   schemas:
+    ListDeliveryUsageResponse:
+      type: object
+      required:
+      - data
+      - timeframe
+      - page
+      - limit
+      - total_row_count
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryReport'
+        total_row_count:
+          type: integer
+          format: int64
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+        limit:
+          type: integer
+          format: int64
+          description: Number of assets returned in this response. Default value is 100.
     DeliveryReport:
       type: object
       required:
@@ -217,31 +198,50 @@ components:
               type: number
               format: double
               description: Total number of delivered seconds during this time window that had a resolution of audio only.
-    ListDeliveryUsageResponse:
-      type: object
-      required:
-      - data
-      - timeframe
-      - page
-      - limit
-      - total_row_count
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryReport'
-        total_row_count:
-          type: integer
-          format: int64
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-        limit:
-          type: integer
-          format: int64
-          description: Number of assets returned in this response. Default value is 100.
+  parameters:
+    delivery_usage_limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 100
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    delivery_usage_asset_id:
+      name: asset_id
+      in: query
+      description: Filter response to return delivery usage for this asset only. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
+      required: false
+      schema:
+        type: string
+    delivery_usage_live_stream_id:
+      name: live_stream_id
+      in: query
+      description: Filter response to return delivery usage for assets for this live stream. You cannot specify both the `asset_id` and `live_stream_id` parameters together.
+      required: false
+      schema:
+        type: string
+    delivery_usage_timeframe:
+      name: timeframe[]
+      in: query
+      description: Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

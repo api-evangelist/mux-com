@@ -103,17 +103,17 @@ components:
       required: true
       schema:
         type: string
+    token:
+      name: TOKEN
+      in: query
+      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
     track_id:
       name: TRACK_ID
       in: path
       description: The ID of the track for an asset.
       required: true
-      schema:
-        type: string
-    token:
-      name: TOKEN
-      in: query
-      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
       schema:
         type: string
   securitySchemes:

@@ -242,21 +242,6 @@ components:
           type: boolean
           default: true
           description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
-    PlaybackPolicy:
-      type: string
-      enum:
-      - public
-      - signed
-      - drm
-      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-        '
     CreateStaticRenditionRequest:
       type: object
       required:
@@ -278,14 +263,6 @@ components:
         passthrough:
           type: string
           description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
-    CreatePlaybackIDRequest:
-      type: object
-      properties:
-        policy:
-          $ref: '#/components/schemas/PlaybackPolicy'
-        drm_configuration_id:
-          type: string
-          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
     Upload:
       type: object
       required:
@@ -428,6 +405,30 @@ components:
         passthrough:
           type: string
           description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
+    CreateUploadRequest:
+      type: object
+      required:
+      - cors_origin
+      properties:
+        timeout:
+          type: integer
+          format: int32
+          default: 3600
+          minimum: 60
+          maximum: 604800
+          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
+          x-stainless-naming:
+            python:
+              method_argument: url_timeout
+        cors_origin:
+          type: string
+          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
+        new_asset_settings:
+          $ref: '#/components/schemas/AssetOptions'
+        test:
+          type: boolean
+          format: boolean
+          description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
     AssetGeneratedSubtitleSettings:
       type: object
       properties:
@@ -465,37 +466,15 @@ components:
           - ro
           - bg
           - auto
-    UploadResponse:
+    ListUploadsResponse:
       type: object
       required:
       - data
       properties:
         data:
-          $ref: '#/components/schemas/Upload'
-    CreateUploadRequest:
-      type: object
-      required:
-      - cors_origin
-      properties:
-        timeout:
-          type: integer
-          format: int32
-          default: 3600
-          minimum: 60
-          maximum: 604800
-          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
-          x-stainless-naming:
-            python:
-              method_argument: url_timeout
-        cors_origin:
-          type: string
-          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
-        new_asset_settings:
-          $ref: '#/components/schemas/AssetOptions'
-        test:
-          type: boolean
-          format: boolean
-          description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
+          type: array
+          items:
+            $ref: '#/components/schemas/Upload'
     AssetMetadata:
       type: object
       description: 'Customer provided metadata about this asset.
@@ -517,25 +496,37 @@ components:
           type: string
           maxLength: 128
           description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
-    ListUploadsResponse:
+    UploadResponse:
       type: object
       required:
       - data
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Upload'
+          $ref: '#/components/schemas/Upload'
+    CreatePlaybackIDRequest:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+        drm_configuration_id:
+          type: string
+          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+    PlaybackPolicy:
+      type: string
+      enum:
+      - public
+      - signed
+      - drm
+      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+        '
   parameters:
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
     page:
       name: page
       in: query
@@ -545,6 +536,15 @@ components:
         type: integer
         format: int32
         default: 1
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
     upload_id:
       name: UPLOAD_ID
       in: path

@@ -152,14 +152,6 @@ paths:
       - authorizationToken: []
 components:
   parameters:
-    filter_id:
-      name: FILTER_ID
-      in: path
-      description: ID of the Filter
-      required: true
-      example: abcd1234
-      schema:
-        type: string
     timeframe:
       name: timeframe[]
       in: query
@@ -171,24 +163,6 @@ components:
         type: array
         items:
           type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
     filters:
       name: filters[]
       in: query
@@ -225,6 +199,32 @@ components:
         type: array
         items:
           type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    filter_id:
+      name: FILTER_ID
+      in: path
+      description: ID of the Filter
+      required: true
+      example: abcd1234
+      schema:
+        type: string
   schemas:
     ListFilterValuesResponse:
       type: object

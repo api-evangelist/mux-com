@@ -187,6 +187,62 @@ paths:
       - authorizationToken: []
 components:
   schemas:
+    CreateAskQuestionsJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/AskQuestionsJobParameters'
+      required:
+      - parameters
+    AskQuestionsJob:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier.
+        passthrough:
+          type: string
+          description: Arbitrary string supplied at creation, returned as-is.
+        units_consumed:
+          type: integer
+          minimum: 0
+          description: Number of Mux AI units consumed by this job.
+        created_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was created.
+        updated_at:
+          type: integer
+          minimum: 0
+          description: Unix timestamp (seconds) when the job was last updated.
+        workflow:
+          type: string
+          enum:
+          - ask-questions
+        parameters:
+          $ref: '#/components/schemas/AskQuestionsJobParameters'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        outputs:
+          $ref: '#/components/schemas/AskQuestionsJobOutputs'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobError'
+          description: Error details. Present when status is 'errored'.
+        resources:
+          $ref: '#/components/schemas/Resources'
+      required:
+      - id
+      - units_consumed
+      - created_at
+      - updated_at
+      - workflow
+      - parameters
+      - status
     AskQuestionsJobResponse:
       type: object
       properties:
@@ -194,6 +250,30 @@ components:
           $ref: '#/components/schemas/AskQuestionsJob'
       required:
       - data
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
     SlimlineAsset:
       type: object
       properties:
@@ -233,16 +313,44 @@ components:
       required:
       - id
       - _links
-    CreateAskQuestionsJobRequest:
+    Resources:
       type: object
       properties:
-        passthrough:
-          type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
-        parameters:
-          $ref: '#/components/schemas/AskQuestionsJobParameters'
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
       required:
-      - parameters
+      - assets
+      example:
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
     AskQuestionsJobParameters:
       type: object
       properties:
@@ -298,59 +406,6 @@ components:
         - question: Describe the primary subject in one sentence.
           free_form_reply: true
         max_free_form_answer_length: 300
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
-    JobError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Stable public error category identifier.
-        message:
-          type: string
-          description: Human-readable public error message.
-        retryable:
-          type: boolean
-          description: Whether retrying this job may resolve the error.
-      required:
-      - type
-      - message
-    Resources:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlimlineAsset'
-          description: Mux assets associated with this job.
-      required:
-      - assets
-      example:
-        assets:
-        - id: abc123asset
-          meta:
-            title: My Video
-            creator_id: user123
-            external_id: ext456
-          _links:
-            self:
-              href: https://api.mux.com/video/v1/assets/abc123asset
-      description: Related Mux resources linked to this job.
     AskQuestionsJobOutputs:
       type: object
       properties:
@@ -409,61 +464,6 @@ components:
           reasoning: Visual evidence shows several wristwatches displayed against a wooden backdrop with no other competing subjects.
           skipped: false
       description: Workflow results. Present when status is 'completed'.
-    AskQuestionsJob:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique job identifier.
-        passthrough:
-          type: string
-          description: Arbitrary string supplied at creation, returned as-is.
-        units_consumed:
-          type: integer
-          minimum: 0
-          description: Number of Mux AI units consumed by this job.
-        created_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was created.
-        updated_at:
-          type: integer
-          minimum: 0
-          description: Unix timestamp (seconds) when the job was last updated.
-        workflow:
-          type: string
-          enum:
-          - ask-questions
-        parameters:
-          $ref: '#/components/schemas/AskQuestionsJobParameters'
-        status:
-          $ref: '#/components/schemas/JobStatus'
-        outputs:
-          $ref: '#/components/schemas/AskQuestionsJobOutputs'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobError'
-          description: Error details. Present when status is 'errored'.
-        resources:
-          $ref: '#/components/schemas/Resources'
-      required:
-      - id
-      - units_consumed
-      - created_at
-      - updated_at
-      - workflow
-      - parameters
-      - status
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

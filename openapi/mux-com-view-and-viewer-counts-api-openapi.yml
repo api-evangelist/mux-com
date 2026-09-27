@@ -50,21 +50,6 @@ paths:
                 $ref: '#/components/schemas/StatsCountsErrorResponse'
 components:
   schemas:
-    StatsCountsResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          $ref: '#/components/schemas/StatsCounts'
-    StatsCountsErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/StatsCountsError'
     StatsCountsError:
       type: object
       properties:
@@ -91,6 +76,21 @@ components:
           schema:
             type: string
             format: date
+    StatsCountsErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/StatsCountsError'
+    StatsCountsResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          $ref: '#/components/schemas/StatsCounts'
   parameters:
     token:
       name: TOKEN

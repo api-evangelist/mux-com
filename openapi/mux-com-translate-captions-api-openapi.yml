@@ -150,40 +150,6 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    CreateTranslateCaptionsJobRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
-        parameters:
-          $ref: '#/components/schemas/TranslateCaptionsJobParameters'
-      required:
-      - parameters
-    JobError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Stable public error category identifier.
-        message:
-          type: string
-          description: Human-readable public error message.
-        retryable:
-          type: boolean
-          description: Whether retrying this job may resolve the error.
-      required:
-      - type
-      - message
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
     SlimlineAsset:
       type: object
       properties:
@@ -223,13 +189,32 @@ components:
       required:
       - id
       - _links
-    TranslateCaptionsJobResponse:
+    ErrorResponse:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/TranslateCaptionsJob'
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
       required:
-      - data
+      - error
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
     TranslateCaptionsJobOutputs:
       type: object
       properties:
@@ -271,23 +256,6 @@ components:
             self:
               href: https://api.mux.com/video/v1/assets/abc123asset
       description: Related Mux resources linked to this job.
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
     TranslateCaptionsJobParameters:
       type: object
       properties:
@@ -316,6 +284,23 @@ components:
         track_id: track_en_abc123
         to_language_code: es
         upload_to_mux: true
+    TranslateCaptionsJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TranslateCaptionsJob'
+      required:
+      - data
+    CreateTranslateCaptionsJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/TranslateCaptionsJobParameters'
+      required:
+      - parameters
     TranslateCaptionsJob:
       type: object
       properties:
@@ -362,6 +347,21 @@ components:
       - workflow
       - parameters
       - status
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

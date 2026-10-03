@@ -143,51 +143,14 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
-  schemas:
-    ListSigningKeysResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SigningKey'
-    SigningKey:
-      type: object
-      required:
-      - id
-      - created_at
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Signing Key.
-        created_at:
-          type: string
-          format: int64
-          description: Time at which the object was created. Measured in seconds since the Unix epoch.
-        private_key:
-          type: string
-          format: byte
-          description: A Base64 encoded private key that can be used with the RS256 algorithm when creating a [JWT](https://jwt.io/). **Note that this value is only returned once when creating a URL signing key.**
-    SigningKeyResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/SigningKey'
-    SigningKeyCreateResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/SigningKey'
-          - required:
-            - private_key
   parameters:
+    signing_key_id:
+      name: SIGNING_KEY_ID
+      in: path
+      description: The ID of the signing key.
+      required: true
+      schema:
+        type: string
     page:
       name: page
       in: query
@@ -206,13 +169,50 @@ components:
         type: integer
         format: int32
         default: 25
-    signing_key_id:
-      name: SIGNING_KEY_ID
-      in: path
-      description: The ID of the signing key.
-      required: true
-      schema:
-        type: string
+  schemas:
+    SigningKeyCreateResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/SigningKey'
+          - required:
+            - private_key
+    SigningKey:
+      type: object
+      required:
+      - id
+      - created_at
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Signing Key.
+        created_at:
+          type: string
+          format: int64
+          description: Time at which the object was created. Measured in seconds since the Unix epoch.
+        private_key:
+          type: string
+          format: byte
+          description: A Base64 encoded private key that can be used with the RS256 algorithm when creating a [JWT](https://jwt.io/). **Note that this value is only returned once when creating a URL signing key.**
+    ListSigningKeysResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SigningKey'
+    SigningKeyResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/SigningKey'
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

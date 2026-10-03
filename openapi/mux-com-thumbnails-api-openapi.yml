@@ -132,17 +132,17 @@ paths:
                 message: Not Found
 components:
   parameters:
+    token:
+      name: TOKEN
+      in: query
+      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
     playback_id:
       name: PLAYBACK_ID
       in: path
       description: The asset or live stream's playback ID.
       required: true
-      schema:
-        type: string
-    token:
-      name: TOKEN
-      in: query
-      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
       schema:
         type: string
   securitySchemes:

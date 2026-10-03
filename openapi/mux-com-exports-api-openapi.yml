@@ -92,19 +92,20 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    ExportDate:
+    ExportFile:
       type: object
       properties:
-        export_date:
+        version:
+          type: integer
+          format: int32
+        type:
           type: string
-          format: date
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportFile'
+        path:
+          type: string
       required:
-      - export_date
-      - files
+      - version
+      - type
+      - path
     ListVideoViewExportsResponse:
       type: object
       properties:
@@ -125,20 +126,6 @@ components:
       - data
       - total_row_count
       - timeframe
-    ExportFile:
-      type: object
-      properties:
-        version:
-          type: integer
-          format: int32
-        type:
-          type: string
-        path:
-          type: string
-      required:
-      - version
-      - type
-      - path
     ListExportsResponse:
       type: object
       properties:
@@ -159,6 +146,19 @@ components:
       - data
       - total_row_count
       - timeframe
+    ExportDate:
+      type: object
+      properties:
+        export_date:
+          type: string
+          format: date
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportFile'
+      required:
+      - export_date
+      - files
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

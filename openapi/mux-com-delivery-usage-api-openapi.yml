@@ -83,6 +83,24 @@ paths:
       - authorizationToken: []
 components:
   parameters:
+    delivery_usage_limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 100
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
     delivery_usage_live_stream_id:
       name: live_stream_id
       in: query
@@ -108,24 +126,6 @@ components:
         type: array
         items:
           type: string
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    delivery_usage_limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 100
   schemas:
     DeliveryReport:
       type: object

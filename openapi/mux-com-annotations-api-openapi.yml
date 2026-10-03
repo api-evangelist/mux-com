@@ -203,15 +203,6 @@ components:
         type: integer
         format: int32
         default: 1
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
     annotation_id:
       name: ANNOTATION_ID
       in: path
@@ -230,23 +221,16 @@ components:
         enum:
         - asc
         - desc
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
   schemas:
-    AnnotationInput:
-      type: object
-      required:
-      - note
-      - date
-      properties:
-        note:
-          type: string
-          description: The annotation note content
-        date:
-          type: integer
-          format: int64
-          description: Datetime when the annotation applies (Unix timestamp)
-        sub_property_id:
-          type: string
-          description: Customer-defined sub-property identifier
     Annotation:
       type: object
       required:
@@ -289,6 +273,22 @@ components:
           minItems: 2
           maxItems: 2
           description: Start and end unix timestamps for the data range
+    AnnotationInput:
+      type: object
+      required:
+      - note
+      - date
+      properties:
+        note:
+          type: string
+          description: The annotation note content
+        date:
+          type: integer
+          format: int64
+          description: Datetime when the annotation applies (Unix timestamp)
+        sub_property_id:
+          type: string
+          description: Customer-defined sub-property identifier
     AnnotationResponse:
       type: object
       required:

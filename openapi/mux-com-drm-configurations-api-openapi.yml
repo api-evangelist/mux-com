@@ -72,32 +72,6 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
-  parameters:
-    drm_configuration_id:
-      name: DRM_CONFIGURATION_ID
-      in: path
-      description: The DRM Configuration ID.
-      required: true
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
   schemas:
     ListDRMConfigurationsResponse:
       type: object
@@ -108,6 +82,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DRMConfiguration'
+    DRMConfigurationResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/DRMConfiguration'
     DRMConfiguration:
       type: object
       required:
@@ -116,13 +97,32 @@ components:
         id:
           type: string
           description: Unique identifier for the DRM Configuration. Max 255 characters.
-    DRMConfigurationResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/DRMConfiguration'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    drm_configuration_id:
+      name: DRM_CONFIGURATION_ID
+      in: path
+      description: The DRM Configuration ID.
+      required: true
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

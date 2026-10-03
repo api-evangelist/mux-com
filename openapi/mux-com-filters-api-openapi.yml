@@ -163,6 +163,23 @@ components:
         type: array
         items:
           type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    filter_id:
+      name: FILTER_ID
+      in: path
+      description: ID of the Filter
+      required: true
+      example: abcd1234
+      schema:
+        type: string
     filters:
       name: filters[]
       in: query
@@ -199,15 +216,6 @@ components:
         type: array
         items:
           type: string
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
     limit:
       name: limit
       in: query
@@ -217,14 +225,6 @@ components:
         type: integer
         format: int32
         default: 25
-    filter_id:
-      name: FILTER_ID
-      in: path
-      description: ID of the Filter
-      required: true
-      example: abcd1234
-      schema:
-        type: string
   schemas:
     ListFilterValuesResponse:
       type: object
@@ -245,18 +245,6 @@ components:
       - data
       - total_row_count
       - timeframe
-    FilterValue:
-      type: object
-      properties:
-        value:
-          type: string
-          nullable: true
-        total_count:
-          type: integer
-          format: int64
-      required:
-      - value
-      - total_count
     ListFiltersResponse:
       type: object
       properties:
@@ -287,6 +275,18 @@ components:
       - data
       - total_row_count
       - timeframe
+    FilterValue:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+          format: int64
+      required:
+      - value
+      - total_count
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

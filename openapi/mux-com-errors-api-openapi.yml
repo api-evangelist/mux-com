@@ -57,6 +57,76 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
+  schemas:
+    ListErrorsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - total_row_count
+      - timeframe
+    Error:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: A unique identifier for this error.
+        percentage:
+          type: number
+          format: double
+          description: The percentage of views that experienced this error.
+        notes:
+          type: string
+          description: Notes that are attached to this error.
+          nullable: true
+        message:
+          type: string
+          description: The error message.
+          nullable: true
+        last_seen:
+          type: string
+          description: The last time this error was seen (ISO 8601 timestamp).
+        description:
+          type: string
+          description: Description of the error.
+          nullable: true
+        count:
+          type: integer
+          format: int64
+          description: The total number of views that experienced this error.
+        code:
+          type: integer
+          format: int64
+          description: The error code
+          nullable: true
+        player_error_code:
+          type: string
+          nullable: true
+          description: The string version of the error code
+      required:
+      - id
+      - percentage
+      - notes
+      - message
+      - last_seen
+      - description
+      - count
+      - code
+      - player_error_code
   parameters:
     timeframe:
       name: timeframe[]
@@ -116,76 +186,6 @@ components:
         type: array
         items:
           type: string
-  schemas:
-    Error:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: A unique identifier for this error.
-        percentage:
-          type: number
-          format: double
-          description: The percentage of views that experienced this error.
-        notes:
-          type: string
-          description: Notes that are attached to this error.
-          nullable: true
-        message:
-          type: string
-          description: The error message.
-          nullable: true
-        last_seen:
-          type: string
-          description: The last time this error was seen (ISO 8601 timestamp).
-        description:
-          type: string
-          description: Description of the error.
-          nullable: true
-        count:
-          type: integer
-          format: int64
-          description: The total number of views that experienced this error.
-        code:
-          type: integer
-          format: int64
-          description: The error code
-          nullable: true
-        player_error_code:
-          type: string
-          nullable: true
-          description: The string version of the error code
-      required:
-      - id
-      - percentage
-      - notes
-      - message
-      - last_seen
-      - description
-      - count
-      - code
-      - player_error_code
-    ListErrorsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - total_row_count
-      - timeframe
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

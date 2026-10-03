@@ -608,346 +608,7 @@ paths:
     - url: https://stream.mux.com
     - url: https://stats.mux.com
 components:
-  parameters:
-    track_id:
-      name: TRACK_ID
-      in: path
-      description: The ID of the track for an asset.
-      required: true
-      schema:
-        type: string
-    asset_id:
-      name: ASSET_ID
-      in: path
-      description: The asset ID.
-      required: true
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
-    playback_id:
-      name: PLAYBACK_ID
-      in: path
-      description: The asset or live stream's playback ID.
-      required: true
-      schema:
-        type: string
-    list_asset_live_stream_id:
-      name: live_stream_id
-      in: query
-      description: Filter response to return all the assets for this live stream only
-      required: false
-      schema:
-        type: string
-    cursor:
-      name: cursor
-      in: query
-      description: This parameter is used to request pages beyond the first. You can find the cursor value in the `next_cursor` field of paginated responses.
-      required: false
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    list_asset_upload_id:
-      name: upload_id
-      in: query
-      description: Filter response to return an asset created from this direct upload only
-      required: false
-      schema:
-        type: string
-    static_rendition_id:
-      name: STATIC_RENDITION_ID
-      in: path
-      description: The static rendition ID.
-      required: true
-      schema:
-        type: string
   schemas:
-    PlaybackID:
-      type: object
-      required:
-      - id
-      - policy
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the PlaybackID
-        policy:
-          $ref: '#/components/schemas/PlaybackPolicy'
-        drm_configuration_id:
-          type: string
-          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
-    AssetGeneratedSubtitleSettings:
-      type: object
-      properties:
-        name:
-          type: string
-          description: A name for this subtitle track.
-        passthrough:
-          type: string
-          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
-        language_code:
-          type: string
-          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
-          default: en
-          enum:
-          - en
-          - es
-          - it
-          - pt
-          - de
-          - fr
-          - pl
-          - ru
-          - nl
-          - ca
-          - tr
-          - sv
-          - uk
-          - 'no'
-          - fi
-          - sk
-          - el
-          - cs
-          - hr
-          - da
-          - ro
-          - bg
-          - auto
-    GetAssetPlaybackIDResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/PlaybackID'
-    CreateTrackResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/Track'
-    PlaybackPolicy:
-      type: string
-      enum:
-      - public
-      - signed
-      - drm
-      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-        '
-    GenerateTrackSubtitlesResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Track'
-    AssetProgress:
-      type: object
-      description: Detailed state information about the asset ingest process.
-      properties:
-        state:
-          type: string
-          enum:
-          - ingesting
-          - transcoding
-          - completed
-          - live
-          - errored
-          description: 'The detailed state of the asset ingest process. This field is useful for relaying more granular processing information to end users when a [non-standard input is encountered](https://www.mux.com/docs/guides/minimize-processing-time#non-standard-input).
-
-
-            - `ingesting`: Asset is being ingested (initial processing before or after transcoding). While in this state, the `progress` percentage will be 0.
-
-            - `transcoding`: Asset is undergoing non-standard transcoding.
-
-            - `completed`: Asset processing is complete (`status` is `ready`). While in this state, the `progress` percentage will be 100.
-
-            - `live`: Asset is a live stream currently in progress. While in this state, the `progress` percentage will be -1.
-
-            - `errored`: Asset has encountered an error (`status` is `errored`). While in this state, the `progress` percentage will be -1.
-
-            '
-        progress:
-          type: number
-          format: double
-          minimum: -1
-          maximum: 100
-          description: Represents the estimated completion percentage. Returns `0 - 100` when in `ingesting`, `transcoding`, or `completed` state, and `-1` when in `live` or `errored` state.
-      required:
-      - state
-      - progress
-    AssetOptions:
-      type: object
-      properties:
-        input:
-          type: array
-          description: Deprecated. Use `inputs` instead, which accepts an identical type.
-          deprecated: true
-          x-mux-doc-decorators-hidden-children: all
-          items:
-            $ref: '#/components/schemas/InputSettings'
-        inputs:
-          type: array
-          description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, input can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
-          items:
-            $ref: '#/components/schemas/InputSettings'
-        playback_policy:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlaybackPolicy'
-          deprecated: true
-          description: Deprecated. Use `playback_policies` instead, which accepts an identical type.
-          x-mux-doc-decorators-hidden-children: all
-        playback_policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlaybackPolicy'
-          description: 'An array of playback policy names that you want applied to this asset and available through `playback_ids`. Options include:
-
-
-            * `"public"` (anyone with the playback URL can stream the asset).
-
-            * `"signed"` (an additional access token is required to play the asset).
-
-
-            If no `playback_policies` are set, the asset will have no playback IDs and will therefore not be playable. For simplicity, a single string name can be used in place of the array in the case of only one playback policy.
-
-            '
-        advanced_playback_policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreatePlaybackIDRequest'
-          description: 'An array of playback policy objects that you want applied to this asset and available through `playback_ids`. `advanced_playback_policies` must be used instead of `playback_policies` when creating a DRM playback ID.
-
-            '
-        per_title_encode:
-          type: boolean
-          format: boolean
-          x-mux-doc-decorators:
-          - hidden
-          deprecated: true
-        passthrough:
-          type: string
-          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id`, you can use the `meta` object instead. **Max: 255 characters**.'
-        mp4_support:
-          type: string
-          deprecated: true
-          enum:
-          - none
-          - standard
-          - capped-1080p
-          - audio-only
-          - audio-only,capped-1080p
-          description: 'Deprecated. See the [Static Renditions API](https://www.mux.com/docs/guides/enable-static-mp4-renditions) for the updated API.
-
-
-            Specify what level of support for mp4 playback. You may not enable both `mp4_support` and  `static_renditions`.
-
-
-            * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
-
-            * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
-
-            * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
-
-
-            The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
-
-
-            MP4 files are not produced for `none` (default).
-
-
-            In most cases you should use our default HLS-based streaming playback (`{playback_id}.m3u8`) which can automatically adjust to viewers'' connection speeds, but an mp4 can be useful for some legacy devices or downloading for offline playback. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
-
-            '
-          x-mux-doc-decorators-deprecated-enum-values:
-          - standard
-        normalize_audio:
-          type: boolean
-          format: boolean
-          description: Normalize the audio track loudness level. This parameter is only applicable to on-demand (not live) assets.
-          default: false
-        master_access:
-          type: string
-          enum:
-          - none
-          - temporary
-          description: Specify what level (if any) of support for master access. Master access can be enabled temporarily for your asset to be downloaded. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
-        test:
-          type: boolean
-          format: boolean
-          description: Marks the asset as a test asset when the value is set to true. A Test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test asset are watermarked with the Mux logo, limited to 10 seconds, deleted after 24 hrs.
-        max_resolution_tier:
-          type: string
-          enum:
-          - 1080p
-          - 1440p
-          - 2160p
-          description: Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
-        encoding_tier:
-          type: string
-          deprecated: true
-          enum:
-          - smart
-          - baseline
-          - premium
-          description: This field is deprecated. Please use `video_quality` instead. The encoding tier informs the cost, quality, and available platform features for the asset. The default encoding tier for an account can be set in the Mux Dashboard. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
-        video_quality:
-          type: string
-          enum:
-          - basic
-          - plus
-          - premium
-          description: The video quality controls the cost, quality, and available platform features for the asset. The default video quality for an account can be set in the Mux Dashboard. This field replaces the deprecated `encoding_tier` value. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
-        static_renditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateStaticRenditionRequest'
-          description: An array of static renditions to create for this asset. You may not enable both `static_renditions` and `mp4_support (the latter being deprecated)`
-        meta:
-          $ref: '#/components/schemas/AssetMetadata'
-        copy_overlays:
-          type: boolean
-          default: true
-          description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
-    UpdateAssetRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**. In order to clear this value, the field should be included with an empty string value.'
-        meta:
-          $ref: '#/components/schemas/AssetMetadata'
-    CreateAssetRequest:
-      allOf:
-      - $ref: '#/components/schemas/AssetOptions'
-      - required:
-        - inputs
     InputSettings:
       type: object
       description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
@@ -1039,84 +700,11 @@ components:
         passthrough:
           type: string
           description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-    CreateStaticRenditionRequest:
-      type: object
-      required:
-      - resolution
-      properties:
-        resolution:
-          type: string
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
-    UpdateAssetMasterAccessRequest:
-      type: object
-      required:
-      - master_access
-      properties:
-        master_access:
-          type: string
-          description: Add or remove access to the master version of the video.
-          enum:
-          - temporary
-          - none
-    ListAssetsResponse:
-      type: object
-      required:
-      - data
-      - next_cursor
-      properties:
-        next_cursor:
-          type: string
-          description: If there are more pages of data, this field will contain a string that can be used with the `cursor` querystring parameter to fetch the next page of data.
-          nullable: true
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Asset'
-    UpdateAssetMP4SupportRequest:
-      type: object
-      deprecated: true
-      required:
-      - mp4_support
-      properties:
-        mp4_support:
-          type: string
-          description: 'Specify what level of support for mp4 playback.
-
-
-            * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
-
-            * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
-
-            * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
-
-
-            The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
-
-
-            `none` will delete the MP4s from the asset in question.
-
-            '
-          enum:
-          - standard
-          - none
-          - capped-1080p
-          - audio-only
-          - audio-only,capped-1080p
-          x-mux-doc-decorators-deprecated-enum-values:
-          - standard
+    CreateAssetRequest:
+      allOf:
+      - $ref: '#/components/schemas/AssetOptions'
+      - required:
+        - inputs
     GetAssetInputInfoResponse:
       type: object
       required:
@@ -1126,193 +714,43 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InputInfo'
-    AssetMetadata:
-      type: object
-      description: 'Customer provided metadata about this asset.
-
-
-        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
-
-        '
-      properties:
-        title:
-          type: string
-          maxLength: 512
-          description: The asset title. Max 512 code points.
-        creator_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
-        external_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
-    UpdateAssetTrackResponse:
+    CreatePlaybackIDResponse:
       type: object
       required:
       - data
       properties:
         data:
-          $ref: '#/components/schemas/Track'
-    StaticRendition:
-      type: object
-      properties:
-        name:
-          type: string
-          enum:
-          - low.mp4
-          - medium.mp4
-          - high.mp4
-          - highest.mp4
-          - audio.m4a
-          - capped-1080p.mp4
-          - 2160p.mp4
-          - 1440p.mp4
-          - 1080p.mp4
-          - 720p.mp4
-          - 540p.mp4
-          - 480p.mp4
-          - 360p.mp4
-          - 270p.mp4
-          description: Name of the static rendition file
-        ext:
-          type: string
-          description: Extension of the static rendition file
-          enum:
-          - mp4
-          - m4a
-        height:
-          type: integer
-          format: int32
-          description: The height of the static rendition's file in pixels
-        width:
-          type: integer
-          format: int32
-          description: The width of the static rendition's file in pixels
-        bitrate:
-          type: integer
-          format: int64
-          description: The bitrate in bits per second
-        filesize:
-          type: string
-          format: int64
-          description: The file size in bytes
-        type:
-          type: string
-          description: Indicates the static rendition type of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - standard
-          - advanced
-        status:
-          type: string
-          description: 'Indicates the status of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-
-            * `ready` indicates the MP4 has been generated and is ready for download
-
-            * `preparing` indicates the asset has not been ingested or the static rendition is still being generated after an asset is ready
-
-            * `skipped` indicates the static rendition will not be generated because the requested resolution conflicts with the asset attributes after the asset has been ingested
-
-            * `errored` indicates the static rendition cannot be generated. For example, an asset could not be ingested
-
-            '
-          enum:
-          - ready
-          - preparing
-          - skipped
-          - errored
-        resolution_tier:
-          type: string
-          description: Indicates the resolution tier of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - audio-only
-        resolution:
-          type: string
-          description: Indicates the resolution of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-          x-mux-doc-decorators-hidden-enum-values:
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        id:
-          type: string
-          description: The ID of this static rendition, used in managing this static rendition. This field is only valid for `static_renditions`, not for `mp4_support`.
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
-    CreateTrackRequest:
+          $ref: '#/components/schemas/PlaybackID'
+    InputTrack:
       type: object
       required:
-      - url
       - type
-      - language_code
       properties:
-        url:
-          type: string
-          description: 'The URL of the file that Mux should download and use.
-
-            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
-
-            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
-
-            '
         type:
           type: string
-          enum:
-          - text
-          - audio
-        text_type:
+        duration:
+          type: number
+          format: double
+        encoding:
           type: string
-          enum:
-          - subtitles
-        language_code:
-          type: string
-          description: The language code of this track. The value must be a valid BCP 47 specification compliant value. For example, en for English or en-US for the US version of English.
-        name:
-          type: string
-          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate the `text` or `audio` track with this value. For example, set the value to "English" for subtitles text track with `language_code` as en-US. If this parameter is not included, Mux will auto-populate a value based on the `language_code` value.
-        closed_captions:
-          type: boolean
-          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH).
-        passthrough:
-          type: string
-          description: Arbitrary user-supplied metadata set for the track either when creating the asset or track.
-    InputFile:
-      type: object
-      properties:
-        container_format:
-          type: string
-        tracks:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputTrack'
-    CreatePlaybackIDRequest:
-      type: object
-      properties:
-        policy:
-          $ref: '#/components/schemas/PlaybackPolicy'
-        drm_configuration_id:
-          type: string
-          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+        width:
+          type: integer
+          format: int64
+        height:
+          type: integer
+          format: int64
+        frame_rate:
+          type: number
+          format: double
+        sample_rate:
+          type: integer
+          format: int64
+        sample_size:
+          type: integer
+          format: int64
+        channels:
+          type: integer
+          format: int64
     Asset:
       type: object
       required:
@@ -1571,13 +1009,164 @@ components:
           $ref: '#/components/schemas/AssetMetadata'
         progress:
           $ref: '#/components/schemas/AssetProgress'
-    CreatePlaybackIDResponse:
+    PlaybackID:
       type: object
       required:
-      - data
+      - id
+      - policy
       properties:
-        data:
-          $ref: '#/components/schemas/PlaybackID'
+        id:
+          type: string
+          description: Unique identifier for the PlaybackID
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+        drm_configuration_id:
+          type: string
+          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+    AssetOptions:
+      type: object
+      properties:
+        input:
+          type: array
+          description: Deprecated. Use `inputs` instead, which accepts an identical type.
+          deprecated: true
+          x-mux-doc-decorators-hidden-children: all
+          items:
+            $ref: '#/components/schemas/InputSettings'
+        inputs:
+          type: array
+          description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, input can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
+          items:
+            $ref: '#/components/schemas/InputSettings'
+        playback_policy:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaybackPolicy'
+          deprecated: true
+          description: Deprecated. Use `playback_policies` instead, which accepts an identical type.
+          x-mux-doc-decorators-hidden-children: all
+        playback_policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaybackPolicy'
+          description: 'An array of playback policy names that you want applied to this asset and available through `playback_ids`. Options include:
+
+
+            * `"public"` (anyone with the playback URL can stream the asset).
+
+            * `"signed"` (an additional access token is required to play the asset).
+
+
+            If no `playback_policies` are set, the asset will have no playback IDs and will therefore not be playable. For simplicity, a single string name can be used in place of the array in the case of only one playback policy.
+
+            '
+        advanced_playback_policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatePlaybackIDRequest'
+          description: 'An array of playback policy objects that you want applied to this asset and available through `playback_ids`. `advanced_playback_policies` must be used instead of `playback_policies` when creating a DRM playback ID.
+
+            '
+        per_title_encode:
+          type: boolean
+          format: boolean
+          x-mux-doc-decorators:
+          - hidden
+          deprecated: true
+        passthrough:
+          type: string
+          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id`, you can use the `meta` object instead. **Max: 255 characters**.'
+        mp4_support:
+          type: string
+          deprecated: true
+          enum:
+          - none
+          - standard
+          - capped-1080p
+          - audio-only
+          - audio-only,capped-1080p
+          description: 'Deprecated. See the [Static Renditions API](https://www.mux.com/docs/guides/enable-static-mp4-renditions) for the updated API.
+
+
+            Specify what level of support for mp4 playback. You may not enable both `mp4_support` and  `static_renditions`.
+
+
+            * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
+
+            * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
+
+            * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
+
+
+            The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
+
+
+            MP4 files are not produced for `none` (default).
+
+
+            In most cases you should use our default HLS-based streaming playback (`{playback_id}.m3u8`) which can automatically adjust to viewers'' connection speeds, but an mp4 can be useful for some legacy devices or downloading for offline playback. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
+
+            '
+          x-mux-doc-decorators-deprecated-enum-values:
+          - standard
+        normalize_audio:
+          type: boolean
+          format: boolean
+          description: Normalize the audio track loudness level. This parameter is only applicable to on-demand (not live) assets.
+          default: false
+        master_access:
+          type: string
+          enum:
+          - none
+          - temporary
+          description: Specify what level (if any) of support for master access. Master access can be enabled temporarily for your asset to be downloaded. See the [Download your videos guide](https://docs.mux.com/guides/enable-static-mp4-renditions) for more information.
+        test:
+          type: boolean
+          format: boolean
+          description: Marks the asset as a test asset when the value is set to true. A Test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test asset are watermarked with the Mux logo, limited to 10 seconds, deleted after 24 hrs.
+        max_resolution_tier:
+          type: string
+          enum:
+          - 1080p
+          - 1440p
+          - 2160p
+          description: Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
+        encoding_tier:
+          type: string
+          deprecated: true
+          enum:
+          - smart
+          - baseline
+          - premium
+          description: This field is deprecated. Please use `video_quality` instead. The encoding tier informs the cost, quality, and available platform features for the asset. The default encoding tier for an account can be set in the Mux Dashboard. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
+        video_quality:
+          type: string
+          enum:
+          - basic
+          - plus
+          - premium
+          description: The video quality controls the cost, quality, and available platform features for the asset. The default video quality for an account can be set in the Mux Dashboard. This field replaces the deprecated `encoding_tier` value. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
+        static_renditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateStaticRenditionRequest'
+          description: An array of static renditions to create for this asset. You may not enable both `static_renditions` and `mp4_support (the latter being deprecated)`
+        meta:
+          $ref: '#/components/schemas/AssetMetadata'
+        copy_overlays:
+          type: boolean
+          default: true
+          description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
+    GenerateTrackSubtitlesRequest:
+      type: object
+      required:
+      - generated_subtitles
+      properties:
+        generated_subtitles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
+          description: Generate subtitle tracks using automatic speech recognition with this configuration.
     AssetResponse:
       type: object
       required:
@@ -1585,43 +1174,34 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/Asset'
-    InputTrack:
+    AssetMetadata:
+      type: object
+      description: 'Customer provided metadata about this asset.
+
+
+        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
+
+        '
+      properties:
+        title:
+          type: string
+          maxLength: 512
+          description: The asset title. Max 512 code points.
+        creator_id:
+          type: string
+          maxLength: 128
+          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
+        external_id:
+          type: string
+          maxLength: 128
+          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
+    UpdateAssetTrackResponse:
       type: object
       required:
-      - type
+      - data
       properties:
-        type:
-          type: string
-        duration:
-          type: number
-          format: double
-        encoding:
-          type: string
-        width:
-          type: integer
-          format: int64
-        height:
-          type: integer
-          format: int64
-        frame_rate:
-          type: number
-          format: double
-        sample_rate:
-          type: integer
-          format: int64
-        sample_size:
-          type: integer
-          format: int64
-        channels:
-          type: integer
-          format: int64
-    InputInfo:
-      type: object
-      properties:
-        settings:
-          $ref: '#/components/schemas/InputSettings'
-        file:
-          $ref: '#/components/schemas/InputFile'
+        data:
+          $ref: '#/components/schemas/Track'
     Track:
       type: object
       properties:
@@ -1714,16 +1294,261 @@ components:
           type: number
           format: double
           description: The confidence value (0-1) of the determined language. This value only is available when automatic language detection is utilized in generated subtitles.
-    GenerateTrackSubtitlesRequest:
+    InputInfo:
+      type: object
+      properties:
+        settings:
+          $ref: '#/components/schemas/InputSettings'
+        file:
+          $ref: '#/components/schemas/InputFile'
+    CreateTrackRequest:
       type: object
       required:
-      - generated_subtitles
+      - url
+      - type
+      - language_code
       properties:
-        generated_subtitles:
+        url:
+          type: string
+          description: 'The URL of the file that Mux should download and use.
+
+            * For `audio` tracks, the URL is the location of the audio file for Mux to download, for example an M4A, WAV, or MP3 file. Mux supports most audio file formats and codecs, but for fastest processing, you should [use standard inputs wherever possible](https://docs.mux.com/guides/minimize-processing-time).
+
+            * For `text` tracks, the URL is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) formats for ingesting Subtitles and Closed Captions.
+
+            '
+        type:
+          type: string
+          enum:
+          - text
+          - audio
+        text_type:
+          type: string
+          enum:
+          - subtitles
+        language_code:
+          type: string
+          description: The language code of this track. The value must be a valid BCP 47 specification compliant value. For example, en for English or en-US for the US version of English.
+        name:
+          type: string
+          description: The name of the track containing a human-readable description. This value must be unique within each group of `text` or `audio` track types. The HLS manifest will associate the `text` or `audio` track with this value. For example, set the value to "English" for subtitles text track with `language_code` as en-US. If this parameter is not included, Mux will auto-populate a value based on the `language_code` value.
+        closed_captions:
+          type: boolean
+          description: Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH).
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the track either when creating the asset or track.
+    GetAssetPlaybackIDResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PlaybackID'
+    AssetGeneratedSubtitleSettings:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A name for this subtitle track.
+        passthrough:
+          type: string
+          description: Arbitrary metadata set for the subtitle track. Max 255 characters.
+        language_code:
+          type: string
+          description: The language of the audio from which subtitles are generated. Selecting a language of "auto" will allow language detection to set the language code automatically.
+          default: en
+          enum:
+          - en
+          - es
+          - it
+          - pt
+          - de
+          - fr
+          - pl
+          - ru
+          - nl
+          - ca
+          - tr
+          - sv
+          - uk
+          - 'no'
+          - fi
+          - sk
+          - el
+          - cs
+          - hr
+          - da
+          - ro
+          - bg
+          - auto
+    CreateStaticRenditionResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/StaticRendition'
+    PlaybackPolicy:
+      type: string
+      enum:
+      - public
+      - signed
+      - drm
+      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+        '
+    AssetProgress:
+      type: object
+      description: Detailed state information about the asset ingest process.
+      properties:
+        state:
+          type: string
+          enum:
+          - ingesting
+          - transcoding
+          - completed
+          - live
+          - errored
+          description: 'The detailed state of the asset ingest process. This field is useful for relaying more granular processing information to end users when a [non-standard input is encountered](https://www.mux.com/docs/guides/minimize-processing-time#non-standard-input).
+
+
+            - `ingesting`: Asset is being ingested (initial processing before or after transcoding). While in this state, the `progress` percentage will be 0.
+
+            - `transcoding`: Asset is undergoing non-standard transcoding.
+
+            - `completed`: Asset processing is complete (`status` is `ready`). While in this state, the `progress` percentage will be 100.
+
+            - `live`: Asset is a live stream currently in progress. While in this state, the `progress` percentage will be -1.
+
+            - `errored`: Asset has encountered an error (`status` is `errored`). While in this state, the `progress` percentage will be -1.
+
+            '
+        progress:
+          type: number
+          format: double
+          minimum: -1
+          maximum: 100
+          description: Represents the estimated completion percentage. Returns `0 - 100` when in `ingesting`, `transcoding`, or `completed` state, and `-1` when in `live` or `errored` state.
+      required:
+      - state
+      - progress
+    CreateTrackResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Track'
+    GenerateTrackSubtitlesResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/AssetGeneratedSubtitleSettings'
-          description: Generate subtitle tracks using automatic speech recognition with this configuration.
+            $ref: '#/components/schemas/Track'
+    ListAssetsResponse:
+      type: object
+      required:
+      - data
+      - next_cursor
+      properties:
+        next_cursor:
+          type: string
+          description: If there are more pages of data, this field will contain a string that can be used with the `cursor` querystring parameter to fetch the next page of data.
+          nullable: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+    UpdateAssetRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: 'You can set this field to anything you want. It will be included in the asset details and related webhooks. If you''re looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**. In order to clear this value, the field should be included with an empty string value.'
+        meta:
+          $ref: '#/components/schemas/AssetMetadata'
+    UpdateAssetMasterAccessRequest:
+      type: object
+      required:
+      - master_access
+      properties:
+        master_access:
+          type: string
+          description: Add or remove access to the master version of the video.
+          enum:
+          - temporary
+          - none
+    UpdateAssetMP4SupportRequest:
+      type: object
+      deprecated: true
+      required:
+      - mp4_support
+      properties:
+        mp4_support:
+          type: string
+          description: 'Specify what level of support for mp4 playback.
+
+
+            * The `capped-1080p` option produces a single MP4 file, called `capped-1080p.mp4`, with the video resolution capped at 1080p. This option produces an `audio.m4a` file for an audio-only asset.
+
+            * The `audio-only` option produces a single M4A file, called `audio.m4a` for a video or an audio-only asset. MP4 generation will error when this option is specified for a video-only asset.
+
+            * The `audio-only,capped-1080p` option produces both the `audio.m4a` and `capped-1080p.mp4` files. Only the `capped-1080p.mp4` file is produced for a video-only asset, while only the `audio.m4a` file is produced for an audio-only asset.
+
+
+            The `standard`(deprecated) option produces up to three MP4 files with different levels of resolution (`high.mp4`, `medium.mp4`, `low.mp4`, or `audio.m4a` for an audio-only asset).
+
+
+            `none` will delete the MP4s from the asset in question.
+
+            '
+          enum:
+          - standard
+          - none
+          - capped-1080p
+          - audio-only
+          - audio-only,capped-1080p
+          x-mux-doc-decorators-deprecated-enum-values:
+          - standard
+    CreatePlaybackIDRequest:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+        drm_configuration_id:
+          type: string
+          description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+    CreateStaticRenditionRequest:
+      type: object
+      required:
+      - resolution
+      properties:
+        resolution:
+          type: string
+          enum:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
     UpdateAssetTrackRequest:
       type: object
       properties:
@@ -1739,13 +1564,188 @@ components:
         passthrough:
           type: string
           description: Arbitrary user-supplied metadata set for the track either when creating the asset or track.
-    CreateStaticRenditionResponse:
+    StaticRendition:
       type: object
-      required:
-      - data
       properties:
-        data:
-          $ref: '#/components/schemas/StaticRendition'
+        name:
+          type: string
+          enum:
+          - low.mp4
+          - medium.mp4
+          - high.mp4
+          - highest.mp4
+          - audio.m4a
+          - capped-1080p.mp4
+          - 2160p.mp4
+          - 1440p.mp4
+          - 1080p.mp4
+          - 720p.mp4
+          - 540p.mp4
+          - 480p.mp4
+          - 360p.mp4
+          - 270p.mp4
+          description: Name of the static rendition file
+        ext:
+          type: string
+          description: Extension of the static rendition file
+          enum:
+          - mp4
+          - m4a
+        height:
+          type: integer
+          format: int32
+          description: The height of the static rendition's file in pixels
+        width:
+          type: integer
+          format: int32
+          description: The width of the static rendition's file in pixels
+        bitrate:
+          type: integer
+          format: int64
+          description: The bitrate in bits per second
+        filesize:
+          type: string
+          format: int64
+          description: The file size in bytes
+        type:
+          type: string
+          description: Indicates the static rendition type of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - standard
+          - advanced
+        status:
+          type: string
+          description: 'Indicates the status of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+
+            * `ready` indicates the MP4 has been generated and is ready for download
+
+            * `preparing` indicates the asset has not been ingested or the static rendition is still being generated after an asset is ready
+
+            * `skipped` indicates the static rendition will not be generated because the requested resolution conflicts with the asset attributes after the asset has been ingested
+
+            * `errored` indicates the static rendition cannot be generated. For example, an asset could not be ingested
+
+            '
+          enum:
+          - ready
+          - preparing
+          - skipped
+          - errored
+        resolution_tier:
+          type: string
+          description: Indicates the resolution tier of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - audio-only
+        resolution:
+          type: string
+          description: Indicates the resolution of this specific MP4 version of this asset. This field is only valid for `static_renditions`, not for `mp4_support`.
+          enum:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+          x-mux-doc-decorators-hidden-enum-values:
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        id:
+          type: string
+          description: The ID of this static rendition, used in managing this static rendition. This field is only valid for `static_renditions`, not for `mp4_support`.
+        passthrough:
+          type: string
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+    InputFile:
+      type: object
+      properties:
+        container_format:
+          type: string
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputTrack'
+  parameters:
+    asset_id:
+      name: ASSET_ID
+      in: path
+      description: The asset ID.
+      required: true
+      schema:
+        type: string
+    static_rendition_id:
+      name: STATIC_RENDITION_ID
+      in: path
+      description: The static rendition ID.
+      required: true
+      schema:
+        type: string
+    list_asset_upload_id:
+      name: upload_id
+      in: query
+      description: Filter response to return an asset created from this direct upload only
+      required: false
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    playback_id:
+      name: PLAYBACK_ID
+      in: path
+      description: The asset or live stream's playback ID.
+      required: true
+      schema:
+        type: string
+    track_id:
+      name: TRACK_ID
+      in: path
+      description: The ID of the track for an asset.
+      required: true
+      schema:
+        type: string
+    cursor:
+      name: cursor
+      in: query
+      description: This parameter is used to request pages beyond the first. You can find the cursor value in the `next_cursor` field of paginated responses.
+      required: false
+      schema:
+        type: string
+    list_asset_live_stream_id:
+      name: live_stream_id
+      in: query
+      description: Filter response to return all the assets for this live stream only
+      required: false
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
   securitySchemes:
     basicAuth:
       type: http

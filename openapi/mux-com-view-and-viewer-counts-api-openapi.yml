@@ -49,18 +49,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/StatsCountsErrorResponse'
 components:
+  parameters:
+    token:
+      name: TOKEN
+      in: query
+      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
+      schema:
+        type: string
   schemas:
-    StatsCountsError:
-      type: object
-      properties:
-        type:
-          schema:
-            type: string
-        messages:
-          schema:
-            type: array
-            items:
-              type: string
     StatsCounts:
       type: object
       properties:
@@ -83,6 +79,17 @@ components:
       properties:
         error:
           $ref: '#/components/schemas/StatsCountsError'
+    StatsCountsError:
+      type: object
+      properties:
+        type:
+          schema:
+            type: string
+        messages:
+          schema:
+            type: array
+            items:
+              type: string
     StatsCountsResponse:
       type: object
       required:
@@ -91,13 +98,6 @@ components:
         data:
           type: array
           $ref: '#/components/schemas/StatsCounts'
-  parameters:
-    token:
-      name: TOKEN
-      in: query
-      description: Signed token (JWT) for [secure video playback](https://docs.mux.com/guides/secure-video-playback).
-      schema:
-        type: string
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

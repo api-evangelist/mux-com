@@ -1525,6 +1525,8 @@ apis:
   humanURL: https://www.mux.com/docs/webhook-reference
   baseURL: https://api.mux.com
   tags:
+  - Real-Time
+  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI

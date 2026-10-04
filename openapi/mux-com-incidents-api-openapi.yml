@@ -268,27 +268,77 @@ paths:
       - accessToken: []
       - authorizationToken: []
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
+    order_by:
+      name: order_by
+      in: query
+      description: Value to order the results by
+      required: false
+      schema:
+        type: string
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
+    incident_id:
+      name: INCIDENT_ID
+      in: path
+      description: ID of the Incident
+      required: true
+      example: abcd1234
+      schema:
+        type: string
+    incident_status:
+      name: status
+      in: query
+      description: Status to filter incidents by
+      required: false
+      schema:
+        type: string
+        enum:
+        - open
+        - closed
+        - expired
+    order_direction:
+      name: order_direction
+      in: query
+      description: Sort order.
+      required: false
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+    severity:
+      name: severity
+      in: query
+      description: Severity to filter incidents by
+      required: false
+      schema:
+        type: string
+        enum:
+        - warning
+        - alert
+    page:
+      name: page
+      in: query
+      description: Offset by this many pages, of the size of `limit`
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 1
   schemas:
-    ListIncidentsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Incident'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - timeframe
-      - total_row_count
     IncidentNotificationRule:
       type: object
       properties:
@@ -310,6 +360,33 @@ components:
       - property_id
       - id
       - action
+    IncidentNotification:
+      type: object
+      properties:
+        queued_at:
+          type: string
+        id:
+          type: integer
+          format: int64
+        attempted_at:
+          type: string
+      required:
+      - queued_at
+      - id
+      - attempted_at
+    IncidentBreakdown:
+      type: object
+      properties:
+        value:
+          type: string
+        name:
+          type: string
+        id:
+          type: string
+      required:
+      - id
+      - name
+      - value
     NotificationRule:
       type: object
       properties:
@@ -323,6 +400,64 @@ components:
       - value
       - name
       - id
+    IncidentResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Incident'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    ListIncidentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Incident'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
+    ListRelatedIncidentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Incident'
+        total_row_count:
+          type: integer
+          format: int64
+          nullable: true
+        timeframe:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+      - data
+      - timeframe
+      - total_row_count
     Incident:
       type: object
       properties:
@@ -406,141 +541,6 @@ components:
       - notification_rules
       - error_description
       - status
-    IncidentNotification:
-      type: object
-      properties:
-        queued_at:
-          type: string
-        id:
-          type: integer
-          format: int64
-        attempted_at:
-          type: string
-      required:
-      - queued_at
-      - id
-      - attempted_at
-    IncidentResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Incident'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - timeframe
-      - total_row_count
-    IncidentBreakdown:
-      type: object
-      properties:
-        value:
-          type: string
-        name:
-          type: string
-        id:
-          type: string
-      required:
-      - id
-      - name
-      - value
-    ListRelatedIncidentsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Incident'
-        total_row_count:
-          type: integer
-          format: int64
-          nullable: true
-        timeframe:
-          type: array
-          items:
-            type: integer
-            format: int64
-      required:
-      - data
-      - timeframe
-      - total_row_count
-  parameters:
-    incident_id:
-      name: INCIDENT_ID
-      in: path
-      description: ID of the Incident
-      required: true
-      example: abcd1234
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      description: Offset by this many pages, of the size of `limit`
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 1
-    incident_status:
-      name: status
-      in: query
-      description: Status to filter incidents by
-      required: false
-      schema:
-        type: string
-        enum:
-        - open
-        - closed
-        - expired
-    order_by:
-      name: order_by
-      in: query
-      description: Value to order the results by
-      required: false
-      schema:
-        type: string
-        enum:
-        - negative_impact
-        - value
-        - views
-        - field
-    severity:
-      name: severity
-      in: query
-      description: Severity to filter incidents by
-      required: false
-      schema:
-        type: string
-        enum:
-        - warning
-        - alert
-    order_direction:
-      name: order_direction
-      in: query
-      description: Sort order.
-      required: false
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

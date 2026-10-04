@@ -96,6 +96,13 @@ paths:
                 message: Not Found
 components:
   parameters:
+    track_id:
+      name: TRACK_ID
+      in: path
+      description: The ID of the track for an asset.
+      required: true
+      schema:
+        type: string
     token:
       name: TOKEN
       in: query
@@ -106,13 +113,6 @@ components:
       name: PLAYBACK_ID
       in: path
       description: The asset or live stream's playback ID.
-      required: true
-      schema:
-        type: string
-    track_id:
-      name: TRACK_ID
-      in: path
-      description: The ID of the track for an asset.
       required: true
       schema:
         type: string

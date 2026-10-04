@@ -108,52 +108,6 @@ paths:
     - url: https://stats.mux.com
 components:
   schemas:
-    UploadResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/Upload'
-    CreateUploadRequest:
-      type: object
-      required:
-      - cors_origin
-      properties:
-        timeout:
-          type: integer
-          format: int32
-          default: 3600
-          minimum: 60
-          maximum: 604800
-          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
-          x-stainless-naming:
-            python:
-              method_argument: url_timeout
-        cors_origin:
-          type: string
-          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
-        new_asset_settings:
-          $ref: '#/components/schemas/AssetOptions'
-        test:
-          type: boolean
-          format: boolean
-          description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
-    PlaybackPolicy:
-      type: string
-      enum:
-      - public
-      - signed
-      - drm
-      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
-
-
-        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
-
-
-        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
-
-        '
     InputSettings:
       type: object
       description: An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
@@ -245,87 +199,27 @@ components:
         passthrough:
           type: string
           description: This optional parameter should be used for tracks with `type` of `text` and `text_type` set to `subtitles`.
-    AssetMetadata:
-      type: object
-      description: 'Customer provided metadata about this asset.
-
-
-        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
-
-        '
-      properties:
-        title:
-          type: string
-          maxLength: 512
-          description: The asset title. Max 512 code points.
-        creator_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
-        external_id:
-          type: string
-          maxLength: 128
-          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
-    ListUploadsResponse:
+    CreateStaticRenditionRequest:
       type: object
       required:
-      - data
+      - resolution
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Upload'
-    Upload:
-      type: object
-      required:
-      - id
-      - timeout
-      - status
-      - cors_origin
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the Direct Upload.
-        timeout:
-          type: integer
-          format: int32
-          default: 3600
-          minimum: 60
-          maximum: 604800
-          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
-        status:
+        resolution:
           type: string
           enum:
-          - waiting
-          - asset_created
-          - errored
-          - cancelled
-          - timed_out
-        new_asset_settings:
-          $ref: '#/components/schemas/AssetOptions'
-        asset_id:
+          - highest
+          - audio-only
+          - 2160p
+          - 1440p
+          - 1080p
+          - 720p
+          - 540p
+          - 480p
+          - 360p
+          - 270p
+        passthrough:
           type: string
-          description: Only set once the upload is in the `asset_created` state.
-        error:
-          type: object
-          description: Only set if an error occurred during asset creation.
-          properties:
-            type:
-              type: string
-              description: Label for the specific error
-            message:
-              type: string
-              description: Human readable error message
-        cors_origin:
-          type: string
-          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
-        url:
-          type: string
-          description: The URL to upload the associated source media to.
-        test:
-          type: boolean
-          format: boolean
-          description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
+          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
     CreatePlaybackIDRequest:
       type: object
       properties:
@@ -334,6 +228,52 @@ components:
         drm_configuration_id:
           type: string
           description: The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+    UploadResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Upload'
+    CreateUploadRequest:
+      type: object
+      required:
+      - cors_origin
+      properties:
+        timeout:
+          type: integer
+          format: int32
+          default: 3600
+          minimum: 60
+          maximum: 604800
+          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
+          x-stainless-naming:
+            python:
+              method_argument: url_timeout
+        cors_origin:
+          type: string
+          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
+        new_asset_settings:
+          $ref: '#/components/schemas/AssetOptions'
+        test:
+          type: boolean
+          format: boolean
+          description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
+    PlaybackPolicy:
+      type: string
+      enum:
+      - public
+      - signed
+      - drm
+      description: '* `public` playback IDs are accessible by constructing an HLS URL like `https://stream.mux.com/${PLAYBACK_ID}`
+
+
+        * `signed` playback IDs should be used with tokens `https://stream.mux.com/${PLAYBACK_ID}?token={TOKEN}`. See [Secure video playback](https://docs.mux.com/guides/secure-video-playback) for details about creating tokens.
+
+
+        * `drm` playback IDs are protected with DRM technologies. [See DRM documentation for more details](https://docs.mux.com/guides/protect-videos-with-drm).
+
+        '
     AssetGeneratedSubtitleSettings:
       type: object
       properties:
@@ -371,27 +311,36 @@ components:
           - ro
           - bg
           - auto
-    CreateStaticRenditionRequest:
+    ListUploadsResponse:
       type: object
       required:
-      - resolution
+      - data
       properties:
-        resolution:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Upload'
+    AssetMetadata:
+      type: object
+      description: 'Customer provided metadata about this asset.
+
+
+        Note: This metadata may be publicly available via the video player. Do not include PII or sensitive information.
+
+        '
+      properties:
+        title:
           type: string
-          enum:
-          - highest
-          - audio-only
-          - 2160p
-          - 1440p
-          - 1080p
-          - 720p
-          - 540p
-          - 480p
-          - 360p
-          - 270p
-        passthrough:
+          maxLength: 512
+          description: The asset title. Max 512 code points.
+        creator_id:
           type: string
-          description: Arbitrary user-supplied metadata set for the static rendition. Max 255 characters.
+          maxLength: 128
+          description: This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
+        external_id:
+          type: string
+          maxLength: 128
+          description: This is an identifier you provide to link the asset to your own data. Max 128 code points.
     AssetOptions:
       type: object
       properties:
@@ -526,7 +475,66 @@ components:
           type: boolean
           default: true
           description: If the created asset is a clip, this controls whether overlays are copied from the source asset.
+    Upload:
+      type: object
+      required:
+      - id
+      - timeout
+      - status
+      - cors_origin
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Direct Upload.
+        timeout:
+          type: integer
+          format: int32
+          default: 3600
+          minimum: 60
+          maximum: 604800
+          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
+        status:
+          type: string
+          enum:
+          - waiting
+          - asset_created
+          - errored
+          - cancelled
+          - timed_out
+        new_asset_settings:
+          $ref: '#/components/schemas/AssetOptions'
+        asset_id:
+          type: string
+          description: Only set once the upload is in the `asset_created` state.
+        error:
+          type: object
+          description: Only set if an error occurred during asset creation.
+          properties:
+            type:
+              type: string
+              description: Label for the specific error
+            message:
+              type: string
+              description: Human readable error message
+        cors_origin:
+          type: string
+          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
+        url:
+          type: string
+          description: The URL to upload the associated source media to.
+        test:
+          type: boolean
+          format: boolean
+          description: Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
   parameters:
+    upload_id:
+      name: UPLOAD_ID
+      in: path
+      description: ID of the Upload
+      required: true
+      example: abcd1234
+      schema:
+        type: string
     page:
       name: page
       in: query
@@ -545,14 +553,6 @@ components:
         type: integer
         format: int32
         default: 25
-    upload_id:
-      name: UPLOAD_ID
-      in: path
-      description: ID of the Upload
-      required: true
-      example: abcd1234
-      schema:
-        type: string
   securitySchemes:
     basicAuth:
       type: http

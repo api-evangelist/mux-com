@@ -161,6 +161,104 @@ paths:
       - authorizationToken: []
 components:
   schemas:
+    ModerateJobOutputs:
+      type: object
+      properties:
+        thumbnail_scores:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: number
+                minimum: 0
+                description: Time in seconds of the thumbnail within the video. Absent for transcript moderation.
+              sexual:
+                type: number
+                minimum: 0
+                maximum: 1
+                description: Sexual content score from 0.0 to 1.0.
+              violence:
+                type: number
+                minimum: 0
+                maximum: 1
+                description: Violence content score from 0.0 to 1.0.
+            required:
+            - sexual
+            - violence
+          description: Per-thumbnail moderation scores.
+        max_scores:
+          type: object
+          properties:
+            sexual:
+              type: number
+              minimum: 0
+              maximum: 1
+            violence:
+              type: number
+              minimum: 0
+              maximum: 1
+          required:
+          - sexual
+          - violence
+          description: Highest scores across all thumbnails for each category.
+        exceeds_threshold:
+          type: boolean
+          description: True if any category's max score exceeds its configured threshold.
+      required:
+      - thumbnail_scores
+      - max_scores
+      - exceeds_threshold
+      example:
+        thumbnail_scores:
+        - time: 0
+          sexual: 0.01
+          violence: 0.02
+        - time: 30
+          sexual: 0.03
+          violence: 0.15
+        - time: 60
+          sexual: 0.02
+          violence: 0.05
+        max_scores:
+          sexual: 0.03
+          violence: 0.15
+        exceeds_threshold: false
+      description: Workflow results. Present when status is 'completed'.
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
+    CreateModerateJobRequest:
+      type: object
+      properties:
+        passthrough:
+          type: string
+          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
+        parameters:
+          $ref: '#/components/schemas/ModerateJobParameters'
+      required:
+      - parameters
     ModerateJob:
       type: object
       properties:
@@ -246,16 +344,6 @@ components:
       required:
       - id
       - _links
-    CreateModerateJobRequest:
-      type: object
-      properties:
-        passthrough:
-          type: string
-          description: Arbitrary string stored with the job and returned in responses. Useful for correlating jobs with your own systems.
-        parameters:
-          $ref: '#/components/schemas/ModerateJobParameters'
-      required:
-      - parameters
     ErrorResponse:
       type: object
       properties:
@@ -273,86 +361,27 @@ components:
           - message
       required:
       - error
-    ModerateJobResponse:
+    Resources:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/ModerateJob'
-      required:
-      - data
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
-    ModerateJobOutputs:
-      type: object
-      properties:
-        thumbnail_scores:
+        assets:
           type: array
           items:
-            type: object
-            properties:
-              time:
-                type: number
-                minimum: 0
-                description: Time in seconds of the thumbnail within the video. Absent for transcript moderation.
-              sexual:
-                type: number
-                minimum: 0
-                maximum: 1
-                description: Sexual content score from 0.0 to 1.0.
-              violence:
-                type: number
-                minimum: 0
-                maximum: 1
-                description: Violence content score from 0.0 to 1.0.
-            required:
-            - sexual
-            - violence
-          description: Per-thumbnail moderation scores.
-        max_scores:
-          type: object
-          properties:
-            sexual:
-              type: number
-              minimum: 0
-              maximum: 1
-            violence:
-              type: number
-              minimum: 0
-              maximum: 1
-          required:
-          - sexual
-          - violence
-          description: Highest scores across all thumbnails for each category.
-        exceeds_threshold:
-          type: boolean
-          description: True if any category's max score exceeds its configured threshold.
+            $ref: '#/components/schemas/SlimlineAsset'
+          description: Mux assets associated with this job.
       required:
-      - thumbnail_scores
-      - max_scores
-      - exceeds_threshold
+      - assets
       example:
-        thumbnail_scores:
-        - time: 0
-          sexual: 0.01
-          violence: 0.02
-        - time: 30
-          sexual: 0.03
-          violence: 0.15
-        - time: 60
-          sexual: 0.02
-          violence: 0.05
-        max_scores:
-          sexual: 0.03
-          violence: 0.15
-        exceeds_threshold: false
-      description: Workflow results. Present when status is 'completed'.
+        assets:
+        - id: abc123asset
+          meta:
+            title: My Video
+            creator_id: user123
+            external_id: ext456
+          _links:
+            self:
+              href: https://api.mux.com/video/v1/assets/abc123asset
+      description: Related Mux resources linked to this job.
     ModerateJobParameters:
       type: object
       properties:
@@ -397,42 +426,13 @@ components:
         thresholds:
           sexual: 0.7
           violence: 0.8
-    Resources:
+    ModerateJobResponse:
       type: object
       properties:
-        assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/SlimlineAsset'
-          description: Mux assets associated with this job.
+        data:
+          $ref: '#/components/schemas/ModerateJob'
       required:
-      - assets
-      example:
-        assets:
-        - id: abc123asset
-          meta:
-            title: My Video
-            creator_id: user123
-            external_id: ext456
-          _links:
-            self:
-              href: https://api.mux.com/video/v1/assets/abc123asset
-      description: Related Mux resources linked to this job.
-    JobError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Stable public error category identifier.
-        message:
-          type: string
-          description: Human-readable public error message.
-        retryable:
-          type: boolean
-          description: Whether retrying this job may resolve the error.
-      required:
-      - type
-      - message
+      - data
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

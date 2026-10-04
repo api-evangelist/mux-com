@@ -70,6 +70,16 @@ paths:
       - authorizationToken: []
 components:
   schemas:
+    RateLimitedResponse:
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+          description: Description of the error
     UnauthorizedResponse:
       type: object
       required:
@@ -121,16 +131,6 @@ components:
               type: string
             access_token_name:
               type: string
-    RateLimitedResponse:
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-          description: Description of the error
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

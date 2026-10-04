@@ -153,37 +153,6 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-              description: Machine-readable error type.
-            message:
-              type: string
-              description: Human-readable error message describing what went wrong.
-          required:
-          - type
-          - message
-      required:
-      - error
-    ListJobsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/JobSummary'
-        total_row_count:
-          type: integer
-          description: Total number of jobs matching the query filters
-          example: 42
-      required:
-      - data
-      - total_row_count
     JobStatus:
       type: string
       enum:
@@ -193,13 +162,6 @@ components:
       - errored
       - cancelled
       description: Current job status.
-    CancelJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/JobSummary'
-      required:
-      - data
     JobSummary:
       type: object
       properties:
@@ -248,6 +210,44 @@ components:
       - created_at
       - updated_at
       - _links
+    CancelJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/JobSummary'
+      required:
+      - data
+    ListJobsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobSummary'
+        total_row_count:
+          type: integer
+          description: Total number of jobs matching the query filters
+          example: 42
+      required:
+      - data
+      - total_row_count
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Machine-readable error type.
+            message:
+              type: string
+              description: Human-readable error message describing what went wrong.
+          required:
+          - type
+          - message
+      required:
+      - error
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

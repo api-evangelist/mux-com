@@ -149,52 +149,6 @@ paths:
       - authorizationToken: []
 components:
   schemas:
-    SlimlineAsset:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Mux asset ID.
-        meta:
-          type: object
-          properties:
-            title:
-              type: string
-              description: Asset title from Mux metadata.
-            creator_id:
-              type: string
-              description: Creator identifier from Mux metadata.
-            external_id:
-              type: string
-              description: External identifier from Mux metadata.
-          description: Mux asset metadata, if available.
-        passthrough:
-          type: string
-          description: Passthrough string from the Mux asset.
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  description: URL to the Mux asset resource.
-              required:
-              - href
-          required:
-          - self
-          description: Hypermedia links for the asset.
-      required:
-      - id
-      - _links
-    GenerateChaptersJobResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/GenerateChaptersJob'
-      required:
-      - data
     GenerateChaptersJobOutputs:
       type: object
       properties:
@@ -231,6 +185,21 @@ components:
         - start_time: 600
           title: Wrap-Up and Next Steps
       description: Workflow results. Present when status is 'completed'.
+    JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Stable public error category identifier.
+        message:
+          type: string
+          description: Human-readable public error message.
+        retryable:
+          type: boolean
+          description: Whether retrying this job may resolve the error.
+      required:
+      - type
+      - message
     CreateGenerateChaptersJobRequest:
       type: object
       properties:
@@ -241,6 +210,61 @@ components:
           $ref: '#/components/schemas/GenerateChaptersJobParameters'
       required:
       - parameters
+    JobStatus:
+      type: string
+      enum:
+      - pending
+      - processing
+      - completed
+      - errored
+      - cancelled
+      description: Current job status.
+    GenerateChaptersJobParameters:
+      type: object
+      properties:
+        asset_id:
+          type: string
+          minLength: 1
+          description: The Mux asset ID of the video to generate chapters for.
+        language_code:
+          type: string
+          minLength: 1
+          description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK prefers English if available.
+        output_language_code:
+          type: string
+          minLength: 1
+          description: BCP 47 language code for the output chapter titles. Auto-detected from the transcript if omitted.
+        prompt_overrides:
+          type: object
+          properties:
+            task:
+              type: string
+              minLength: 1
+              description: Override the core task instruction for chapter generation.
+            output_format:
+              type: string
+              minLength: 1
+              description: Override the JSON output format instructions.
+            chapter_guidelines:
+              type: string
+              minLength: 1
+              description: Override the chapter density and timing constraints.
+            title_guidelines:
+              type: string
+              minLength: 1
+              description: Override the chapter title style requirements.
+          description: Override specific sections of the chapter generation prompt.
+      required:
+      - asset_id
+      example:
+        asset_id: mux_asset_123abc
+    GenerateChaptersJobResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/GenerateChaptersJob'
+      required:
+      - data
     ErrorResponse:
       type: object
       properties:
@@ -258,15 +282,6 @@ components:
           - message
       required:
       - error
-    JobStatus:
-      type: string
-      enum:
-      - pending
-      - processing
-      - completed
-      - errored
-      - cancelled
-      description: Current job status.
     GenerateChaptersJob:
       type: object
       properties:
@@ -313,6 +328,45 @@ components:
       - workflow
       - parameters
       - status
+    SlimlineAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Mux asset ID.
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Asset title from Mux metadata.
+            creator_id:
+              type: string
+              description: Creator identifier from Mux metadata.
+            external_id:
+              type: string
+              description: External identifier from Mux metadata.
+          description: Mux asset metadata, if available.
+        passthrough:
+          type: string
+          description: Passthrough string from the Mux asset.
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  description: URL to the Mux asset resource.
+              required:
+              - href
+          required:
+          - self
+          description: Hypermedia links for the asset.
+      required:
+      - id
+      - _links
     Resources:
       type: object
       properties:
@@ -334,60 +388,6 @@ components:
             self:
               href: https://api.mux.com/video/v1/assets/abc123asset
       description: Related Mux resources linked to this job.
-    GenerateChaptersJobParameters:
-      type: object
-      properties:
-        asset_id:
-          type: string
-          minLength: 1
-          description: The Mux asset ID of the video to generate chapters for.
-        language_code:
-          type: string
-          minLength: 1
-          description: BCP 47 language code of the caption track to analyze (e.g. "en", "fr"). When omitted, the SDK prefers English if available.
-        output_language_code:
-          type: string
-          minLength: 1
-          description: BCP 47 language code for the output chapter titles. Auto-detected from the transcript if omitted.
-        prompt_overrides:
-          type: object
-          properties:
-            task:
-              type: string
-              minLength: 1
-              description: Override the core task instruction for chapter generation.
-            output_format:
-              type: string
-              minLength: 1
-              description: Override the JSON output format instructions.
-            chapter_guidelines:
-              type: string
-              minLength: 1
-              description: Override the chapter density and timing constraints.
-            title_guidelines:
-              type: string
-              minLength: 1
-              description: Override the chapter title style requirements.
-          description: Override specific sections of the chapter generation prompt.
-      required:
-      - asset_id
-      example:
-        asset_id: mux_asset_123abc
-    JobError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Stable public error category identifier.
-        message:
-          type: string
-          description: Human-readable public error message.
-        retryable:
-          type: boolean
-          description: Whether retrying this job may resolve the error.
-      required:
-      - type
-      - message
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

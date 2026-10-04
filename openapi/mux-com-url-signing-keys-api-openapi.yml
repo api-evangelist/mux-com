@@ -144,6 +144,15 @@ paths:
       - authorizationToken: []
 components:
   parameters:
+    limit:
+      name: limit
+      in: query
+      description: Number of items to include in the response
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25
     signing_key_id:
       name: SIGNING_KEY_ID
       in: path
@@ -160,15 +169,6 @@ components:
         type: integer
         format: int32
         default: 1
-    limit:
-      name: limit
-      in: query
-      description: Number of items to include in the response
-      required: false
-      schema:
-        type: integer
-        format: int32
-        default: 25
   schemas:
     SigningKeyCreateResponse:
       type: object
@@ -197,6 +197,13 @@ components:
           type: string
           format: byte
           description: A Base64 encoded private key that can be used with the RS256 algorithm when creating a [JWT](https://jwt.io/). **Note that this value is only returned once when creating a URL signing key.**
+    SigningKeyResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/SigningKey'
     ListSigningKeysResponse:
       type: object
       required:
@@ -206,13 +213,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SigningKey'
-    SigningKeyResponse:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/SigningKey'
   securitySchemes:
     accessToken:
       description: 'The Mux Video API uses an Access Token and Secret Key for authentication. If you haven''t already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.

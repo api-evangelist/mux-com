@@ -114,7 +114,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: mux-com-fivetran
   label: Fivetran
@@ -140,5 +140,5 @@
     - connectors/applications/mux
     vendor_link: https://www.mux.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null

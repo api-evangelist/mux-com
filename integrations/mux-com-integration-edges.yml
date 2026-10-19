@@ -4,10 +4,12 @@ checked:
 - contentful/integrations/contentful-integration-edges.yml
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
+- https://dashif.org/members/
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/connectors/partner-built-program
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://registry.modelcontextprotocol.io/v0/servers
+- https://www.svta.org/svta-member-companies-list/
 - okta/integrations/okta-integration-edges.yml
 - sanity/integrations/sanity-integration-edges.yml
 source:
@@ -180,4 +182,30 @@ edges:
     vendor_link: https://www.mux.com/
     builder: Fivetran
   detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
+- partner_name: DASH Industry Forum
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  channel: standard-directory
+  relationship: standard-participant
+  evidence: https://dashif.org/members/
+  category: adaptive streaming standard (MPEG-DASH)
+  contract_reference:
+    register: DASH Industry Forum members (dashif.org/members)
+    standard: MPEG-DASH (DASH-IF IOP)
+    spec_file: null
+    role: dashif-associate-member
+    registered_name: Mux
+    register_id: http://mux.com/
+    name_source: logo file name (the page prints no name)
+    member_tier: associate
+    matched_domain: mux.com
+    matched_by: domain
+    signal_note: 'participation only: DASH-IF publishes no certified-products list (conformance.dashif.org is a
+      validator tool); member_tier is a per-edge signal, never counted'
+    detected_by: sweep-streaming-video.py
+    detected: '2026-10-18'
+  detected_by: sweep-streaming-video.py
   first_seen: '2026-10-18'

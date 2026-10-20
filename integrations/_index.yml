@@ -16,51 +16,6 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: mux-com-mcp-registry
-  label: MCP Registry
-  partner: mcp
-  partner_name: MCP Registry
-  type: register
-  channel: standard-directory
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.mux
-  source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: com.mux/mcp
-    register_id: com.mux/mcp
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
-- slug: mux-com-pipedream
-  label: Pipedream
-  partner: pipedream
-  partner_name: Pipedream
-  type: marketplace
-  marketplace: pipedream-components
-  channel: open-source-node
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/mux
-  source: edge
-  relationship: ipaas-bridge
-  contract_reference:
-    register: Pipedream components (PipedreamHQ/pipedream components/)
-    spec_file: null
-    role: ipaas-connector:pipedream
-    registered_name: mux
-    matched_domain: mux.com
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: mux
-    actions: true
-    sources: true
-    builder: Pipedream repo (component)
-  status: not-a-workflow
-  arazzo: null
 - slug: mux-com-contentful-own
   label: Contentful (own)
   partner: contentful
@@ -84,6 +39,51 @@
   evidence: https://www.sanity.io/technology-partners/mux
   source: edge
   relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: mux-com-dash-industry-forum
+  label: DASH Industry Forum
+  partner_name: DASH Industry Forum
+  category: adaptive streaming standard (MPEG-DASH)
+  type: register
+  channel: standard-directory
+  evidence: https://dashif.org/members/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: DASH Industry Forum members (dashif.org/members)
+    standard: MPEG-DASH (DASH-IF IOP)
+    spec_file: null
+    role: dashif-associate-member
+    registered_name: Mux
+    register_id: http://mux.com/
+    name_source: logo file name (the page prints no name)
+    member_tier: associate
+    matched_domain: mux.com
+    matched_by: domain
+    signal_note: 'participation only: DASH-IF publishes no certified-products list (conformance.dashif.org is a
+      validator tool); member_tier is a per-edge signal, never counted'
+    detected_by: sweep-streaming-video.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: mux-com-mcp-registry
+  label: MCP Registry
+  partner: mcp
+  partner_name: MCP Registry
+  type: register
+  channel: standard-directory
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.mux
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: com.mux/mcp
+    register_id: com.mux/mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
 - slug: mux-com-airbyte
@@ -142,29 +142,29 @@
     builder: Fivetran
   status: not-a-workflow
   arazzo: null
-- slug: mux-com-dash-industry-forum
-  label: DASH Industry Forum
-  partner_name: DASH Industry Forum
-  category: adaptive streaming standard (MPEG-DASH)
-  type: register
-  channel: standard-directory
-  evidence: https://dashif.org/members/
+- slug: mux-com-pipedream
+  label: Pipedream
+  partner: pipedream
+  partner_name: Pipedream
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/mux
   source: edge
-  relationship: standard-participant
+  relationship: ipaas-bridge
   contract_reference:
-    register: DASH Industry Forum members (dashif.org/members)
-    standard: MPEG-DASH (DASH-IF IOP)
+    register: Pipedream components (PipedreamHQ/pipedream components/)
     spec_file: null
-    role: dashif-associate-member
-    registered_name: Mux
-    register_id: http://mux.com/
-    name_source: logo file name (the page prints no name)
-    member_tier: associate
+    role: ipaas-connector:pipedream
+    registered_name: mux
     matched_domain: mux.com
     matched_by: domain
-    signal_note: 'participation only: DASH-IF publishes no certified-products list (conformance.dashif.org is a
-      validator tool); member_tier is a per-edge signal, never counted'
-    detected_by: sweep-streaming-video.py
-    detected: '2026-10-18'
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: mux
+    actions: true
+    sources: true
+    builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null

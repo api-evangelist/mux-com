@@ -25,6 +25,7 @@ checked:
 - https://www.sequoiacap.com/our-companies/
 - https://www.sequoiacap.com/sitemap.xml
 - google-play/integrations/google-play-integration-edges.yml
+- vercel/integrations/vercel-integration-edges.yml
 source:
 - okta/integrations/okta-integration-edges.yml
 edges:
@@ -298,3 +299,21 @@ edges:
   detected: '2026-10-21'
   detected_by: mirror-platform-listings.py
   category: mobile SDK (marketing-and-engagement)
+- partner_name: Vercel (own)
+  partner: vercel
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://vercel.com/marketplace/mux
+  mirror_of: vercel/integrations/vercel-integration-edges.yml
+  apps:
+  - Mux
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Video
+  partner_tier: native

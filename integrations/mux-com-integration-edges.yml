@@ -28,6 +28,7 @@ checked:
 - vercel/integrations/vercel-integration-edges.yml
 - https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions
 - https://www.raycast.com/api/v1/store_listings
+- adobe-premiere/integrations/adobe-premiere-integration-edges.yml
 source:
 - okta/integrations/okta-integration-edges.yml
 edges:
@@ -229,6 +230,50 @@ edges:
     sector: Cultural Leadership Fund;Enterprise;Growth
   detected_by: sweep-vc-portfolios.py
   first_seen: '2026-10-21'
+- partner_name: Raycast
+  partner: raycast
+  partner_match: domain
+  partner_url: https://www.raycast.com
+  partner_domain: raycast.com
+  type: marketplace
+  marketplace: raycast-store
+  channel: connector-listing
+  relationship: connector-coverage
+  evidence: https://www.raycast.com/adam_engebretson/raycast-mux
+  app: Mux.com
+  category: Raycast Store extension (community wrapper)
+  listing_count: 1
+  contract_reference:
+    register: Raycast Store (raycast/extensions monorepo + store_listings JSON)
+    spec_file: null
+    role: raycast-community-wrapper
+    builder: community
+    authors:
+    - adam_engebretson
+    matched_domain: mux.com
+    matched_by: domain
+    monorepo_commit: 84f9ac51336a8c69f70974a75bc067c0feae3658
+    listings:
+    - title: Mux.com
+      store_url: https://www.raycast.com/adam_engebretson/raycast-mux
+      installs: 55
+      categories:
+      - Developer Tools
+      - Media
+      source: https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions/raycast-mux/
+      author: adam_engebretson
+    categories:
+    - Developer Tools
+    - Media
+    identity_note: the extension's own source calls a host on the product's domain AND its title / package name
+      passes partner_link's name check; built by Raycast community developers, not the vendor
+    signal_note: 'coverage: Raycast''s store reaches the product through community-built extensions; one edge per
+      (product, store); install / listing counts are context, never counted'
+    detected_by: sweep-raycast-store-extensions.py
+    detected: '2026-10-22'
+  detected_by: sweep-raycast-store-extensions.py
+  first_seen: '2026-10-22'
+  direction: partner-built
 - partner_name: Okta (own)
   partner: okta
   partner_match: mirror
@@ -319,47 +364,20 @@ edges:
   detected_by: mirror-platform-listings.py
   category: Video
   partner_tier: native
-- partner_name: Raycast
-  partner: raycast
-  partner_match: domain
-  partner_url: https://www.raycast.com
-  partner_domain: raycast.com
+- partner_name: Adobe Premiere Pro (own)
+  partner: adobe-premiere
+  partner_match: mirror
+  mirror_match: domain
   type: marketplace
-  marketplace: raycast-store
-  channel: connector-listing
-  relationship: connector-coverage
-  evidence: https://www.raycast.com/adam_engebretson/raycast-mux
-  app: Mux.com
-  category: Raycast Store extension (community wrapper)
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://exchange.adobe.com/apps/cc/9b724b8d/mux-robots
+  mirror_of: adobe-premiere/integrations/adobe-premiere-integration-edges.yml
+  apps:
+  - Mux Robots
   listing_count: 1
-  contract_reference:
-    register: Raycast Store (raycast/extensions monorepo + store_listings JSON)
-    spec_file: null
-    role: raycast-community-wrapper
-    builder: community
-    authors:
-    - adam_engebretson
-    matched_domain: mux.com
-    matched_by: domain
-    monorepo_commit: 84f9ac51336a8c69f70974a75bc067c0feae3658
-    listings:
-    - title: Mux.com
-      store_url: https://www.raycast.com/adam_engebretson/raycast-mux
-      installs: 55
-      categories:
-      - Developer Tools
-      - Media
-      source: https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions/raycast-mux/
-      author: adam_engebretson
-    categories:
-    - Developer Tools
-    - Media
-    identity_note: the extension's own source calls a host on the product's domain AND its title / package name
-      passes partner_link's name check; built by Raycast community developers, not the vendor
-    signal_note: 'coverage: Raycast''s store reaches the product through community-built extensions; one edge per
-      (product, store); install / listing counts are context, never counted'
-    detected_by: sweep-raycast-store-extensions.py
-    detected: '2026-10-22'
-  detected_by: sweep-raycast-store-extensions.py
-  first_seen: '2026-10-22'
-  direction: partner-built
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Adobe Exchange Creative Cloud listing (Premiere Pro)

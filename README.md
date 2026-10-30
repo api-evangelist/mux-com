@@ -1,4 +1,4 @@
-# Mux (mux-com)
+# Mux
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,253 +66,282 @@
 
 Mux is a video infrastructure platform that gives developers an end-to-end API for ingesting, encoding, storing, delivering, and analyzing video. The platform spans Mux Video (on-demand and live streaming), Mux Data (quality-of-experience analytics), Mux Robots (AI workflows for captions, chapters, summarization, and moderation), and Mux Player (drop-in playback components). Mux exposes a unified REST API at api.mux.com plus delivery hosts at stream.mux.com, image.mux.com, and stats.mux.com, backed by official SDKs in Node, Python, Ruby, PHP, Go, and Elixir, a CLI, and player integrations across web, iOS, Android, Roku, and major HTML5 players.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/mux-com/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/mux-com/refs/heads/main/apis.yml)
+**Areas:** Video Infrastructure · Video Streaming · Live Streaming · Video Analytics · Video AI · Encoding
+
+## Mux on APIs.io
+
+Everything profiled for Mux is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/mux-com/](https://apis.io/providers/mux-com/)** — or go straight to one of the APIs or properties below.
+
+### APIs (38)
+
+- [Mux Webhooks](https://apis.io/apis/mux-com/webhooks/) — Mux Webhooks deliver signed HTTP callbacks for asset, upload, live stream, and robots job lifecycle events (video.asset.created, video.asset.ready,…
+- [Mux Animated Images API](https://apis.io/apis/mux-com/mux-com-animated-images-api/) — APIs for retrieving animated images from videos hosted using Mux.
+- [Mux Annotations API](https://apis.io/apis/mux-com/mux-com-annotations-api/) — Annotations allow you to add notes at a specific datetime to view in the Mux Data dashboard.
+- [Mux Ask Questions API](https://apis.io/apis/mux-com/mux-com-ask-questions-api/) — Ask questions about a video and get structured answers.
+- [Mux Assets API](https://apis.io/apis/mux-com/mux-com-assets-api/) — An asset refers to a piece of media content that is stored or is being live streamed through the Mux system. An asset always has a duration and one or more…
+- [Mux Captions and Transcripts API](https://apis.io/apis/mux-com/mux-com-captions-and-transcripts-api/) — APIs for retrieving captions and transcripts from videos hosted using Mux that have had captions generated automatically.
+- [Mux Delivery Usage API](https://apis.io/apis/mux-com/mux-com-delivery-usage-api/) — The Delivery Usage API allows you to get delivery/streaming usage details for each asset and across all assets. Delivery usage details are aggregated every…
+- [Mux Dimensions API](https://apis.io/apis/mux-com/mux-com-dimensions-api/) — Dimensions are the types of metadata that can be collected for a video view. Some dimensions are collected automatically based on the playback or device,…
+- [Mux Direct Uploads API](https://apis.io/apis/mux-com/mux-com-direct-uploads-api/) — Direct upload allows you to push assets directly to Mux storage instead of needing to go through your own first. When you create a new direct upload, we'll…
+- [Mux DRM Configurations API](https://apis.io/apis/mux-com/mux-com-drm-configurations-api/) — DRM Configurations allow you to adjust the security level of content delivered through Mux Video's Digital Rights Management (DRM) feature.
+- [Mux Edit Captions API](https://apis.io/apis/mux-com/mux-com-edit-captions-api/) — Edit an existing caption track with find-and-replace edits and optional profanity censoring. This workflow is currently in beta.
+- [Mux Errors API](https://apis.io/apis/mux-com/mux-com-errors-api/) — Playback errors are tracked and aggregated by Mux Data. Errors can be listed by the API, which contains data about the error code, message, and how often…
+- [Mux Exports API](https://apis.io/apis/mux-com/mux-com-exports-api/) — Exports allow you to download the daily CSV files that are generated from the video views that occurred in the previous day. Please contact…
+- [Mux Filters API](https://apis.io/apis/mux-com/mux-com-filters-api/) — Deprecated, please refer to the Dimensions APIs.
+- [Mux Find Key Moments API](https://apis.io/apis/mux-com/mux-com-find-key-moments-api/) — Identify key moments in a video.
+- [Mux Generate Chapters API](https://apis.io/apis/mux-com/mux-com-generate-chapters-api/) — Generate chapters for a video.
+- [Mux Incidents API](https://apis.io/apis/mux-com/mux-com-incidents-api/) — Incidents occur when an anomaly alert is triggered in Mux Data. The Incidents API provides operations related to the raising and managing of alerting incidents.
+- [Mux Jobs API](https://apis.io/apis/mux-com/mux-com-jobs-api/) — List and cancel jobs across all workflows.
+- [Mux Live Streams API](https://apis.io/apis/mux-com/mux-com-live-streams-api/) — A Live Stream represents a unique live stream of video being pushed to Mux. It includes configuration details (a Stream Key) for live broadcasting…
+- [Mux Metrics API](https://apis.io/apis/mux-com/mux-com-metrics-api/) — Historical metrics are used for tracking KPIs, diagnosing issues, and measuring viewers' quality of experience. Metrics are calculated using the video views…
+- [Mux Moderate API](https://apis.io/apis/mux-com/mux-com-moderate-api/) — Analyze a video for inappropriate content.
+- [Mux Monitoring API](https://apis.io/apis/mux-com/mux-com-monitoring-api/) — Monitoring metrics are used for operational monitoring of a video platform. The metrics are aggregated in five second intervals, across the views that are…
+- [Mux Playback ID API](https://apis.io/apis/mux-com/mux-com-playback-id-api/) — Operations related to the manipulation of playback IDs, through which users are able to stream videos and live streams from Mux.
+- [Mux Playback Restrictions API](https://apis.io/apis/mux-com/mux-com-playback-restrictions-api/) — Playback Restrictions allows you to set additional rules for playing videos. You can set the domains/hostnames allowed to play your videos. For instance,…
+- [Mux Signing Keys API](https://apis.io/apis/mux-com/mux-com-signing-keys-api/) — Signing keys are used to sign JSON Web Tokens (JWTs) for securing certain requests, such as secure playback URLs and access to real-time viewer counts in…
+- [Mux Storyboards API](https://apis.io/apis/mux-com/mux-com-storyboards-api/) — APIs for retrieving storyboards, sprites, and metadata about the storyboards from videos hosted using Mux.
+- [Mux Streaming API](https://apis.io/apis/mux-com/mux-com-streaming-api/) — APIs for streaming video content via HLS and MP4 with customizable playback options.
+- [Mux Summarize API](https://apis.io/apis/mux-com/mux-com-summarize-api/) — Generate a title, description, and tags for a video.
+- [Mux Thumbnails API](https://apis.io/apis/mux-com/mux-com-thumbnails-api/) — APIs for retrieving still thumbnails from videos hosted using Mux.
+- [Mux Transcription Vocabularies API](https://apis.io/apis/mux-com/mux-com-transcription-vocabularies-api/) — Transcription Vocabularies allows you to provide collections of phrases like proper nouns, technical jargon, and uncommon words as part of captioning…
+- [Mux Translate Captions API](https://apis.io/apis/mux-com/mux-com-translate-captions-api/) — Translate captions from one language to another.
+- [Mux URL Signing Keys API](https://apis.io/apis/mux-com/mux-com-url-signing-keys-api/) — A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON Web Token](https://jwt.io/) as the value of the token query…
+- [Mux Utilities API](https://apis.io/apis/mux-com/mux-com-utilities-api/) — Collection of utility methods for using Mux APIs. There's only one thing in here right now, maybe there will be more later.
+- [Mux Video Views API](https://apis.io/apis/mux-com/mux-com-video-views-api/) — An individual video view tracked by Mux Data. For the full list of properties for each view please refer to the table of data fields in the [Export raw…
+- [Mux View and Viewer Counts API](https://apis.io/apis/mux-com/mux-com-view-and-viewer-counts-api/) — API for retrieving the real-time count of views and viewers based on ID as collected by Mux Data.
+- [Mux Playback IDs API](https://apis.io/apis/mux-com/mux-com-playback-ids-api/) — Manage playback IDs for assets.
+- [Mux API](https://apis.io/apis/mux-com/mux-com-mux-api-api/) — The Mux API API from Mux — 0 operation(s) for mux api.
+- [Mux Realtime API](https://apis.io/apis/mux-com/mux-com-realtime-api/) — The Mux Data Real-time API has been deprecated, please refer to the Mux Data `Monitoring` APIs which provide the same functionality. Mux Data Monitoring…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (26)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Mux Account Delivery Usage Audit](https://apis.io/arazzos/mux-com/mux-com-account-delivery-usage-workflow/)
+- [Mux AI Summarize Asset](https://apis.io/arazzos/mux-com/mux-com-ai-summarize-asset-workflow/)
+- [Mux Manage Data Annotation](https://apis.io/arazzos/mux-com/mux-com-annotation-manage-workflow/)
+- [Mux Add Caption Track to Asset](https://apis.io/arazzos/mux-com/mux-com-asset-add-caption-track-workflow/)
+- [Mux Add Playback ID to Asset](https://apis.io/arazzos/mux-com/mux-com-asset-add-playback-id-workflow/)
+- [Mux Asset Library Drilldown](https://apis.io/arazzos/mux-com/mux-com-asset-library-drilldown-workflow/)
+- [Mux Generate Downloadable Static Rendition](https://apis.io/arazzos/mux-com/mux-com-asset-mp4-rendition-workflow/)
+- [Mux Asset Tag and Cleanup](https://apis.io/arazzos/mux-com/mux-com-asset-tag-and-cleanup-workflow/)
+- [Mux Create Asset From URL](https://apis.io/arazzos/mux-com/mux-com-create-asset-from-url-workflow/)
+- [Mux Dimension Exploration](https://apis.io/arazzos/mux-com/mux-com-dimension-exploration-workflow/)
+- [Mux Direct Upload to Ready Asset](https://apis.io/arazzos/mux-com/mux-com-direct-upload-to-asset-workflow/)
+- [Mux Errors Impact Analysis](https://apis.io/arazzos/mux-com/mux-com-errors-impact-analysis-workflow/)
+- [Mux Incident Drilldown](https://apis.io/arazzos/mux-com/mux-com-incident-drilldown-workflow/)
+- [Mux Add Playback ID to Live Stream](https://apis.io/arazzos/mux-com/mux-com-live-stream-add-playback-id-workflow/)
+- [Mux Live Stream Generated Subtitles](https://apis.io/arazzos/mux-com/mux-com-live-stream-generated-subtitles-workflow/)
+- [Mux Live Stream Lifecycle Control](https://apis.io/arazzos/mux-com/mux-com-live-stream-lifecycle-workflow/)
+- [Mux Live Stream With Simulcast Target](https://apis.io/arazzos/mux-com/mux-com-live-stream-with-simulcast-workflow/)
+- [Mux Metric Breakdown Analysis](https://apis.io/arazzos/mux-com/mux-com-metric-breakdown-analysis-workflow/)
+- [Mux Metric Timeseries Trend](https://apis.io/arazzos/mux-com/mux-com-metric-timeseries-trend-workflow/)
+- [Mux Monitoring Metric Breakdown](https://apis.io/arazzos/mux-com/mux-com-monitoring-breakdown-workflow/)
+- [Mux Configure Playback Restriction](https://apis.io/arazzos/mux-com/mux-com-playback-restriction-setup-workflow/)
+- [Mux Real-Time Metric Breakdown](https://apis.io/arazzos/mux-com/mux-com-realtime-breakdown-workflow/)
+- [Mux Rotate Live Stream Key](https://apis.io/arazzos/mux-com/mux-com-reset-stream-key-workflow/)
+- [Mux Rotate System Signing Key](https://apis.io/arazzos/mux-com/mux-com-system-signing-key-rotation-workflow/)
+- [Mux Rotate URL Signing Key](https://apis.io/arazzos/mux-com/mux-com-url-signing-key-rotation-workflow/)
+- …and 1 more published on APIs.io
+
+#### GraphQL (1)
+
+GraphQL schemas.
+
+- [Moved to /providers/mux-com/](https://apis.io/graphqls/mux-com/mux-com-graphql/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [mux-com](https://apis.io/servers/mux-com/mux-com/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Mux Com Agentic Access](https://apis.io/agentic-access/mux-com/mux-com-agentic-access/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Mux Com Context](https://apis.io/jsonld/mux-com/mux-com-context/)
+
+#### Vocabulary (1)
 
-## Scope
+The provider's domain terms, defined.
 
-- **Position:** Consuming
-- **Access:** 3rd-Party
+- [Mux Vocabulary](https://apis.io/vocabularies/mux-com/mux-com-vocabulary/)
 
-## Tags
+#### Collections (38)
 
-- Video Infrastructure
-- Video Streaming
-- Live Streaming
-- Video Analytics
-- Video AI
-- Encoding
+Postman and Open Collection request collections.
 
-## Timestamps
+- [Mux API](https://apis.io/collections/mux-com/open-mux/)
+- [Mux Animated Images API](https://apis.io/collections/mux-com/open-mux-com-animated-images-api/)
+- [Mux Animated Images Annotations API](https://apis.io/collections/mux-com/open-mux-com-annotations-api/)
+- [Mux Animated Images Ask Questions API](https://apis.io/collections/mux-com/open-mux-com-ask-questions-api/)
+- [Mux Animated Images Assets API](https://apis.io/collections/mux-com/open-mux-com-assets-api/)
+- [Mux Animated Images Captions and Transcripts API](https://apis.io/collections/mux-com/open-mux-com-captions-and-transcripts-api/)
+- [Mux Animated Images Delivery Usage API](https://apis.io/collections/mux-com/open-mux-com-delivery-usage-api/)
+- [Mux Animated Images Dimensions API](https://apis.io/collections/mux-com/open-mux-com-dimensions-api/)
+- [Mux Animated Images Direct Uploads API](https://apis.io/collections/mux-com/open-mux-com-direct-uploads-api/)
+- [Mux Animated Images DRM Configurations API](https://apis.io/collections/mux-com/open-mux-com-drm-configurations-api/)
+- [Mux Animated Images Edit Captions API](https://apis.io/collections/mux-com/open-mux-com-edit-captions-api/)
+- [Mux Animated Images Errors API](https://apis.io/collections/mux-com/open-mux-com-errors-api/)
+- [Mux Animated Images Exports API](https://apis.io/collections/mux-com/open-mux-com-exports-api/)
+- [Mux Animated Images Filters API](https://apis.io/collections/mux-com/open-mux-com-filters-api/)
+- [Mux Animated Images Find Key Moments API](https://apis.io/collections/mux-com/open-mux-com-find-key-moments-api/)
+- [Mux Animated Images Generate Chapters API](https://apis.io/collections/mux-com/open-mux-com-generate-chapters-api/)
+- [Mux Animated Images Incidents API](https://apis.io/collections/mux-com/open-mux-com-incidents-api/)
+- [Mux Animated Images Jobs API](https://apis.io/collections/mux-com/open-mux-com-jobs-api/)
+- [Mux Animated Images Live Streams API](https://apis.io/collections/mux-com/open-mux-com-live-streams-api/)
+- [Mux Animated Images Metrics API](https://apis.io/collections/mux-com/open-mux-com-metrics-api/)
+- [Mux Animated Images Moderate API](https://apis.io/collections/mux-com/open-mux-com-moderate-api/)
+- [Mux Animated Images Monitoring API](https://apis.io/collections/mux-com/open-mux-com-monitoring-api/)
+- [Mux Animated Images Playback ID API](https://apis.io/collections/mux-com/open-mux-com-playback-id-api/)
+- [Mux Video Assets Playback IDs API](https://apis.io/collections/mux-com/open-mux-com-playback-ids-api/)
+- [Mux Animated Images Playback Restrictions API](https://apis.io/collections/mux-com/open-mux-com-playback-restrictions-api/)
+- …and 13 more published on APIs.io
 
-- **Created:** 2026-05-25
-- **Modified:** 2026-05-25
+#### Overlays (36)
 
-## APIs
+OpenAPI overlays, including conversational phrasing for each operation.
 
-### Mux Video API
+- [Mux Com Animated Images Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-animated-images-api-phrasing-overlay/)
+- [Mux Com Annotations Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-annotations-api-phrasing-overlay/)
+- [Mux Com Ask Questions Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-ask-questions-api-phrasing-overlay/)
+- [Mux Com Assets Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-assets-api-phrasing-overlay/)
+- [Mux Com Captions And Transcripts Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-captions-and-transcripts-api-phrasing-overlay/)
+- [Mux Com Delivery Usage Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-delivery-usage-api-phrasing-overlay/)
+- [Mux Com Dimensions Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-dimensions-api-phrasing-overlay/)
+- [Mux Com Direct Uploads Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-direct-uploads-api-phrasing-overlay/)
+- [Mux Com Drm Configurations Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-drm-configurations-api-phrasing-overlay/)
+- [Mux Com Edit Captions Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-edit-captions-api-phrasing-overlay/)
+- [Mux Com Errors Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-errors-api-phrasing-overlay/)
+- [Mux Com Exports Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-exports-api-phrasing-overlay/)
+- [Mux Com Filters Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-filters-api-phrasing-overlay/)
+- [Mux Com Find Key Moments Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-find-key-moments-api-phrasing-overlay/)
+- [Mux Com Generate Chapters Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-generate-chapters-api-phrasing-overlay/)
+- [Mux Com Incidents Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-incidents-api-phrasing-overlay/)
+- [Mux Com Jobs Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-jobs-api-phrasing-overlay/)
+- [Mux Com Live Streams Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-live-streams-api-phrasing-overlay/)
+- [Mux Com Metrics Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-metrics-api-phrasing-overlay/)
+- [Mux Com Moderate Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-moderate-api-phrasing-overlay/)
+- [Mux Com Monitoring Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-monitoring-api-phrasing-overlay/)
+- [Mux Com Playback Id Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-playback-id-api-phrasing-overlay/)
+- [Mux Com Playback Ids Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-playback-ids-api-phrasing-overlay/)
+- [Mux Com Playback Restrictions Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-playback-restrictions-api-phrasing-overlay/)
+- [Mux Com Realtime Api Phrasing Overlay](https://apis.io/overlays/mux-com/mux-com-realtime-api-phrasing-overlay/)
+- …and 11 more published on APIs.io
 
-The Mux Video API manages the lifecycle of on-demand video, including Assets, Direct Uploads, Playback IDs, URL Signing Keys, Playback Restrictions, DRM Configurations, Transcription Vocabularies, and Delivery Usage. Developers can create assets from source URLs or chunked direct uploads, generate secure playback IDs (public, signed, or DRM-protected), and retrieve playback manifests, thumbnails, GIFs, and storyboards through stream.mux.com and image.mux.com.
+#### Governance rules (1)
 
-- **Human URL:** [https://www.mux.com/docs/api-reference](https://www.mux.com/docs/api-reference)
-- **Base URL:** `https://api.mux.com`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Mux API Rules](https://apis.io/rules/mux-com/mux-com-rules/)
 
-- Video
-- Encoding
-- Assets
-- Direct Uploads
-- Playback
+#### Security (4)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://www.mux.com/docs/core/stream-video-files)
-- [API Reference](https://www.mux.com/docs/api-reference)
-- [OpenAPI](openapi/mux-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Mux Com Authentication](https://apis.io/security/mux-com/mux-com-authentication/)
+- [Mux Com Domain Security](https://apis.io/security/mux-com/mux-com-domain-security/)
+- [Mux Com Trust Center](https://apis.io/security/mux-com/mux-com-trust-center/)
+- [Mux Com Vulnerability Disclosure](https://apis.io/security/mux-com/mux-com-vulnerability-disclosure/)
 
-### Mux Live Streaming API
+#### Plans and pricing (1)
 
-Mux Live Streaming creates managed RTMP and SRT ingest endpoints (rtmp://global-live.mux.com:5222/app) with reusable stream keys, simulcast targets for restreaming to YouTube, Twitch, and other platforms, and live-to-VOD recordings. The API supports standard and low-latency live, auto-generated live captions, live stream health monitoring, and disable/enable operations for per-event lifecycle management.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://www.mux.com/docs/guides/start-live-streaming](https://www.mux.com/docs/guides/start-live-streaming)
-- **Base URL:** `https://api.mux.com`
+- [Mux Com Plans Pricing](https://apis.io/plans/mux-com/mux-com-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Live Streaming
-- RTMP
-- SRT
-- Low Latency
+Published request limits.
 
-#### Properties
+- [Mux Com Rate Limits](https://apis.io/rate-limits/mux-com/mux-com-rate-limits/)
 
-- [Documentation](https://www.mux.com/docs/guides/start-live-streaming)
-- [API Reference](https://www.mux.com/docs/api-reference#tag/Live-Streams)
-- [OpenAPI](openapi/mux-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-### Mux Data API
+What the API costs to run, by operation.
 
-The Mux Data API exposes video quality-of-experience analytics including Video Views, Errors, Filters, Dimensions, Exports, Metrics, Monitoring, Real-Time data, Incidents, and Annotations. Customers instrument their players with Mux Data SDKs (web, iOS, Android, Roku, Chromecast, ExoPlayer, AVPlayer, JWPlayer, THEOplayer) and query aggregated playback quality, viewer engagement, rebuffering, startup time, and error rates through this API.
+- [Mux Com Finops](https://apis.io/finops/mux-com/mux-com-finops/)
 
-- **Human URL:** [https://www.mux.com/docs/core/monitor-your-video-streaming-performance](https://www.mux.com/docs/core/monitor-your-video-streaming-performance)
-- **Base URL:** `https://api.mux.com`
+## Where to find this API
 
-#### Tags
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Video Analytics
-- Quality Of Experience
-- Monitoring
-- Metrics
-
-#### Properties
-
-- [Documentation](https://www.mux.com/docs/core/monitor-your-video-streaming-performance)
-- [API Reference](https://www.mux.com/docs/api-reference#tag/Video-Views)
-- [OpenAPI](openapi/mux-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Mux Stream Delivery API
-
-The Mux Stream Delivery API serves HLS and DASH playback manifests, captions, transcripts, and redundant media segments from stream.mux.com keyed on Playback IDs. It honors signed playback tokens, DRM license handshakes, and playback restrictions configured through the Video API to enforce domain, geo, and user-agent rules.
-
-- **Human URL:** [https://www.mux.com/docs/guides/play-your-videos](https://www.mux.com/docs/guides/play-your-videos)
-- **Base URL:** `https://stream.mux.com`
-
-#### Tags
-
-- Delivery
-- HLS
-- DASH
-- Playback
-
-#### Properties
-
-- [Documentation](https://www.mux.com/docs/guides/play-your-videos)
-- [API Reference](https://www.mux.com/docs/api-reference#tag/Streaming)
-- [OpenAPI](openapi/mux-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Mux Image API
-
-The Mux Image API generates on-the-fly thumbnails (JPG, PNG, WebP), animated GIFs, and VTT storyboard sprites for any asset playback ID via image.mux.com. URL parameters control time offset, width, height, fit mode, FPS, and duration, enabling responsive video posters and scrub-bar previews without server-side image processing.
-
-- **Human URL:** [https://www.mux.com/docs/guides/get-images-from-a-video](https://www.mux.com/docs/guides/get-images-from-a-video)
-- **Base URL:** `https://image.mux.com`
-
-#### Tags
-
-- Thumbnails
-- Storyboards
-- Animated Images
-
-#### Properties
-
-- [Documentation](https://www.mux.com/docs/guides/get-images-from-a-video)
-- [API Reference](https://www.mux.com/docs/api-reference#tag/Thumbnails)
-- [OpenAPI](openapi/mux-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Mux Robots AI API
-
-Mux Robots is an asynchronous job API for running AI workflows against video assets. Robots include Ask Questions (Q&A over a video), Edit Captions, Find Key Moments, Generate Chapters, Moderate (NSFW and violence detection), Summarize, and Translate Captions. Jobs follow a pending → processing → completed lifecycle and emit robots.job.* webhook events when complete.
-
-- **Human URL:** [https://www.mux.com/docs/guides/mux-robots](https://www.mux.com/docs/guides/mux-robots)
-- **Base URL:** `https://api.mux.com`
-
-#### Tags
-
-- Video AI
-- Captions
-- Summarization
-- Content Moderation
-- Chaptering
-
-#### Properties
-
-- [Documentation](https://www.mux.com/docs/guides/mux-robots)
-- [API Reference](https://www.mux.com/docs/api-reference#tag/Jobs)
-- [OpenAPI](openapi/mux-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Mux System API
-
-The Mux System API manages account-wide resources such as Signing Keys used to mint short-lived JWTs for signed playback URLs, thumbnails, and storyboards, plus utility endpoints (e.g., dimensions and account-level metadata) used across Video and Data products.
-
-- **Human URL:** [https://www.mux.com/docs/api-reference#tag/Signing-Keys](https://www.mux.com/docs/api-reference#tag/Signing-Keys)
-- **Base URL:** `https://api.mux.com`
-
-#### Tags
-
-- Signing Keys
-- Account Management
-- Utilities
-
-#### Properties
-
-- [Documentation](https://www.mux.com/docs/guides/signing-jwts)
-- [API Reference](https://www.mux.com/docs/api-reference#tag/Signing-Keys)
-- [OpenAPI](openapi/mux-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Mux Webhooks
-
-Mux Webhooks deliver signed HTTP callbacks for asset, upload, live stream, and robots job lifecycle events (video.asset.created, video.asset.ready, video.live_stream.active, video.upload.asset_created, robots.job.completed, and many more). Each delivery carries a Mux-Signature header (HMAC-SHA256 over the raw body and a per-endpoint secret) and includes attempt history visible in the dashboard.
-
-- **Human URL:** [https://www.mux.com/docs/webhook-reference](https://www.mux.com/docs/webhook-reference)
-- **Base URL:** `https://api.mux.com`
-
-#### Tags
-
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://www.mux.com/docs/system/make-api-requests#webhook-security)
-- [API Reference](https://www.mux.com/docs/webhook-reference)
-- [Postman Collection](collections/mux.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mux.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
 - [Website](https://www.mux.com/)
 - [Documentation](https://www.mux.com/docs)
-- [API Reference](https://www.mux.com/docs/api-reference)
-- [Getting Started](https://www.mux.com/docs/core/make-your-first-api-request)
-- [Authentication](https://www.mux.com/docs/guides/signing-jwts)
-- [Console](https://dashboard.mux.com/)
-- [Sign Up](https://dashboard.mux.com/signup)
+- [Getting started](https://www.mux.com/docs/core/make-your-first-api-request)
+- [API reference](https://www.mux.com/docs/api-reference)
 - [Pricing](https://www.mux.com/pricing/video)
+- [Support](https://www.mux.com/support)
 - [Changelog](https://www.mux.com/docs/changelog)
 - [Blog](https://www.mux.com/blog)
-- [Status Page](https://status.mux.com/)
-- [Support](https://www.mux.com/support)
-- [Terms of Service](https://www.mux.com/terms)
-- [Privacy Policy](https://www.mux.com/privacy)
 - [Security](https://www.mux.com/security)
-- [GitHub Organization](https://github.com/muxinc)
-- [LinkedIn](https://www.linkedin.com/company/mux/)
-- [X- Twitter](https://x.com/MuxHQ)
-- [YouTube](https://www.youtube.com/@MuxHQ)
-- [SDK](https://github.com/muxinc/mux-node-sdk)
-- [SDK](https://github.com/muxinc/mux-python)
-- [SDK](https://github.com/muxinc/mux-ruby)
-- [SDK](https://github.com/muxinc/mux-php)
-- [SDK](https://github.com/muxinc/mux-go)
-- [SDK](https://github.com/muxinc/mux-elixir)
-- [C L I](https://github.com/muxinc/cli)
-- [SDK](https://github.com/muxinc/upchunk)
-- [SDK](https://github.com/muxinc/elements)
-- [SDK](https://github.com/muxinc/media-chrome)
-- [SDK](https://github.com/muxinc/next-video)
-- [SDK](https://github.com/muxinc/mux-stats-sdk-avplayer)
-- [SDK](https://github.com/muxinc/mux-stats-sdk-exoplayer)
-- [SDK](https://github.com/muxinc/swift-upload-sdk)
-- [SDK](https://github.com/muxinc/mux-player-swift)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
-- [Rules](rules/mux-com-rules.yml)
-- [JSON-LD](json-ld/mux-com-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Vocabulary](vocabulary/mux-com-vocabulary.yml)
-- [Plans](plans/mux-com-plans-pricing.yml)
-- [Rate Limits](rate-limits/mux-com-rate-limits.yml)
-- [Fin Ops](finops/mux-com-finops.yml)
-- [L L Ms Txt](https://www.mux.com/llms.txt)
+- [Terms of service](https://www.mux.com/terms)
+- [Privacy policy](https://www.mux.com/privacy)
+- [GitHub](https://github.com/muxinc)
+- [Status](https://status.mux.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 65.9** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 60.1 |
+| Contract governance | 25.0 |
+| Operational transparency | 55.3 |
+| Developer ergonomics | 79.8 |
+| Access clarity | 60.5 |
+
+**Agent readiness 43.7** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/mux-com/](https://apis.io/providers/mux-com/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Mux: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/mux-com/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
